@@ -1,5 +1,5 @@
 # perf_tuning_results
-various performance tuning stuffs and results
+various performance observations, tunings and results
 
 1. Why Nginx Need Memory Allocator
 
