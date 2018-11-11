@@ -1,0 +1,65 @@
+Analysis SPECjbb2015 model from OS level
+
+1. Introduce Memory Bandwidth
+
+2. Introduce Memory Latency
+
+3. Stream / MLC
+
+4. BCC Tools
+
+5. Measurements
+
+6. Conclusion
+
+7. Future works
+
+
+Details:
+
+1. Introduce Memory Bandwidth
+
+Memory bandwidth is the maximum memory allocation rate of a physical server
+
+2. Introduce Memory Latency
+
+Memory latency is the timing for a system from allocating a memory region to a process. 
+
+NUMA awared architectured server should be sensitive to this measurement, because remote memory allocation latency is 2~3x compare to local
+
+3. Stream / MLC
+
+Stream is a tool to measure the max throughput of a server
+
+MLC is a tool to measure the local/remote memory allocation latency
+
+4. BCC Tools
+
+BCC tools is a very neat set of open-source profiling/tracing tools, which is available at: https://github.com/iovisor/bcc
+
+5. Measurements
+
+There are 2 steps: bcc on stream & bcc on jbb2015
+
+Hardware:
+CPU: Intel 8180
+Memory: 24x 16GB Samsung DDR4 
+
+Software:
+OS: SUSE SLE15
+Tools: BCC, Stream
+
+bcc on stream:
+
+bcc on jbb2015:
+
+6. Conclusion
+
+We can see that memory bandwidth is fairely equal in above 2 tests, which means jvm is memory hungry.
+
+If your customer needs performance in JVM, ask for more memory throughput. or reduce memory allocation rate.
+
+7. Future works
+
+We know that memory allocation is different in heap and in stack. 
+Will try to figure out how to split the alloc address from BCC tools. 
