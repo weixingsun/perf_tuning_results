@@ -42,20 +42,140 @@ BCC tools is a very neat set of open-source profiling/tracing tools, which is av
 There are 2 steps: bcc on stream & bcc on jbb2015
 
 Hardware:
-CPU: Intel 8180
-Memory: 24x 16GB Samsung DDR4 
+CPU: Intel Xeon E-2186G CPU @ 3.80GHz
+Memory: 2x 32GB DDR4 2666MHz 
 
 Software:
-OS: SUSE SLE15
+OS: SUSE SLE-15
 Tools: BCC, Stream
 
 bcc on stream:
+-------------------------------------------------------------------------------------
+st250:/home/sun/jbb/stream/archive # cat func_arg_kmalloc.log
+[18:25:31]
+     size                : count     distribution
+         0 -> 1          : 0        |                                        |
+         2 -> 3          : 0        |                                        |
+         4 -> 7          : 36       |****************************************|
+         8 -> 15         : 15       |****************                        |
+        16 -> 31         : 12       |*************                           |
+st250:/home/sun/jbb/stream/archive # cat funccount_kmalloc.log
+Tracing 1 functions for "__kmalloc"... Hit Ctrl-C to end.
 
+FUNC                                    COUNT
+__kmalloc                                 728
+Detaching...
+st250:/home/sun/jbb/stream/archive # cat funccount_kmalloc_slab.log
+Tracing 1 functions for "kmalloc_slab"... Hit Ctrl-C to end.
+
+FUNC                                    COUNT
+kmalloc_slab                              919
+Detaching...
+st250:/home/sun/jbb/stream/archive # cat funclatency_kmalloc.log
+Tracing 1 functions for "__kmalloc"... Hit Ctrl-C to end.
+
+     nsecs               : count     distribution
+         0 -> 1          : 0        |                                        |
+         2 -> 3          : 0        |                                        |
+         4 -> 7          : 0        |                                        |
+         8 -> 15         : 0        |                                        |
+        16 -> 31         : 0        |                                        |
+        32 -> 63         : 0        |                                        |
+        64 -> 127        : 0        |                                        |
+       128 -> 255        : 0        |                                        |
+       256 -> 511        : 68       |************                            |
+       512 -> 1023       : 203      |**************************************  |
+      1024 -> 2047       : 211      |****************************************|
+      2048 -> 4095       : 58       |**********                              |
+      4096 -> 8191       : 19       |***                                     |
+      8192 -> 16383      : 10       |*                                       |
+     16384 -> 32767      : 6        |*                                       |
+Detaching...
+st250:/home/sun/jbb/stream # cat funclatency_kmalloc_slab.log
+Tracing 1 functions for "kmalloc_slab"... Hit Ctrl-C to end.
+
+     nsecs               : count     distribution
+         0 -> 1          : 0        |                                        |
+         2 -> 3          : 0        |                                        |
+         4 -> 7          : 0        |                                        |
+         8 -> 15         : 0        |                                        |
+        16 -> 31         : 0        |                                        |
+        32 -> 63         : 0        |                                        |
+        64 -> 127        : 0        |                                        |
+       128 -> 255        : 220      |****************************************|
+       256 -> 511        : 215      |*************************************** |
+       512 -> 1023       : 144      |**************************              |
+      1024 -> 2047       : 70       |************                            |
+      2048 -> 4095       : 29       |*****                                   |
+      4096 -> 8191       : 16       |**                                      |
+      8192 -> 16383      : 5        |                                        |
+Detaching...
+---------------------------------------------------------------------------------------
 bcc on jbb2015:
+---------------------------------------------------------------------------------------
+st250:/home/sun/jbb/18-11-12_184210 # cat func_arg_kmalloc.log
+[20:28:48]
+     size                : count     distribution
+         0 -> 1          : 0        |                                        |
+         2 -> 3          : 0        |                                        |
+         4 -> 7          : 36       |****************************************|
+         8 -> 15         : 15       |****************                        |
+        16 -> 31         : 12       |*************                           |
+st250:/home/sun/jbb/18-11-12_184210 # cat  funccount_kmalloc.log
+Tracing 1 functions for "__kmalloc"... Hit Ctrl-C to end.
 
+FUNC                                    COUNT
+__kmalloc                                 796
+Detaching...
+st250:/home/sun/jbb/18-11-12_184210 # cat funccount_kmalloc_slab.log
+Tracing 1 functions for "kmalloc_slab"... Hit Ctrl-C to end.
+
+FUNC                                    COUNT
+kmalloc_slab                            56951
+Detaching...
+st250:/home/sun/jbb/18-11-12_184210 # cat funclatency_kmalloc.log
+Tracing 1 functions for "__kmalloc"... Hit Ctrl-C to end.
+
+     nsecs               : count     distribution
+         0 -> 1          : 0        |                                        |
+         2 -> 3          : 0        |                                        |
+         4 -> 7          : 0        |                                        |
+         8 -> 15         : 0        |                                        |
+        16 -> 31         : 0        |                                        |
+        32 -> 63         : 0        |                                        |
+        64 -> 127        : 0        |                                        |
+       128 -> 255        : 0        |                                        |
+       256 -> 511        : 0        |                                        |
+       512 -> 1023       : 170      |**********************                  |
+      1024 -> 2047       : 304      |****************************************|
+      2048 -> 4095       : 42       |*****                                   |
+      4096 -> 8191       : 32       |****                                    |
+      8192 -> 16383      : 4        |                                        |
+Detaching...
+st250:/home/sun/jbb/18-11-12_184210 # cat funclatency_kmalloc_slab.log
+Tracing 1 functions for "kmalloc_slab"... Hit Ctrl-C to end.
+
+     nsecs               : count     distribution
+         0 -> 1          : 0        |                                        |
+         2 -> 3          : 0        |                                        |
+         4 -> 7          : 0        |                                        |
+         8 -> 15         : 0        |                                        |
+        16 -> 31         : 0        |                                        |
+        32 -> 63         : 0        |                                        |
+        64 -> 127        : 0        |                                        |
+       128 -> 255        : 49       |                                        |
+       256 -> 511        : 989      |*                                       |
+       512 -> 1023       : 38808    |****************************************|
+      1024 -> 2047       : 19864    |********************                    |
+      2048 -> 4095       : 1987     |**                                      |
+      4096 -> 8191       : 280      |                                        |
+      8192 -> 16383      : 25       |                                        |
+     16384 -> 32767      : 9        |                                        |
+Detaching...
+----------------------------------------------------------------------------------
 6. Conclusion
 
-We can see that memory bandwidth is fairely equal in above 2 tests, which means jvm is memory hungry.
+We can see that memory bandwidth is fairely equal in above 2 tests, which means jvm is very memory hungry.
 
 If your customer needs performance in JVM, ask for more memory throughput. or reduce memory allocation rate.
 
