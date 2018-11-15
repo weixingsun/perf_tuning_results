@@ -1,0 +1,166 @@
+GraalVM is a neat project, which provide options to use many other languages sit on JVM.
+Node.js is known for using Google's V8 engine, which is innovative to create various open source projects
+
+Let's do a very simple fibo benchmark on both:
+Environment: 
+CPU: Intel 8180 2.5GHz (only bind to 1 lcore)
+OS: RHEL7.5 (Meltdown & Spectre variant 3 patched)
+########################################################################### Test Results:
+
+graalvm -- 144.037s  (1g,2g,3g heap size are similar, minor GC rate= 1 time/s)
+node-v8 -- 101.251s  (default heap, , minor GC occurred only 2 times)
+
+########################################################################### Guess on results
+
+node-v8 perform +43% better than graalvm 
+GraalVM total GC time: 1030 ms, avg pause time: 9ms, throughput = 99.28%, garbage size = 193.58 gb 
+V8: almost no garbage !!
+
+########################################################################### Future works
+Syscall tracing
+Bottleneck Profiling
+
+
+
+########################################################################### V8 GC log
+[26846:0x2ecaa20] Fast promotion mode: false survival rate: 8%
+[26846:0x2ecaa20]   103259 ms: Scavenge 9.9 (13.2) -> 8.3 (12.2) MB, 0.6 / 0.0 ms  (average mu = 1.000, current mu = 1.000) allocation failure
+[26846:0x2ecaa20] Memory allocator,   used:  12528 KB, available: 1478928 KB
+[26846:0x2ecaa20] Read-only space,    used:     34 KB, available:    469 KB, committed:    512 KB
+[26846:0x2ecaa20] New space,          used:     93 KB, available:    913 KB, committed:   1024 KB
+[26846:0x2ecaa20] Old space,          used:   6708 KB, available:    315 KB, committed:   7396 KB
+[26846:0x2ecaa20] Code space,         used:    861 KB, available:      0 KB, committed:   1024KB
+[26846:0x2ecaa20] Map space,          used:    518 KB, available:      0 KB, committed:   1036 KB
+[26846:0x2ecaa20] Large object space, used:    243 KB, available: 1478407 KB, committed:   1536 KB
+[26846:0x2ecaa20] All spaces,         used:   8459 KB, available: 1480105 KB, committed:  12528KB
+[26846:0x2ecaa20] External memory reported:     24 KB
+[26846:0x2ecaa20] External memory global 0 KB
+[26846:0x2ecaa20] Total time spent in GC  : 7.8 ms
+
+########################################################################### GraalVM GC log
+... ...
+155.818: [GC (Allocation Failure) 155.818: [DefNew: 1678120K->245K(1887488K), 0.0028295 secs] 1729753K->51906K(2936064K), 0.0028564 secs] [Times: user=0.01 sys=0.00, real=0.00 secs]
+156.945: [GC (Allocation Failure) 156.945: [DefNew: 1678069K->229K(1887488K), 0.0030152 secs] 1729730K->51924K(2936064K), 0.0030411 secs] [Times: user=0.00 sys=0.00, real=0.00 secs]
+158.075: [GC (Allocation Failure) 158.075: [DefNew: 1678053K->221K(1887488K), 0.0026131 secs] 1729748K->51924K(2936064K), 0.0026368 secs] [Times: user=0.01 sys=0.00, real=0.00 secs]
+159.241: [GC (Allocation Failure) 159.241: [DefNew: 1678045K->229K(1887488K), 0.0028092 secs] 1729748K->51952K(2936064K), 0.0028362 secs] [Times: user=0.00 sys=0.00, real=0.00 secs]
+160.394: [GC (Allocation Failure) 160.394: [DefNew: 1678053K->235K(1887488K), 0.0026897 secs] 1729776K->51959K(2936064K), 0.0027141 secs] [Times: user=0.00 sys=0.00, real=0.01 secs]
+Heap
+ def new generation   total 1887488K, used 1040140K [0x0000000700000000, 0x0000000780000000, 0x0000000780000000)
+  eden space 1677824K,  61% used [0x0000000700000000, 0x000000073f788548, 0x0000000766680000)
+  from space 209664K,   0% used [0x0000000773340000, 0x000000077337ae80, 0x0000000780000000)
+  to   space 209664K,   0% used [0x0000000766680000, 0x0000000766680000, 0x0000000773340000)
+ tenured generation   total 1048576K, used 51723K [0x0000000780000000, 0x00000007c0000000, 0x00000007c0000000)
+   the space 1048576K,   4% used [0x0000000780000000, 0x0000000783282f08, 0x0000000783283000, 0x00000007c0000000)
+ Metaspace       used 44149K, capacity 45148K, committed 45440K, reserved 1089536K
+  class space    used 5008K, capacity 5239K, committed 5248K, reserved 1048576K
+/////////////////////////application.js///////////////////////////
+'use strict';
+
+const express = require('express')
+const http = require('http')
+const probe = require('probe-mon')
+const FIB_MAX = 40;
+
+let fibonacci = function(n) {
+    return n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2);
+}
+
+let count = 0;
+let app = express();
+
+let memoization = function(fn) {
+    let cache = {};
+    return (num) => {
+        if (typeof cache[num] !== 'number') {
+            cache[num] = fn(num);
+        }
+        return cache[num];
+    }
+}
+
+let memo = memoization(fibonacci);
+let warm_up = function() {
+    for (let i = 0; i < FIB_MAX; i++) {
+        memo(i);
+    }
+}();
+
+app.get('/fast', function(req, res, next) {
+    res.send('fast');
+    count++;
+});
+
+app.get('/fib', function(req, res, next) {
+    let n = Math.floor(Math.random() * FIB_MAX) + 1;
+    res.send({
+        response: {
+            'compute:': fibonacci(FIB_MAX),
+            'iteration': n
+        }
+    });
+    count++;
+});
+
+app.get('/ugly', function ugly_func(req, res, next) {
+    var values = [1, "a", 2, "b", 3, "c", 4, "d"];
+    var s = "";
+    for (var i in values) {
+      s += values[i].toString();
+    }
+    res.send({'response': s});
+    count++;
+});
+
+app.get('/sample', function(req, res, next) {
+    res.send({
+        'number_request_attended': count
+    });
+});
+
+let httpServer = http.createServer(app);
+httpServer.listen(8080, function() {
+    console.log('listening in ', 8080)
+});
+//////////////////////////////end of application.js//////////////////////////////////////
+
+##############################test_v8.sh
+#!/bin/bash
+
+#new node process
+NODE=/home/sun/jbb/node/bin/node
+#NODE="/home/sun/jbb/graalvm/bin/node --jvm.Xmx10g"
+TRACE_OPT="--trace_deopt --perf-basic-prof"
+GC_OPT="--trace-gc --trace-gc-verbose"
+numactl --physcpubind 3 --localalloc $NODE $TRACE_OPT $GC_OPT application.js > node-v8.gc.txt &
+echo "numactl --physcpubind 2 --localalloc $NODE $TRACE_OPT $GC_OPT application.js &"
+echo sleep 10
+sleep 10
+LOG=time_table
+
+echo "waiting for server..."
+sleep 5
+echo "benchmarking..."
+rm $LOG *.log 2> /dev/null
+IP="10.10.1.1"
+for i in {1..100}
+do
+  curl -w '%{time_total}\n' -s -o /dev/null "http://$IP:8080/fib" > $LOG &
+  curl -w '%{time_total}\n' -s -o /dev/null "http://$IP:8080/fast" > $LOG &
+done
+
+#Just checking if we have serve all request
+while true
+do
+  if [[ $(pgrep curl) ]]; then
+    echo "waiting..."
+  else
+    echo "cleaning.."
+    curl -s "http://$IP:8080/sample"
+    #cleaning some logs emited by v8
+    rm *.log 2> /dev/null
+    echo "time elapsed: $(tail $LOG)"
+    pgrep node | xargs kill
+    break
+  fi
+  sleep 1
+done
