@@ -5,22 +5,23 @@ Let's do a very simple fibo benchmark on both:
 Environment: 
 CPU: Intel 8180 2.5GHz (only bind to 1 lcore)
 OS: RHEL7.5 (Meltdown & Spectre variant 3 patched)
+
+src/node/application.js
+test/node/test_v8.sh
+test/node/test_graal.sh
+
 ########################################################################### Test Results:
 
 graalvm -- 144.037s  (1g,2g,3g heap size are similar, minor GC rate= 1 time/s)
 node-v8 -- 101.251s  (default heap, , minor GC occurred only 2 times)
 
-########################################################################### Guess on results
-
 node-v8 perform +43% better than graalvm 
 GraalVM total GC time: 1030 ms, avg pause time: 9ms, throughput = 99.28%, garbage size = 193.58 gb 
-V8: almost no garbage !!
+V8: almost no garbage !! stack allocation?
 
 ########################################################################### Future works
 Syscall tracing
 Bottleneck Profiling
-
-
 
 ########################################################################### V8 GC log
 [26846:0x2ecaa20] Fast promotion mode: false survival rate: 8%
@@ -53,7 +54,4 @@ Heap
    the space 1048576K,   4% used [0x0000000780000000, 0x0000000783282f08, 0x0000000783283000, 0x00000007c0000000)
  Metaspace       used 44149K, capacity 45148K, committed 45440K, reserved 1089536K
   class space    used 5008K, capacity 5239K, committed 5248K, reserved 1048576K
-/////////////////////////application.js/////////////////////////
-
-#########################test_v8.sh    #########################
 
