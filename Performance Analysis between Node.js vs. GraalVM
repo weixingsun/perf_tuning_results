@@ -18,7 +18,7 @@ node-v8 -- 101.251s  (default heap, , minor GC occurred only 2 times)
 node-v8 perform +43% better than graalvm 
 GraalVM total GC time: 1030 ms, avg pause time: 9ms, throughput = 99.28%, garbage size = 193.58 gb 
 V8: almost no garbage !! stack allocation?
-
+very small # of network traffic, mainly from lo
 ########################################################################### Future works
 Syscall tracing
 Bottleneck Profiling
