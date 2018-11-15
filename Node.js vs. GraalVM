@@ -19,6 +19,18 @@ node-v8 perform +43% better than graalvm
 GraalVM total GC time: 1030 ms, avg pause time: 9ms, throughput = 99.28%, garbage size = 193.58 gb 
 V8: almost no garbage !! stack allocation?
 very small # of network traffic, mainly from lo
+
+########################################################################### Future works
+[root@dr1 jbb]# mpstat -P 3 3 3
+Linux 3.10.0-862.11.6.el7.x86_64 (dr1)  11/15/2018      _x86_64_        (112 CPU)
+
+Both Node.js & GraalVM generated saturation workload on specific CPU:
+... ...
+07:27:43 PM  CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle
+07:27:46 PM    3  100.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+07:27:49 PM    3  100.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+07:27:52 PM    3  100.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+Average:       3  100.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
 ########################################################################### Future works
 Syscall tracing
 Bottleneck Profiling
