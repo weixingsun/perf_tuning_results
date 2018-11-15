@@ -6,7 +6,7 @@ Environment:
 CPU: Intel 8180 2.5GHz (only bind to 1 lcore)
 OS: RHEL7.5 (Meltdown & Spectre variant 3 patched)
 
-src/node/application.js
+src/node/application.js (same workload)
 test/node/test_v8.sh
 test/node/test_graal.sh
 
