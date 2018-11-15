@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#GraalVM v10.9.0
+#GraalVM ce-1.0.0-rc9
 NODE="/home/sun/jbb/graalvm/bin/node "
 #TRACE_OPT="--trace_deopt --perf-basic-prof" # not available for graalvm
 JIT_OPT=" --jvm.XX:CompileThreshold=5" #force to use JIT compiler
