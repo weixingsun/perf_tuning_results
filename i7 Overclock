@@ -1,0 +1,183 @@
+# TDP and turbo parameter modification with MSR on non-overclockable CPU
+
+## Disclaimer
+
+- MSR modification may void your CPU's (or system board's) warranty. Proceed with care. I'm not responsible for any destruction caused by this article.
+- MSR address (greatly) differs from CPU to CPU. Check your own CPU's MSR address using [Intel's documentation](https://software.intel.com/en-us/articles/intel-sdm?wapkw=software+developer).
+- Only tested on Intel i7-8550U (Kaby Lake R).
+- This article is translation of [this article](https://blog.minori.moe/?p=989). If you can understand Korean, I recommend reading that article, not this.
+
+## Start
+
+On Windows, [Intel XTU](https://downloadcenter.intel.com/download/24075/Intel-Extreme-Tuning-Utility-Intel-XTU-) can be used for modifying turbo-boost parameter and TDP related settings. But on other OSes, there are no specific (user friendly) tools available. In this article, I will directly modify *MSR* (Model-Specific Registers) to achieve similar effect.
+
+## Know about your CPU
+
+There are many CPU models. We call them by their *friendly names* - such as 'Core i7' - but this is not enough in this article. In fact, some CPUs are very different even if they are named after same friendly name. Some CPUs are named different, but they are actually same varient of other CPU. In Intel, they distinguish between CPU using *CPU family* and *model*. For example,
+
+```
+$ cat /proc/cpuinfo | less
+processor       : 0
+vendor_id       : GenuineIntel
+cpu family      : 6
+model           : 142
+model name      : Intel(R) Core(TM) i7-8550U CPU @ 1.80GHz
+stepping        : 10
+...
+```
+
+Note that /proc/cpuinfo returns CPU family and model by decimal.
+
+## Some dependencies
+
+In Linux, you will need [*msr-tools*](https://01.org/msr-tools), and *msr* kernel module. You may want to insert kernel module automatically by adding appropriate configuration. (e.g., `echo msr > /etc/modules-load.d/msr.conf` in Arch Linux)
+
+You can read from MSR with `rdmsr 0x(address)` and write to MSR with `wrmsr 0x(address) 0x(value)`. When reading, you can specify bitmasks by `-f 15:0` (from bit 0 to bit 15, in reverse).
+
+## Power/Energy/Time units
+
+My CPU has `MSR_RAPL_POWER_UNIT` at address `606h`.
+
+```
+606H MSR_RAPL_POWER_UNIT (RO)
+    3:0 = Power unit (W) = 1/2^(decimal)W - def: 0.125W
+    12:8 = Energy unit (J) = 1/2^(decimal)J - def: 0.00006103515625J
+    19:16 = Time unit (sec) = 1/2^(decimal)sec - def: 0.0009765625sec
+```
+
+These units are needed to modify existing values.
+
+## Package power limits
+
+Now the fun part begins, `MSR_PKG_POWER_LIMIT` has package power limit variables. 
+
+```
+610H MSR_PKG_POWER_LIMIT (RW)
+    14:0 = Pkg power limit = Powerunit * decimal
+    15:15 = Pkg power enabled (bool)
+    16:16 = Pkg clamping limit (bool)
+    23:17 = Pkg power limit time window = 2^(21:17 bit) * (1.0 + (23:22 bit)/4.0 ) * Timeunit
+
+    46:32 = Pkg power limit 2 = Powerunit * decimal
+    47:47 = Pkg power 2 enabled (bool)
+    48:48 = Pkg clamping limit 2 (bool)
+    55:49 = Pkg power limit time window = 2^(53:49 bit) * (1.0 + (55:54 bit)/4.0 ) * Timeunit
+    
+    63:63 = MSR lock (bool)
+```
+
+If bit 63 is 0, those values can be changed by writing to 0x610 register. You may change package power limit to higher TDP, and prolong limit time window to increase your processor's performance (if you are not throttled by thermal throttling).
+
+## Turbo boost ratio limit
+
+If `MSR_PLATFORM_INFO[28]` is 1, you can also change turbo boost limit variable.
+
+```
+CEH MSR_PLATFORM_INFO
+    15:8 = Maximum non-turbo (RO) bool
+    28 = Programmable ratio limit for turbo (RO) bool
+    29 = Programmable TDP limit for turbo (RO) bool
+    30 = Programmable TJ offset (RO) bool
+
+1ADH MSR_TURBO_RATIO_LIMIT (RO if MSR_PLATFORM_INFO[28]=0, else RW)
+    7:0 = Ratio 1C
+    15:8 = Ratio 2C
+    23:16 = Ratio 3C
+    31:24 = Ratio 4C
+```
+
+## Real life example, tune i7-8550U processor
+
+Using above information, I could change MSR on my processor - i7-8550U.
+
+Since this processor is limited to 37 boost ratio when all 4 cores are being used, I changed limitation to 40. Also, I changed 23W limit to 25W with longer (1073741824 seconds) boost duration.
+
+From
+```
+610H
+    42819800dd80b8h
+
+    00000000 01000010 10000001 10011000
+    00000000 11011101 10000000 10111000
+
+    14:0 = Pkg power limit = 10111000b (184d, b8h) = 23
+    15:15 = Pkg power enabled (bool) = 1b
+    16:16 = Pkg clamping limit (bool) = 1b
+    23:17 = Pkg power limit time window = 11b(3d) 01110b(14d) = 2^14*(1+3/4)*(1/2)^10=28
+
+    46:32 = Pkg power limit 2 = 110011000b (408d, 198h) = 51
+    47:47 = Pkg power 2 enabled (bool) = 1b
+    48:48 = Pkg clamping limit 2 (bool) = 0b
+    55:49 = Pkg power limit time window = 01b(1d) 00001b(1d) = 2^1*(1+1/4)*(1/2)^10=0.00244140625
+    
+    63:63 = MSR lock (bool) = 0b
+    
+1ADH
+    25252828h
+    
+    7:0 = Ratio 1C = 40
+    15:8 = Ratio 2C = 40
+    23:16 = Ratio 3C = 37
+    31:24 = Ratio 4C = 37
+```
+
+To
+```
+610H
+    42819800FC80C8h
+
+    00000000 01000010 10000001 10011000
+    00000000 11111100 10000000 11001000
+
+    14:0 = Pkg power limit = 11001000b (200d, c8h) = 25
+    15:15 = Pkg power enabled (bool) = 1b
+    16:16 = Pkg clamping limit (bool) = 0b
+    23:17 = Pkg power limit time window = 11b(3d) 11110b(30d) = 2^30*(1+3/4)*(1/2)^10=1073741824
+
+    46:32 = Pkg power limit 2 = 110011000b (408d, 198h) = 51
+    47:47 = Pkg power 2 enabled (bool) = 1b
+    48:48 = Pkg clamping limit 2 (bool) = 0b
+    55:49 = Pkg power limit time window = 01b(1d) 00001b(1d) = 2^1*(1+1/4)*(1/2)^10=0.00244140625
+    
+    63:63 = MSR lock (bool) = 0b
+    
+1ADH
+    28282828h
+    
+    7:0 = Ratio 1C = 40
+    15:8 = Ratio 2C = 40
+    23:16 = Ratio 3C = 40
+    31:24 = Ratio 4C = 40
+```
+
+## Result
+
+[turbostat](https://github.com/torvalds/linux/blob/master/tools/power/x86/turbostat/turbostat.c) 
+reported updated TDP limit and duration, and changed turbo boost ratio. 
+I could not test real life performance difference, since my processor is heavily throttled by thermal throttling even at 15W TDP.
+
+
+Additionals:
+
+Increasing the uncore frequency may help with some of the game/java/... applications
+Because the performance is only contributed by the core, also by memory controller/channel and QPI/PCI ...
+
+to read the uncore frequency for socket 0 Lcore 0.
+
+# rdmsr -p 0 0x620
+
+c1d
+
+here the result displayed "c1d" c=lowest uncore frequency and "1d" is the Max, so the change socket 0 uncore freqeuncy:-
+
+# wrmsr -p 0 0x620 0x1d1d
+
+To change  socket 1, frequency,  change the lcore id any lcore_id on socket 1.
+
+# wrmsr -p <locre_id in socket 1> 0x620 <Max Frequency in Hex 2 times>
+
+You can use rdmsr to confirm the change is successful
+
+# rdmsr -p 0 0x620
+
+1d1d
