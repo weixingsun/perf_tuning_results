@@ -9,3 +9,5 @@ https://github.com/weixingsun/perf_tuning_results/wiki/Why-Java-is-Memory-Hungry
 https://github.com/weixingsun/perf_tuning_results/wiki/Node.js-vs.-GraalVM
 4. ZGC Performance Analysis
 https://github.com/weixingsun/perf_tuning_results/wiki/ZGC-Performance-Analysis
+5. Latency Chart
+https://github.com/weixingsun/perf_tuning_results/wiki/Latency-Chart
