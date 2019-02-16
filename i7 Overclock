@@ -181,3 +181,7 @@ You can use rdmsr to confirm the change is successful
 # rdmsr -p 0 0x620
 
 1d1d
+---------
+MSR_TURBO_ACTIVATION_RATIO(64C)
+
+MSR_TURBO_RATIO_LIMIT (1AD, 1AE, 1AF)
