@@ -1,0 +1,1125 @@
+[0.00000] VMTrace started
+[0.00649] Dynamic code generated: flush_icache_stub (29 bytes)
+[0.00655] Dynamic code generated: get_cpu_info_stub (539 bytes)
+[0.01054] Dynamic code generated: getCPUIDNameInfo_stub (226 bytes)
+[0.01060] Dynamic code generated: forward exception (63 bytes)
+[0.01064] Dynamic code generated: call_stub (232 bytes)
+[0.01065] Dynamic code generated: catch_exception (31 bytes)
+[0.01065] Dynamic code generated: atomic_xchg (5 bytes)
+[0.01065] Dynamic code generated: atomic_xchg_ptr (7 bytes)
+[0.01066] Dynamic code generated: atomic_cmpxchg (7 bytes)
+[0.01066] Dynamic code generated: atomic_cmpxchg_long (9 bytes)
+[0.01066] Dynamic code generated: atomic_add (9 bytes)
+[0.01066] Dynamic code generated: atomic_add_ptr (12 bytes)
+[0.01067] Dynamic code generated: orderaccess_fence (6 bytes)
+[0.01068] Dynamic code generated: handler_for_unsafe_access (194 bytes)
+[0.01068] Dynamic code generated: get_previous_fp (13 bytes)
+[0.01069] Dynamic code generated: get_previous_sp (8 bytes)
+[0.01069] Dynamic code generated: verify_mxcsr (1 bytes)
+[0.01073] Dynamic code generated: StackOverflowError throw_exception (112 bytes)
+[0.01076] Dynamic code generated: updateBytesCRC32 (598 bytes)
+[0.01361] Dynamic code generated: Interpreter (262144 bytes)
+[0.01366] Dynamic code generated: wrong_method_stub (416 bytes)
+[0.01367] Dynamic code generated: wrong_method_abstract_stub (416 bytes)
+[0.01368] Dynamic code generated: ic_miss_stub (416 bytes)
+[0.01369] Dynamic code generated: resolve_opt_virtual_call (416 bytes)
+[0.01370] Dynamic code generated: resolve_virtual_call (416 bytes)
+[0.01371] Dynamic code generated: resolve_static_call (416 bytes)
+[0.01372] Dynamic code generated: SafepointBlob (848 bytes)
+[0.01373] Dynamic code generated: SafepointBlob (376 bytes)
+[0.01374] Dynamic code generated: SafepointBlob (360 bytes)
+[0.01376] Dynamic code generated: DeoptimizationBlob (760 bytes)
+[0.01377] Dynamic code generated: UncommonTrapBlob (240 bytes)
+[0.01757] Loading class: java/lang/Object (1497 bytes)
+[0.01777] Loading class: java/lang/String (18936 bytes)
+[0.01787] Loading class: java/io/Serializable (113 bytes)
+[0.01790] Loading class: java/lang/Comparable (235 bytes)
+[0.01792] Loading class: java/lang/CharSequence (1918 bytes)
+[0.01819] Loading class: java/lang/Class (34224 bytes)
+[0.01838] Loading class: java/lang/reflect/GenericDeclaration (304 bytes)
+[0.01847] Loading class: java/lang/reflect/AnnotatedElement (3416 bytes)
+[0.01862] Loading class: java/lang/reflect/Type (233 bytes)
+[0.01885] Loading class: java/lang/Cloneable (109 bytes)
+[0.01888] Loading class: java/lang/ClassLoader (23174 bytes)
+[0.01911] Loading class: java/lang/System (7390 bytes)
+[0.01922] Loading class: java/lang/Throwable (8298 bytes)
+[0.01935] Loading class: java/lang/Error (645 bytes)
+[0.01938] Loading class: java/lang/ThreadDeath (269 bytes)
+[0.01941] Loading class: java/lang/Exception (653 bytes)
+[0.01944] Loading class: java/lang/RuntimeException (667 bytes)
+[0.01947] Loading class: java/lang/SecurityManager (9757 bytes)
+[0.01960] Loading class: java/security/ProtectionDomain (6366 bytes)
+[0.01967] Loading class: java/security/AccessControlContext (10103 bytes)
+[0.01978] Loading class: java/security/SecureClassLoader (3106 bytes)
+[0.01983] Loading class: java/lang/ClassNotFoundException (745 bytes)
+[0.01986] Loading class: java/lang/ReflectiveOperationException (582 bytes)
+[0.01989] Loading class: java/lang/NoClassDefFoundError (380 bytes)
+[0.01991] Loading class: java/lang/LinkageError (461 bytes)
+[0.01993] Loading class: java/lang/ClassCastException (380 bytes)
+[0.01995] Loading class: java/lang/ArrayStoreException (382 bytes)
+[0.01998] Loading class: java/lang/VirtualMachineError (560 bytes)
+[0.02001] Loading class: java/lang/OutOfMemoryError (379 bytes)
+[0.02003] Loading class: java/lang/StackOverflowError (383 bytes)
+[0.02005] Loading class: java/lang/IllegalMonitorStateException (400 bytes)
+[0.02008] Loading class: java/lang/ref/Reference (2868 bytes)
+[0.02013] Loading class: java/lang/ref/SoftReference (770 bytes)
+[0.02016] Loading class: java/lang/ref/WeakReference (502 bytes)
+[0.02026] Loading class: java/lang/ref/FinalReference (405 bytes)
+[0.02031] Loading class: java/lang/ref/PhantomReference (494 bytes)
+[0.02035] Loading class: sun/misc/Cleaner (1766 bytes)
+[0.02042] Loading class: java/lang/ref/Finalizer (3430 bytes)
+[0.02053] Loading class: java/lang/Thread (13967 bytes)
+[0.02064] Loading class: java/lang/Runnable (201 bytes)
+[0.02078] Loading class: java/lang/ThreadGroup (9693 bytes)
+[0.02083] Loading class: java/lang/Thread$UncaughtExceptionHandler (355 bytes)
+[0.02091] Loading class: java/util/Properties (8450 bytes)
+[0.02099] Loading class: java/util/Hashtable (14132 bytes)
+[0.02107] Loading class: java/util/Map (4127 bytes)
+[0.02118] Loading class: java/util/Dictionary (689 bytes)
+[0.02126] Loading class: java/lang/reflect/AccessibleObject (3867 bytes)
+[0.02134] Loading class: java/lang/reflect/Field (10829 bytes)
+[0.02141] Loading class: java/lang/reflect/Member (386 bytes)
+[0.02150] Loading class: java/lang/reflect/Parameter (4971 bytes)
+[0.02162] Loading class: java/lang/reflect/Method (8886 bytes)
+[0.02172] Loading class: java/lang/reflect/Executable (10569 bytes)
+[0.02187] Loading class: java/lang/reflect/Constructor (8748 bytes)
+[0.02199] Loading class: sun/reflect/MagicAccessorImpl (220 bytes)
+[0.02202] Loading class: sun/reflect/MethodAccessorImpl (460 bytes)
+[0.02203] Loading class: sun/reflect/MethodAccessor (312 bytes)
+[0.02206] Loading class: sun/reflect/ConstructorAccessorImpl (502 bytes)
+[0.02208] Loading class: sun/reflect/ConstructorAccessor (349 bytes)
+[0.02211] Loading class: sun/reflect/DelegatingClassLoader (252 bytes)
+[0.02214] Loading class: sun/reflect/ConstantPool (2456 bytes)
+[0.02220] Loading class: sun/reflect/UnsafeStaticFieldAccessorImpl (694 bytes)
+[0.02222] Loading class: sun/reflect/UnsafeFieldAccessorImpl (5147 bytes)
+[0.02229] Loading class: sun/reflect/FieldAccessorImpl (1358 bytes)
+[0.02231] Loading class: sun/reflect/FieldAccessor (1211 bytes)
+[0.02239] Loading class: sun/reflect/CallerSensitive (395 bytes)
+[0.02240] Loading class: java/lang/annotation/Annotation (355 bytes)
+[0.02244] Loading class: java/lang/invoke/DirectMethodHandle (18045 bytes)
+[0.02259] Loading class: java/lang/invoke/MethodHandle (11125 bytes)
+[0.02275] Loading class: java/lang/invoke/MemberName (18453 bytes)
+[0.02296] Loading class: java/lang/invoke/MethodHandleNatives (11360 bytes)
+[0.02310] Loading class: java/lang/invoke/LambdaForm (29498 bytes)
+[0.02338] Loading class: java/lang/invoke/MethodType (17816 bytes)
+[0.02356] Loading class: java/lang/BootstrapMethodError (784 bytes)
+[0.02360] Loading class: java/lang/invoke/CallSite (8318 bytes)
+[0.02369] Loading class: java/lang/invoke/ConstantCallSite (911 bytes)
+[0.02372] Loading class: java/lang/invoke/MutableCallSite (1264 bytes)
+[0.02376] Loading class: java/lang/invoke/VolatileCallSite (774 bytes)
+[0.02379] Loading class: java/lang/StringBuffer (10454 bytes)
+[0.02393] Loading class: java/lang/AbstractStringBuilder (10819 bytes)
+[0.02398] Loading class: java/lang/Appendable (344 bytes)
+[0.02415] Loading class: java/lang/StringBuilder (9014 bytes)
+[0.02436] Loading class: sun/misc/Unsafe (9206 bytes)
+[0.02458] Loading class: java/io/ByteArrayInputStream (1503 bytes)
+[0.02461] Loading class: java/io/InputStream (1485 bytes)
+[0.02463] Loading class: java/io/Closeable (208 bytes)
+[0.02465] Loading class: java/lang/AutoCloseable (187 bytes)
+[0.02470] Loading class: java/io/File (14799 bytes)
+[0.02488] Loading class: java/net/URLClassLoader (12226 bytes)
+[0.02502] Loading class: java/net/URL (13933 bytes)
+[0.02517] Loading class: java/util/jar/Manifest (4681 bytes)
+[0.02524] Loading class: sun/misc/Launcher (4544 bytes)
+[0.02531] Loading class: sun/misc/Launcher$AppClassLoader (3882 bytes)
+[0.02537] Loading class: sun/misc/Launcher$ExtClassLoader (3956 bytes)
+[0.02543] Loading class: java/security/CodeSource (7730 bytes)
+[0.02552] Loading class: java/lang/StackTraceElement (2026 bytes)
+[0.02556] Loading class: java/nio/Buffer (3121 bytes)
+[0.02563] Loading class: java/lang/Boolean (2660 bytes)
+[0.02579] Loading class: java/lang/Character (13377 bytes)
+[0.02601] Loading class: java/lang/Float (3857 bytes)
+[0.02607] Loading class: java/lang/Number (529 bytes)
+[0.02612] Loading class: java/lang/Double (4561 bytes)
+[0.02620] Loading class: java/lang/Byte (3346 bytes)
+[0.02628] Loading class: java/lang/Short (3525 bytes)
+[0.02635] Loading class: java/lang/Integer (10220 bytes)
+[0.02649] Loading class: java/lang/Long (9950 bytes)
+[0.02730] Loading class: java/lang/NullPointerException (384 bytes)
+[0.02733] Loading class: java/lang/ArithmeticException (382 bytes)
+[0.02743] Dynamic code generated: I2C/C2I adapters(0xb0000000)@0x0000000106f506a0 (344 bytes)
+[0.02744] Dynamic code generated: I2C/C2I adapters(0x)@0x0000000106f51de0 (336 bytes)
+[0.02745] Dynamic code generated: I2C/C2I adapters(0xbb000000)@0x0000000106f51c20 (352 bytes)
+[0.02746] Dynamic code generated: I2C/C2I adapters(0xbbe00000)@0x0000000106f51a60 (352 bytes)
+[0.02747] Dynamic code generated: I2C/C2I adapters(0xbbea0000)@0x0000000106f51860 (360 bytes)
+[0.02750] Dynamic code generated: I2C/C2I adapters(0xba000000)@0x0000000106f51620 (352 bytes)
+[0.02752] Dynamic code generated: I2C/C2I adapters(0xbbbbbb00)@0x0000000106f59020 (392 bytes)
+[0.02754] Dynamic code generated: I2C/C2I adapters(0xbbb00000)@0x0000000106f59220 (368 bytes)
+[0.02754] Dynamic code generated: I2C/C2I adapters(0xbbbaa000)@0x0000000106f59420 (384 bytes)
+[0.02760] Dynamic code generated: I2C/C2I adapters(0xa0000000)@0x0000000106f59620 (344 bytes)
+[0.02765] Dynamic code generated: I2C/C2I adapters(0xbba00000)@0x0000000106f597e0 (360 bytes)
+[0.02766] Dynamic code generated: I2C/C2I adapters(0xbbbb0000)@0x0000000106f599e0 (376 bytes)
+[0.02767] Dynamic code generated: I2C/C2I adapters(0xbbbebea0)@0x0000000106f59be0 (384 bytes)
+[0.02767] Dynamic code generated: I2C/C2I adapters(0xbbebea00)@0x0000000106f59de0 (376 bytes)
+[0.02768] Dynamic code generated: I2C/C2I adapters(0xbbebe000)@0x0000000106f59fe0 (368 bytes)
+[0.02770] Dynamic code generated: I2C/C2I adapters(0xbbbaabb0)@0x0000000106f5a1e0 (416 bytes)
+[0.02771] Dynamic code generated: I2C/C2I adapters(0xbbbeb000)@0x0000000106f5a3e0 (376 bytes)
+[0.02771] Dynamic code generated: I2C/C2I adapters(0xbbbebe00)@0x0000000106f5a5e0 (376 bytes)
+[0.02772] Dynamic code generated: I2C/C2I adapters(0xbbbea000)@0x0000000106f5a7e0 (376 bytes)
+[0.02773] Dynamic code generated: I2C/C2I adapters(0xbbbeaa00)@0x0000000106f5a9e0 (384 bytes)
+[0.02774] Dynamic code generated: I2C/C2I adapters(0xbbbebebe)@0x0000000106f5abe0 (384 bytes)
+[0.02775] Dynamic code generated: I2C/C2I adapters(0xbbbebb00)@0x0000000106f5ade0 (384 bytes)
+[0.02776] Dynamic code generated: I2C/C2I adapters(0xbbbe7e00)@0x0000000106f5afe0 (376 bytes)
+[0.02777] Dynamic code generated: I2C/C2I adapters(0xbbbe0000)@0x0000000106f5b1e0 (368 bytes)
+[0.02778] Dynamic code generated: I2C/C2I adapters(0xbbbe6000)@0x0000000106f5b3e0 (376 bytes)
+[0.02779] Dynamic code generated: I2C/C2I adapters(0xbbe7e000)@0x0000000106f5b5e0 (368 bytes)
+[0.02780] Dynamic code generated: I2C/C2I adapters(0xbba7e000)@0x0000000106f5b7e0 (376 bytes)
+[0.02781] Dynamic code generated: I2C/C2I adapters(0xbba60000)@0x0000000106f5b9e0 (376 bytes)
+[0.02781] Dynamic code generated: I2C/C2I adapters(0xbbe60000)@0x0000000106f5bbe0 (368 bytes)
+[0.02782] Dynamic code generated: I2C/C2I adapters(0xbbabe000)@0x0000000106f5bde0 (368 bytes)
+[0.02784] Dynamic code generated: I2C/C2I adapters(0xbbaa0000)@0x0000000106f5bfe0 (368 bytes)
+[0.02785] Dynamic code generated: I2C/C2I adapters(0xbbab0000)@0x0000000106f5c1e0 (368 bytes)
+[0.02786] Dynamic code generated: I2C/C2I adapters(0xbabe0000)@0x0000000106f5c3e0 (360 bytes)
+[0.02787] Dynamic code generated: I2C/C2I adapters(0xbbbebbebe0000000)@0x0000000106f5c5e0 (392 bytes)
+[0.02788] Dynamic code generated: I2C/C2I adapters(0xbbebebe0)@0x0000000106f5c7e0 (376 bytes)
+[0.02795] Dynamic code generated: I2C/C2I adapters(0xbbbbbbbbb0000000)@0x0000000106f5c9e0 (456 bytes)
+[0.02797] Dynamic code generated: I2C/C2I adapters(0xbbbaab00)@0x0000000106f5cc20 (392 bytes)
+[0.02801] Dynamic code generated: I2C/C2I adapters(0xbbbbb000)@0x0000000106f5ce20 (384 bytes)
+[0.02828] Dynamic code generated: AbstractMethodError throw_exception (112 bytes)
+[0.02829] Dynamic code generated: IncompatibleClassChangeError throw_exception (112 bytes)
+[0.02830] Dynamic code generated: NullPointerException at call throw_exception (112 bytes)
+[0.02830] Dynamic code generated: f2i_fixup (56 bytes)
+[0.02830] Dynamic code generated: f2l_fixup (67 bytes)
+[0.02831] Dynamic code generated: d2i_fixup (80 bytes)
+[0.02831] Dynamic code generated: d2l_fixup (90 bytes)
+[0.02831] Dynamic code generated: float_sign_mask (16 bytes)
+[0.02831] Dynamic code generated: float_sign_flip (16 bytes)
+[0.02831] Dynamic code generated: double_sign_mask (16 bytes)
+[0.02831] Dynamic code generated: double_sign_flip (16 bytes)
+[0.02832] Dynamic code generated: verify_oop (320 bytes)
+[0.02833] Dynamic code generated: jbyte_disjoint_arraycopy (187 bytes)
+[0.02835] Dynamic code generated: jbyte_arraycopy (195 bytes)
+[0.02835] Dynamic code generated: jshort_disjoint_arraycopy (168 bytes)
+[0.02836] Dynamic code generated: jshort_arraycopy (163 bytes)
+[0.02836] Dynamic code generated: jint_disjoint_arraycopy (132 bytes)
+[0.02837] Dynamic code generated: jint_arraycopy (147 bytes)
+[0.02837] Dynamic code generated: jlong_disjoint_arraycopy (119 bytes)
+[0.02838] Dynamic code generated: jlong_arraycopy (131 bytes)
+[0.02838] Dynamic code generated: oop_disjoint_arraycopy (187 bytes)
+[0.02839] Dynamic code generated: oop_arraycopy (204 bytes)
+[0.02839] Dynamic code generated: oop_disjoint_arraycopy_uninit (187 bytes)
+[0.02840] Dynamic code generated: oop_arraycopy_uninit (204 bytes)
+[0.02840] Dynamic code generated: checkcast_arraycopy (211 bytes)
+[0.02841] Dynamic code generated: checkcast_arraycopy_uninit (211 bytes)
+[0.02842] Dynamic code generated: unsafe_arraycopy (59 bytes)
+[0.02843] Dynamic code generated: generic_arraycopy (453 bytes)
+[0.02844] Dynamic code generated: jbyte_fill (169 bytes)
+[0.02845] Dynamic code generated: jshort_fill (138 bytes)
+[0.02846] Dynamic code generated: jint_fill (107 bytes)
+[0.02846] Dynamic code generated: arrayof_jbyte_fill (169 bytes)
+[0.02847] Dynamic code generated: arrayof_jshort_fill (138 bytes)
+[0.02847] Dynamic code generated: arrayof_jint_fill (107 bytes)
+[0.02847] Dynamic code generated: log (31 bytes)
+[0.02848] Dynamic code generated: log10 (31 bytes)
+[0.02850] Dynamic code generated: sin (848 bytes)
+[0.02851] Dynamic code generated: cos (848 bytes)
+[0.02852] Dynamic code generated: tan (850 bytes)
+[0.02854] Dynamic code generated: exp (946 bytes)
+[0.02856] Dynamic code generated: pow (1175 bytes)
+[0.02857] Dynamic code generated: key_shuffle_mask (16 bytes)
+[0.02858] Dynamic code generated: aescrypt_encryptBlock (282 bytes)
+[0.02858] Dynamic code generated: aescrypt_decryptBlock (282 bytes)
+[0.02860] Dynamic code generated: cipherBlockChaining_encryptAESCrypt (552 bytes)
+[0.02862] Dynamic code generated: cipherBlockChaining_decryptAESCrypt (934 bytes)
+[0.02862] Dynamic code generated: SafeFetch32 (6 bytes)
+[0.02863] Dynamic code generated: SafeFetchN (7 bytes)
+[0.02865] Dynamic code generated: multiplyToLen (543 bytes)
+[0.02877] VM started
+[0.02882] Class prepared: java/lang/Comparable
+[0.02883] Class prepared: java/lang/CharSequence
+[0.02889] Dynamic code generated: I2C/C2I adapters(0xbaa00000)@0x0000000106f62be0 (360 bytes)
+[0.02892] Dynamic code generated: I2C/C2I adapters(0xbaaba000)@0x0000000106f630e0 (376 bytes)
+[0.02893] Dynamic code generated: I2C/C2I adapters(0xbaabaaa0)@0x0000000106f632e0 (408 bytes)
+[0.02894] Dynamic code generated: I2C/C2I adapters(0xbaabaa00)@0x0000000106f634e0 (384 bytes)
+[0.02894] Dynamic code generated: I2C/C2I adapters(0xbabaa000)@0x0000000106f636e0 (384 bytes)
+[0.02896] Dynamic code generated: I2C/C2I adapters(0xbe000000)@0x0000000106f638e0 (344 bytes)
+[0.02897] Dynamic code generated: I2C/C2I adapters(0x60000000)@0x0000000106f63aa0 (352 bytes)
+[0.02898] Dynamic code generated: I2C/C2I adapters(0x7e000000)@0x0000000106f63c60 (352 bytes)
+[0.02899] Dynamic code generated: I2C/C2I adapters(0xbbaaa000)@0x0000000106f63e20 (384 bytes)
+[0.02907] Dynamic code generated: I2C/C2I adapters(0xbbaab000)@0x0000000106f64020 (384 bytes)
+[0.02910] Class prepared: java/lang/String
+[0.02928] Loading class: java/io/ObjectStreamField (4557 bytes)
+[0.02941] Loading class: java/lang/String$CaseInsensitiveComparator (1368 bytes)
+[0.02944] Loading class: java/util/Comparator (7465 bytes)
+[0.02959] Class prepared: java/util/Comparator
+[0.02960] Class prepared: java/lang/String$CaseInsensitiveComparator
+[0.02966] Class prepared: java/lang/System
+[0.02970] Class prepared: java/lang/Thread$UncaughtExceptionHandler
+[0.02974] Class prepared: java/lang/ThreadGroup
+[0.02981] Class prepared: java/lang/Runnable
+[0.02987] Dynamic code generated: I2C/C2I adapters(0xbea00000)@0x0000000106f6c720 (352 bytes)
+[0.02988] Dynamic code generated: I2C/C2I adapters(0xbbbbbe00)@0x0000000106f6c8e0 (384 bytes)
+[0.02989] Dynamic code generated: I2C/C2I adapters(0xbbbbbeb0)@0x0000000106f6cae0 (392 bytes)
+[0.02991] Class prepared: java/lang/Thread
+[0.02996] Loading class: java/lang/RuntimePermission (419 bytes)
+[0.02999] Loading class: java/security/BasicPermission (2362 bytes)
+[0.03003] Loading class: java/security/Permission (1543 bytes)
+[0.03006] Loading class: java/security/Guard (206 bytes)
+[0.03012] Class prepared: java/security/Guard
+[0.03013] Class prepared: java/security/Permission
+[0.03015] Class prepared: java/security/BasicPermission
+[0.03015] Class prepared: java/lang/RuntimePermission
+[0.03025] Loading class: java/security/AccessController (5988 bytes)
+[0.03036] Class prepared: java/security/AccessController
+[0.03044] Dynamic code generated: I2C/C2I adapters(0xbbba0000)@0x0000000106f6cce0 (376 bytes)
+[0.03045] Class prepared: java/security/AccessControlContext
+[0.03053] Class prepared: java/lang/reflect/AnnotatedElement
+[0.03054] Class prepared: java/lang/reflect/GenericDeclaration
+[0.03054] Class prepared: java/lang/reflect/Type
+[0.03064] Dynamic code generated: I2C/C2I adapters(0xbbbab000)@0x0000000106f6cee0 (384 bytes)
+[0.03065] Dynamic code generated: I2C/C2I adapters(0xbaba0000)@0x0000000106f6d0e0 (368 bytes)
+[0.03069] Dynamic code generated: I2C/C2I adapters(0xbabb0000)@0x0000000106f6d2e0 (368 bytes)
+[0.03069] Dynamic code generated: I2C/C2I adapters(0xbab00000)@0x0000000106f6d4e0 (360 bytes)
+[0.03071] Class prepared: java/lang/Class
+[0.03077] Dynamic code generated: I2C/C2I adapters(0xbbbbab00)@0x0000000106f6d6e0 (392 bytes)
+[0.03078] Dynamic code generated: I2C/C2I adapters(0xbbbba000)@0x0000000106f6d8e0 (384 bytes)
+[0.03079] Class prepared: java/lang/reflect/AccessibleObject
+[0.03080] Class prepared: java/lang/reflect/Member
+[0.03084] Dynamic code generated: I2C/C2I adapters(0xbaabb000)@0x0000000106f6dae0 (376 bytes)
+[0.03086] Class prepared: java/lang/reflect/Executable
+[0.03090] Dynamic code generated: I2C/C2I adapters(0xbbbbbbaabbbb0000)@0x0000000106f6dce0 (520 bytes)
+[0.03093] Class prepared: java/lang/reflect/Method
+[0.03095] Loading class: java/lang/reflect/ReflectPermission (427 bytes)
+[0.03100] Class prepared: java/lang/reflect/ReflectPermission
+[0.03103] Loading class: sun/reflect/ReflectionFactory$GetReflectionFactoryAction (679 bytes)
+[0.03105] Loading class: java/security/PrivilegedAction (243 bytes)
+[0.03109] Class prepared: java/security/PrivilegedAction
+[0.03110] Class prepared: sun/reflect/ReflectionFactory$GetReflectionFactoryAction
+[0.03151] Loading class: java/security/cert/Certificate (2279 bytes)
+[0.03159] Loading class: java/util/Vector (11306 bytes)
+[0.03168] Loading class: java/util/List (2599 bytes)
+[0.03170] Loading class: java/util/Collection (1892 bytes)
+[0.03173] Loading class: java/lang/Iterable (1011 bytes)
+[0.03183] Loading class: java/util/RandomAccess (115 bytes)
+[0.03190] Loading class: java/util/AbstractList (3910 bytes)
+[0.03196] Loading class: java/util/AbstractCollection (4098 bytes)
+[0.03216] Class prepared: java/lang/Iterable
+[0.03218] Class prepared: java/util/Collection
+[0.03220] Class prepared: java/util/AbstractCollection
+[0.03222] Class prepared: java/util/List
+[0.03225] Class prepared: java/util/AbstractList
+[0.03232] Class prepared: java/util/RandomAccess
+[0.03233] Class prepared: java/lang/Cloneable
+[0.03244] Class prepared: java/util/Vector
+[0.03252] Loading class: java/util/Stack (1093 bytes)
+[0.03263] Class prepared: java/util/Stack
+[0.03282] Loading class: sun/reflect/ReflectionFactory (7633 bytes)
+[0.03297] Dynamic code generated: I2C/C2I adapters(0xbbbbaabb)@0x0000000106f6df60 (432 bytes)
+[0.03299] Dynamic code generated: I2C/C2I adapters(0xbbbbaabbb0000000)@0x0000000106f6e1a0 (448 bytes)
+[0.03299] Class prepared: sun/reflect/ReflectionFactory
+[0.03306] Loading class: java/lang/ref/Reference$Lock (398 bytes)
+[0.03309] Class prepared: java/lang/ref/Reference$Lock
+[0.03313] Loading class: java/lang/ref/Reference$ReferenceHandler (1237 bytes)
+[0.03317] Class prepared: java/lang/ref/Reference$ReferenceHandler
+[0.03319] Loading class: java/lang/InterruptedException (377 bytes)
+[0.03330] Class prepared: java/lang/Exception
+[0.03331] Class prepared: java/lang/InterruptedException
+[0.03336] Loading class: java/util/ArrayList (11009 bytes)
+[0.03357] Dynamic code generated: I2C/C2I adapters(0xaaa00000)@0x0000000106f6e3e0 (360 bytes)
+[0.03361] Class prepared: java/util/ArrayList
+[0.03366] Loading class: java/util/Collections (25035 bytes)
+[0.03397] Dynamic code generated: I2C/C2I adapters(0xab000000)@0x0000000106f6e5e0 (352 bytes)
+[0.03399] Class prepared: java/util/Collections
+[0.03401] Loading class: java/util/Collections$EmptySet (2027 bytes)
+[0.03407] Loading class: java/util/AbstractSet (1447 bytes)
+[0.03409] Loading class: java/util/Set (1099 bytes)
+[0.03421] Class prepared: java/util/Set
+[0.03423] Class prepared: java/util/AbstractSet
+[0.03425] Class prepared: java/util/Collections$EmptySet
+[0.03428] Loading class: java/util/Collections$EmptyList (3060 bytes)
+[0.03440] Class prepared: java/util/Collections$EmptyList
+[0.03444] Loading class: java/util/Collections$EmptyMap (3271 bytes)
+[0.03449] Loading class: java/util/AbstractMap (4601 bytes)
+[0.03462] Class prepared: java/util/Map
+[0.03465] Class prepared: java/util/AbstractMap
+[0.03467] Class prepared: java/util/Collections$EmptyMap
+[0.03471] Loading class: java/util/Collections$UnmodifiableRandomAccessList (931 bytes)
+[0.03474] Loading class: java/util/Collections$UnmodifiableList (2732 bytes)
+[0.03479] Loading class: java/util/Collections$UnmodifiableCollection (2887 bytes)
+[0.03491] Class prepared: java/util/Collections$UnmodifiableCollection
+[0.03494] Class prepared: java/util/Collections$UnmodifiableList
+[0.03495] Class prepared: java/util/Collections$UnmodifiableRandomAccessList
+[0.03499] Class prepared: java/lang/ref/PhantomReference
+[0.03500] Class prepared: sun/misc/Cleaner
+[0.03502] Loading class: java/lang/ref/ReferenceQueue (2877 bytes)
+[0.03509] Class prepared: java/lang/ref/ReferenceQueue
+[0.03512] Loading class: java/lang/ref/ReferenceQueue$Null (607 bytes)
+[0.03514] Class prepared: java/lang/ref/ReferenceQueue$Null
+[0.03517] Loading class: java/lang/ref/ReferenceQueue$Lock (423 bytes)
+[0.03519] Class prepared: java/lang/ref/ReferenceQueue$Lock
+[0.03541] Loading class: java/lang/ref/Reference$1 (443 bytes)
+[0.03541] Thread started: (null)
+[0.03544] Loading class: sun/misc/JavaLangRefAccess (166 bytes)
+[0.03550] Class prepared: sun/misc/JavaLangRefAccess
+[0.03551] Class prepared: java/lang/ref/Reference$1
+[0.03557] Loading class: sun/misc/SharedSecrets (4672 bytes)
+[0.03568] Class prepared: sun/misc/SharedSecrets
+[0.03576] Loading class: java/lang/NoSuchMethodError (390 bytes)
+[0.03578] Loading class: java/lang/IncompatibleClassChangeError (396 bytes)
+[0.03582] Class prepared: java/lang/LinkageError
+[0.03583] Class prepared: java/lang/IncompatibleClassChangeError
+[0.03583] Class prepared: java/lang/NoSuchMethodError
+[0.03600] Loading class: sun/reflect/Reflection (6515 bytes)
+[0.03612] Class prepared: sun/reflect/Reflection
+[0.03614] Loading class: java/util/HashMap (17358 bytes)
+[0.03638] Dynamic code generated: I2C/C2I adapters(0xbabbb000)@0x0000000106f6e7a0 (384 bytes)
+[0.03639] Dynamic code generated: I2C/C2I adapters(0xbabbaa00)@0x0000000106f6e9a0 (384 bytes)
+[0.03652] Dynamic code generated: I2C/C2I adapters(0xba600000)@0x0000000106f6eba0 (368 bytes)
+[0.03655] Class prepared: java/util/HashMap
+[0.03665] Loading class: java/util/HashMap$Node (1770 bytes)
+[0.03668] Loading class: java/util/Map$Entry (3781 bytes)
+[0.03680] Class prepared: java/util/Map$Entry
+[0.03681] Class prepared: java/util/HashMap$Node
+[0.03744] Loading class: sun/misc/VM (5172 bytes)
+[0.03756] Dynamic code generated: I2C/C2I adapters(0xaa000000)@0x0000000106f6eda0 (352 bytes)
+[0.03758] Class prepared: sun/misc/VM
+[0.03761] Class prepared: java/util/Dictionary
+[0.03766] Dynamic code generated: I2C/C2I adapters(0xbabba000)@0x0000000106f6ef60 (384 bytes)
+[0.03769] Class prepared: java/util/Hashtable
+[0.03774] Class prepared: java/util/Properties
+[0.03777] Class prepared: java/lang/Number
+[0.03779] Dynamic code generated: I2C/C2I adapters(0x66000000)@0x0000000106f6f160 (360 bytes)
+[0.03781] Dynamic code generated: I2C/C2I adapters(0xb6000000)@0x0000000106f6f360 (360 bytes)
+[0.03782] Dynamic code generated: I2C/C2I adapters(0xb7e00000)@0x0000000106f6f560 (360 bytes)
+[0.03783] Class prepared: java/lang/Float
+[0.03788] Loading class: java/util/Hashtable$Entry (1979 bytes)
+[0.03797] Loading class: java/lang/Math (8570 bytes)
+[0.03822] Dynamic code generated: I2C/C2I adapters(0x67e00000)@0x0000000106f6f760 (360 bytes)
+[0.03824] Dynamic code generated: I2C/C2I adapters(0x7e7e0000)@0x0000000106f6f960 (360 bytes)
+[0.03826] Dynamic code generated: I2C/C2I adapters(0xbebe0000)@0x0000000106f6fb60 (352 bytes)
+[0.03828] Dynamic code generated: I2C/C2I adapters(0x6a000000)@0x0000000106f6fd20 (352 bytes)
+[0.03830] Dynamic code generated: I2C/C2I adapters(0x7ea00000)@0x0000000106f6fee0 (352 bytes)
+[0.03833] Class prepared: java/lang/Math
+[0.03844] Class prepared: java/lang/Double
+[0.03879] Loading class: java/lang/ref/Finalizer$FinalizerThread (1081 bytes)
+[0.03886] Class prepared: java/lang/ref/Finalizer$FinalizerThread
+[0.03906] Thread started: (null)
+[0.05127] Class prepared: java/util/Hashtable$Entry
+[0.05171] Loading class: java/nio/charset/Charset (7723 bytes)
+[0.05196] Class prepared: java/nio/charset/Charset
+[0.05201] Loading class: sun/nio/cs/StandardCharsets (6633 bytes)
+[0.05229] Loading class: sun/nio/cs/FastCharsetProvider (3315 bytes)
+[0.05313] Loading class: java/nio/charset/spi/CharsetProvider (760 bytes)
+[0.05322] Class prepared: java/nio/charset/spi/CharsetProvider
+[0.05324] Class prepared: sun/nio/cs/FastCharsetProvider
+[0.05327] Class prepared: sun/nio/cs/StandardCharsets
+[0.05403] Loading class: sun/nio/cs/StandardCharsets$Aliases (8849 bytes)
+[0.05415] Loading class: sun/util/PreHashedMap (2214 bytes)
+[0.05432] Dynamic code generated: I2C/C2I adapters(0xbaaaa000)@0x0000000106f700a0 (376 bytes)
+[0.05434] Class prepared: sun/util/PreHashedMap
+[0.05438] Class prepared: sun/nio/cs/StandardCharsets$Aliases
+[0.05462] Loading class: sun/nio/cs/StandardCharsets$Classes (2634 bytes)
+[0.05472] Class prepared: sun/nio/cs/StandardCharsets$Classes
+[0.05481] Loading class: sun/nio/cs/StandardCharsets$Cache (2070 bytes)
+[0.05489] Class prepared: sun/nio/cs/StandardCharsets$Cache
+[0.05497] Loading class: java/lang/ThreadLocal (3182 bytes)
+[0.05505] Class prepared: java/lang/ThreadLocal
+[0.05507] Loading class: java/util/concurrent/atomic/AtomicInteger (2941 bytes)
+[0.05516] Class prepared: java/util/concurrent/atomic/AtomicInteger
+[0.05522] Loading class: java/lang/Class$3 (948 bytes)
+[0.05528] Class prepared: java/lang/Class$3
+[0.05533] Loading class: java/lang/Class$ReflectionData (845 bytes)
+[0.05537] Class prepared: java/lang/Class$ReflectionData
+[0.05539] Class prepared: java/lang/ref/SoftReference
+[0.05542] Loading class: java/lang/Class$Atomic (2522 bytes)
+[0.05548] Class prepared: java/lang/Class$Atomic
+[0.05557] Dynamic code generated: I2C/C2I adapters(0xbb7e0000)@0x0000000106f702a0 (368 bytes)
+[0.05558] Dynamic code generated: I2C/C2I adapters(0xbb600000)@0x0000000106f704a0 (368 bytes)
+[0.05561] Class prepared: java/lang/reflect/Field
+[0.05565] Loading class: sun/reflect/generics/repository/ClassRepository (2354 bytes)
+[0.05578] Loading class: sun/reflect/generics/repository/GenericDeclRepository (1498 bytes)
+[0.05582] Loading class: sun/reflect/generics/repository/AbstractRepository (1155 bytes)
+[0.05592] Loading class: java/lang/Class$AnnotationData (830 bytes)
+[0.05602] Loading class: sun/reflect/annotation/AnnotationType (5266 bytes)
+[0.05612] Loading class: java/lang/ClassValue$ClassValueMap (7337 bytes)
+[0.05621] Loading class: java/util/WeakHashMap (9611 bytes)
+[0.05656] Loading class: java/lang/reflect/Modifier (3758 bytes)
+[0.05668] Class prepared: java/lang/reflect/Modifier
+[0.05671] Loading class: java/lang/reflect/ReflectAccess (4083 bytes)
+[0.05676] Loading class: sun/reflect/LangReflectAccess (2424 bytes)
+[0.05684] Class prepared: sun/reflect/LangReflectAccess
+[0.05686] Class prepared: java/lang/reflect/ReflectAccess
+[0.05711] Loading class: java/util/Arrays (35972 bytes)
+[0.05757] Dynamic code generated: I2C/C2I adapters(0xbaaa0000)@0x0000000106f706a0 (368 bytes)
+[0.05758] Dynamic code generated: I2C/C2I adapters(0xbaabe000)@0x0000000106f708a0 (368 bytes)
+[0.05759] Dynamic code generated: I2C/C2I adapters(0xbaa7e000)@0x0000000106f70aa0 (368 bytes)
+[0.05760] Dynamic code generated: I2C/C2I adapters(0xbaa60000)@0x0000000106f70ca0 (368 bytes)
+[0.05762] Dynamic code generated: I2C/C2I adapters(0xbaab0000)@0x0000000106f70ea0 (368 bytes)
+[0.05763] Dynamic code generated: I2C/C2I adapters(0xbbaaab00)@0x0000000106f710a0 (392 bytes)
+[0.05770] Class prepared: java/util/Arrays
+[0.05777] Class prepared: java/lang/Appendable
+[0.05782] Dynamic code generated: I2C/C2I adapters(0xba7e0000)@0x0000000106f712a0 (368 bytes)
+[0.05785] Class prepared: java/lang/AbstractStringBuilder
+[0.05797] Class prepared: java/lang/StringBuilder
+[0.05810] Loading class: sun/nio/cs/UTF_8 (1141 bytes)
+[0.05815] Loading class: sun/nio/cs/Unicode (2207 bytes)
+[0.05821] Loading class: sun/nio/cs/HistoricallyNamedCharset (188 bytes)
+[0.05827] Class prepared: sun/nio/cs/HistoricallyNamedCharset
+[0.05828] Class prepared: sun/nio/cs/Unicode
+[0.05829] Class prepared: sun/nio/cs/UTF_8
+[0.05842] Class prepared: java/lang/reflect/Constructor
+[0.05851] Loading class: java/lang/Class$1 (818 bytes)
+[0.05855] Class prepared: java/lang/Class$1
+[0.05869] Loading class: sun/reflect/ReflectionFactory$1 (1379 bytes)
+[0.05875] Class prepared: sun/reflect/ReflectionFactory$1
+[0.05880] Loading class: sun/reflect/NativeConstructorAccessorImpl (1950 bytes)
+[0.05885] Class prepared: sun/reflect/MagicAccessorImpl
+[0.05886] Class prepared: sun/reflect/ConstructorAccessor
+[0.05886] Class prepared: sun/reflect/ConstructorAccessorImpl
+[0.05887] Class prepared: sun/reflect/NativeConstructorAccessorImpl
+[0.05890] Loading class: sun/reflect/DelegatingConstructorAccessorImpl (735 bytes)
+[0.05894] Class prepared: sun/reflect/DelegatingConstructorAccessorImpl
+[0.05911] Loading class: java/lang/StringCoding (6984 bytes)
+[0.05925] Dynamic code generated: I2C/C2I adapters(0xa6000000)@0x0000000106f714a0 (352 bytes)
+[0.05927] Class prepared: java/lang/StringCoding
+[0.05933] Loading class: java/lang/ThreadLocal$ThreadLocalMap (5242 bytes)
+[0.05942] Class prepared: java/lang/ThreadLocal$ThreadLocalMap
+[0.05945] Loading class: java/lang/ThreadLocal$ThreadLocalMap$Entry (635 bytes)
+[0.05950] Class prepared: java/lang/ref/WeakReference
+[0.05951] Class prepared: java/lang/ThreadLocal$ThreadLocalMap$Entry
+[0.05955] Loading class: java/lang/StringCoding$StringDecoder (2717 bytes)
+[0.05961] Class prepared: java/lang/StringCoding$StringDecoder
+[0.05964] Loading class: sun/nio/cs/UTF_8$Decoder (7608 bytes)
+[0.05969] Loading class: sun/nio/cs/ArrayDecoder (145 bytes)
+[0.05974] Loading class: java/nio/charset/CharsetDecoder (6139 bytes)
+[0.05987] Dynamic code generated: I2C/C2I adapters(0xbb660000)@0x0000000106f71660 (376 bytes)
+[0.05989] Dynamic code generated: I2C/C2I adapters(0xbb66b000)@0x0000000106f71860 (384 bytes)
+[0.05990] Class prepared: java/nio/charset/CharsetDecoder
+[0.05991] Class prepared: sun/nio/cs/ArrayDecoder
+[0.05996] Class prepared: sun/nio/cs/UTF_8$Decoder
+[0.06014] Loading class: java/nio/charset/CodingErrorAction (619 bytes)
+[0.06019] Class prepared: java/nio/charset/CodingErrorAction
+[0.06086] Loading class: java/util/Hashtable$EntrySet (2225 bytes)
+[0.06098] Class prepared: java/util/Hashtable$EntrySet
+[0.06102] Loading class: java/util/Collections$SynchronizedSet (1302 bytes)
+[0.06105] Loading class: java/util/Collections$SynchronizedCollection (4312 bytes)
+[0.06117] Class prepared: java/util/Collections$SynchronizedCollection
+[0.06119] Class prepared: java/util/Collections$SynchronizedSet
+[0.06122] Loading class: java/util/Objects (2314 bytes)
+[0.06128] Class prepared: java/util/Objects
+[0.06132] Loading class: java/util/Hashtable$Enumerator (2584 bytes)
+[0.06135] Loading class: java/util/Enumeration (269 bytes)
+[0.06138] Loading class: java/util/Iterator (823 bytes)
+[0.06144] Class prepared: java/util/Enumeration
+[0.06145] Class prepared: java/util/Iterator
+[0.06146] Class prepared: java/util/Hashtable$Enumerator
+[0.06166] Loading class: java/lang/Runtime (4728 bytes)
+[0.06178] Class prepared: java/lang/Runtime
+[0.06187] Loading class: sun/misc/Version (5198 bytes)
+[0.06200] Class prepared: sun/misc/Version
+[0.06208] Loading class: java/io/FileInputStream (3165 bytes)
+[0.06216] Class prepared: java/lang/AutoCloseable
+[0.06217] Class prepared: java/io/Closeable
+[0.06218] Class prepared: java/io/InputStream
+[0.06220] Class prepared: java/io/FileInputStream
+[0.06224] Loading class: java/io/FileDescriptor (2507 bytes)
+[0.06230] Class prepared: java/io/FileDescriptor
+[0.06234] Loading class: java/io/FileDescriptor$1 (811 bytes)
+[0.06236] Loading class: sun/misc/JavaIOFileDescriptorAccess (332 bytes)
+[0.06242] Class prepared: sun/misc/JavaIOFileDescriptorAccess
+[0.06243] Class prepared: java/io/FileDescriptor$1
+[0.06250] Loading class: java/io/FileOutputStream (3454 bytes)
+[0.06256] Loading class: java/io/OutputStream (825 bytes)
+[0.06257] Loading class: java/io/Flushable (177 bytes)
+[0.06262] Class prepared: java/io/Flushable
+[0.06263] Class prepared: java/io/OutputStream
+[0.06265] Class prepared: java/io/FileOutputStream
+[0.06272] Loading class: java/io/BufferedInputStream (3847 bytes)
+[0.06278] Loading class: java/io/FilterInputStream (1040 bytes)
+[0.06286] Class prepared: java/io/FilterInputStream
+[0.06289] Class prepared: java/io/BufferedInputStream
+[0.06300] Loading class: java/util/concurrent/atomic/AtomicReferenceFieldUpdater (2462 bytes)
+[0.06310] Class prepared: java/util/concurrent/atomic/AtomicReferenceFieldUpdater
+[0.06313] Loading class: java/util/concurrent/atomic/AtomicReferenceFieldUpdater$AtomicReferenceFieldUpdaterImpl (5110 bytes)
+[0.06329] Class prepared: java/util/concurrent/atomic/AtomicReferenceFieldUpdater$AtomicReferenceFieldUpdaterImpl
+[0.06341] Loading class: java/util/concurrent/atomic/AtomicReferenceFieldUpdater$AtomicReferenceFieldUpdaterImpl$1 (1505 bytes)
+[0.06354] Loading class: java/security/PrivilegedExceptionAction (309 bytes)
+[0.06363] Class prepared: java/security/PrivilegedExceptionAction
+[0.06367] Class prepared: java/util/concurrent/atomic/AtomicReferenceFieldUpdater$AtomicReferenceFieldUpdaterImpl$1
+[0.06506] Loading class: sun/reflect/misc/ReflectUtil (5345 bytes)
+[0.06541] Class prepared: sun/reflect/misc/ReflectUtil
+[0.06563] Loading class: java/io/PrintStream (9048 bytes)
+[0.06579] Loading class: java/io/FilterOutputStream (1177 bytes)
+[0.06589] Class prepared: java/io/FilterOutputStream
+[0.06596] Class prepared: java/io/PrintStream
+[0.06600] Loading class: java/io/BufferedOutputStream (1285 bytes)
+[0.06607] Class prepared: java/io/BufferedOutputStream
+[0.06616] Loading class: java/io/OutputStreamWriter (2269 bytes)
+[0.06631] Loading class: java/io/Writer (2307 bytes)
+[0.06643] Class prepared: java/io/Writer
+[0.06646] Class prepared: java/io/OutputStreamWriter
+[0.06653] Loading class: sun/nio/cs/StreamEncoder (7163 bytes)
+[0.06675] Class prepared: sun/nio/cs/StreamEncoder
+[0.06682] Loading class: sun/security/action/GetPropertyAction (894 bytes)
+[0.06688] Class prepared: sun/security/action/GetPropertyAction
+[0.06698] Loading class: sun/nio/cs/UTF_8$Encoder (4324 bytes)
+[0.06713] Loading class: sun/nio/cs/ArrayEncoder (145 bytes)
+[0.06720] Loading class: java/nio/charset/CharsetEncoder (7738 bytes)
+[0.06741] Class prepared: java/nio/charset/CharsetEncoder
+[0.06743] Class prepared: sun/nio/cs/ArrayEncoder
+[0.06746] Class prepared: sun/nio/cs/UTF_8$Encoder
+[0.06765] Loading class: java/nio/ByteBuffer (5715 bytes)
+[0.06788] Class prepared: java/nio/Buffer
+[0.06796] Dynamic code generated: I2C/C2I adapters(0xbaaaaba0)@0x0000000106f71a60 (408 bytes)
+[0.06805] Class prepared: java/nio/ByteBuffer
+[0.06809] Loading class: java/nio/HeapByteBuffer (6886 bytes)
+[0.06833] Dynamic code generated: I2C/C2I adapters(0xbbaaaaa0)@0x0000000106f71c60 (408 bytes)
+[0.06838] Class prepared: java/nio/HeapByteBuffer
+[0.06846] Loading class: java/nio/Bits (14396 bytes)
+[0.06887] Dynamic code generated: I2C/C2I adapters(0xbebbebe0)@0x0000000106f71e60 (376 bytes)
+[0.06892] Dynamic code generated: I2C/C2I adapters(0xbebbebebe0000000)@0x0000000106f72060 (384 bytes)
+[0.06894] Dynamic code generated: I2C/C2I adapters(0xbbebebebe0000000)@0x0000000106f72260 (384 bytes)
+[0.06897] Dynamic code generated: I2C/C2I adapters(0xbe7e0000)@0x0000000106f72460 (360 bytes)
+[0.06898] Dynamic code generated: I2C/C2I adapters(0xbe600000)@0x0000000106f72660 (360 bytes)
+[0.06902] Dynamic code generated: I2C/C2I adapters(0xaaaaaaaa)@0x0000000106f72860 (424 bytes)
+[0.06906] Dynamic code generated: I2C/C2I adapters(0xaaaa0000)@0x0000000106f72aa0 (368 bytes)
+[0.06912] Dynamic code generated: I2C/C2I adapters(0xba7ea000)@0x0000000106f72ca0 (368 bytes)
+[0.06917] Dynamic code generated: I2C/C2I adapters(0xbe7ea000)@0x0000000106f72ea0 (368 bytes)
+[0.06920] Dynamic code generated: I2C/C2I adapters(0xba6a0000)@0x0000000106f730a0 (368 bytes)
+[0.06922] Dynamic code generated: I2C/C2I adapters(0xbe6a0000)@0x0000000106f732a0 (368 bytes)
+[0.06960] Dynamic code generated: I2C/C2I adapters(0xbabea000)@0x0000000106f734a0 (368 bytes)
+[0.06963] Dynamic code generated: I2C/C2I adapters(0xbebea000)@0x0000000106f736a0 (360 bytes)
+[0.06966] Dynamic code generated: I2C/C2I adapters(0xbeaa0000)@0x0000000106f738a0 (360 bytes)
+[0.06972] Class prepared: java/nio/Bits
+[0.07004] Loading class: java/nio/ByteOrder (665 bytes)
+[0.07030] Class prepared: java/nio/ByteOrder
+[0.07043] Loading class: java/util/concurrent/atomic/AtomicLong (3057 bytes)
+[0.07068] Dynamic code generated: I2C/C2I adapters(0xbbeb0000)@0x0000000106f73aa0 (368 bytes)
+[0.07071] Class prepared: java/util/concurrent/atomic/AtomicLong
+[0.07093] Loading class: java/nio/Bits$1 (831 bytes)
+[0.07097] Loading class: sun/misc/JavaNioAccess (387 bytes)
+[0.07105] Class prepared: sun/misc/JavaNioAccess
+[0.07110] Dynamic code generated: I2C/C2I adapters(0xbbeab000)@0x0000000106f73ca0 (368 bytes)
+[0.07111] Class prepared: java/nio/Bits$1
+[0.07119] Loading class: java/io/BufferedWriter (3361 bytes)
+[0.07131] Class prepared: java/io/BufferedWriter
+[0.07164] Class prepared: java/io/File
+[0.07169] Loading class: java/io/DefaultFileSystem (336 bytes)
+[0.07174] Class prepared: java/io/DefaultFileSystem
+[0.07177] Loading class: java/io/UnixFileSystem (5521 bytes)
+[0.07189] Loading class: java/io/FileSystem (2174 bytes)
+[0.07204] Class prepared: java/io/FileSystem
+[0.07210] Class prepared: java/io/UnixFileSystem
+[0.07223] Loading class: java/io/ExpiringCache (2385 bytes)
+[0.07232] Class prepared: java/io/ExpiringCache
+[0.07237] Loading class: java/io/ExpiringCache$1 (891 bytes)
+[0.07242] Loading class: java/util/LinkedHashMap (7117 bytes)
+[0.07273] Class prepared: java/util/LinkedHashMap
+[0.07275] Class prepared: java/io/ExpiringCache$1
+[0.07301] Loading class: java/io/File$PathStatus (916 bytes)
+[0.07306] Loading class: java/lang/Enum (2647 bytes)
+[0.07319] Loading class: java/nio/file/Path (2149 bytes)
+[0.07324] Loading class: java/nio/file/Watchable (821 bytes)
+[0.07375] Loading class: java/lang/StringCoding$StringEncoder (2717 bytes)
+[0.07386] Class prepared: java/lang/StringCoding$StringEncoder
+[0.07413] Loading class: java/lang/ClassLoader$3 (775 bytes)
+[0.07420] Class prepared: java/lang/ClassLoader$3
+[0.07434] Class prepared: java/lang/Enum
+[0.07436] Class prepared: java/io/File$PathStatus
+[0.07458] Class prepared: java/lang/Boolean
+[0.07490] Loading class: java/io/ExpiringCache$Entry (664 bytes)
+[0.07496] Class prepared: java/io/ExpiringCache$Entry
+[0.07504] Loading class: java/util/LinkedHashMap$Entry (673 bytes)
+[0.07510] Class prepared: java/util/LinkedHashMap$Entry
+[0.07538] Loading class: java/lang/ClassLoader$NativeLibrary (1841 bytes)
+[0.07547] Class prepared: java/lang/ClassLoader$NativeLibrary
+[0.07590] Loading class: java/lang/Terminator (911 bytes)
+[0.07596] Class prepared: java/lang/Terminator
+[0.07598] Loading class: java/lang/Terminator$1 (517 bytes)
+[0.07601] Loading class: sun/misc/SignalHandler (406 bytes)
+[0.07604] Class prepared: sun/misc/SignalHandler
+[0.07605] Class prepared: java/lang/Terminator$1
+[0.07607] Loading class: sun/misc/Signal (3135 bytes)
+[0.07617] Dynamic code generated: I2C/C2I adapters(0xabe00000)@0x0000000106f73ea0 (352 bytes)
+[0.07618] Class prepared: sun/misc/Signal
+[0.07625] Loading class: sun/misc/NativeSignalHandler (536 bytes)
+[0.07635] Dynamic code generated: I2C/C2I adapters(0xaabaa000)@0x0000000106f74060 (376 bytes)
+[0.07637] Dynamic code generated: I2C/C2I adapters(0xaab00000)@0x0000000106f74260 (360 bytes)
+[0.07639] Class prepared: java/lang/Integer
+[0.07643] Loading class: java/lang/Integer$IntegerCache (1165 bytes)
+[0.07648] Class prepared: java/lang/Integer$IntegerCache
+[0.07711] Class prepared: sun/misc/NativeSignalHandler
+[0.07717] Loading class: sun/misc/OSEnvironment (261 bytes)
+[0.07720] Class prepared: sun/misc/OSEnvironment
+[0.07724] Loading class: java/lang/System$2 (3236 bytes)
+[0.07728] Loading class: sun/misc/JavaLangAccess (1751 bytes)
+[0.07736] Class prepared: sun/misc/JavaLangAccess
+[0.07738] Class prepared: java/lang/System$2
+[0.07743] Class prepared: java/lang/OutOfMemoryError
+[0.07744] Class prepared: java/lang/RuntimeException
+[0.07745] Class prepared: java/lang/NullPointerException
+[0.07747] Class prepared: java/lang/ClassCastException
+[0.07748] Class prepared: java/lang/ArrayStoreException
+[0.07748] Class prepared: java/lang/ArithmeticException
+[0.07749] Class prepared: java/lang/StackOverflowError
+[0.07750] Class prepared: java/lang/IllegalMonitorStateException
+[0.07751] Loading class: java/lang/IllegalArgumentException (581 bytes)
+[0.07755] Class prepared: java/lang/IllegalArgumentException
+[0.07756] Loading class: java/lang/Compiler (807 bytes)
+[0.07761] Class prepared: java/lang/Compiler
+[0.07764] Loading class: java/lang/Compiler$1 (1534 bytes)
+[0.07769] Class prepared: java/lang/Compiler$1
+[0.07787] Class prepared: sun/misc/Launcher
+[0.07789] Loading class: sun/misc/Launcher$Factory (1337 bytes)
+[0.07792] Loading class: java/net/URLStreamHandlerFactory (219 bytes)
+[0.07795] Class prepared: java/net/URLStreamHandlerFactory
+[0.07796] Class prepared: sun/misc/Launcher$Factory
+[0.07801] Class prepared: java/security/SecureClassLoader
+[0.07805] Class prepared: java/net/URLClassLoader
+[0.07807] Class prepared: sun/misc/Launcher$ExtClassLoader
+[0.07809] Loading class: sun/security/util/Debug (6692 bytes)
+[0.07822] Class prepared: sun/security/util/Debug
+[0.07832] Loading class: java/lang/ClassLoader$ParallelLoaders (1256 bytes)
+[0.07836] Class prepared: java/lang/ClassLoader$ParallelLoaders
+[0.07842] Class prepared: java/util/WeakHashMap
+[0.07847] Loading class: java/util/WeakHashMap$Entry (2064 bytes)
+[0.07855] Loading class: java/util/Collections$SetFromMap (3562 bytes)
+[0.07868] Class prepared: java/util/Collections$SetFromMap
+[0.07873] Loading class: java/util/WeakHashMap$KeySet (1413 bytes)
+[0.07880] Class prepared: java/util/WeakHashMap$KeySet
+[0.07887] Class prepared: java/util/WeakHashMap$Entry
+[0.07893] Loading class: java/net/URLClassLoader$7 (774 bytes)
+[0.07895] Loading class: sun/misc/JavaNetAccess (270 bytes)
+[0.07899] Class prepared: sun/misc/JavaNetAccess
+[0.07900] Class prepared: java/net/URLClassLoader$7
+[0.07906] Loading class: java/util/StringTokenizer (3211 bytes)
+[0.07914] Class prepared: java/util/StringTokenizer
+[0.07934] Dynamic code generated: I2C/C2I adapters(0xaba00000)@0x0000000106f74ee0 (360 bytes)
+[0.07938] Class prepared: java/lang/Character
+[0.07961] Loading class: sun/misc/Launcher$ExtClassLoader$1 (1038 bytes)
+[0.07965] Class prepared: sun/misc/Launcher$ExtClassLoader$1
+[0.07969] Loading class: sun/misc/MetaIndex (2922 bytes)
+[0.07976] Class prepared: sun/misc/MetaIndex
+[0.07993] Loading class: java/io/BufferedReader (5682 bytes)
+[0.08000] Loading class: java/io/Reader (1917 bytes)
+[0.08003] Loading class: java/lang/Readable (197 bytes)
+[0.08009] Class prepared: java/lang/Readable
+[0.08011] Class prepared: java/io/Reader
+[0.08014] Class prepared: java/io/BufferedReader
+[0.08016] Loading class: java/io/FileReader (555 bytes)
+[0.08019] Loading class: java/io/InputStreamReader (2066 bytes)
+[0.08025] Class prepared: java/io/InputStreamReader
+[0.08026] Class prepared: java/io/FileReader
+[0.08043] Loading class: sun/nio/cs/StreamDecoder (7722 bytes)
+[0.08056] Class prepared: sun/nio/cs/StreamDecoder
+[0.08082] Loading class: java/nio/CharBuffer (6638 bytes)
+[0.08101] Class prepared: java/nio/CharBuffer
+[0.08103] Loading class: java/nio/HeapCharBuffer (3312 bytes)
+[0.08115] Class prepared: java/nio/HeapCharBuffer
+[0.08123] Loading class: java/nio/charset/CoderResult (2958 bytes)
+[0.08131] Class prepared: java/nio/charset/CoderResult
+[0.08135] Loading class: java/nio/charset/CoderResult$1 (525 bytes)
+[0.08137] Loading class: java/nio/charset/CoderResult$Cache (1449 bytes)
+[0.08143] Class prepared: java/nio/charset/CoderResult$Cache
+[0.08143] Class prepared: java/nio/charset/CoderResult$1
+[0.08146] Loading class: java/nio/charset/CoderResult$2 (569 bytes)
+[0.08149] Class prepared: java/nio/charset/CoderResult$2
+[0.08195] Loading class: java/lang/reflect/Array (1859 bytes)
+[0.08205] Class prepared: java/lang/reflect/Array
+[0.08233] Loading class: java/util/HashMap$TreeNode (10087 bytes)
+[0.08265] Loading class: java/io/FileInputStream$1 (552 bytes)
+[0.08271] Class prepared: java/io/FileInputStream$1
+[0.08346] Loading class: sun/net/www/ParseUtil (11801 bytes)
+[0.08366] Dynamic code generated: I2C/C2I adapters(0xbbbbbabb)@0x0000000106f750e0 (432 bytes)
+[0.08367] Dynamic code generated: I2C/C2I adapters(0xabebe000)@0x0000000106f75320 (360 bytes)
+[0.08368] Dynamic code generated: I2C/C2I adapters(0xbbbbbabbb0000000)@0x0000000106f75520 (448 bytes)
+[0.08369] Class prepared: sun/net/www/ParseUtil
+[0.08373] Loading class: java/util/BitSet (12341 bytes)
+[0.08393] Class prepared: java/util/BitSet
+[0.08397] Class prepared: java/io/ObjectStreamField
+[0.08404] Class prepared: java/lang/Byte
+[0.08410] Dynamic code generated: I2C/C2I adapters(0xbeabaa00)@0x0000000106f75760 (384 bytes)
+[0.08412] Dynamic code generated: I2C/C2I adapters(0xbeab0000)@0x0000000106f75960 (360 bytes)
+[0.08414] Class prepared: java/lang/Long
+[0.08455] Dynamic code generated: I2C/C2I adapters(0xbbbabb00)@0x0000000106f75b60 (392 bytes)
+[0.08456] Dynamic code generated: I2C/C2I adapters(0xbbbabbbbb0000000)@0x0000000106f75d60 (456 bytes)
+[0.08458] Class prepared: java/net/URL
+[0.08473] Loading class: java/util/Locale (24508 bytes)
+[0.08508] Class prepared: java/util/Locale
+[0.08511] Loading class: java/util/Locale$Cache (1039 bytes)
+[0.08514] Loading class: sun/util/locale/LocaleObjectCache (1966 bytes)
+[0.08520] Class prepared: sun/util/locale/LocaleObjectCache
+[0.08521] Class prepared: java/util/Locale$Cache
+[0.08535] Loading class: java/util/concurrent/ConcurrentHashMap (48749 bytes)
+[0.08559] Loading class: java/util/concurrent/ConcurrentMap (3888 bytes)
+[0.08592] Class prepared: java/util/concurrent/ConcurrentMap
+[0.08600] Dynamic code generated: I2C/C2I adapters(0xbbebab00)@0x0000000106f75fa0 (384 bytes)
+[0.08601] Dynamic code generated: I2C/C2I adapters(0xbbebbeb0)@0x0000000106f761a0 (384 bytes)
+[0.08602] Dynamic code generated: I2C/C2I adapters(0xbbeb7eb0)@0x0000000106f763a0 (384 bytes)
+[0.08603] Dynamic code generated: I2C/C2I adapters(0xbbebb000)@0x0000000106f765a0 (376 bytes)
+[0.08610] Class prepared: java/util/concurrent/ConcurrentHashMap
+[0.08626] Loading class: java/util/concurrent/ConcurrentHashMap$Segment (614 bytes)
+[0.08630] Loading class: java/util/concurrent/locks/ReentrantLock (4083 bytes)
+[0.08636] Loading class: java/util/concurrent/locks/Lock (387 bytes)
+[0.08655] Loading class: java/util/concurrent/ConcurrentHashMap$Node (2240 bytes)
+[0.08662] Loading class: java/util/concurrent/ConcurrentHashMap$CounterCell (435 bytes)
+[0.08666] Loading class: java/util/concurrent/ConcurrentHashMap$KeySetView (3865 bytes)
+[0.08672] Loading class: java/util/concurrent/ConcurrentHashMap$CollectionView (3815 bytes)
+[0.08687] Loading class: java/util/concurrent/ConcurrentHashMap$ValuesView (3059 bytes)
+[0.08695] Loading class: java/util/concurrent/ConcurrentHashMap$EntrySetView (4322 bytes)
+[0.08712] Class prepared: java/util/concurrent/ConcurrentHashMap$CounterCell
+[0.08719] Loading class: sun/util/locale/BaseLocale (3466 bytes)
+[0.08728] Class prepared: sun/util/locale/BaseLocale
+[0.08729] Loading class: sun/util/locale/BaseLocale$Cache (1687 bytes)
+[0.08734] Class prepared: sun/util/locale/BaseLocale$Cache
+[0.08740] Loading class: sun/util/locale/BaseLocale$Key (3535 bytes)
+[0.08749] Dynamic code generated: I2C/C2I adapters(0xbbbbba00)@0x0000000106f767a0 (392 bytes)
+[0.08749] Class prepared: sun/util/locale/BaseLocale$Key
+[0.08755] Loading class: sun/util/locale/LocaleObjectCache$CacheEntry (768 bytes)
+[0.08760] Class prepared: sun/util/locale/LocaleObjectCache$CacheEntry
+[0.08771] Class prepared: java/util/concurrent/ConcurrentHashMap$Node
+[0.08779] Loading class: java/util/Locale$LocaleKey (1387 bytes)
+[0.08786] Class prepared: java/util/Locale$LocaleKey
+[0.08815] Loading class: sun/util/locale/LocaleUtils (3243 bytes)
+[0.08826] Class prepared: sun/util/locale/LocaleUtils
+[0.08891] Loading class: java/lang/CharacterData (1648 bytes)
+[0.08902] Class prepared: java/lang/CharacterData
+[0.08906] Loading class: java/lang/CharacterDataLatin1 (5279 bytes)
+[0.08920] Class prepared: java/lang/CharacterDataLatin1
+[0.08953] Loading class: java/net/Parts (842 bytes)
+[0.08957] Class prepared: java/net/Parts
+[0.08973] Loading class: sun/net/www/protocol/file/Handler (2505 bytes)
+[0.08978] Loading class: java/net/URLStreamHandler (6608 bytes)
+[0.08989] Dynamic code generated: I2C/C2I adapters(0xbbbbabbbbb000000)@0x0000000106f769a0 (472 bytes)
+[0.08990] Dynamic code generated: I2C/C2I adapters(0xbbbbabb0)@0x0000000106f76be0 (416 bytes)
+[0.08991] Class prepared: java/net/URLStreamHandler
+[0.08993] Class prepared: sun/net/www/protocol/file/Handler
+[0.09251] Loading class: java/security/ProtectionDomain$JavaSecurityAccessImpl (1903 bytes)
+[0.09255] Loading class: sun/misc/JavaSecurityAccess (656 bytes)
+[0.09261] Class prepared: sun/misc/JavaSecurityAccess
+[0.09263] Class prepared: java/security/ProtectionDomain$JavaSecurityAccessImpl
+[0.09267] Loading class: java/security/ProtectionDomain$2 (907 bytes)
+[0.09270] Loading class: sun/misc/JavaSecurityProtectionDomainAccess (465 bytes)
+[0.09274] Class prepared: sun/misc/JavaSecurityProtectionDomainAccess
+[0.09275] Class prepared: java/security/ProtectionDomain$2
+[0.09279] Class prepared: java/security/CodeSource
+[0.09282] Loading class: java/security/ProtectionDomain$Key (297 bytes)
+[0.09285] Class prepared: java/security/ProtectionDomain$Key
+[0.09288] Loading class: java/security/Principal (516 bytes)
+[0.09297] Loading class: java/util/HashSet (4219 bytes)
+[0.09314] Class prepared: java/util/HashSet
+[0.09323] Loading class: sun/misc/URLClassPath (10994 bytes)
+[0.09344] Class prepared: sun/misc/URLClassPath
+[0.09362] Loading class: sun/net/www/protocol/jar/Handler (3606 bytes)
+[0.09370] Class prepared: sun/net/www/protocol/jar/Handler
+[0.09386] Class prepared: sun/misc/Launcher$AppClassLoader
+[0.09395] Loading class: sun/misc/Launcher$AppClassLoader$1 (1193 bytes)
+[0.09400] Class prepared: sun/misc/Launcher$AppClassLoader$1
+[0.09438] Loading class: java/lang/SystemClassLoaderAction (1362 bytes)
+[0.09444] Class prepared: java/lang/SystemClassLoaderAction
+[0.09449] Class prepared: java/io/ByteArrayInputStream
+[0.09452] Class prepared: java/util/jar/Manifest
+[0.09478] Thread started: Signal Dispatcher
+[0.09480] VM initialized
+[0.09535] Class prepared: java/lang/invoke/MethodHandle
+[0.09542] Loading class: java/lang/invoke/MethodHandleImpl (34210 bytes)
+[0.09614] Class prepared: java/lang/invoke/MethodHandleImpl
+[0.09621] Loading class: java/lang/invoke/MethodHandleImpl$1 (1008 bytes)
+[0.09628] Class prepared: java/lang/invoke/MethodHandleImpl$1
+[0.09643] Loading class: java/lang/invoke/MethodHandleImpl$2 (1368 bytes)
+[0.09647] Loading class: java/util/function/Function (1895 bytes)
+[0.09659] Class prepared: java/util/function/Function
+[0.09661] Class prepared: java/lang/invoke/MethodHandleImpl$2
+[0.09666] Loading class: java/lang/invoke/MethodHandleImpl$3 (1160 bytes)
+[0.09673] Class prepared: java/lang/invoke/MethodHandleImpl$3
+[0.09678] Loading class: java/lang/invoke/MethodHandleImpl$4 (714 bytes)
+[0.09683] Loading class: java/lang/ClassValue (4513 bytes)
+[0.09699] Class prepared: java/lang/ClassValue
+[0.09700] Class prepared: java/lang/invoke/MethodHandleImpl$4
+[0.09703] Loading class: java/lang/ClassValue$Entry (2144 bytes)
+[0.09717] Loading class: java/lang/ClassValue$Identity (281 bytes)
+[0.09720] Class prepared: java/lang/ClassValue$Identity
+[0.09724] Loading class: java/lang/ClassValue$Version (1111 bytes)
+[0.09731] Class prepared: java/lang/ClassValue$Version
+[0.09734] Class prepared: java/lang/ClassValue$Entry
+[0.09742] Loading class: java/lang/invoke/MemberName$Factory (6090 bytes)
+[0.09759] Class prepared: java/lang/invoke/MemberName$Factory
+[0.09766] Loading class: java/lang/invoke/MethodHandleStatics (4666 bytes)
+[0.09781] Class prepared: java/lang/invoke/MethodHandleStatics
+[0.09786] Loading class: java/lang/invoke/MethodHandleStatics$1 (1664 bytes)
+[0.09793] Class prepared: java/lang/invoke/MethodHandleStatics$1
+[0.09834] Class prepared: java/lang/invoke/MemberName
+[0.09848] Class prepared: java/lang/invoke/MethodHandleNatives
+[0.09937] Loading class: sun/misc/PostVMInitHook (577 bytes)
+[0.09944] Class prepared: sun/misc/PostVMInitHook
+[0.09948] Loading class: sun/usagetracker/UsageTrackerClient (11210 bytes)
+[0.09978] Class prepared: sun/usagetracker/UsageTrackerClient
+[0.09983] Loading class: java/util/concurrent/atomic/AtomicBoolean (1843 bytes)
+[0.09992] Class prepared: java/util/concurrent/atomic/AtomicBoolean
+[0.10004] Loading class: sun/usagetracker/UsageTrackerClient$1 (892 bytes)
+[0.10011] Class prepared: sun/usagetracker/UsageTrackerClient$1
+[0.10033] Loading class: sun/usagetracker/UsageTrackerClient$4 (2226 bytes)
+[0.10042] Class prepared: sun/usagetracker/UsageTrackerClient$4
+[0.10070] Loading class: sun/usagetracker/UsageTrackerClient$3 (824 bytes)
+[0.10077] Class prepared: sun/usagetracker/UsageTrackerClient$3
+[0.10183] Dynamic code generated: ExceptionBlob (136 bytes)
+[0.10184] Dynamic code generated: I2C/C2I adapters(0xbbbbbbbbbbb00000)@0x0000000106f774e0 (496 bytes)
+[0.10185] Dynamic code generated: I2C/C2I adapters(0xbbbbbbb0)@0x0000000106f772e0 (416 bytes)
+[0.10185] Dynamic code generated: I2C/C2I adapters(0xbbbbbbbb)@0x0000000106f770a0 (432 bytes)
+[0.10185] Dynamic code generated: I2C/C2I adapters(0xbbbbbbbbbb000000)@0x0000000106f76de0 (472 bytes)
+[0.10186] Dynamic code generated: I2C/C2I adapters(0xbbbbbbbbbbbb0000)@0x0000000106f77860 (520 bytes)
+[0.10186] Dynamic code generated: I2C/C2I adapters(0xabb00000)@0x0000000106f77ae0 (360 bytes)
+[0.10186] Dynamic code generated: _new_instance_Java (96 bytes)
+[0.10186] Dynamic code generated: _new_array_Java (96 bytes)
+[0.10187] Dynamic code generated: _new_array_nozero_Java (96 bytes)
+[0.10187] Dynamic code generated: _multianewarray2_Java (96 bytes)
+[0.10187] Dynamic code generated: I2C/C2I adapters(0xbbabbb00)@0x0000000106f7a760 (392 bytes)
+[0.10187] Dynamic code generated: _multianewarray3_Java (96 bytes)
+[0.10188] Dynamic code generated: _multianewarray4_Java (104 bytes)
+[0.10188] Dynamic code generated: I2C/C2I adapters(0xbabbbb00)@0x0000000106f78ea0 (392 bytes)
+[0.10188] Dynamic code generated: I2C/C2I adapters(0xbbbabab0)@0x0000000106f78ca0 (416 bytes)
+[0.10196] Dynamic code generated: _invokeGeneric (1 bytes)
+[0.10197] Dynamic code generated: _invokeBasic (78 bytes)
+[0.10197] Dynamic code generated: _linkToVirtual (69 bytes)
+[0.10198] Dynamic code generated: _linkToStatic (36 bytes)
+[0.10198] Dynamic code generated: _linkToSpecial (47 bytes)
+[0.10198] Dynamic code generated: _linkToInterface (141 bytes)
+[0.10198] Dynamic code generated: _multianewarray5_Java (120 bytes)
+[0.10198] Dynamic code generated: dtrace_object_alloc Runtime1 stub (400 bytes)
+[0.10199] Dynamic code generated: unwind_exception Runtime1 stub (64 bytes)
+[0.10199] Dynamic code generated: forward_exception Runtime1 stub (464 bytes)
+[0.10199] Dynamic code generated: throw_range_check_failed Runtime1 stub (400 bytes)
+[0.10199] Dynamic code generated: throw_index_exception Runtime1 stub (400 bytes)
+[0.10200] Dynamic code generated: throw_div0_exception Runtime1 stub (400 bytes)
+[0.10200] Dynamic code generated: throw_null_pointer_exception Runtime1 stub (400 bytes)
+[0.10200] Dynamic code generated: register_finalizer Runtime1 stub (496 bytes)
+[0.10200] Dynamic code generated: new_instance Runtime1 stub (504 bytes)
+[0.10201] Dynamic code generated: fast_new_instance Runtime1 stub (960 bytes)
+[0.10201] Dynamic code generated: fast_new_instance_init_check Runtime1 stub (968 bytes)
+[0.10201] Dynamic code generated: new_type_array Runtime1 stub (1032 bytes)
+[0.10201] Dynamic code generated: new_object_array Runtime1 stub (1032 bytes)
+[0.10202] Dynamic code generated: new_multi_array Runtime1 stub (512 bytes)
+[0.10202] Dynamic code generated: handle_exception_nofpu Runtime1 stub (288 bytes)
+[0.10202] Dynamic code generated: handle_exception Runtime1 stub (488 bytes)
+[0.10202] Dynamic code generated: handle_exception_from_callee Runtime1 stub (152 bytes)
+[0.10202] Dynamic code generated: throw_array_store_exception Runtime1 stub (400 bytes)
+[0.10203] Dynamic code generated: throw_class_cast_exception Runtime1 stub (400 bytes)
+[0.10203] Dynamic code generated: throw_incompatible_class_change_error Runtime1 stub (400 bytes)
+[0.10203] Dynamic code generated: _multianewarrayN_Java (96 bytes)
+[0.10203] Dynamic code generated: _g1_wb_pre_Java (80 bytes)
+[0.10204] Dynamic code generated: _g1_wb_post_Java (80 bytes)
+[0.10204] Dynamic code generated: _complete_monitor_locking_Java (80 bytes)
+[0.10204] Dynamic code generated: _rethrow_Java (120 bytes)
+[0.10204] Dynamic code generated: _slow_arraycopy_Java (88 bytes)
+[0.10205] Dynamic code generated: _register_finalizer_Java (80 bytes)
+[0.10205] Dynamic code generated: slow_subtype_check Runtime1 stub (80 bytes)
+[0.10205] Dynamic code generated: monitorenter Runtime1 stub (480 bytes)
+[0.10205] Dynamic code generated: monitorenter_nofpu Runtime1 stub (280 bytes)
+[0.10206] Dynamic code generated: monitorexit Runtime1 stub (472 bytes)
+[0.10206] Dynamic code generated: monitorexit_nofpu Runtime1 stub (280 bytes)
+[0.10206] Dynamic code generated: deoptimize Runtime1 stub (472 bytes)
+[0.10206] Dynamic code generated: access_field_patching Runtime1 stub (912 bytes)
+[0.10207] Dynamic code generated: load_klass_patching Runtime1 stub (912 bytes)
+[0.10207] Dynamic code generated: load_mirror_patching Runtime1 stub (912 bytes)
+[0.10207] Dynamic code generated: load_appendix_patching Runtime1 stub (912 bytes)
+[0.10207] Dynamic code generated: g1_pre_barrier_slow Runtime1 stub (224 bytes)
+[0.10208] Dynamic code generated: g1_post_barrier_slow Runtime1 stub (176 bytes)
+[0.10208] Dynamic code generated: fpu2long_stub Runtime1 stub (184 bytes)
+[0.10208] Dynamic code generated: counter_overflow Runtime1 stub (480 bytes)
+[0.10208] Dynamic code generated: predicate_failed_trap Runtime1 stub (472 bytes)
+[0.10190] Loading class: java/io/FileOutputStream$1 (557 bytes)
+[0.10218] Class prepared: java/io/FileOutputStream$1
+[0.10284] Method compiled: java/lang/String.hashCode (512 bytes)
+[0.10292] Thread started: main
+[0.10313] Method compiled: java/lang/String.charAt (448 bytes)
+[0.10314] Method compiled: java/lang/String.length (224 bytes)
+[0.10314] Loading class: sun/launcher/LauncherHelper (14761 bytes)
+[0.10358] Dynamic code generated: I2C/C2I adapters(0xbebebea0)@0x00000001070141a0 (376 bytes)
+[0.10359] Dynamic code generated: I2C/C2I adapters(0xabbebebea0000000)@0x00000001070143a0 (384 bytes)
+[0.10360] Class prepared: sun/launcher/LauncherHelper
+[0.10386] Loading class: java/net/URLClassLoader$1 (1611 bytes)
+[0.10393] Class prepared: java/net/URLClassLoader$1
+[0.10481] Loading class: sun/net/util/URLUtil (1878 bytes)
+[0.10488] Class prepared: sun/net/util/URLUtil
+[0.10501] Method compiled: java/lang/System.arraycopy (496 bytes)
+[0.10507] Loading class: sun/misc/URLClassPath$3 (1658 bytes)
+[0.10514] Class prepared: sun/misc/URLClassPath$3
+[0.10522] Loading class: sun/misc/URLClassPath$JarLoader (10423 bytes)
+[0.10540] Loading class: sun/misc/URLClassPath$Loader (2655 bytes)
+[0.10547] Method compiled: java/lang/Object.<init> (192 bytes)
+[0.10552] Class prepared: sun/misc/URLClassPath$Loader
+[0.10556] Class prepared: sun/misc/URLClassPath$JarLoader
+[0.10560] Loading class: java/util/zip/ZipFile (10850 bytes)
+[0.10571] Loading class: java/util/zip/ZipConstants (1279 bytes)
+[0.10583] Class prepared: java/util/zip/ZipConstants
+[0.10590] Dynamic code generated: I2C/C2I adapters(0xbebebebaa0000000)@0x0000000107014ca0 (392 bytes)
+[0.10593] Dynamic code generated: I2C/C2I adapters(0xbeba0000)@0x0000000107014ea0 (360 bytes)
+[0.10595] Class prepared: java/util/zip/ZipFile
+[0.10636] Loading class: java/util/zip/ZipFile$1 (446 bytes)
+[0.10638] Loading class: sun/misc/JavaUtilZipFileAccess (191 bytes)
+[0.10642] Class prepared: sun/misc/JavaUtilZipFileAccess
+[0.10643] Class prepared: java/util/zip/ZipFile$1
+[0.10664] Class prepared: java/lang/StringBuffer
+[0.10669] Class prepared: java/lang/Short
+[0.10731] Method compiled: java/lang/AbstractStringBuilder.ensureCapacityInternal (960 bytes)
+[0.10763] Method compiled: java/lang/String.indexOf (736 bytes)
+[0.10794] Method compiled: java/lang/String.equals (1216 bytes)
+[0.10797] Loading class: sun/misc/URLClassPath$JarLoader$1 (2810 bytes)
+[0.10807] Method compiled: java/lang/Math.min (256 bytes)
+[0.10807] Class prepared: sun/misc/URLClassPath$JarLoader$1
+[0.10812] Loading class: sun/misc/FileURLMapper (992 bytes)
+[0.10817] Class prepared: sun/misc/FileURLMapper
+[0.10827] Loading class: java/util/jar/JarFile (11356 bytes)
+[0.10847] Class prepared: java/util/jar/JarFile
+[0.10850] Loading class: java/util/jar/JavaUtilJarAccessImpl (1761 bytes)
+[0.10852] Loading class: sun/misc/JavaUtilJarAccess (1020 bytes)
+[0.10857] Class prepared: sun/misc/JavaUtilJarAccess
+[0.10858] Class prepared: java/util/jar/JavaUtilJarAccessImpl
+[0.10866] Loading class: java/nio/charset/StandardCharsets (859 bytes)
+[0.10868] Method compiled: java/lang/AbstractStringBuilder.append (1664 bytes)
+[0.10871] Class prepared: java/nio/charset/StandardCharsets
+[0.10875] Loading class: sun/nio/cs/US_ASCII (1008 bytes)
+[0.10880] Class prepared: sun/nio/cs/US_ASCII
+[0.10888] Loading class: sun/nio/cs/ISO_8859_1 (1096 bytes)
+[0.10892] Class prepared: sun/nio/cs/ISO_8859_1
+[0.10902] Loading class: sun/nio/cs/UTF_16BE (826 bytes)
+[0.10906] Class prepared: sun/nio/cs/UTF_16BE
+[0.10915] Loading class: sun/nio/cs/UTF_16LE (829 bytes)
+[0.10918] Class prepared: sun/nio/cs/UTF_16LE
+[0.10926] Loading class: sun/nio/cs/UTF_16 (790 bytes)
+[0.10929] Class prepared: sun/nio/cs/UTF_16
+[0.10937] Loading class: java/util/ArrayDeque (7903 bytes)
+[0.10948] Loading class: java/util/Deque (1056 bytes)
+[0.10950] Loading class: java/util/Queue (426 bytes)
+[0.10976] Class prepared: java/util/Queue
+[0.10978] Class prepared: java/util/Deque
+[0.10983] Class prepared: java/util/ArrayDeque
+[0.10987] Loading class: java/util/zip/ZipCoder (3820 bytes)
+[0.10995] Class prepared: java/util/zip/ZipCoder
+[0.11051] Loading class: sun/misc/PerfCounter (2893 bytes)
+[0.11059] Class prepared: sun/misc/PerfCounter
+[0.11060] Loading class: sun/misc/Perf$GetPerfAction (563 bytes)
+[0.11063] Class prepared: sun/misc/Perf$GetPerfAction
+[0.11066] Loading class: sun/misc/Perf (3022 bytes)
+[0.11079] Class prepared: sun/misc/Perf
+[0.11079] Dynamic code generated: I2C/C2I adapters(0xbbaaba00)@0x0000000107017c20 (384 bytes)
+[0.11086] Dynamic code generated: I2C/C2I adapters(0xbbaabe00)@0x0000000107017e20 (384 bytes)
+[0.11084] Loading class: sun/misc/PerfCounter$CoreCounters (855 bytes)
+[0.11092] Class prepared: sun/misc/PerfCounter$CoreCounters
+[0.11099] Loading class: sun/nio/ch/DirectBuffer (225 bytes)
+[0.11103] Class prepared: sun/nio/ch/DirectBuffer
+[0.11105] Loading class: java/nio/DirectByteBuffer (12718 bytes)
+[0.11120] Loading class: java/nio/MappedByteBuffer (1757 bytes)
+[0.11132] Class prepared: java/nio/MappedByteBuffer
+[0.11134] Dynamic code generated: I2C/C2I adapters(0xbaaaab00)@0x0000000107018020 (384 bytes)
+[0.11143] Dynamic code generated: I2C/C2I adapters(0xbabebb00)@0x0000000107018220 (384 bytes)
+[0.11144] Class prepared: java/nio/DirectByteBuffer
+[0.11158] Loading class: java/nio/DirectLongBufferU (4376 bytes)
+[0.11163] Loading class: java/nio/LongBuffer (3990 bytes)
+[0.11174] Class prepared: java/nio/LongBuffer
+[0.11176] Class prepared: java/nio/DirectLongBufferU
+[0.11252] Loading class: sun/misc/JarIndex (5866 bytes)
+[0.11263] Class prepared: sun/misc/JarIndex
+[0.11314] Loading class: java/util/zip/ZipEntry (5473 bytes)
+[0.11328] Class prepared: java/util/zip/ZipEntry
+[0.11532] Loading class: java/util/jar/JarFile$JarFileEntry (1851 bytes)
+[0.11536] Loading class: java/util/jar/JarEntry (1077 bytes)
+[0.11542] Class prepared: java/util/jar/JarEntry
+[0.11543] Class prepared: java/util/jar/JarFile$JarFileEntry
+[0.11581] Loading class: java/util/zip/ZipFile$ZipFileInputStream (2162 bytes)
+[0.11588] Class prepared: java/util/zip/ZipFile$ZipFileInputStream
+[0.11594] Loading class: java/util/zip/Inflater (4048 bytes)
+[0.11607] Dynamic code generated: I2C/C2I adapters(0xbbebaa00)@0x0000000107018420 (384 bytes)
+[0.11608] Dynamic code generated: I2C/C2I adapters(0xbebaa000)@0x0000000107018620 (368 bytes)
+[0.11608] Class prepared: java/util/zip/Inflater
+[0.11639] Loading class: java/util/zip/ZStreamRef (365 bytes)
+[0.11643] Class prepared: java/util/zip/ZStreamRef
+[0.11670] Loading class: java/util/zip/ZipFile$ZipFileInflaterInputStream (2149 bytes)
+[0.11674] Loading class: java/util/zip/InflaterInputStream (3267 bytes)
+[0.11682] Class prepared: java/util/zip/InflaterInputStream
+[0.11683] Class prepared: java/util/zip/ZipFile$ZipFileInflaterInputStream
+[0.11757] Loading class: java/util/LinkedList (10194 bytes)
+[0.11768] Loading class: java/util/AbstractSequentialList (2062 bytes)
+[0.11786] Class prepared: java/util/AbstractSequentialList
+[0.11794] Class prepared: java/util/LinkedList
+[0.11797] Loading class: java/util/LinkedList$Node (717 bytes)
+[0.11800] Class prepared: java/util/LinkedList$Node
+[0.11828] Class prepared: java/lang/ReflectiveOperationException
+[0.11829] Class prepared: java/lang/ClassNotFoundException
+[0.11836] Loading class: sun/misc/URLClassPath$FileLoader (2162 bytes)
+[0.11841] Class prepared: sun/misc/URLClassPath$FileLoader
+[0.11874] Loading class: sun/misc/URLClassPath$FileLoader$1 (1300 bytes)
+[0.11878] Loading class: sun/misc/Resource (2292 bytes)
+[0.11885] Class prepared: sun/misc/Resource
+[0.11886] Class prepared: sun/misc/URLClassPath$FileLoader$1
+[0.11891] Method compiled: java/lang/StringBuilder.append (224 bytes)
+[0.11899] Method compiled: java/lang/ref/Reference.get (128 bytes)
+[0.11901] Loading class: sun/nio/ByteBuffered (211 bytes)
+[0.11919] Loading class: java/security/Permissions (5175 bytes)
+[0.11926] Loading class: java/security/PermissionCollection (1298 bytes)
+[0.11931] Class prepared: java/security/PermissionCollection
+[0.11933] Class prepared: java/security/Permissions
+[0.11944] Loading class: sun/net/www/protocol/file/FileURLConnection (5566 bytes)
+[0.11952] Loading class: sun/net/www/URLConnection (4113 bytes)
+[0.11957] Loading class: java/net/URLConnection (13972 bytes)
+[0.11978] Class prepared: java/net/URLConnection
+[0.11981] Class prepared: sun/net/www/URLConnection
+[0.11983] Class prepared: sun/net/www/protocol/file/FileURLConnection
+[0.11991] Loading class: sun/net/www/MessageHeader (8221 bytes)
+[0.12002] Class prepared: sun/net/www/MessageHeader
+[0.12015] Loading class: java/io/FilePermission (5715 bytes)
+[0.12026] Class prepared: java/io/FilePermission
+[0.12030] Loading class: java/io/FilePermission$1 (1344 bytes)
+[0.12034] Class prepared: java/io/FilePermission$1
+[0.12056] Loading class: java/io/FilePermissionCollection (3451 bytes)
+[0.12063] Class prepared: java/io/FilePermissionCollection
+[0.12070] Loading class: java/security/AllPermission (910 bytes)
+[0.12075] Loading class: java/security/UnresolvedPermission (7158 bytes)
+[0.12085] Loading class: java/security/BasicPermissionCollection (4677 bytes)
+[0.12093] Class prepared: java/security/BasicPermissionCollection
+[0.12109] Loading class: Main (721 bytes)
+[0.12130] Loading class: sun/launcher/LauncherHelper$FXHelper (3224 bytes)
+[0.12139] Class prepared: sun/launcher/LauncherHelper$FXHelper
+[0.12146] Loading class: java/lang/Class$MethodArray (3642 bytes)
+[0.12146] Method compiled: java/lang/String.indexOf (352 bytes)
+[0.12154] Class prepared: java/lang/Class$MethodArray
+[0.12165] Class prepared: Main
+[0.12180] Loading class: java/lang/Void (454 bytes)
+[0.12183] Class prepared: java/lang/Void
+[0.12223] Method compiled: java/lang/Number.<init> (288 bytes)
+[0.12238] Method compiled: java/lang/Integer.<init> (384 bytes)
+[0.12267] Method compiled: java/lang/Integer.valueOf (704 bytes)
+[0.12276] Method compiled: java/lang/Integer.intValue (128 bytes)
+[0.12351] Method compiled: java/lang/Integer.<init> (64 bytes)
+[0.12452] Method compiled: java/lang/Integer.valueOf (192 bytes)
+[0.13140] Method compiled: Main.loop (2144 bytes)
+[0.13185] Method compiled: java/lang/Integer.valueOf (704 bytes)
+[0.13238] Method compiled: Main.loop (2080 bytes)
+[0.13558] Method compiled: Main.loop (352 bytes)
+[0.13675] Method compiled: java/lang/Integer.valueOf (192 bytes)
+[0.14054] Method compiled: Main.loop (2144 bytes)
+[0.14493] Method compiled: Main.loop (352 bytes)
+[0.14707] GC started
+[0.14805] GC finished
+[0.15198] GC started
+[0.15300] GC finished
+[0.15647] GC started
+[0.15721] GC finished
+[0.16069] GC started
+[0.16162] GC finished
+[0.17722] GC started
+[0.17803] GC finished
+[0.18493] GC started
+[0.18569] GC finished
+[0.21609] GC started
+[0.21694] GC finished
+[0.23086] GC started
+[0.23133] GC finished
+[0.29188] GC started
+[0.29247] GC finished
+[0.31976] GC started
+[0.32023] GC finished
+[0.40339] GC started
+[0.40397] GC finished
+[0.44728] GC started
+[0.44771] GC finished
+[0.66551] GC started
+[0.66607] GC finished
+[0.74797] Thread finished: main
+[0.74809] Thread started: DestroyJavaVM
+[0.74812] Loading class: java/lang/Shutdown (2959 bytes)
+[0.74823] Class prepared: java/lang/Shutdown
+[0.74826] Loading class: java/lang/Shutdown$Lock (377 bytes)
+[0.74829] Class prepared: java/lang/Shutdown$Lock
+[0.74839] Thread finished: DestroyJavaVM
+[0.74840] VM destroyed
