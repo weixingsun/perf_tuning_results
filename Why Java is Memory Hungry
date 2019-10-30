@@ -51,6 +51,9 @@ Tools: BCC, Stream
 
 bcc on stream:
 -------------------------------------------------------------------------------------
+run:
+st250:/home/sun/jbb/stream/archive # ./measure_malloc.sh &
+-------------------------------------------------------------------------------------
 st250:/home/sun/jbb/stream/archive # cat func_arg_kmalloc.log
 [18:25:31]
      size                : count     distribution
