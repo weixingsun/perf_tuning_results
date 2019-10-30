@@ -39,7 +39,7 @@ BCC tools is a very neat set of open-source profiling/tracing tools, which is av
 
 5. Measurements
 
-There are 2 steps: bcc on stream & bcc on jbb2015
+There are 2 steps: bcc on stream & bcc on jbb2015 (perhaps using PCM would be better)
 
 Hardware:
 CPU: Intel Xeon E-2186G CPU @ 3.80GHz
