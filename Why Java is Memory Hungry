@@ -52,7 +52,7 @@ Tools: BCC, Stream
 bcc on stream:
 -------------------------------------------------------------------------------------
 run:
-st250:/home/sun/jbb/stream/archive # ./measure_malloc.sh &
+st250:/home/sun/jbb/stream/test/mem # ./measure_malloc.sh &
 -------------------------------------------------------------------------------------
 st250:/home/sun/jbb/stream/archive # cat func_arg_kmalloc.log
 [18:25:31]
@@ -62,19 +62,19 @@ st250:/home/sun/jbb/stream/archive # cat func_arg_kmalloc.log
          4 -> 7          : 36       |****************************************|
          8 -> 15         : 15       |****************                        |
         16 -> 31         : 12       |*************                           |
-st250:/home/sun/jbb/stream/archive # cat funccount_kmalloc.log
+st250:/home/sun/jbb/stream/test/mem # cat funccount_kmalloc.log
 Tracing 1 functions for "__kmalloc"... Hit Ctrl-C to end.
 
 FUNC                                    COUNT
 __kmalloc                                 728
 Detaching...
-st250:/home/sun/jbb/stream/archive # cat funccount_kmalloc_slab.log
+st250:/home/sun/jbb/stream/test/mem # cat funccount_kmalloc_slab.log
 Tracing 1 functions for "kmalloc_slab"... Hit Ctrl-C to end.
 
 FUNC                                    COUNT
 kmalloc_slab                              919
 Detaching...
-st250:/home/sun/jbb/stream/archive # cat funclatency_kmalloc.log
+st250:/home/sun/jbb/stream/test/mem # cat funclatency_kmalloc.log
 Tracing 1 functions for "__kmalloc"... Hit Ctrl-C to end.
 
      nsecs               : count     distribution
@@ -94,7 +94,7 @@ Tracing 1 functions for "__kmalloc"... Hit Ctrl-C to end.
       8192 -> 16383      : 10       |*                                       |
      16384 -> 32767      : 6        |*                                       |
 Detaching...
-st250:/home/sun/jbb/stream # cat funclatency_kmalloc_slab.log
+st250:/home/sun/jbb/stream/test/mem # cat funclatency_kmalloc_slab.log
 Tracing 1 functions for "kmalloc_slab"... Hit Ctrl-C to end.
 
      nsecs               : count     distribution
