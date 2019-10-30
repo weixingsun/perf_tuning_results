@@ -20,8 +20,12 @@ GraalVM total GC time: 1030 ms, avg pause time: 9ms, throughput = 99.28%, garbag
 V8: almost no garbage !! stack allocation?
 very small # of network traffic, mainly from lo
 
+Update 20191010: wrote heapsampler.cpp for analyzing object numbers before/after GC, but it looks not very accurate. (JDK13)
+Will try older version API later
 
-Both Node.js & GraalVM generated saturation workload on specific CPU:
+
+
+Both Node.js & GraalVM generated saturated workload on specific CPU:
 ###########################################################################
 [root@dr1 jbb]# mpstat -P 3 3 3
 Linux 3.10.0-862.11.6.el7.x86_64 (dr1)  11/15/2018      _x86_64_        (112 CPU)
