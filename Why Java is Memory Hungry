@@ -39,7 +39,7 @@ BCC tools is a very neat set of open-source profiling/tracing tools, which is av
 
 5. Measurements
 
-There are 2 steps: bcc on stream & bcc on jbb2015
+There are 2 steps: bcc on stream & bcc on jbb2015 (PCM number shows both jbb & stream reached the highest bandwidth of this server)
 
 Hardware:
 CPU: Intel Xeon E-2186G CPU @ 3.80GHz
@@ -51,6 +51,16 @@ Tools: BCC, Stream
 
 bcc on stream:
 -------------------------------------------------------------------------------------
+st250:/home/sun/jbb/stream/test/mem # cat measure_malloc.sh
+SECONDS=10
+export LD_LIBRARY_PATH=/usr/local/lib/bcc:$LD_LIBRARY_PATH
+/home/sun/jbb/bcc/tools/funclatency -d $SECONDS kmalloc_slab > funclatency_kmalloc_slab.log &
+/home/sun/jbb/bcc/tools/funccount   -d $SECONDS kmalloc_slab > funccount_kmalloc_slab.log &
+/home/sun/jbb/bcc/tools/funclatency -d $SECONDS __kmalloc > funclatency_kmalloc.log &
+/home/sun/jbb/bcc/tools/funccount   -d $SECONDS __kmalloc > funccount_kmalloc.log &
+/home/sun/jbb/bcc/tools/argdist -n 3 -d $SECONDS -H 'p::__kmalloc(size_t size):size_t:size' > func_arg_kmalloc.log &
+st250:/home/sun/jbb/stream/test/mem # ./measure_malloc.sh &
+-------------------------------------------------------------------------------------
 st250:/home/sun/jbb/stream/archive # cat func_arg_kmalloc.log
 [18:25:31]
      size                : count     distribution
@@ -59,19 +69,19 @@ st250:/home/sun/jbb/stream/archive # cat func_arg_kmalloc.log
          4 -> 7          : 36       |****************************************|
          8 -> 15         : 15       |****************                        |
         16 -> 31         : 12       |*************                           |
-st250:/home/sun/jbb/stream/archive # cat funccount_kmalloc.log
+st250:/home/sun/jbb/stream/test/mem # cat funccount_kmalloc.log
 Tracing 1 functions for "__kmalloc"... Hit Ctrl-C to end.
 
 FUNC                                    COUNT
 __kmalloc                                 728
 Detaching...
-st250:/home/sun/jbb/stream/archive # cat funccount_kmalloc_slab.log
+st250:/home/sun/jbb/stream/test/mem # cat funccount_kmalloc_slab.log
 Tracing 1 functions for "kmalloc_slab"... Hit Ctrl-C to end.
 
 FUNC                                    COUNT
 kmalloc_slab                              919
 Detaching...
-st250:/home/sun/jbb/stream/archive # cat funclatency_kmalloc.log
+st250:/home/sun/jbb/stream/test/mem # cat funclatency_kmalloc.log
 Tracing 1 functions for "__kmalloc"... Hit Ctrl-C to end.
 
      nsecs               : count     distribution
@@ -91,7 +101,7 @@ Tracing 1 functions for "__kmalloc"... Hit Ctrl-C to end.
       8192 -> 16383      : 10       |*                                       |
      16384 -> 32767      : 6        |*                                       |
 Detaching...
-st250:/home/sun/jbb/stream # cat funclatency_kmalloc_slab.log
+st250:/home/sun/jbb/stream/test/mem # cat funclatency_kmalloc_slab.log
 Tracing 1 functions for "kmalloc_slab"... Hit Ctrl-C to end.
 
      nsecs               : count     distribution
