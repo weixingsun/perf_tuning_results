@@ -9,7 +9,8 @@ creating build
 creating build/temp.linux-aarch64-3.7
 aarch64-linux-android-clang -Wno-unused-result -Wsign-compare -Wunreachable-code -DNDEBUG -g -fwrapv -O3 -Wall -Oz -Oz -fPIC -I/data/data/com.termux/files/usr/include/python3.7m -c fib.c -o build/temp.linux-aarch64-3.7/fib.o
 aarch64-linux-android-clang -shared -L/data/data/com.termux/files/usr/lib -Wl,-rpath=/data/data/com.termux/files/usr/lib -Wl,--enable-new-dtags -landroid-support -L/home/builder/.termux-build/_cache/android-r20-api-24-v1/sysroot/usr/lib -L/data/data/com.termux/files/usr/lib -Wl,-rpath=/data/data/com.termux/files/usr/lib -Wl,--enable-new-dtags -landroid-support -L/home/builder/.termux-build/_cache/android-r20-api-24-v1/sysroot/usr/lib build/temp.linux-aarch64-3.7/fib.o -L/data/data/com.termux/files/usr/lib -lpython3.7m -o /data/data/com.termux/files/home/perf_tuning_results/test/python/fib.cpython-37m.so
-Python: 1.000x : 3.53670
-Cython: 1.008x : 3.50764
-Cython Static: 13198.173x : 0.00027
-$ 
+
+
+Python: 8.02360 seconds 1.000x
+Cython: 7.90431 seconds 1.015x
+Static: 0.00057 seconds 14133.495x
