@@ -15,4 +15,4 @@ tcs = timeit.Timer( functools.partial(fib.fibonacci_cy_styping, NUM) ). timeit(T
 
 print("Python: 1.000x : {0:.5f}".format(tp))
 print("Cython: {0:.3f}x : {1:.5f}".format(tp/tc, tc))
-print("Cython Static: {0:.3f}x : {1.:.5f}".format(tp/tcs, tcs))
+print("Cython Static: {0:.3f}x : {1:.5f}".format(tp/tcs, tcs))
