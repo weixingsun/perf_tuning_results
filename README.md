@@ -8,4 +8,4 @@ various performance observations, tunings and results, please go to wiki
 5. [Latency Chart](https://github.com/weixingsun/perf_tuning_results/wiki/Latency-Chart)
 6. [Docker CPU Performance Overhead](https://github.com/weixingsun/perf_tuning_results/wiki/Docker-CPU-Performance-Overhead)
 7. [JVM-Flag-Deltas-for-7,8,9,10,11](https://github.com/weixingsun/perf_tuning_results/wiki/JVM-Flag-Deltas-for-7,8,9,10,11)
-8. [Python,-Cython,-and-then-14000x-speed-up] (https://github.com/weixingsun/perf_tuning_results/wiki/Python,-Cython,-and-then-14000x-speed-up)
+8. [Python,-Cython,-and-then-14000x-speed-up](https://github.com/weixingsun/perf_tuning_results/wiki/Python,-Cython,-and-then-14000x-speed-up)
