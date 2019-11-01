@@ -8,11 +8,11 @@ def fibonacci_py(n):
     return b
 
 NUM=500000
+TIMES=1
+tp  = timeit.Timer( functools.partial(fibonacci_py, NUM) ). timeit(TIMES)
+tc  = timeit.Timer( functools.partial(fib.fibonacci_cy, NUM) ). timeit(TIMES)
+tcs = timeit.Timer( functools.partial(fib.fibonacci_cy_styping, NUM) ). timeit(TIMES)
 
-tp  = timeit.Timer( functools.partial(fibonacci_py, NUM) )
-tc  = timeit.Timer( functools.partial(fib.fibonacci_cy, NUM) )
-tcs = timeit.Timer( functools.partial(fib.fibonacci_cy_styping, NUM) )
-
-print("Python: "+str(tp.timeit(1)))
-print("Cython: "+str(tc.timeit(1)))
-print("Cython Static: "+str(tcs.timeit(1)))
+print("Python: 1.000x : {0:.5f}".format(tp))
+print("Cython: {0:.3f}x : {1:.5f}".format(tp/tc, tc))
+print("Cython Static: {0:.3f}x : {1.:.5f}".format(tp/tcs, tcs))
