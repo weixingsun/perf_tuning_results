@@ -1,0 +1,15 @@
+./run.sh
+Compiling fib.pyx because it changed.
+[1/1] Cythonizing fib.pyx
+/data/data/com.termux/files/usr/lib/python3.7/site-packages/Cython/Compiler/Main.py:369: FutureWarning: Cython directive 'language_level' not set, using 2 for now (Py2). This will change in a later release! File: /data/data/com.termux/files/home/perf_tuning_results/test/python/fib.pyx
+  tree = Parsing.p_module(s, pxd, full_module_name)
+running build_ext
+building 'fib' extension
+creating build
+creating build/temp.linux-aarch64-3.7
+aarch64-linux-android-clang -Wno-unused-result -Wsign-compare -Wunreachable-code -DNDEBUG -g -fwrapv -O3 -Wall -Oz -Oz -fPIC -I/data/data/com.termux/files/usr/include/python3.7m -c fib.c -o build/temp.linux-aarch64-3.7/fib.o
+aarch64-linux-android-clang -shared -L/data/data/com.termux/files/usr/lib -Wl,-rpath=/data/data/com.termux/files/usr/lib -Wl,--enable-new-dtags -landroid-support -L/home/builder/.termux-build/_cache/android-r20-api-24-v1/sysroot/usr/lib -L/data/data/com.termux/files/usr/lib -Wl,-rpath=/data/data/com.termux/files/usr/lib -Wl,--enable-new-dtags -landroid-support -L/home/builder/.termux-build/_cache/android-r20-api-24-v1/sysroot/usr/lib build/temp.linux-aarch64-3.7/fib.o -L/data/data/com.termux/files/usr/lib -lpython3.7m -o /data/data/com.termux/files/home/perf_tuning_results/test/python/fib.cpython-37m.so
+Python: 1.000x : 3.53670
+Cython: 1.008x : 3.50764
+Cython Static: 13198.173x : 0.00027
+$ 
