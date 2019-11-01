@@ -5,4 +5,4 @@ python setup.py build_ext --inplace
 
 python main.py
 
-rm fib.c fib.cpython*.so
+rm -rf build fib.c fib.cpython*.so
