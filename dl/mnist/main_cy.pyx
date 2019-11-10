@@ -26,8 +26,9 @@ class Net(nn.Module):
         x = self.fc2(x)
         return F.log_softmax(x, dim=1)
     
-def train(args, model, device, train_loader, optimizer, epoch):
+def train(args, model, device, train_loader, optimizer, int epoch):
     model.train()
+    cdef batch_idx=0
     for batch_idx, (data, target) in enumerate(train_loader):
         data, target = data.to(device), target.to(device)
         optimizer.zero_grad()
@@ -42,8 +43,8 @@ def train(args, model, device, train_loader, optimizer, epoch):
 
 def test(args, model, device, test_loader):
     model.eval()
-    test_loss = 0
-    correct = 0
+    cdef int test_loss = 0
+    cdef int correct = 0
     with torch.no_grad():
         for data, target in test_loader:
             data, target = data.to(device), target.to(device)
