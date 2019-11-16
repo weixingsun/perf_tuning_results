@@ -1,10 +1,27 @@
 from hyperopt import fmin, hp, tpe, STATUS_OK, Trials, space_eval
-import csv
+import csv, time
+
+current_ms = lambda: int(round(time.time() * 1000))
+def start_benchmark():
+    #print("___benchmarking___")
+    pass
+
+def change_bios(k,v):
+    #print("bios: ",k,"=",v) #skip this
+    pass
+
+def ext(kv):
+    for k,v in kv.items():
+        change_bios(k,v)
+    start_benchmark()
+
+def get_score():
+    return current_ms()
 
 def F(S):
-    for k,v in S.items():
-        print(k, v)
-    score = 0 #ext()
+    ext(S)
+    #time.sleep(5)
+    score = get_score()
     l = -score
     ret = {'loss': l, 'status':STATUS_OK}
     return ret
@@ -41,11 +58,11 @@ def space_build():
 def space_size():
     return 50
 
-def opt(S,F):
+def opt(s,f):
     T = Trials()
     best = fmin(
-        fn=F,
-        space=S,
+        fn=f,
+        space=s,
         algo=tpe.suggest,
         max_evals=space_size(),
         trials=T)
@@ -68,12 +85,15 @@ def print_results(S,R):
 
 def main():
     S = space_build()
-    F = 1
     R,T = opt(S,F)
     print_trial(T)
     print_results(S,R)
 
-#main()
-B = "bios_options.txt"
-S = bios_space_build(B)
-F(S)
+def main2():
+    B = "bios_options.txt"
+    S = bios_space_build(B)
+    R,T = opt(S,F)
+    #print_trial(T)
+    print_results(S,R)
+    
+main2()
