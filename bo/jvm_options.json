@@ -1,0 +1,22 @@
+{
+  VAR_OPTIONS : { 
+    'NewSize': ['40m','100m' ],
+    'MaxHeapSize':['200m'],
+    'InitialHeapSize':['200m'],
+    'MetaspaceSize':['25m'],
+    'ThreadStackSize':['256k','512k'],
+    'CICompilerCount':['2','8'],
+    'UseAVX':['0','2'],
+    'ParallelGCThreads':['4','8'],
+    'AllocatePrefetchInstr':['2','8'],
+  },
+  SIGN_OPTIONS : {
+    'UseTransparentHugePages':['+','-'],
+    'UseLargePages':['+','-'],
+    'UsePerfData':['+','-'],
+    'UseBiasedLocking':['+','-'],
+    'AlwaysPreTouch':['+','-'],
+    'UseAdaptiveSizePolicy':['+','-'],
+    'UseParallelOldGC':['+','-'],
+  }
+}
