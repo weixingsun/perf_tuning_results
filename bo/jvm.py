@@ -3,6 +3,10 @@ import csv, time, os, timeit, json
 
 # "UseTransparentHugePages":["+","-"],
 # "UseLargePages":["+","-"],
+import sys
+
+LOOPS = 2
+OS_LINUX = "linux"
 
 def current_ms():
     return int(round(time.time() * 1000))
@@ -13,7 +17,7 @@ def start_benchmark(kv):
     cmd = 'java ' + array_to_str(ja,' ') + ' -version > /dev/null 2>&1 '
     #os.system(cmd)
     #print("start_benchmark: "+cmd)
-    return timeit.timeit("os.system('"+cmd+"')", setup="import os", number=1)
+    return timeit.timeit("os.system('"+cmd+"')", setup="import os", number=LOOPS)
 
 
 def array_to_str(jo,sep):
@@ -24,7 +28,10 @@ def gen_options(kv):
     jo = []
     for k, v in kv.items():
         if v in ['+','-']:
-            jo.append("-XX:"+v+k)
+            if k == 'UseLargePages' and sys.platform[:5] == OS_LINUX:
+                jo.append("-XX:+UseTransparentHugePages")
+            else:
+                jo.append("-XX:"+v+k)
         else:
             jo.append("-XX:"+k+"="+v)
     return jo
