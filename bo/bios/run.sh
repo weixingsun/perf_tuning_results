@@ -16,3 +16,4 @@ do_pyinstaller() {
 }
 
 do_cython
+./bios.exe --space=./bios_options.txt --score=./score.sh --stress=./stream.sh
