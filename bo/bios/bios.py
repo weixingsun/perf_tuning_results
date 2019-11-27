@@ -1,6 +1,6 @@
 # cython: language_level=3, boundscheck=False, optimize.unpack_method_calls=False
 from hyperopt import fmin, hp, tpe, STATUS_OK, Trials, space_eval
-import csv, time, pprint, json
+import csv, time, pprint, json, argparse
 
 current_ms = lambda: int(round(time.time() * 1000))
 def start_benchmark():
@@ -99,6 +99,12 @@ def main():
     print_results(S,R)
 
 def main():
+    parser = argparse.ArgumentParser(description='Find Best Options:')
+    parser.add_argument('--space', type=string, default="", help='input the space definition file')
+    parser.add_argument('--stress', type=string, default="", help='input the workload entry')
+    parser.add_argument('--score', type=string, default="", help='input the score entry')
+    args = parser.parse_args()
+
     B = "bios_options.txt"
     S = space_build(B)
     R,T = opt(S,F)
