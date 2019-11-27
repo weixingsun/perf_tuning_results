@@ -1,0 +1,18 @@
+{
+    "NewSize": ["40m","80m" ],
+    "MaxHeapSize":["100m","200m"],
+    "InitialHeapSize":["100m","200m"],
+    "MetaspaceSize":["20m","50m"],
+    "ThreadStackSize":["256k","512k"],
+    "CICompilerCount":["2","4","8"],
+    "UseAVX":["0","1","2"],
+    "ParallelGCThreads":["2","4","8"],
+    "AllocatePrefetchInstr":["0","1","2"],
+
+    "UseLargePages": ["+","-"],
+    "UsePerfData":["+","-"],
+    "UseBiasedLocking":["+","-"],
+    "AlwaysPreTouch":["+","-"],
+    "UseAdaptiveSizePolicy":["+","-"],
+    "UseParallelOldGC":["+","-"]
+}
