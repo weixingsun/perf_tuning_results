@@ -1,8 +1,9 @@
 # cython: language_level=3, boundscheck=False, optimize.unpack_method_calls=False
 from hyperopt import fmin, hp, tpe, STATUS_OK, Trials, space_eval
-import os, time, pprint, json, argparse, subprocess
+import os, time, pprint, json, argparse, subprocess, tempfile
 
 args = {}
+TMPDIR = tempfile.gettempdir()
 
 def change_1_settings(k, v):
     os.system("./"+args.setkv+" \""+k+"\" \""+v+"\"")
@@ -12,14 +13,14 @@ def change_env(kv):
         change_1_settings(str(k), str(v))
 
 def get_score(pid):
-    fname = "/tmp/"+str(pid)+".json"
+    fname = TMPDIR+"/"+str(pid)+".json"
     while os.path.getsize(fname) < 1:
         time.sleep(1)
     return float(read_kv_json(fname)["score"])
 
 def start_benchmark(fname):
     pid = subprocess.Popen(['/bin/bash', '-c', "./"+fname]).pid
-    open("/tmp/"+str(pid)+".json", 'w').close()
+    open(TMPDIR+"/"+str(pid)+".json", 'w').close()
     return pid
 
 def do_run(kv):
@@ -108,6 +109,6 @@ def main():
     best, trial = opt(space, loops, do_run)
     # print_trial(trial)
     print_results(space, best)
-    os.system("rm /tmp/*.json")
+    os.system("rm $TMPDIR/*.json")
 
 main()

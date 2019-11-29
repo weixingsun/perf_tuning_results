@@ -54,11 +54,10 @@
  *          that should be good to about 5% precision.
  */
 
-/* # define N	2000000 */
-/*# define N	160000000*/	
+#ifndef NTIMES
+#   define NTIMES	10
+#endif
 # define N	80000000 
-/* # define NTIMES	10 */
-# define NTIMES	100
 # define OFFSET	0
 
 /*
