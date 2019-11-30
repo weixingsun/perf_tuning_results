@@ -2,32 +2,39 @@
 from hyperopt import fmin, hp, tpe, STATUS_OK, Trials, space_eval
 import os, time, pprint, json, argparse, subprocess, tempfile
 
-args = {}
+CONFIG = {}
 TMPDIR = tempfile.gettempdir()
+SEP = "/"
 
 def change_1_settings(k, v):
-    os.system("./"+args.setkv+" \""+k+"\" \""+v+"\"")
+    global CONFIG 
+    variable = CONFIG["cmd"]
+    cmd=variable.replace("KEY",k).replace("VALUE",v)
+    #print(cmd)
+    os.system(cmd)
 
 def change_env(kv):
     for k, v in kv.items():
         change_1_settings(str(k), str(v))
 
 def get_score(pid):
-    fname = TMPDIR+"/"+str(pid)+".json"
+    fname = TMPDIR+SEP+str(pid)+".json"
     while os.path.getsize(fname) < 1:
         time.sleep(1)
     return float(read_kv_json(fname)["score"])
 
 def start_benchmark(fname):
     pid = subprocess.Popen(['/bin/bash', '-c', "./"+fname]).pid
-    open(TMPDIR+"/"+str(pid)+".json", 'w').close()
+    open(TMPDIR+SEP+str(pid)+".json", 'w').close()
     return pid
 
 def do_run(kv):
-    global args
+    global CONFIG
     change_env(kv)
-    score = get_score(start_benchmark(args.stress))
-    loss = -score
+    score = get_score(start_benchmark(CONFIG["benchmark"]))
+    loss = score
+    if CONFIG["score"]=="+":
+        loss = -score
     ret = {'loss': loss, 'status': STATUS_OK}
     return ret
 
@@ -57,8 +64,8 @@ def read_kv_txt(path):
             kv[k] = lv
     return kv
 
-def space_build(f):
-    kv = read_key_values(f)
+def space_build(kv):
+    #kv = read_key_values(f)
     space = {}
     max_evals = 0
     for k, v in kv.items():
@@ -99,13 +106,12 @@ def arg_file_exist(fname):
     return fname
 
 def main():
-    global args
+    global CONFIG 
     parser = argparse.ArgumentParser(description='Find Best Options:')
-    parser.add_argument('--space', type=arg_file_exist, default="", help='input the space definition')
-    parser.add_argument('--stress', type=arg_file_exist, default="", help='input the workload entry')
-    parser.add_argument('--setkv', type=arg_file_exist, default="", help='input the score entry')
+    parser.add_argument('--config', type=arg_file_exist, default="", help='input the configuration')
     args = parser.parse_args()
-    space,loops = space_build(args.space)
+    CONFIG = read_kv_json(args.config)
+    space,loops = space_build(CONFIG["options"])
     best, trial = opt(space, loops, do_run)
     # print_trial(trial)
     print_results(space, best)
