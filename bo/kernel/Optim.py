@@ -1,10 +1,33 @@
 # cython: language_level=3, boundscheck=False, optimize.unpack_method_calls=False
 from hyperopt import fmin, hp, tpe, STATUS_OK, Trials, space_eval
-import os, time, pprint, json, argparse, subprocess, tempfile
+import os, sys, time, pprint, json, argparse, subprocess, tempfile
 
 CONFIG = {}
 TMPDIR = tempfile.gettempdir()
+OS_LINUX="linux"
 SEP = "/"
+
+def array_to_str(jo,sep):
+    return sep.join(str(e) for e in jo)
+
+def add_param(cmd1,param):
+    arr=cmd1.split(" ")
+    arr2=[arr[0]]+arr
+    arr2[1]=param
+    s = array_to_str(arr2," ")
+    return "\""+s+"\""
+
+def gen_options(kv):
+    jo = []
+    for k, v in kv.items():
+        if v in ['+','-']:
+            if k == 'UseLargePages' and sys.platform[:5] == OS_LINUX:
+                jo.append("-XX:+UseTransparentHugePages")
+            else:
+                jo.append("-XX:"+v+k)
+        else:
+            jo.append("-XX:"+k+"="+v)
+    return jo
 
 def change_1_settings(k, v):
     global CONFIG 
@@ -30,8 +53,13 @@ def start_benchmark(fname):
 
 def do_run(kv):
     global CONFIG
-    change_env(kv)
-    score = get_score(start_benchmark(CONFIG["benchmark"]))
+    cmd = CONFIG["benchmark"]
+    if CONFIG["cmd"] == "join":
+        opts=array_to_str(gen_options(kv),' ')
+        cmd=add_param(cmd,opts)
+    else:
+        change_env(kv)
+    score = get_score(start_benchmark(cmd))
     loss = score
     if CONFIG["score"]=="+":
         loss = -score
