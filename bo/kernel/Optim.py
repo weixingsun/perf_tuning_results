@@ -54,7 +54,7 @@ def start_benchmark(fname):
 def do_run(kv):
     global CONFIG
     cmd = CONFIG["benchmark"]
-    if CONFIG["cmd"] == "join":
+    if CONFIG["cmd"] == "param":
         opts=array_to_str(gen_options(kv),' ')
         opts= "\""+opts+"\""
         cmd=add_param(cmd,opts)
