@@ -30,5 +30,6 @@
     "L0p" : ["Disable","Enable"],
     "StaleAtoS" : ["Disable","Enable"],
     "LLCdeadlinealloc" : ["Disable","Enable"]
-  }
+  },
+  "notes":"benchmark should be single file, no redirection allowed; join means put all options together as a string; score=- means get min value"
 }

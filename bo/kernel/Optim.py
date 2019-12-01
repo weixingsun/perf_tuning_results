@@ -14,8 +14,7 @@ def add_param(cmd1,param):
     arr=cmd1.split(" ")
     arr2=[arr[0]]+arr
     arr2[1]=param
-    s = array_to_str(arr2," ")
-    return "\""+s+"\""
+    return array_to_str(arr2," ")
 
 def gen_options(kv):
     jo = []
@@ -42,6 +41,7 @@ def change_env(kv):
 
 def get_score(pid):
     fname = TMPDIR+SEP+str(pid)+".json"
+    #print("py.get_score:"+fname)
     while os.path.getsize(fname) < 1:
         time.sleep(1)
     return float(read_kv_json(fname)["score"])
@@ -56,7 +56,9 @@ def do_run(kv):
     cmd = CONFIG["benchmark"]
     if CONFIG["cmd"] == "join":
         opts=array_to_str(gen_options(kv),' ')
+        opts= "\""+opts+"\""
         cmd=add_param(cmd,opts)
+        #print(cmd)
     else:
         change_env(kv)
     score = get_score(start_benchmark(cmd))
