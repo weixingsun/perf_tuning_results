@@ -31,5 +31,5 @@
     "StaleAtoS" : ["Disable","Enable"],
     "LLCdeadlinealloc" : ["Disable","Enable"]
   },
-  "notes":"benchmark should be single file, no redirection allowed; join means put all options together as a string; score=- means get min value"
+  "notes":"benchmark should be single file, no redirection allowed; cmd=param means put all options together as a param of benchmark script; score=- means get min value"
 }
