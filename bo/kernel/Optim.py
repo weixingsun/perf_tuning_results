@@ -101,6 +101,7 @@ def space_build(kv):
     for k, v in kv.items():
         space[k] = hp.choice(k, v)
         max_evals += len(v)
+    max_evals *= len(kv)
     return space, max_evals
 
 def opt(space, max_evals, fn):
