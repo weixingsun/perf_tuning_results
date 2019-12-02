@@ -145,6 +145,6 @@ def main():
     best, trial = opt(space, loops, do_run)
     # print_trial(trial)
     print_results(space, best)
-    os.system("rm $TMPDIR/*.json")
+    os.system("rm "+TMPDIR+"/*.json")
 
 main()
