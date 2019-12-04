@@ -17,12 +17,14 @@ do_cython() {
   PY_OPT=" $(python3-config --cflags)  $(python3-config --ldflags) "
   CMD="$CC $OPT $SRCC -o $BIN $PY_OPT -lz "
   OS=`uname`
-  if [[ $OS -eq "Darwin" ]]; then
+  if [ "$OS" == "Darwin" ]; then
     #dynamic
+    echo "Mac OSX"
     STATIC=""
     CMD2="$CMD"
   else
-    CMD2=`echo "$CMD -static"|sed -e "s/dynamic/static/g"`
+    echo "Not Mac OSX"
+    CMD2="$CMD -static"
   fi
   #gcc tuner.c -o tuner.exe $(python3-config --cflags) $(python3-config --ldflags)
   echo $CMD2
