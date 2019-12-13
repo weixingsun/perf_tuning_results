@@ -63,7 +63,7 @@ def do_run(kv):
         change_env(kv)
     score = get_score(start_benchmark(cmd))
     loss = score
-    if CONFIG["score"]=="+":
+    if CONFIG["best"]=="+":
         loss = -score
     ret = {'loss': loss, 'status': STATUS_OK}
     return ret
