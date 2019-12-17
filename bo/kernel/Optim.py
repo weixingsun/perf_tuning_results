@@ -97,11 +97,13 @@ def read_kv_txt(path):
 def space_build(kv):
     #kv = read_key_values(f)
     space = {}
-    max_evals = 0
+    max_evals = 1
     for k, v in kv.items():
         space[k] = hp.choice(k, v)
-        max_evals += len(v)
-    max_evals *= len(kv)
+        max_evals *= len(v)
+        #max_evals += len(v)
+    #max_evals *= len(kv)
+    #print("iterations =",max_evals)
     return space, max_evals
 
 def opt(space, max_evals, fn):

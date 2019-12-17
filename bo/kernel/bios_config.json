@@ -1,9 +1,12 @@
 {
   "benchmark":"./stream.sh",
   "cmd":"./bios.sh \"KEY\" \"VALUE\" >/dev/null 2>&1",
-  "score":"+",
-  "output":"PID.json",
+  "best":"+",
   "options": {
+    "TurboMode" : ["Disable","Enable"],
+    "CPUPstateControl" : ["Disable","Enable"]
+  },
+  "options1": {
     "TurboMode" : ["Disable","Enable"],
     "CPUPstateControl" : ["Disable","Enable"],
     "CStates" : ["Disable","Enable"],
