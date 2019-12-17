@@ -1,11 +1,12 @@
 # cython: language_level=3, boundscheck=False, optimize.unpack_method_calls=False
-from hyperopt import fmin, hp, tpe, STATUS_OK, Trials, space_eval
+from hyperopt import pyll, fmin, hp, tpe, STATUS_OK, Trials, space_eval
 import os, sys, time, pprint, json, argparse, subprocess, tempfile
 
 CONFIG = {}
 TMPDIR = tempfile.gettempdir()
 OS_LINUX="linux"
 SEP = "/"
+pp = pprint.PrettyPrinter(indent=4)
 
 def array_to_str(jo,sep):
     return sep.join(str(e) for e in jo)
@@ -111,26 +112,40 @@ def opt(space, max_evals, fn):
     best = fmin(
         fn=fn,
         space=space,
-        algo=tpe.suggest,
+        algo=tpe.suggest, #hyperopt.tpe.suggest, hyperopt.random.suggest, #adaptive TPE
         max_evals=max_evals,
         trials=t)
     return best, t
 
-def print_trial(tr):
-    print("trials:")
-    for t in tr.trials:
-        k = t['misc']['vals']
+def print_trial(space, trial_obj, flag):
+    if flag == 0:
+        return
+    print("==================================")
+    print("Print Logs:")
+    for t in trial_obj.trials:
+        r = t['misc']['vals']
         # v = space_eval(s,k)
         l: int = t['result']['loss']
         # print("v: ", v, "loss: ", l)
-        print("key: ", k, "loss: ", l)
+        print("Score:", abs(l), " : ", space_eval_trial(space,r) )
         # print(t)
 
-def print_results(s, r):
-    print("=================================")
-    # print("best id:    ", R)
-    # print("best value: ", space_eval(S,R))
-    pp = pprint.PrettyPrinter(indent=4)
+def space_eval_trial(space, trial):
+    space = pyll.as_apply(space)
+    nodes = pyll.toposort(space)
+    memo = {}
+    for node in nodes:
+        if node.name == 'hyperopt_param':
+            label = node.arg['label'].eval()
+            if label in trial:
+                memo[node] = trial[label][0]
+    rval = pyll.rec_eval(space, memo=memo)
+    return rval
+
+def print_best_result(s, r):
+    print("==================================")
+    print("Best Result:")
+    #pp.pprint("Score: ",score, " : ",space_eval(s, r))
     pp.pprint(space_eval(s, r))
 
 def arg_file_exist(fname):
@@ -138,16 +153,23 @@ def arg_file_exist(fname):
         raise argparse.ArgumentTypeError("File '%s' is not exist" % fname)
     return fname
 
+def debug_info(i):
+    if i < 1:
+        sys.tracebacklimit=i
+
 def main():
     global CONFIG 
     parser = argparse.ArgumentParser(description='Find Best Options:')
-    parser.add_argument('--config', type=arg_file_exist, default="", help='input the configuration')
+    parser.add_argument('--config', type=arg_file_exist, default="", help='Config File')
+    parser.add_argument('--debug', type=int, default=0, help='Enable Debug Info')
+    parser.add_argument('--log', type=int, default=0, help='Enable Log Info')
     args = parser.parse_args()
+    debug_info(args.debug)
     CONFIG = read_kv_json(args.config)
     space,loops = space_build(CONFIG["options"])
     best, trial = opt(space, loops, do_run)
-    # print_trial(trial)
-    print_results(space, best)
+    print_best_result(space, best)
+    print_trial(space, trial, args.log)
     os.system("rm "+TMPDIR+"/*.json")
 
 main()
