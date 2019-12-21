@@ -35,18 +35,6 @@ svc(){
   sleep 10
 }
 
-wrk(){
-  IP=$1
-  THREADS=$2
-  CONN=$3
-  TIME=$4
-  #RPS=$5
-  URL="http://$IP/index.html"
-  CLT=logs/client.log
-  WRK="dpdk-httpperf/dpdk-httpperf"
-  nohup $WRK --latency -t$THREADS -c$CONN -d$TIME $URL > $CLT 2>&1 &
-  echo "$THREADS	$CONN	$TIME" > CFG.log
-}
 mon(){
   INT="2 8"
   CPU="0-1"
@@ -70,15 +58,29 @@ mon(){
   CFG=`cat CFG.log`
   CPUc=`tail -n1 $CPU_CLT|awk '{printf("%d+%d",$3,$5)}'`
   CPUs=`tail -n1 $CPU_SVR|awk '{printf("%d+%d",$3,$5)}'`
-  echo "PROC	CONN	TIME	RPSavg	RPSmax	LAT50	LAT75	LAT90	LAT99  	LATmax	CPU_c	CPU_s"
   echo "$CFG	$RPSa	$RPSx	$LAT50	$LAT75	$LAT90	$LAT99	$LATx	$CPUc	$CPUs"
 }
-run(){
-  #$(svc) 10.20.10.20
-  $(wrk 10.20.10.10 10 100 10s)
-}
+wrk(){
+  IP=$1
+  THREADS=$2
+  CONN=$3
+  TIME=$4
+  #RPS=$5
+  URL="http://$IP/index.html"
+  CLT=logs/client.log
+  WRK="dpdk-httpperf/dpdk-httpperf"
+  nohup $WRK --latency -t$THREADS -c$CONN -d$TIME $URL > $CLT 2>&1 &
+  echo "$THREADS	$CONN	$TIME" > CFG.log
 
+}
 mkdir -p logs
 rm -rf logs/*
-run
-mon
+#svc 10.20.10.20
+echo "PROC	CONN	TIME	RPSavg	RPSmax	LAT50	LAT75	LAT90	LAT99  	LATmax	CPU_c	CPU_s"
+##### loop thread conn time
+for t in {1,10,50,100}; do
+  for c in {1,10,50,100}; do
+    wrk 10.20.10.10 $t $c 10s
+    mon
+  done
+done
