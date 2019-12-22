@@ -38,49 +38,58 @@ svc(){
 mon(){
   INT="2 8"
   CPU="0-1"
-  CLT=logs/client.log
-  CPU_CLT=logs/mpstat.client.log
-  CPU_SVR=logs/mpstat.server.log
+  CLT=$1
+  T=$2
+  C=$3
+  CPU_CLT=logs/mpstat.client_$T_$C.log
+  CPU_SVR=logs/mpstat.server_$T_$C.log
   ssh root@dr1 mpstat -P $CPU $INT > $CPU_SVR 2>&1 &
   mpstat -P $CPU $INT > $CPU_CLT 2>&1 &
   RPSa=`tail -f $CLT | grep -m 1 'Req/Sec'|awk '{print $2}'`
   RPSx=`grep 'Req/Sec' $CLT|awk '{print $4}'`
-  LAT50=`grep 50% $CLT |awk '{print $2}'`
-  LAT75=`grep 75% $CLT |awk '{print $2}'`
-  LAT90=`grep 90% $CLT |awk '{print $2}'`
-  LAT99=`grep 99% $CLT |awk '{print $2}'`
+  LAT50=`grep ' 50%' $CLT |awk '{print $2}'`
+  LAT75=`grep ' 75%' $CLT |awk '{print $2}'`
+  LAT90=`grep ' 90%' $CLT |awk '{print $2}'`
+  LAT99=`grep ' 99%' $CLT |awk '{print $2}'`
   LAT50=${LAT50/.00/}
   LAT75=${LAT75/.00/}
   LAT90=${LAT90/.00/}
   LAT99=${LAT99/.00/}
   LATx=`grep Latency $CLT|grep -v Dist |awk '{print $4}'`
   LATx=${LATx/.00/}
-  CFG=`cat CFG.log`
   CPUc=`tail -n1 $CPU_CLT|awk '{printf("%d+%d",$3,$5)}'`
   CPUs=`tail -n1 $CPU_SVR|awk '{printf("%d+%d",$3,$5)}'`
-  echo "$CFG	$RPSa	$RPSx	$LAT50	$LAT75	$LAT90	$LAT99	$LATx	$CPUc	$CPUs"
+  echo "$T	$C	$RPSa	$RPSx	$LAT50	$LAT75	$LAT90	$LAT99	$LATx	$CPUc	$CPUs"
 }
 wrk(){
   IP=$1
   THREADS=$2
   CONN=$3
-  TIME=$4
+  TIME=10s
   #RPS=$5
   URL="http://$IP/index.html"
-  CLT=logs/client.log
   WRK="dpdk-httpperf/dpdk-httpperf"
-  nohup $WRK --latency -t$THREADS -c$CONN -d$TIME $URL > $CLT 2>&1 &
-  echo "$THREADS	$CONN	$TIME" > CFG.log
+  
+  echo "$WRK --latency -t$THREADS -c$CONN -d$TIME $URL"
+  $WRK --latency -t$THREADS -c$CONN -d$TIME $URL
 
 }
 mkdir -p logs
 rm -rf logs/*
 #svc 10.20.10.20
-echo "PROC	CONN	TIME	RPSavg	RPSmax	LAT50	LAT75	LAT90	LAT99  	LATmax	CPU_c	CPU_s"
-##### loop thread conn time
-for t in {1,10,50,100}; do
-  for c in {1,10,50,100}; do
-    wrk 10.20.10.10 $t $c 10s
-    mon
+echo "PROC	CONN	RPSavg	RPSmax	LAT50	LAT75	LAT90	LAT99  	LATmax	CPU_c	CPU_s"
+SVR_IP="10.20.10.10"
+R1="1 5 10"
+R2="1 5 10"
+for ts in $R1; do
+  for cs in $R2; do
+    if [ $cs -ge $ts ]; then
+      LOG="logs/client$ts.$cs.log"
+      #echo "T=$ts, C=$cs, CLIENT=$LOG"
+      wrk $SVR_IP $ts $cs > $LOG 2>&1 &
+      mon $LOG $ts $cs
+      sleep 5
+    fi
   done
+  sleep 10
 done
