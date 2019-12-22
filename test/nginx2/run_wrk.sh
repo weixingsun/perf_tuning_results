@@ -79,8 +79,8 @@ rm -rf logs/*
 #svc 10.20.10.20
 echo "PROC	CONN	RPSavg	RPSmax	LAT50	LAT75	LAT90	LAT99  	LATmax	CPU_c	CPU_s"
 SVR_IP="10.20.10.10"
-R1="1 5 10"
-R2="1 5 10"
+R1="10 8 6 4 2 1"
+R2="20 16 12 8 4 1"
 for ts in $R1; do
   for cs in $R2; do
     if [ $cs -ge $ts ]; then
