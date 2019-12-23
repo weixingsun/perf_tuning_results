@@ -1,19 +1,27 @@
 #!/bin/bash
 
 setup(){
-  BASE_DIR=/s1/dpdk-ans/dpdk-19.11
-  KMOD_DIR=$BASE_DIR/x86_64-native-linuxapp-gcc/kmod/
+  export RTE_ANS=/s1/dpdk-ans
+  DPDK_DIR=$RTE_ANS/dpdk-18.11
+  export RTE_SDK=$DPDK_DIR
+  export RTE_TARGET=x86_64-native-linuxapp-gcc
+  make config T=x86_64-native-linuxapp-gcc
+  make install T=x86_64-native-linuxapp-gcc DESTDIR=x86_64-native-linuxapp-gcc
+  KMOD_DIR=$DPDK_DIR/x86_64-native-linuxapp-gcc/kmod/
   insmod $KMOD_DIR/igb_uio.ko
   insmod $KMOD_DIR/rte_kni.ko
   TOOLS_DIR=$BASE_DIR/usertools/
-  #python $BASE_DIR/usertools/dpdk-devbind.py --status
-  #ETH=`python $BASE_DIR/usertools/dpdk-devbind.py --status |grep 10-Gigabit|grep -v Active|awk -F"if=" '{print $2}'|awk '{print $1}'`
+  #python $DPDK_DIR/usertools/dpdk-devbind.py --status
+  #ETH=`python $DPDK_DIR/usertools/dpdk-devbind.py --status |grep 10-Gigabit|grep -v Active|awk -F"if=" '{print $2}'|awk '{print $1}'`
+  cd $BASE_DIR/ans
+  # ans_main.h    #define MAX_TX_BURST 1
+  make
 }
 
 svc(){
   IP=$1
   pkill ans
-  #--enable-kni --enable-ipsync
+  #--enable-kni --enable-ipsync  --enable-jumbo --max-pkt-len 9001
   #-w = --pci-whitelist
   #-l = --lcore
   #-n #memory channels
@@ -36,7 +44,7 @@ svc(){
 }
 
 mon(){
-  INT="2 8"
+  INT="2 9"
   CPU="0-1"
   CLT=$1
   T=$2
@@ -65,11 +73,10 @@ wrk(){
   IP=$1
   THREADS=$2
   CONN=$3
-  TIME=10s
+  TIME=20s
   #RPS=$5
   URL="http://$IP/index.html"
   WRK="dpdk-httpperf/dpdk-httpperf"
-  
   echo "$WRK --latency -t$THREADS -c$CONN -d$TIME $URL"
   $WRK --latency -t$THREADS -c$CONN -d$TIME $URL
 
@@ -79,8 +86,8 @@ rm -rf logs/*
 #svc 10.20.10.20
 echo "PROC	CONN	RPSavg	RPSmax	LAT50	LAT75	LAT90	LAT99  	LATmax	CPU_c	CPU_s"
 SVR_IP="10.20.10.10"
-R1="10 8 6 4 2 1"
-R2="20 16 12 8 4 1"
+R1="1 2 4 8"
+R2="256 128 64 32 16 8 4 2 1"
 for ts in $R1; do
   for cs in $R2; do
     if [ $cs -ge $ts ]; then
