@@ -1,17 +1,9 @@
 # cython: language_level=3,, boundscheck=False, optimize.unpack_method_calls=False
 from hyperopt import fmin, hp, tpe, STATUS_OK, Trials, space_eval
-import csv, time, os, timeit, json
-
-# "UseTransparentHugePages":["+","-"],
-# "UseLargePages":["+","-"],
-import sys
+import csv, time, os, timeit, json, sys
 
 LOOPS = 2
 OS_LINUX = "linux"
-
-def current_ms():
-    return int(round(time.time() * 1000))
-
 
 def start_benchmark(kv):
     ja = gen_options(kv)
@@ -23,7 +15,6 @@ def start_benchmark(kv):
 
 def array_to_str(jo,sep):
     return sep.join(str(e) for e in jo)
-
 
 def gen_options(kv):
     jo = []
@@ -37,6 +28,9 @@ def gen_options(kv):
             jo.append("-XX:"+k+"="+v)
     return jo
 
+
+def current_ms():
+    return int(round(time.time() * 1000))
 
 def get_score():
     return current_ms()
