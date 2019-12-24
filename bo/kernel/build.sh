@@ -9,10 +9,11 @@ do_cython() {
   SRCC="tuner.c"
   BIN="tuner.exe"
   CC="gcc"
+  export LD_LIBRARY_PATH="$HOME/../usr/lib"
   cython --embed $SRCP -o $SRCC
   #cython --embed Optim.py -o tuner2.c -c=-DUSE_XSIMD -c=-march=native
   #pythran -DUSE_XSIMD -fopenmp -march=native Optim.py
-  OPT="-O3 -march=native -mavx2"
+  OPT="-O3" # -march=native -mavx2"
   PY_OPT=" $(python-config --cflags)  $(python-config --ldflags) "
   PY_OPT=" $(python3-config --cflags)  $(python3-config --ldflags) "
   CMD="$CC $OPT $SRCC -o $BIN $PY_OPT -lz "
