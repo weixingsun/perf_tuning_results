@@ -24,7 +24,9 @@ setup(){
 
 svc(){
   IP=$1  #10.0.0.2
-  #pkill ans
+  echo "stopping ans services"
+  pkill ans
+  sleep 5
   #--enable-kni --enable-ipsync  --enable-jumbo --max-pkt-len 9001
   #-w = --pci-whitelist
   #-l = --lcore
@@ -33,29 +35,31 @@ svc(){
   #-p #port mask
   #--config=(port,queue,lcore)
   MEM="--base-virtaddr=0x2aaa2aa0000"
-  PCI="-w 0000:58:00.0 "  #jbb3
-  PCI="-w 0000:06:00.0 "  #dr1.wrk
   PCI="-w 0000:06:00.1 "  #dr1.nginx
   CPU1="-l 1 -n 4 -- -p 0x1 --config='(0,0,1)'"
-  #CPU2="-l 2 -n 4 -- -p 0x1 --config='(0,0,2)'"
   #CPU1_2="-l 1,2 -n 4 -- -p 0x1 --config='(0,0,3)'"
-  CPU="$CPU1"
   echo "starting ans.nginx"
   #PREFIX="--file-prefix=nginx"
-  #echo "nohup ans/build/ans $PREFIX $PCI $MEM $CPU > ans.nginx.log 2>&1 &"
-  #      nohup ans/build/ans $PREFIX $PCI $MEM $CPU > ans.nginx.log 2>&1 &
-  nohup ans/build/ans $PREFIX $PCI $CPU > ans.nginx.log 2>&1 &
+  ANS="ans/build/ans"
+  nohup $ANS $PREFIX $PCI $CPU1 > ans.nginx.log 2>&1 &
+  sleep 5
+  CMD="/usr/local/nginx/sbin/nginx"
+  nohup $CMD > nginx.log 2>1& &
+  sleep 2
+
+  echo "starting ans.wrk"
+  PREFIX="--file-prefix=wrks"
+  PCI="-w 0000:06:00.0 "  #dr1.wrk
+  CPU2="-l 2 -n 4 -- -p 0x1 --config='(0,0,2)'"
+  MEM="--base-virtaddr=0x2aaa2aa0000"
+  nohup $CMD $PREFIX $PCI $MEM $CPU2 > ans.wrk.log 2>&1 &
   echo "starting 10s"
   sleep 10
-  cli/build/anscli $PREFIX "ip addr add $IP/24 dev veth0"
-  cli/build/anscli $PREFIX "ip addr show"
+
+  CLI="cli/build/anscli"
+  $CLI $PREFIX "ip addr add $IP/24 dev veth0"
+  $CLI $PREFIX "ip addr show"
   sleep 1
-  /usr/local/nginx/sbin/nginx
-  sleep 5
 }
-##
-# ans/build/ans -w 0000:06:00.1 -l 1 -n 4 -- -p 0x1 --config='(0,0,1)'
-# ans/build/ans --file-prefix=wrks -w 0000:06:00.0 --base-virtaddr=0x2aaa2aa0000 -l 2 -n 4 -- -p 0x1 --config='(0,0,2)'
-##
+
 svc 10.10.10.2
-SVR_IP="10.10.10.2"
