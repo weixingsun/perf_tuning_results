@@ -44,7 +44,7 @@ svc(){
   nohup $ANS $PREFIX $PCI $CPU1 > ans.nginx.log 2>&1 &
   sleep 5
   CMD="/usr/local/nginx/sbin/nginx"
-  nohup $CMD > nginx.log 2>1& &
+  nohup $CMD > nginx.log 2>&1 &
   sleep 2
 
   echo "starting ans.wrk"
