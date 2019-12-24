@@ -76,7 +76,7 @@ stops(){
 }
 stops ans
 stops nginx
-add_ip nginx 10.10.10.2
-add_ip wrk 10.10.10.3
 ans_svc nginx 1 "0000:06:00.1"
 ans_svc wrk   2 "0000:06:00.0"
+add_ip nginx 10.10.10.2
+add_ip wrk 10.10.10.3
