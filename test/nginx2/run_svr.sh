@@ -21,12 +21,9 @@ setup(){
   ./configure  --with-http_dav_module
   make && make install
 }
-
-svc(){
-  IP=$1  #10.0.0.2
-  echo "stopping ans services"
-  pkill ans
-  sleep 5
+#ans_svc nginx 1 "0000:06:00.1" 
+#ans_svc wrk   2 "0000:06:00.0" 
+ans_svc(){
   #--enable-kni --enable-ipsync  --enable-jumbo --max-pkt-len 9001
   #-w = --pci-whitelist
   #-l = --lcore
@@ -35,17 +32,26 @@ svc(){
   #-p #port mask
   #--config=(port,queue,lcore)
   MEM="--base-virtaddr=0x2aaa2aa0000"
-  PCI="-w 0000:06:00.1 "  #dr1.nginx
-  CPU1="-l 1 -n 4 -- -p 0x1 --config='(0,0,1)'"
-  #CPU1_2="-l 1,2 -n 4 -- -p 0x1 --config='(0,0,3)'"
-  echo "starting ans.nginx"
-  #PREFIX="--file-prefix=nginx"
+  PREFIX=$1
+  C=$2
+  PCI="-w $3"
+  CPU="-l $C -n 4 -- -p 0x1 --config='(0,0,$C)'"
+  echo "starting $PREFIX"
   ANS="ans/build/ans"
-  nohup $ANS $PREFIX $PCI $CPU1 > ans.nginx.log 2>&1 &
+  if [ "$PREFIX" == "nginx" ]; then
+    nohup $ANS $PCI $CPU > ans.$PREFIX.log 2>&1 &
+  else
+    nohup $ANS $PREFIX $PCI $MEM $CPU > ans.$PREFIX.log 2>&1 &
+  fi
+  sleep 10
+}
+nginx(){
+  IP=$1  #10.0.0.2
   sleep 5
   CMD="/usr/local/nginx/sbin/nginx"
-  nohup $CMD > nginx.log 2>1& &
+  nohup $CMD > nginx.log 2>&1 &
   sleep 2
+}
 
   echo "starting ans.wrk"
   PREFIX="--file-prefix=wrks"
@@ -54,12 +60,22 @@ svc(){
   MEM="--base-virtaddr=0x2aaa2aa0000"
   nohup $CMD $PREFIX $PCI $MEM $CPU2 > ans.wrk.log 2>&1 &
   echo "starting 10s"
-  sleep 10
-
+add_ip(){
+  IP=$1  #10.0.0.2
   CLI="cli/build/anscli"
   $CLI $PREFIX "ip addr add $IP/24 dev veth0"
   $CLI $PREFIX "ip addr show"
   sleep 1
 }
 
-svc 10.10.10.2
+stops(){
+  NAME=$1
+  echo "stopping $NAME services"
+  pkill $NAME
+  ps -ef|grep $NAME|awk '{print $2}'
+}
+stops ans
+stops nginx
+#svc 10.10.10.2
+ans_svc nginx 1 "0000:06:00.1"
+ans_svc wrk   2 "0000:06:00.0"
