@@ -6,7 +6,7 @@ setup(){
   export RTE_SDK=$DPDK_DIR
   export RTE_TARGET=x86_64-native-linuxapp-gcc
   make config T=x86_64-native-linuxapp-gcc
-  make install T=x86_64-native-linuxapp-gcc DESTDIR=x86_64-native-linuxapp-gcc
+  make install T=x86_64-native-linuxapp-gcc
   KMOD_DIR=$DPDK_DIR/x86_64-native-linuxapp-gcc/kmod/
   insmod $KMOD_DIR/igb_uio.ko
   insmod $KMOD_DIR/rte_kni.ko
@@ -32,39 +32,39 @@ ans_svc(){
   #-p #port mask
   #--config=(port,queue,lcore)
   MEM="--base-virtaddr=0x2aaa2aa0000"
-  PREFIX=$1
+  NAME="$1"
+  PREFIX="--file-prefix=$NAME"
   C=$2
   PCI="-w $3"
   CPU="-l $C -n 4 -- -p 0x1 --config='(0,0,$C)'"
-  echo "starting $PREFIX"
+  MEM="--base-virtaddr=0x2aaa2aa0000"
   ANS="ans/build/ans"
-  if [ "$PREFIX" == "nginx" ]; then
-    nohup $ANS $PCI $CPU > ans.$PREFIX.log 2>&1 &
+  echo "starting $NAME"
+  if [ "$NAME" == "nginx" ]; then
+    nohup $ANS $PCI $CPU > ans.$NAME.log 2>&1 &
   else
-    nohup $ANS $PREFIX $PCI $MEM $CPU > ans.$PREFIX.log 2>&1 &
+    nohup $ANS $PREFIX $PCI $MEM $CPU > ans.$NAME.log 2>&1 &
   fi
   sleep 10
 }
 nginx(){
-  IP=$1  #10.0.0.2
-  sleep 5
   CMD="/usr/local/nginx/sbin/nginx"
   nohup $CMD > nginx.log 2>&1 &
   sleep 2
 }
 
-  echo "starting ans.wrk"
-  PREFIX="--file-prefix=wrks"
-  PCI="-w 0000:06:00.0 "  #dr1.wrk
-  CPU2="-l 2 -n 4 -- -p 0x1 --config='(0,0,2)'"
-  MEM="--base-virtaddr=0x2aaa2aa0000"
-  nohup $CMD $PREFIX $PCI $MEM $CPU2 > ans.wrk.log 2>&1 &
-  echo "starting 10s"
 add_ip(){
-  IP=$1  #10.0.0.2
+  NAME=$1
+  IP=$2
+  echo "add IP for $NAME: $IP"
   CLI="cli/build/anscli"
-  $CLI $PREFIX "ip addr add $IP/24 dev veth0"
-  $CLI $PREFIX "ip addr show"
+  if [ "$NAME" == "nginx" ]; then
+    $CLI "ip addr add $IP/24 dev veth0"
+    $CLI "ip addr show"
+  else
+    $CLI $PREFIX "ip addr add $IP/24 dev veth0"
+    $CLI $PREFIX "ip addr show"
+  fi
   sleep 1
 }
 
@@ -76,6 +76,7 @@ stops(){
 }
 stops ans
 stops nginx
-#svc 10.10.10.2
+add_ip nginx 10.10.10.2
+add_ip wrk 10.10.10.3
 ans_svc nginx 1 "0000:06:00.1"
 ans_svc wrk   2 "0000:06:00.0"
