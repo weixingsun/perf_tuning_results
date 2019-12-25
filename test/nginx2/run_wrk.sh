@@ -102,7 +102,7 @@ wrk(){
   TIME=20s
   #RPS=$5
   URL="http://$IP/index.html"
-  WRK="dpdk-httpperf/dpdk-httpperf --file-prefix=wrks"
+  WRK="dpdk-httpperf/dpdk-httpperf --file-prefix=wrk"
   echo "$WRK --latency -t$THREADS -c$CONN -d$TIME $URL"
   $WRK --latency -t$THREADS -c$CONN -d$TIME $URL
 

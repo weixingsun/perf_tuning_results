@@ -72,7 +72,8 @@ stops(){
   NAME=$1
   echo "stopping $NAME services"
   pkill $NAME
-  ps -ef|grep $NAME|awk '{print $2}'
+  kill -9 `ps -ef|grep $NAME|awk '{print $2}'`
+  sleep 5
 }
 stops ans
 stops nginx
@@ -80,3 +81,4 @@ ans_svc nginx 1 "0000:06:00.1"
 ans_svc wrk   2 "0000:06:00.0"
 add_ip nginx 10.10.10.2
 add_ip wrk 10.10.10.3
+nginx 
