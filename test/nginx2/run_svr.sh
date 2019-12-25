@@ -72,7 +72,10 @@ stops(){
   NAME=$1
   echo "stopping $NAME services"
   pkill $NAME
-  kill -9 `ps -ef|grep $NAME|awk '{print $2}'`
+  ps -ef|grep nginx|grep -v grep
+  if [ $? -eq 0 ]; then
+    kill -9 `ps -ef|grep $NAME|grep -v grep|awk '{print $2}'`
+  fi
   sleep 5
 }
 stops ans
