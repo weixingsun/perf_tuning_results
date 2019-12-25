@@ -1,0 +1,15 @@
+diff --git a/ans/ans_main.h b/ans/ans_main.h
+index d18b7c6..2242aff 100644
+--- a/ans/ans_main.h
++++ b/ans/ans_main.h
+@@ -34,8 +34,8 @@
+ #ifndef _ANS_MAIN_H_
+ #define _ANS_MAIN_H_
+ 
+-#define MAX_PKT_BURST     32
+-#define MAX_TX_BURST      32         /* set tx burst as 1 for lower packet latency, shall set to 32 ? */
++#define MAX_PKT_BURST     1
++#define MAX_TX_BURST      1         /* set tx burst as 1 for lower packet latency, shall set to 32 ? */
+ #define BURST_TX_DRAIN_US 100 /* TX drain every ~100us */
+ 
+ #define MAX_MBUF_NB     (1024 * 32)
