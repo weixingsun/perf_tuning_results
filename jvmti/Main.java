@@ -5,9 +5,10 @@ public class Main {
   public static void count(String str){
   }
   public Integer loop(int m){
-    Integer ii = new Integer(0);
+    //Integer ii = new Integer(0);
+    Integer ii = Integer.valueOf(0);
     for (int i=0;i<m;i++){
-      Integer jj = new Integer(i);
+      Integer jj = Integer.valueOf(i);
       ii+=jj;
     }
     return ii;

@@ -7,7 +7,8 @@
 #include <stdarg.h>
 #include <stdio.h>
 
-#define MAX_STACK_DEPTH 1024
+//#define MAX_STACK_DEPTH 1024
+#define MAX_STACK_DEPTH 64
 static FILE* out;
 static jlong start_time;
 static jrawMonitorID vmtrace_lock;
@@ -30,11 +31,8 @@ static void trace(jvmtiEnv* jvmti, const char* fmt, ...) {
     va_start(args, fmt);
     vsnprintf(buf, sizeof(buf), fmt, args);
     va_end(args);
-
     jvmti->RawMonitorEnter(vmtrace_lock);
-
     fprintf(out, "[%.5f] %s\n", (current_time - start_time) / 1000000000.0, buf);
-    
     jvmti->RawMonitorExit(vmtrace_lock);
 }
 
@@ -113,7 +111,8 @@ void JNICALL SampledObjectAlloc(jvmtiEnv* jvmti, JNIEnv* env, jthread thread,
 
     jvmtiFrameInfo frames[MAX_STACK_DEPTH];
     jint count;
-    if (jvmti->GetStackTrace(thread, 0, MAX_STACK_DEPTH, frames, &count) != 0) {
+    //if (jvmti->GetStackTrace(thread, 0, MAX_STACK_DEPTH, frames, &count) != 0) {
+    if (jvmti->GetStackTrace(NULL, 0, MAX_STACK_DEPTH, frames, &count) != 0) {
         return;
     }
 
