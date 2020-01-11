@@ -1,2 +1,0 @@
-  0%|          | 0/36 [00:00<?, ?it/s, best loss: ?]                                                    mnist.py --batch-size=10 --lr=0.001 --momentum=0.6 --test-batch-size=20
-  0%|          | 0/36 [00:00<?, ?it/s, best loss: ?]
