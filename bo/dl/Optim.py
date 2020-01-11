@@ -1,6 +1,6 @@
 # cython: language_level=3, boundscheck=False, optimize.unpack_method_calls=False
 from hyperopt import pyll, fmin, hp, tpe, STATUS_OK, Trials, space_eval
-import os, sys, time, pprint, json, argparse, subprocess, tempfile
+import os, sys, time, pprint, json, argparse, subprocess, tempfile, psutil
 
 CONFIG = {}
 OS_LINUX="linux"
@@ -25,7 +25,7 @@ def gen_java_options(kv):
     jo = []
     for k, v in kv.items():
         if v in ['+','-']:
-            if k == 'UseLargePages' and sys.platform[:5] == OS_LINUX:
+            if k == 'UseLargePages' and sys.platform.startswith(OS_LINUX):
                 jo.append("-XX:+UseTransparentHugePages")
             else:
                 jo.append("-XX:"+v+k)
@@ -35,7 +35,7 @@ def gen_java_options(kv):
 
 def change_1_settings(k, v):
     global CONFIG
-    variable = CONFIG["cmd"]
+    variable = CONFIG.get("cmd")
     cmd=variable.replace("KEY",k).replace("VALUE",v)
     #print(cmd)
     os.system(cmd)
@@ -49,34 +49,33 @@ def get_score(pid):
     #print("py.get_score:"+fname)
     while os.path.getsize(fname) < 1:
         time.sleep(1)
-    return float(read_kv_json(fname)["score"])
+    return float(read_kv_json(fname).get("score"))
 
 def start_benchmark(fname):
     global CONFIG
-    if CONFIG["cmd"].lower() in "python tensorflow pytorch":
-        pid = subprocess.Popen('python '+fname, shell=True).pid
-    else:
-        pid = subprocess.Popen(['/bin/bash', '-c', "./"+fname]).pid
+    #pid = subprocess.Popen(['/bin/bash', '-c', "./"+fname]).pid
+    pid = subprocess.Popen(fname, shell=True).pid
     open(tempfile.gettempdir()+os.sep+str(pid)+".json", 'w').close()
+    #print("PID: "+str(pid)+".json "+" ".join(psutil.Process(pid).cmdline()))
     return pid
 
 def do_run(kv):
     global CONFIG
-    benchmark = CONFIG["benchmark"]
-    if CONFIG["cmd"] == "java":
+    benchmark = CONFIG.get("benchmark")
+    if CONFIG.get("cmd") == "java":
         opts=array_to_str(gen_java_options(kv),' ')
         opts= "\""+opts+"\""
         cmd=add_param(benchmark,opts)
         #print(cmd)
-    elif CONFIG["cmd"].lower() in "python tensorflow pytorch":
+    elif benchmark.strip().endswith(".py"):
         opts=array_to_str(gen_python_options(kv),' ')
-        cmd = add_param(benchmark, opts)
+        cmd = "python "+add_param(benchmark, opts)
         #print(cmd)
     else:
         change_env(kv)
     score = get_score(start_benchmark(cmd))
     loss = score
-    if CONFIG["best"]=="+":
+    if CONFIG.get("best")=="+":
         loss = -score
     ret = {'loss': loss, 'status': STATUS_OK}
     return ret
@@ -178,11 +177,12 @@ def main():
     args = parser.parse_args()
     #debug_info(args.debug)
     CONFIG = read_kv_json(args.config)
-    space,loops = space_build(CONFIG["options"])
+    space,loops = space_build(CONFIG.get("options"))
     best, trial = opt(space, loops, do_run)
     print_best_result(space, best)
     print_trial(space, trial, args.log)
     os.system("rm "+tempfile.gettempdir()+"/*.json")
 
-main()
 
+if __name__ == '__main__':
+    main()
