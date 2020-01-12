@@ -4,16 +4,15 @@ package main
 import "C"
 import (
 	"fmt"
-	"time"
 	"strconv"
 )
 
 //export gLoad
-func gLoad(jvm *C.jvmtiEnv, cOptions *C.char) {
-	options := C.GoString(cOptions)
-	fmt.Printf("Agent called with options: [%v] \n", options)
-	fmt.Printf("Sleeping 2 seconds and killing JVM...")
-	time.Sleep(2 * time.Second)
+func gLoad(jvm *C.jvmtiEnv, co *C.char) {
+	opt := C.GoString(co)
+	fmt.Printf("Agent options: [%v] \n", opt)
+	//fmt.Printf("Sleeping 2 seconds and killing JVM...")
+	//time.Sleep(2 * time.Second)
 	//C.cagent_DestroyJvm(jvm)
 }
 //export goAtoi
@@ -22,15 +21,10 @@ func goAtoi(c *C.char) int {
 	fmt.Printf("===============================goAtoi: [%d] \n", i)
 	return int(i)
 }
-//export gCount
-func gCount(jvmti *C.jvmtiEnv, cState *C.char) {
-	state := C.GoString(cState)
-	fmt.Printf("gCount: [%v] \n", state)
+//export gLog
+func gLog(jvmti *C.jvmtiEnv, c *C.char) {
+	s := C.GoString(c)
+	fmt.Printf("gLog: [%v] \n", s)
 }
 
 func main() {}
-
-/*
-  - Uses C++'s mutex instead of jvmti
-  - Tracks also what got garbage collected so you can see a bit what is being GC'd often
-*/

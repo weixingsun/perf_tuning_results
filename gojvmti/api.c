@@ -4,49 +4,22 @@
 
 static jrawMonitorID raw_lock;
 static jvmtiEnv* jvmti = NULL;
+
 //////////////////////////////////////////////////////////////////
-int isDigit(char c) {
-    return (c >= '0') && (c <= '9');
-}
-
-int atoi(char *str) {
-    int result = 0;
-    int neg_multiplier = 1;
-
-    // Scrub leading whitespace
-    while (*str && (
-            (*str == ' ') ||
-            (*str == '\t'))) 
-        str++;
-
-    // Check for negative
-    if (*str && *str == '-') {
-        neg_multiplier = -1;
-        str++;
-    }
-
-    // Do number
-    for (; *str && isDigit(*str); str++) {
-        result = (result * 10) + (*str - '0');
-    }
-	int i = result * neg_multiplier;
-    return i;
-}
-//////////////////////////////////////////////////////////////////
-JNIEXPORT void JNICALL GarbageCollectionStart(jvmtiEnv *jvmti) {
+void GarbageCollectionStart(jvmtiEnv *jvmti) {
 	//(*jvmti)->RawMonitorEnter(jvmti, raw_lock);
-    gCount(jvmti,"start");
+    //gLog(jvmti,"GCstart");
 	//(*jvmti)->RawMonitorExit(jvmti, raw_lock);
 }
 
-JNIEXPORT void JNICALL GarbageCollectionFinish(jvmtiEnv *jvmti) {
-    //gCount(jvmti,"finish");
+void GarbageCollectionFinish(jvmtiEnv *jvmti) {
+    gLog(jvmti,"GCfinish: print GC & clear cache");
 }
-JNIEXPORT void JNICALL SampledObjectAlloc(jvmtiEnv* jvmti, JNIEnv* env, jthread thread, jobject object, jclass object_klass, jlong size) {
-    //gCount(jvmti,"finish");
+void SampledObjectAlloc(jvmtiEnv* jvmti, JNIEnv* env, jthread thread, jobject object, jclass object_klass, jlong size) {
+    //gLog(jvmti,"SampledObjectAlloc");
 }
 //////////////////////////////////////////////////////////////////
-JNIEXPORT void JNICALL cRegister(jvmtiEnv *jvmti, char *options){
+void cRegister(jvmtiEnv *jvmti, char *options){
 	
     jvmtiCapabilities caps = {0};
     caps.can_generate_sampled_object_alloc_events = 1;
@@ -86,3 +59,24 @@ JNIEXPORT jint JNICALL Agent_OnLoad(JavaVM *jvm, char *options, void *reserved) 
 const jint cagent_DestroyJvm(JavaVM *jvm) {
     return (*jvm)->DestroyJavaVM(jvm);
 }
+
+/*
+// Use jvmti
+void GarbageCollectionStart(jvmtiEnv *jvmti) {
+	//(*jvmti)->RawMonitorEnter(jvmti, raw_lock);
+    //gLog(jvmti,"GCstart");
+	//(*jvmti)->RawMonitorExit(jvmti, raw_lock);
+}
+// Use mutex
+void NotifyGCWaitingThreadInternal() {
+  std::unique_lock<std::mutex> lock(gc_waiting_mutex_);
+  gc_notified_ = true;
+  gc_waiting_cv_.notify_all();
+}
+void WaitForGC() {
+  std::unique_lock<std::mutex> lock(gc_waiting_mutex_);
+  gc_notified_ = false;
+  // If we are woken up without having been notified, just go back to sleep.
+  gc_waiting_cv_.wait(lock, [this] { return gc_notified_; } );
+}
+*/
