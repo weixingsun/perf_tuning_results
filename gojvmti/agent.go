@@ -11,14 +11,13 @@ import (
 func gLoad(jvm *C.jvmtiEnv, co *C.char) {
 	opt := C.GoString(co)
 	fmt.Printf("Agent options: [%v] \n", opt)
-	//fmt.Printf("Sleeping 2 seconds and killing JVM...")
 	//time.Sleep(2 * time.Second)
 	//C.cagent_DestroyJvm(jvm)
 }
 //export goAtoi
 func goAtoi(c *C.char) int {
 	i,_:=strconv.ParseInt(C.GoString(c), 0, 64)
-	fmt.Printf("===============================goAtoi: [%d] \n", i)
+	//fmt.Printf("goAtoi: [%d] \n", i)
 	return int(i)
 }
 //export gLog

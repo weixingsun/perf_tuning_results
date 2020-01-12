@@ -30,8 +30,8 @@ void cRegister(jvmtiEnv *jvmti, char *options){
 	
     if (options != NULL && options[0] >= '0' && options[0] <= '9') {
 		//sampling_interval in bytes
-		int i = goAtoi(options); //goAtoi/atoi
-		fprintf(stdout, "heap_agent_option: %d\n",i);
+		int i = goAtoi(options); //func.atoi
+		//fprintf(stdout, "heap_agent_option: %d\n",i);
         (*jvmti)->SetHeapSamplingInterval(jvmti, i);
     }
 	
@@ -42,8 +42,8 @@ void cRegister(jvmtiEnv *jvmti, char *options){
     calls.GarbageCollectionFinish = GarbageCollectionFinish;
     (*jvmti)->SetEventCallbacks(jvmti, &calls, sizeof(calls));
     
-	(*jvmti)->SetEventNotificationMode(jvmti, JVMTI_ENABLE, JVMTI_EVENT_VM_DEATH, NULL);
-    (*jvmti)->SetEventNotificationMode(jvmti, JVMTI_ENABLE, JVMTI_EVENT_DATA_DUMP_REQUEST, NULL);
+	//(*jvmti)->SetEventNotificationMode(jvmti, JVMTI_ENABLE, JVMTI_EVENT_VM_DEATH, NULL);
+    //(*jvmti)->SetEventNotificationMode(jvmti, JVMTI_ENABLE, JVMTI_EVENT_DATA_DUMP_REQUEST, NULL);
     (*jvmti)->SetEventNotificationMode(jvmti, JVMTI_ENABLE, JVMTI_EVENT_SAMPLED_OBJECT_ALLOC, NULL);
     (*jvmti)->SetEventNotificationMode(jvmti, JVMTI_ENABLE, JVMTI_EVENT_GARBAGE_COLLECTION_START, NULL);
     (*jvmti)->SetEventNotificationMode(jvmti, JVMTI_ENABLE, JVMTI_EVENT_GARBAGE_COLLECTION_FINISH, NULL);
