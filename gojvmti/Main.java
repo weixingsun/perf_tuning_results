@@ -1,5 +1,6 @@
 import java.util.Arrays;
 import java.lang.reflect.Method;
+import java.util.*;
 
 public class Main {
   public static void count(String str){
@@ -7,9 +8,12 @@ public class Main {
   public Integer loop(int m){
     //Integer ii = new Integer(0);
     Integer ii = Integer.valueOf(0);
+	HashMap<Integer, String> hash_map = new HashMap<Integer, String>();
     for (int i=0;i<m;i++){
-      Integer jj = Integer.valueOf(i);
-      ii+=jj;
+      Integer k = Integer.valueOf(i);
+	  String v = String.valueOf(i);
+	  hash_map.put(k,v);
+      ii+=k;
     }
     return ii;
   }

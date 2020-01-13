@@ -6,9 +6,9 @@ export JAVA_HOME=/mnt/d/jdk13
 
 export LLVM_HOME=/mnt/d/clang_llvm_9.0.0
 CC=$LLVM_HOME/bin/clang
-CPP=$LLVM_HOME/bin/clang++
-CC=gcc
-CPP=g++
+#CPP=$LLVM_HOME/bin/clang++
+#CC=gcc
+#CPP=g++
 
 OS=`uname`
 if [ "$OS" == "Linux" ]; then
@@ -35,7 +35,7 @@ go_build(){
   AGENT=heap.so
   #echo "CC=$CC CXX=$CPP CGO_CFLAGS='$OPTS' go build -buildmode=c-shared -o $AGENT ."
   #CC="$CC" CXX="$CPP" CGO_CFLAGS="$OPTS" go build -buildmode=c-shared -o $AGENT .
-  CGO_CFLAGS=$JAVA_INC go build $GO_FLAG -o $AGENT .
+  CC="$CC" CGO_CFLAGS=$JAVA_INC go build $GO_FLAG -o $AGENT .
 }
 
 echo "build"
@@ -43,6 +43,7 @@ echo "build"
 go_build
 
 if [ $? == 0 ]; then
-    echo "run"
-    $JAVA_HOME/bin/java -agentpath:./$AGENT=1024 Main 20000000
+    OPTS="interval=10485760,stacktrace=1"
+    #echo "run with options: $OPTS"
+    $JAVA_HOME/bin/java -agentpath:./$AGENT=$OPTS Main 2000000
 fi
