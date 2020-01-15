@@ -35,7 +35,7 @@ go_build(){
   AGENT=heap.so
   #echo "CC=$CC CXX=$CPP CGO_CFLAGS='$OPTS' go build -buildmode=c-shared -o $AGENT ."
   #CC="$CC" CXX="$CPP" CGO_CFLAGS="$OPTS" go build -buildmode=c-shared -o $AGENT .
-  CC="$CC" CGO_CFLAGS=$JAVA_INC go build $GO_FLAG -o $AGENT .
+  CC="$CC" CGO_CFLAGS=$JAVA_INC go build $GO_FLAG -o $AGENT ./src
 }
 
 echo "build"
@@ -43,7 +43,7 @@ echo "build"
 go_build
 
 if [ $? == 0 ]; then
-    OPTS="interval=10485760,stacktrace=1"
+    OPTS="interval=1048576,stacktrace=1,logfile=sample.log"
     #echo "run with options: $OPTS"
     $JAVA_HOME/bin/java -agentpath:./$AGENT=$OPTS Main 2000000
 fi

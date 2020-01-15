@@ -15,10 +15,10 @@ void GarbageCollectionStart(jvmtiEnv *jvmti) {
 }
 
 void GarbageCollectionFinish(jvmtiEnv *jvmti) {
-    //gLog("GCfinish: print GC & clear cache");
+    gCacheMapCount();
+	gCacheMapClean();
 }
-
-char* find_class_name(char* sig) {
+char* decode_class_name(char* sig) {
     switch (sig[0]) {
         case 'B': return "byte";
         case 'C': return "char";
@@ -28,31 +28,62 @@ char* find_class_name(char* sig) {
         case 'F': return "float";
         case 'D': return "double";
         case 'Z': return "boolean";
-        case '[': return find_class_name(sig+1);
-		
+        case '[': return decode_class_name(sig+1);
     }
     sig++;	// rm 'L'
     sig[strlen(sig) - 1] = 0;	// rm ';'
-    for (char* c = sig; *c; c++) if (*c == '/') *c = '.';	// '/' -> '.'
-	
+	int i=0, idx = 0;
+	for (char* c = sig; *c; c++){
+		i++; if(*c=='/')idx=i;
+	}
+	sig+=idx;
     return sig;
 }
-
-void SampledObjectAlloc(jvmtiEnv* jvmti, JNIEnv* env, jthread thread, jobject object, jclass class, jlong size) {
+char* getFuncName(jvmtiEnv* jvmti, jthread thread){
+	int depth=1;
+	jvmtiFrameInfo frames[depth];
+	jint count;
 	char* class_sig;
-    (*jvmti)->GetClassSignature(jvmti, class, &class_sig, NULL);
-	//jvmtiFrameInfo frames[64];
-	//jint count;
-	//(*jvmti)->GetStackTrace(jvmti, thread, 0, 64, frames, &count);
-	char* class_name = find_class_name(class_sig);
-	fprintf(stdout, "Sampling objects: size[%ld] class:%s\n", size, class_name);
-	
-	//(*jvmti)->RawMonitorEnter(jvmti, jvmti_lock);
-    //(*jvmti)->RawMonitorExit(jvmti, jvmti_lock);
+	char* method_name;
+	char* full_method_name;
+	if (  (*jvmti)->GetStackTrace(jvmti, thread, 0, depth, &frames, &count) == JVMTI_ERROR_NONE  &&
+		  (*jvmti)->GetMethodName(jvmti, frames[0].method, &method_name, &class_sig, NULL) == JVMTI_ERROR_NONE ) {
+	    char* class_name = decode_class_name(class_sig);
+		full_method_name = gStringAdd(class_name,method_name,".");
+	}else{
+		full_method_name="";
+	}
     (*jvmti)->Deallocate(jvmti, (unsigned char*) class_sig);
+    (*jvmti)->Deallocate(jvmti, (unsigned char*) method_name);
+	return full_method_name;
+}
+void SampledObjectAlloc(jvmtiEnv* jvmti, JNIEnv* env, jthread thread, jobject object, jclass class, jlong size) {
+	char* sig;
+	(*jvmti)->GetClassSignature(jvmti, class, &sig, NULL);
+	char* class_name = decode_class_name(sig);
+	//////////////////////////////////////////////////////////////
+	int depth=1;
+	jvmtiFrameInfo frames[depth];
+	jint count;
+	char* method_class;
+	char* method_name;
+	char* full_method_name="";
+	if (  (*jvmti)->GetStackTrace(jvmti, thread, 0, depth, &frames, &count) == JVMTI_ERROR_NONE  &&
+		  (*jvmti)->GetMethodName(jvmti, frames[0].method, &method_name, &method_class, NULL) == JVMTI_ERROR_NONE ) {
+	    char* method_class_name = decode_class_name(method_class);
+		full_method_name = gStringAdd(method_class_name,method_name,".");
+	}else{
+		fprintf(stdout, "Error getting method:%s \n", method_name );
+	}
+	//fprintf(stdout, "Sampling objects: size[%ld] class:%s \n", size, class_name );
+	gCacheObject(method_name,class_name,size);
+    (*jvmti)->Deallocate(jvmti, (unsigned char*) method_class);
+    (*jvmti)->Deallocate(jvmti, (unsigned char*) method_name);
+    (*jvmti)->Deallocate(jvmti, (unsigned char*) sig);
+	
 }
 //////////////////////////////////////////////////////////////////
-void cRegister(jvmtiEnv *jvmti, char *options){
+void cRegistry(jvmtiEnv *jvmti, char *options){
 	
 	gOptions(jvmti, options);
 	
@@ -66,19 +97,19 @@ void cRegister(jvmtiEnv *jvmti, char *options){
     jvmtiEventCallbacks calls = {0};
 	//calls.DataDumpRequest = DataDumpRequest;
     calls.SampledObjectAlloc = SampledObjectAlloc;
-    calls.GarbageCollectionStart = GarbageCollectionStart;
+    //calls.GarbageCollectionStart = GarbageCollectionStart;
     calls.GarbageCollectionFinish = GarbageCollectionFinish;
     (*jvmti)->SetEventCallbacks(jvmti, &calls, sizeof(calls));
     
     //(*jvmti)->SetEventNotificationMode(jvmti, JVMTI_ENABLE, JVMTI_EVENT_DATA_DUMP_REQUEST, NULL);
     (*jvmti)->SetEventNotificationMode(jvmti, JVMTI_ENABLE, JVMTI_EVENT_SAMPLED_OBJECT_ALLOC, NULL);
-    (*jvmti)->SetEventNotificationMode(jvmti, JVMTI_ENABLE, JVMTI_EVENT_GARBAGE_COLLECTION_START, NULL);
+    //(*jvmti)->SetEventNotificationMode(jvmti, JVMTI_ENABLE, JVMTI_EVENT_GARBAGE_COLLECTION_START, NULL);
     (*jvmti)->SetEventNotificationMode(jvmti, JVMTI_ENABLE, JVMTI_EVENT_GARBAGE_COLLECTION_FINISH, NULL);
 }
 JNIEXPORT jint JNICALL Agent_OnLoad(JavaVM *jvm, char *options, void *reserved) {
 	(*jvm)->GetEnv(jvm, (void**) &jvmti, JVMTI_VERSION_1_0);
-    (*jvmti)->CreateRawMonitor(jvmti, "jvmti_lock", &jvmti_lock);
-    cRegister(jvmti, options);
+    //(*jvmti)->CreateRawMonitor(jvmti, "jvmti_lock", &jvmti_lock);
+    cRegistry(jvmti, options);
     return JNI_OK;
 }
 void cSetHeapSamplingInterval(jvmtiEnv *jvmti, int interval) {
