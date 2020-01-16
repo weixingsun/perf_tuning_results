@@ -104,5 +104,6 @@ JNIEXPORT jint JNICALL Agent_OnLoad(JavaVM *jvm, char *options, void *reserved) 
     return JNI_OK;
 }
 void cSetHeapSamplingInterval(jvmtiEnv *jvmti, int interval) {
+	fprintf(stdout, "HeapSamplingInterval=%d \n", interval );
 	(*jvmti)->SetHeapSamplingInterval(jvmti, interval);
 }
