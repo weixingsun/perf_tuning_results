@@ -3,46 +3,14 @@ package main
 //#include <stdio.h>
 //#include <stdlib.h>
 //#include <jvmti.h>
-//#include "api.h"
 import "C"
 import (
 	"fmt"
 	"strconv"
-	"strings"
-	"errors"
 	//"unsafe"
 )
 
 var counters = NewCounter()
-
-func gConfig(s string) (map[string]int, error) {
-	ss := strings.Split(s, ",")
-	m := make(map[string]int)
-	for _, pair := range ss {
-		z := strings.Split(pair, "=")
-		if len(z)<2 {
-			return nil,errors.New("Runtime Error")
-		}
-		i,e:=strconv.ParseInt(z[1], 0, 32)
-		if e != nil {
-			return nil,e
-		}
-		m[z[0]] = int(i)
-	}
-	return m,nil
-}
-
-//export gOptions
-func gOptions(jvmti *C.jvmtiEnv, co *C.char) {
-	opt := C.GoString(co)
-	m,err := gConfig(opt)
-	if err != nil {
-	    fmt.Printf("Invalid Agent Options: %v\n", opt)
-	}else{
-	    fmt.Printf("Agent options: [%v] \n", m)
-	}
-	C.cSetHeapSamplingInterval( jvmti, C.int(m["interval"]) )
-}
 
 //export goAtoi
 func goAtoi(c *C.char) int {
