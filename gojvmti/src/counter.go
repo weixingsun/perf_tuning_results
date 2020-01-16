@@ -17,9 +17,9 @@ func (s *Counter) Inc(key string) {
 	//return s.values[key]
 }
 func (s *Counter) GetAllCount() {
-	s.mu.Lock()
-	defer s.mu.Unlock()
-	fmt.Printf("Objects: [%v]\n", s)
+	//s.mu.Lock()
+	//defer s.mu.Unlock()
+	fmt.Printf("Alloc: %v\n", s.values)
 }
 func (s *Counter) Clean() {
 	s.values = make(map[string]int64)

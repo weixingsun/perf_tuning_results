@@ -39,47 +39,38 @@ char* decode_class_name(char* sig) {
 	sig+=idx;
     return sig;
 }
-char* getFuncName(jvmtiEnv* jvmti, jthread thread){
-	int depth=1;
-	jvmtiFrameInfo frames[depth];
-	jint count;
-	char* class_sig;
-	char* method_name;
-	char* full_method_name;
-	if (  (*jvmti)->GetStackTrace(jvmti, thread, 0, depth, &frames, &count) == JVMTI_ERROR_NONE  &&
-		  (*jvmti)->GetMethodName(jvmti, frames[0].method, &method_name, &class_sig, NULL) == JVMTI_ERROR_NONE ) {
-	    char* class_name = decode_class_name(class_sig);
-		full_method_name = gStringAdd(class_name,method_name,".");
-	}else{
-		full_method_name="";
-	}
-    (*jvmti)->Deallocate(jvmti, (unsigned char*) class_sig);
-    (*jvmti)->Deallocate(jvmti, (unsigned char*) method_name);
-	return full_method_name;
+char* get_method_name(jvmtiEnv* jvmti, jmethodID mid) {
+    jclass method_class;
+    char* class_sig = NULL;
+    char* method_name = NULL;
+	char* full_method_name = NULL;
+
+    if ((*jvmti)->GetMethodDeclaringClass(jvmti, mid, &method_class) == 0 &&
+        (*jvmti)->GetClassSignature(jvmti, method_class, &class_sig, NULL) == 0 &&
+        (*jvmti)->GetMethodName(jvmti, mid, &method_name, NULL, NULL) == 0) {
+		
+		full_method_name = gStringAdd(decode_class_name(class_sig),method_name,".");
+		//fprintf(stdout, "full_method_name:%s \n", full_method_name );
+    } else {
+        full_method_name = "*";
+    }
+    (*jvmti)->Deallocate(jvmti,(unsigned char*) method_name);
+    (*jvmti)->Deallocate(jvmti,(unsigned char*) class_sig);
+    return full_method_name;
 }
 void SampledObjectAlloc(jvmtiEnv* jvmti, JNIEnv* env, jthread thread, jobject object, jclass class, jlong size) {
-	char* sig;
-	(*jvmti)->GetClassSignature(jvmti, class, &sig, NULL);
-	char* class_name = decode_class_name(sig);
-	//////////////////////////////////////////////////////////////
+	char* class_sig;
+	(*jvmti)->GetClassSignature(jvmti, class, &class_sig, NULL);
+	char* class_name = decode_class_name(class_sig);
+	///////////////////////////////////////////////////////////
+	jint count;
 	int depth=1;
 	jvmtiFrameInfo frames[depth];
-	jint count;
-	char* method_class;
-	char* method_name;
-	char* full_method_name="";
-	if (  (*jvmti)->GetStackTrace(jvmti, thread, 0, depth, &frames, &count) == JVMTI_ERROR_NONE  &&
-		  (*jvmti)->GetMethodName(jvmti, frames[0].method, &method_name, &method_class, NULL) == JVMTI_ERROR_NONE ) {
-	    char* method_class_name = decode_class_name(method_class);
-		full_method_name = gStringAdd(method_class_name,method_name,".");
-	}else{
-		fprintf(stdout, "Error getting method:%s \n", method_name );
-	}
-	//fprintf(stdout, "Sampling objects: size[%ld] class:%s \n", size, class_name );
+	(*jvmti)->GetStackTrace(jvmti, thread, 0, depth, &frames, &count);
+	char* method_name = get_method_name(jvmti, frames[0].method);
+	//fprintf(stdout, "Sampling objects: size[%ld] class:%s in method: %s\n", size, class_name, method_name );
 	gCacheObject(method_name,class_name,size);
-    (*jvmti)->Deallocate(jvmti, (unsigned char*) method_class);
-    (*jvmti)->Deallocate(jvmti, (unsigned char*) method_name);
-    (*jvmti)->Deallocate(jvmti, (unsigned char*) sig);
+    (*jvmti)->Deallocate(jvmti, (unsigned char*) class_sig);
 	
 }
 //////////////////////////////////////////////////////////////////
@@ -115,27 +106,3 @@ JNIEXPORT jint JNICALL Agent_OnLoad(JavaVM *jvm, char *options, void *reserved) 
 void cSetHeapSamplingInterval(jvmtiEnv *jvmti, int interval) {
 	(*jvmti)->SetHeapSamplingInterval(jvmti, interval);
 }
-//const jint cagent_DestroyJvm(JavaVM *jvm) {
-//    return (*jvm)->DestroyJavaVM(jvm);
-//}
-
-/*
-// Use jvmti
-void GarbageCollectionStart(jvmtiEnv *jvmti) {
-	//(*jvmti)->RawMonitorEnter(jvmti, jvmti_lock);
-    //gLog(jvmti,"GCstart");
-	//(*jvmti)->RawMonitorExit(jvmti, jvmti_lock);
-}
-// Use mutex
-void NotifyGCWaitingThreadInternal() {
-  std::unique_lock<std::mutex> lock(gc_waiting_mutex_);
-  gc_notified_ = true;
-  gc_waiting_cv_.notify_all();
-}
-void WaitForGC() {
-  std::unique_lock<std::mutex> lock(gc_waiting_mutex_);
-  gc_notified_ = false;
-  // If we are woken up without having been notified, just go back to sleep.
-  gc_waiting_cv_.wait(lock, [this] { return gc_notified_; } );
-}
-*/

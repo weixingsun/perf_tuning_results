@@ -10,7 +10,7 @@ import (
 	"strconv"
 	"strings"
 	"errors"
-	"unsafe"
+	//"unsafe"
 )
 
 var counters = NewCounter()
@@ -46,16 +46,15 @@ func gOptions(jvmti *C.jvmtiEnv, co *C.char) {
 
 //export goAtoi
 func goAtoi(c *C.char) int {
-	i,_:=strconv.ParseInt(C.GoString(c), 0, 32)	
-	//defer C.free(unsafe.Pointer(i))
+	i,_:=strconv.ParseInt(C.GoString(c), 0, 32)
 	return int(i)
 }
 
 //export gStringAdd
 func gStringAdd(c1 *C.char,c2 *C.char,s *C.char) *C.char {
-	c:=C.CString(C.GoString(c1)+C.GoString(s)+C.GoString(c2))
-	defer C.free(unsafe.Pointer(c))
-	return c
+	//c:=C.CString(C.GoString(c1)+C.GoString(s)+C.GoString(c2))
+	//defer C.free(unsafe.Pointer(c))
+	return C.CString(C.GoString(c1)+C.GoString(s)+C.GoString(c2))
 }
 
 //export gLog
