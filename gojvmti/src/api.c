@@ -48,7 +48,6 @@ char* get_method_name(jvmtiEnv* jvmti, jmethodID mid) {
     if ((*jvmti)->GetMethodDeclaringClass(jvmti, mid, &method_class) == 0 &&
         (*jvmti)->GetClassSignature(jvmti, method_class, &class_sig, NULL) == 0 &&
         (*jvmti)->GetMethodName(jvmti, mid, &method_name, NULL, NULL) == 0) {
-		
 		full_method_name = gStringAdd(decode_class_name(class_sig),method_name,".");
 		//fprintf(stdout, "full_method_name:%s \n", full_method_name );
     } else {
