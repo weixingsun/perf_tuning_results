@@ -38,11 +38,12 @@ go_build(){
   CC="$CC" CGO_CFLAGS=$JAVA_INC go build $GO_FLAG -o $AGENT ./src
 }
 
-echo "build"
-#heapviewer
-go_build
-
 if [ $? == 0 ]; then
+    go test -bench=.
+else
+    echo "build"
+    go_build
+    #heapviewer
     OPTS="interval=1048576,stacktrace=1,logfile=sample.log"
     #echo "run with options: $OPTS"
     $JAVA_HOME/bin/java -agentpath:./$AGENT=$OPTS Main 2000000
