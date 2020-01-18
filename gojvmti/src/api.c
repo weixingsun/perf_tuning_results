@@ -8,6 +8,15 @@ static jvmtiEnv* jvmti = NULL;
 
 //////////////////////////////////////////////////////////////////
 
+void JNICALL MethodEntry(jvmtiEnv *jvmti, JNIEnv *jni, jthread thread, jmethodID method) {
+    char *name_ptr;
+    char *signature_ptr;
+    char *generic_ptr;
+    jvmtiError error;
+
+    error = (*jvmti)->GetMethodName(jvmti, method, &name_ptr, &signature_ptr, &generic_ptr);
+    printf("Entered method %s\n", name_ptr);
+}
 void GarbageCollectionStart(jvmtiEnv *jvmti) {
 	//(*jvmti)->RawMonitorEnter(jvmti, jvmti_lock);
     //gLog("GCstart");
@@ -38,6 +47,22 @@ char* decode_class_name(char* sig) {
 	}
 	sig+=idx;
     return sig;
+}
+void print_all_threads(jvmtiEnv* jvmti) {
+	jint thread_count;
+	jthread* threads;
+	(*jvmti)->GetAllThreads(jvmti, &thread_count, &threads);
+	/*
+	for (int i = 0; i < thread_count; i++) {
+		JavaThreadData* ptr = GetThread(jvmti, threads[i]);
+		if (ptr != NULL) {
+			ptr->CloseLog();
+			filesystem::path threadpath = p / str(format("%d.trace") % ptr->GetID());
+			ptr->SetLog(threadpath.string().c_str());
+		}
+	}
+	Deallocate(jvmti, (void *)threads);
+	*/
 }
 char* get_method_name(jvmtiEnv* jvmti, jmethodID mid) {
     jclass method_class;
@@ -79,21 +104,24 @@ void cRegistry(jvmtiEnv *jvmti, char *options){
 	
     jvmtiCapabilities caps = {0};
     caps.can_generate_sampled_object_alloc_events = 1;
-    caps.can_generate_all_class_hook_events = 1;
-    caps.can_generate_compiled_method_load_events = 1;
+	//caps.can_generate_method_entry_events = 1;
+    //caps.can_generate_all_class_hook_events = 1;
+    //caps.can_generate_compiled_method_load_events = 1;
+	//caps.can_access_local_variables = 1;
     caps.can_generate_garbage_collection_events = 1;
     (*jvmti)->AddCapabilities(jvmti, &caps);
 	
     jvmtiEventCallbacks calls = {0};
+	//calls.MethodEntry = &MethodEntry
 	//calls.DataDumpRequest = DataDumpRequest;
-    calls.SampledObjectAlloc = SampledObjectAlloc;
     //calls.GarbageCollectionStart = GarbageCollectionStart;
+    calls.SampledObjectAlloc = SampledObjectAlloc;
     calls.GarbageCollectionFinish = GarbageCollectionFinish;
     (*jvmti)->SetEventCallbacks(jvmti, &calls, sizeof(calls));
     
     //(*jvmti)->SetEventNotificationMode(jvmti, JVMTI_ENABLE, JVMTI_EVENT_DATA_DUMP_REQUEST, NULL);
-    (*jvmti)->SetEventNotificationMode(jvmti, JVMTI_ENABLE, JVMTI_EVENT_SAMPLED_OBJECT_ALLOC, NULL);
     //(*jvmti)->SetEventNotificationMode(jvmti, JVMTI_ENABLE, JVMTI_EVENT_GARBAGE_COLLECTION_START, NULL);
+    (*jvmti)->SetEventNotificationMode(jvmti, JVMTI_ENABLE, JVMTI_EVENT_SAMPLED_OBJECT_ALLOC, NULL);
     (*jvmti)->SetEventNotificationMode(jvmti, JVMTI_ENABLE, JVMTI_EVENT_GARBAGE_COLLECTION_FINISH, NULL);
 }
 JNIEXPORT jint JNICALL Agent_OnLoad(JavaVM *jvm, char *options, void *reserved) {

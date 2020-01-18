@@ -7,7 +7,7 @@ import (
 
 type Counter struct {
 	mu     sync.Mutex
-	values map[string]int64
+	values map[string]int32
 }
 
 func (s *Counter) Inc(key string) {
@@ -22,11 +22,11 @@ func (s *Counter) GetAllCount() {
 	fmt.Printf("Alloc: %v\n", s.values)
 }
 func (s *Counter) Clean() {
-	s.values = make(map[string]int64)
+	s.values = make(map[string]int32)
 }
 func NewCounter() Counter {
 	return Counter {
-		values: make(map[string]int64),
+		values: make(map[string]int32),
 	}
 }
 /////////////////////////////////////////////
