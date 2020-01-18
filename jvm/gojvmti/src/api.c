@@ -7,7 +7,26 @@ static jrawMonitorID jvmti_lock;
 static jvmtiEnv* jvmti = NULL;
 
 //////////////////////////////////////////////////////////////////
-
+void SampleThreadState(jvmtiEnv *jvmti){
+	//err = (*jvmti)->GetThreadState(jvmti, thread, &state);
+	//int s = state & JVMTI_JAVA_LANG_THREAD_STATE_MASK;
+	//JVMTI_JAVA_LANG_THREAD_STATE_NEW
+	//JVMTI_JAVA_LANG_THREAD_STATE_TERMINATED
+	//JVMTI_JAVA_LANG_THREAD_STATE_RUNNABLE
+	//JVMTI_JAVA_LANG_THREAD_STATE_BLOCKED
+	//JVMTI_JAVA_LANG_THREAD_STATE_WAITING
+	//JVMTI_JAVA_LANG_THREAD_STATE_TIMED_WAITING
+	jvmtiStackInfo *stack_info;
+	jint thread_count;
+	(*jvmti)->GetAllStackTraces(jvmti, 1, &stack_info, &thread_count);
+	for (ti = 0; ti < thread_count; ++ti) {
+	   jvmtiStackInfo *infop = &stack_info[ti];
+	   jint state = infop->state;
+	   //GetThreadCpuTime
+	}
+	/* this one Deallocate call frees all data allocated by GetAllStackTraces */
+	(*jvmti)->Deallocate(jvmti, stack_info);
+}
 void JNICALL MethodEntry(jvmtiEnv *jvmti, JNIEnv *jni, jthread thread, jmethodID method) {
     char *name_ptr;
     char *signature_ptr;
@@ -27,19 +46,26 @@ void GarbageCollectionFinish(jvmtiEnv *jvmti) {
     gCacheMapCount();
 	gCacheMapClean();
 }
-char* decode_class_name(char* sig) {
+char* decode_class_name2(char* sig) {
+	sig++;  //skip '['
+    if (sig[1] == 0) {
+		return gTranslateJVMType(sig[0]);
+	}else{
+		return gLastName(sig);
+	}
+}
+char* decode_class_sign(char* sig) {
+    sig++;	// rm 'L' or '['
     switch (sig[0]) {
         case 'B': return "byte";
         case 'C': return "char";
-        case 'S': return "short";
+        case 'D': return "double";
+        case 'F': return "float";
         case 'I': return "int";
         case 'J': return "long";
-        case 'F': return "float";
-        case 'D': return "double";
+        case 'S': return "short";
         case 'Z': return "boolean";
-        case '[': return decode_class_name(sig+1);
     }
-    sig++;	// rm 'L'
     sig[strlen(sig) - 1] = 0;	// rm ';'
 	int i=0, idx = 0;
 	for (char* c = sig; *c; c++){
@@ -73,7 +99,7 @@ char* get_method_name(jvmtiEnv* jvmti, jmethodID mid) {
     if ((*jvmti)->GetMethodDeclaringClass(jvmti, mid, &method_class) == 0 &&
         (*jvmti)->GetClassSignature(jvmti, method_class, &class_sig, NULL) == 0 &&
         (*jvmti)->GetMethodName(jvmti, mid, &method_name, NULL, NULL) == 0) {
-		full_method_name = gStringAdd(decode_class_name(class_sig),method_name,".");
+		full_method_name = gStringAdd(decode_class_sign(class_sig),method_name,".");
 		//fprintf(stdout, "full_method_name:%s \n", full_method_name );
     } else {
         full_method_name = "*";
@@ -85,7 +111,8 @@ char* get_method_name(jvmtiEnv* jvmti, jmethodID mid) {
 void SampledObjectAlloc(jvmtiEnv* jvmti, JNIEnv* env, jthread thread, jobject object, jclass class, jlong size) {
 	char* class_sig;
 	(*jvmti)->GetClassSignature(jvmti, class, &class_sig, NULL);
-	char* class_name = decode_class_name(class_sig);
+	char* class_name = decode_class_sign(class_sig);
+	//fprintf(stdout, "Class Sign: %s \n", class_sig );
 	///////////////////////////////////////////////////////////
 	jint count;
 	int depth=1;
@@ -128,6 +155,7 @@ JNIEXPORT jint JNICALL Agent_OnLoad(JavaVM *jvm, char *options, void *reserved) 
 	(*jvm)->GetEnv(jvm, (void**) &jvmti, JVMTI_VERSION_1_0);
     //(*jvmti)->CreateRawMonitor(jvmti, "jvmti_lock", &jvmti_lock);
     cRegistry(jvmti, options);
+	gJVMTypeInit();
     return JNI_OK;
 }
 void cSetHeapSamplingInterval(jvmtiEnv *jvmti, int interval) {

@@ -38,13 +38,11 @@ go_build(){
   OPTS="-O3 -Ofast -march=native"  # -fPIC -lstdc++ -shared -xc -std=gnu11 -O3 -g -Wall -pedantic -Wextra -Werror
   CC="$CC" CGO_CFLAGS="$OPTS $JAVA_INC" go build $GO_FLAG -o $AGENT ./src
 }
+echo "build"
+go_build
 
 if [ $? == 0 ]; then
     #go test -bench=.
-#else
-    echo "build"
-    go_build
-    #heapviewer
     OPTS="interval=10485760,stacktrace=1,logfile=sample.log"
     LOOP=20000000
     echo "run with agent options: $OPTS"
@@ -58,3 +56,9 @@ fi
 #time	agent:interval=1M	agent:interval=10M	no_agent
 #real	9.685s				9.483s				8.862s/8.995s
 ##############
+
+############## go:decode_class_name2     c:decode_class_name
+#cgo_agent	no_agent	c_agent
+#42.446s	36.046s		39.396s
+#38.955s	32.991s		36.366s
+#38.749s	33.255s		

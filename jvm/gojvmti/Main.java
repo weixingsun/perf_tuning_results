@@ -8,11 +8,12 @@ public class Main {
   public Integer loop(int m){
     //Integer ii = new Integer(0);
     Integer ii = Integer.valueOf(0);
-	HashMap<Integer, String> hash_map = new HashMap<Integer, String>();
+    HashMap<Integer, String> hash_map = new HashMap<Integer, String>();
     for (int i=0;i<m;i++){
       Integer k = Integer.valueOf(i);
-	  String v = String.valueOf(i);
-	  hash_map.put(k,v);
+      String v = String.valueOf(i);
+      hash_map.put(k,v);
+      int[] arr = new int[100];
       ii+=k;
     }
     return ii;
