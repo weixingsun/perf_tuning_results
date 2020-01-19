@@ -1,77 +1,117 @@
-#include <stdlib.h>
-#include <stdio.h>
+/**
+ * main.c
+ *
+ * Detecting memory leaks only for windows .  
+ * Place the following snippet where leak to be tested: 
+ * #if defined(_CRTDBG_MAP_ALLOC) 
+ *    _CrtDumpMemoryLeaks(); 
+ * #endif 
+ */
+#if defined(WIN32) && defined(_DEBUG)
+  #ifndef   _CRTDBG_MAP_ALLOC  
+    #pragma message( __FILE__": _CRTDBG_MAP_ALLOC defined only for DEBUG on Win32." )   
+    #define _CRTDBG_MAP_ALLOC  
+    #include<stdlib.h>   
+    #include<crtdbg.h>  
+  #endif  
+#endif  
+
 #include <assert.h>
+#include <stdio.h>
+#include <string.h>
 
 #include "map.h"
 
-#define KEY_MAX_LENGTH (256)
-#define KEY_PREFIX ("somekey")
-#define KEY_COUNT (256)
+typedef struct userelem_t {
+  char   key[20];
+  char  *value;
+} userelem;
 
-typedef struct data_struct_s
-{
-    char key_string[KEY_MAX_LENGTH];
-    int number;
-} data_struct_t;
+typedef struct userdata_t {
+  char   name[20];
+  hmap_t map;  /* userelem map */
+} userdata;
 
-int main(char* argv, int argc)
-{
-    int index;
-    int error;
-    map_t mymap;
-    char key_string[KEY_MAX_LENGTH];
-    data_struct_t* value;
-    
-    mymap = hashmap_new();
-
-    /* First, populate the hash map with ascending values */
-    for (index=0; index<KEY_COUNT; index+=1)
-    {
-        /* Store the key string along side the numerical value so we can free it later */
-        value = malloc(sizeof(data_struct_t));
-        snprintf(value->key_string, KEY_MAX_LENGTH, "%s%d", KEY_PREFIX, index);
-        value->number = index;
-
-        error = hashmap_put(mymap, value->key_string, value);
-        assert(error==MAP_OK);
-    }
-
-    /* Now, check all of the expected values are there */
-    for (index=0; index<KEY_COUNT; index+=1)
-    {
-        snprintf(key_string, KEY_MAX_LENGTH, "%s%d", KEY_PREFIX, index);
-
-        error = hashmap_get(mymap, key_string, (void**)(&value));
-        
-        /* Make sure the value was both found and the correct number */
-        assert(error==MAP_OK);
-        assert(value->number==index);
-    }
-    
-    /* Make sure that a value that wasn't in the map can't be found */
-    snprintf(key_string, KEY_MAX_LENGTH, "%s%d", KEY_PREFIX, KEY_COUNT);
-
-    error = hashmap_get(mymap, key_string, (void**)(&value));
-        
-    /* Make sure the value was not found */
-    assert(error==MAP_MISSING);
-
-    /* Free all of the values we allocated and remove them from the map */
-    for (index=0; index<KEY_COUNT; index+=1)
-    {
-        snprintf(key_string, KEY_MAX_LENGTH, "%s%d", KEY_PREFIX, index);
-
-        error = hashmap_get(mymap, key_string, (void**)(&value));
-        assert(error==MAP_OK);
-
-        error = hashmap_remove(mymap, key_string);
-        assert(error==MAP_OK);
-
-        free(value);        
-    }
-    
-    /* Now, destroy the map */
-    hashmap_free(mymap);
-
-    return 1;
+static int iter_elem(void* elem, void *arg) {
+  userelem *el = (userelem *) elem;
+  printf("key=%s; value=%s\n", el->key, el->value);
+  return 0;
 }
+
+static int free_elem(void* elem, void *arg) {
+  userelem *el = (userelem *) elem;
+  free(el->value);
+  free(el);
+  return 0;
+}
+
+static int free_data(void* data, void *arg) {
+  userdata *dat = (userdata *) data;
+  /* rm all map */
+  hashmap_destroy(dat->map, free_elem, 0);
+  free(dat);
+  return 0;
+}
+
+int main(int argc, char* argv[])
+{
+  hmap_t map;
+  userdata  *dat;
+  userelem  *el;
+  int ret, i, j;
+
+  /* create hashmap */
+  map = hashmap_create();
+
+  /* add hashmap node */
+  for (i=0; i<100; i++) {
+    dat = (userdata *)malloc(sizeof(userdata));
+
+    /* create sub hashmap */
+    dat->map = hashmap_create();
+
+    /* add sub hashmap node */
+    for (j=0; j<10; j++) {
+      el = (userelem *)malloc(sizeof(userelem));
+      sprintf(el->key, "%d", j);
+
+      el->value = (char*) malloc(30);
+      sprintf(el->value, "%d", j+1000);
+      ret = hashmap_put(dat->map, el->key, el);
+      assert(ret==HMAP_S_OK);
+    }
+
+    sprintf(dat->name, "%d", i);
+    ret = hashmap_put(map, dat->name, dat);
+    assert(ret==HMAP_S_OK);
+  }
+
+  printf("hashmap_size: %d\n", hashmap_size(map));
+
+  /* rm key="10" */
+  ret = hashmap_remove(map, "10", &dat);
+  assert(ret==HMAP_S_OK);
+  printf("hashmap_remove: name=%s. size=%d\n", dat->name, hashmap_size(map));
+  hashmap_iterate(dat->map, iter_elem, 0);
+  free_data(dat, 0);
+
+  /* rm key="11" */
+  ret = hashmap_remove(map, "11", &dat);
+  assert(ret==HMAP_S_OK);
+  printf("hashmap_remove: name=%s. size=%d\n", dat->name, hashmap_size(map));
+  hashmap_iterate(dat->map, iter_elem, 0);
+  free_data(dat, 0);
+
+  /* get key="99" */
+  ret = hashmap_get(map, "99", &dat);
+  assert(ret==HMAP_S_OK);
+  printf("hashmap_get: name=%s. size=%d\n", dat->name, hashmap_size(map));
+  hashmap_iterate(dat->map, iter_elem, 0);
+
+  /* rm all map */
+  hashmap_destroy(map, free_data, 0);
+
+  //_CrtDumpMemoryLeaks();
+  return 0;
+}
+
