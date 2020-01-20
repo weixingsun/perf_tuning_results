@@ -349,24 +349,6 @@ int hashmap_get(map_t in, char* key, any_t *arg){
 	/* Not found */
 	return MAP_MISSING;
 }
-/*
- * Increase the counter of a hashnode with key
-*/
-int hashmap_inc(map_t in, char* key){
-	hashmap_map* m = (hashmap_map*) in;
-	any_t* value1;
-	data_struct_t* value;
-	int ret = hashmap_get(in, key, (void**)(&value1));
-	if (ret == MAP_MISSING) {
-		value = malloc(sizeof(data_struct_t));
-		value->number = 1;
-	}else{
-		value = (data_struct_t*) value1;
-		value->number +=1;
-	}
-	ret = hashmap_put(in, key, value);
-	return MAP_OK;
-}
 
 /*
  * Iterate the function parameter over each element in the hashmap.  The
@@ -426,6 +408,39 @@ int hashmap_remove(map_t in, char* key){
 	}
 	/* Data not found */
 	return MAP_MISSING;
+}
+/*
+ * Increase the counter of a hashnode with key
+*/
+int hashmap_inc(map_t in, char* key){
+	hashmap_map* m = (hashmap_map*) in;
+	any_t* value1;
+	data_struct_t* value;
+	int ret = hashmap_get(in, key, (void**)(&value1));
+	if (ret == MAP_MISSING) {
+		value = malloc(sizeof(data_struct_t));
+		value->number = 1;
+	}else{
+		value = (data_struct_t*) value1;
+		value->number +=1;
+	}
+	ret = hashmap_put(in, key, value);
+	return MAP_OK;
+}
+
+int printele(any_t item, any_t data){
+	data_struct_t* value = (data_struct_t*) data;
+	printf("\t%s:\t%d\n", value->key_string, value->number);
+	return MAP_OK;
+}
+/*
+ * Print a map
+ */
+int hashmap_print(map_t in){
+	hashmap_map* m = (hashmap_map*) in;
+	printf("[");
+	hashmap_iterate(m, printele, 0);
+	printf("]\n");
 }
 
 void hashmap_empty(map_t in){

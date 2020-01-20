@@ -72,6 +72,8 @@ int main(int argc, char** argv){
 	///////////////////////////////////////////////////////////////////////
     printf("before rm: size=%d\n", hashmap_length(mymap));
 	hashmap_empty(mymap);
+    printf("---------------------------------------------\n");
+	hashmap_print(mymap);
 	printf("after rm: size=%d\n", hashmap_length(mymap));
 	
 	set(mymap, "node0", 0);
@@ -79,6 +81,9 @@ int main(int argc, char** argv){
 	set(mymap, "node2", 2);
 	set(mymap, "node3", 3);
     printf("hashmap_put: size=%d\n", hashmap_length(mymap));
+	
+    printf("---------------------------------------------\n");
+	hashmap_print(mymap);
     hashmap_free(mymap);
 
     return 1;

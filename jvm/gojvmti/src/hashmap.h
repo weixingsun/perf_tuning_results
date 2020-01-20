@@ -91,13 +91,20 @@ int hashmap_remove(map_t in, char* key);
 int hashmap_get_one(map_t in, any_t *arg, int remove);
 
 /*
+ * Print a hashmap
+ */
+int hashmap_print(map_t in);
+
+/*
  * Free the hashmap
  */
 void hashmap_free(map_t in);
+
 /*
  * Empty the hashmap
  */
 void hashmap_empty(map_t in);
+
 /*
  * Get the current size of a hashmap
  */
