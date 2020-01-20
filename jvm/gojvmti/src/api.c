@@ -1,6 +1,7 @@
 #include <jvmti.h>
 #include <stdio.h>
 #include <string.h>
+#include "hashmap.h"
 #include "_cgo_export.h"
 
 static jrawMonitorID jvmti_lock;
@@ -17,7 +18,7 @@ void SampleThreadState(jvmtiEnv *jvmti){
 	//JVMTI_JAVA_LANG_THREAD_STATE_WAITING
 	//JVMTI_JAVA_LANG_THREAD_STATE_TIMED_WAITING
 	jvmtiStackInfo *stack_info;
-	jint thread_count;
+	jint thread_count, ti;
 	(*jvmti)->GetAllStackTraces(jvmti, 1, &stack_info, &thread_count);
 	for (ti = 0; ti < thread_count; ++ti) {
 	   jvmtiStackInfo *infop = &stack_info[ti];
@@ -25,7 +26,7 @@ void SampleThreadState(jvmtiEnv *jvmti){
 	   //GetThreadCpuTime
 	}
 	/* this one Deallocate call frees all data allocated by GetAllStackTraces */
-	(*jvmti)->Deallocate(jvmti, stack_info);
+	//(*jvmti)->Deallocate(jvmti, stack_info);
 }
 void JNICALL MethodEntry(jvmtiEnv *jvmti, JNIEnv *jni, jthread thread, jmethodID method) {
     char *name_ptr;
