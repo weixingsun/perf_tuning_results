@@ -22,94 +22,46 @@
 
 #include "map.h"
 
-typedef struct userelem_t {
-  char   key[20];
-  char  *value;
-} userelem;
+typedef struct counter_t {
+  char  name[20];
+  int   number;
+} counter;
 
-typedef struct userdata_t {
-  char   name[20];
-  hmap_t map;  /* userelem map */
-} userdata;
-
-static int iter_elem(void* elem, void *arg) {
-  userelem *el = (userelem *) elem;
-  printf("key=%s; value=%s\n", el->key, el->value);
-  return 0;
+static void print_counters(int c) {
+  printf("value=%d\n", c);
 }
 
-static int free_elem(void* elem, void *arg) {
-  userelem *el = (userelem *) elem;
-  free(el->value);
-  free(el);
-  return 0;
-}
-
-static int free_data(void* data, void *arg) {
-  userdata *dat = (userdata *) data;
-  /* rm all map */
-  hashmap_destroy(dat->map, free_elem, 0);
-  free(dat);
-  return 0;
-}
 
 int main(int argc, char* argv[])
 {
-  hmap_t map;
-  userdata  *dat;
-  userelem  *el;
+  char  *name;
   int ret, i, j;
 
   /* create hashmap */
-  map = hashmap_create();
+  hmap_t map = hashmap_create();
+  printf("hashmap_created: %d\n", hashmap_size(map));
 
   /* add hashmap node */
-  for (i=0; i<100; i++) {
-    dat = (userdata *)malloc(sizeof(userdata));
-
-    /* create sub hashmap */
-    dat->map = hashmap_create();
-
-    /* add sub hashmap node */
-    for (j=0; j<10; j++) {
-      el = (userelem *)malloc(sizeof(userelem));
-      sprintf(el->key, "%d", j);
-
-      el->value = (char*) malloc(30);
-      sprintf(el->value, "%d", j+1000);
-      ret = hashmap_put(dat->map, el->key, el);
-      assert(ret==HMAP_S_OK);
-    }
-
-    sprintf(dat->name, "%d", i);
-    ret = hashmap_put(map, dat->name, dat);
+  for (i=0; i<20; i++) {
+    sprintf(name, "%d", i);
+    ret = hashmap_put(map, name, i);
     assert(ret==HMAP_S_OK);
   }
-
-  printf("hashmap_size: %d\n", hashmap_size(map));
+  printf("hashmap_loaded: %d\n", hashmap_size(map));
 
   /* rm key="10" */
-  ret = hashmap_remove(map, "10", &dat);
+  ret = hashmap_remove(map, "10", j);
   assert(ret==HMAP_S_OK);
-  printf("hashmap_remove: name=%s. size=%d\n", dat->name, hashmap_size(map));
-  hashmap_iterate(dat->map, iter_elem, 0);
-  free_data(dat, 0);
+  printf("hashmap_remove: name=%s. size=%d\n", name, hashmap_size(map));
+  hashmap_iterate(map, print_counters, 0);
 
-  /* rm key="11" */
-  ret = hashmap_remove(map, "11", &dat);
+  /* get key="9" */
+  ret = hashmap_get(map, "9", j);
   assert(ret==HMAP_S_OK);
-  printf("hashmap_remove: name=%s. size=%d\n", dat->name, hashmap_size(map));
-  hashmap_iterate(dat->map, iter_elem, 0);
-  free_data(dat, 0);
-
-  /* get key="99" */
-  ret = hashmap_get(map, "99", &dat);
-  assert(ret==HMAP_S_OK);
-  printf("hashmap_get: name=%s. size=%d\n", dat->name, hashmap_size(map));
-  hashmap_iterate(dat->map, iter_elem, 0);
+  printf("hashmap_get: name=%s. size=%d\n", name, hashmap_size(map));
 
   /* rm all map */
-  hashmap_destroy(map, free_data, 0);
+  //hashmap_destroy(map, free_map, 0);
 
   //_CrtDumpMemoryLeaks();
   return 0;
