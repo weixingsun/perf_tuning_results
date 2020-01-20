@@ -6,7 +6,34 @@
 
 static jrawMonitorID jvmti_lock;
 static jvmtiEnv* jvmti = NULL;
+static map_t CachedObjects = NULL;
 
+//////////////////////////////////////////////////////////////////
+void map_set(map_t mymap, char* key, int v){
+	data_struct_t* value = malloc(sizeof(data_struct_t));
+	value->key_string = key;
+    value->number = v;
+	int error = hashmap_put(mymap, value->key_string, value);
+    if(error!=MAP_OK) printf("set error: %d on key: %s value: %d\n",error,key,v);
+}
+int map_get(map_t mymap, char* key){
+	data_struct_t* value = malloc(sizeof(data_struct_t));
+	int error = hashmap_get(mymap, key, (void**)(&value));
+	//printf("get key: %s  value: %d\n",key,value->number);
+	if (error==MAP_MISSING){
+		return -1;
+	}else{
+		return value->number;
+	}
+}
+void map_inc(map_t mymap, char* key){
+	int error = hashmap_inc(mymap, key);
+	if(error!=MAP_OK) printf("inc error: %d on key: %s\n",error,key);
+}
+void map_rm(map_t mymap, char* key){
+	int error = hashmap_remove(mymap, key);
+	if(error!=MAP_OK) printf("rm error: %d on key: %s\n",error,key);
+}
 //////////////////////////////////////////////////////////////////
 void SampleThreadState(jvmtiEnv *jvmti){
 	//err = (*jvmti)->GetThreadState(jvmti, thread, &state);
@@ -33,7 +60,6 @@ void JNICALL MethodEntry(jvmtiEnv *jvmti, JNIEnv *jni, jthread thread, jmethodID
     char *signature_ptr;
     char *generic_ptr;
     jvmtiError error;
-
     error = (*jvmti)->GetMethodName(jvmti, method, &name_ptr, &signature_ptr, &generic_ptr);
     printf("Entered method %s\n", name_ptr);
 }
@@ -44,8 +70,13 @@ void GarbageCollectionStart(jvmtiEnv *jvmti) {
 }
 
 void GarbageCollectionFinish(jvmtiEnv *jvmti) {
-    gCacheMapCount();
+    /////////////////////////////////////////////////////////////
+	gCacheMapCount();
 	gCacheMapClean();
+    //printf("Sampled Alloc Objects---------------------------------------------\n");
+	//hashmap_print(CachedObjects);
+	//hashmap_empty(CachedObjects);
+	//hashmap_free(CachedObjects);
 }
 char* decode_class_name2(char* sig) {
 	sig++;  //skip '['
@@ -109,6 +140,14 @@ char* get_method_name(jvmtiEnv* jvmti, jmethodID mid) {
     (*jvmti)->Deallocate(jvmti,(unsigned char*) class_sig);
     return full_method_name;
 }
+void cCacheObject(char* method_name,char* class_name,int size){
+	int l = strlen(method_name)+strlen(class_name)+10;
+	char* k = (char*) malloc(l);
+	snprintf(k, l, "%s.%s[%d]", method_name, class_name, size);
+	map_inc(CachedObjects, k);
+	//int i = get(mymap, k);
+    //printf("hashmap_get not found: key=%s  value:%d\n", k,i);
+}
 void SampledObjectAlloc(jvmtiEnv* jvmti, JNIEnv* env, jthread thread, jobject object, jclass class, jlong size) {
 	char* class_sig;
 	(*jvmti)->GetClassSignature(jvmti, class, &class_sig, NULL);
@@ -122,12 +161,13 @@ void SampledObjectAlloc(jvmtiEnv* jvmti, JNIEnv* env, jthread thread, jobject ob
 	char* method_name = get_method_name(jvmti, frames[0].method);
 	//fprintf(stdout, "Sampling objects: size[%ld] class:%s in method: %s\n", size, class_name, method_name );
 	gCacheObject(method_name,class_name,size);
+	//cCacheObject(method_name,class_name,size);
     (*jvmti)->Deallocate(jvmti, (unsigned char*) class_sig);
-	
+
 }
 //////////////////////////////////////////////////////////////////
 void cRegistry(jvmtiEnv *jvmti, char *options){
-	
+	//CachedObjects = hashmap_new();
 	gOptions(jvmti, options);
 	
     jvmtiCapabilities caps = {0};

@@ -430,7 +430,7 @@ int hashmap_inc(map_t in, char* key){
 
 int printele(any_t item, any_t data){
 	data_struct_t* value = (data_struct_t*) data;
-	printf("\t%s:\t%d\n", value->key_string, value->number);
+	printf("%s:%d\t", value->key_string, value->number);
 	return MAP_OK;
 }
 /*
