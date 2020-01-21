@@ -29,6 +29,7 @@ int map_get(map_t mymap, char* key){
 void map_inc(map_t mymap, char* key){
 	int error = hashmap_inc(mymap, key);
 	if(error!=MAP_OK) printf("inc error: %d on key: %s\n",error,key);
+	//else printf("inc key: %s\n",key);
 }
 void map_rm(map_t mymap, char* key){
 	int error = hashmap_remove(mymap, key);
@@ -71,13 +72,14 @@ void GarbageCollectionStart(jvmtiEnv *jvmti) {
 
 void GarbageCollectionFinish(jvmtiEnv *jvmti) {
     /////////////////////////////////////////////////////////////
-	gCacheMapCount();
-	gCacheMapClean();
+	//gCacheMapCount();
+	//gCacheMapClean();
     //printf("Sampled Alloc Objects---------------------------------------------\n");
-	//hashmap_print(CachedObjects);
-	//hashmap_empty(CachedObjects);
+	hashmap_print(CachedObjects);
+	hashmap_empty(CachedObjects);
 	//hashmap_free(CachedObjects);
 }
+/*
 char* decode_class_name2(char* sig) {
 	sig++;  //skip '['
     if (sig[1] == 0) {
@@ -85,7 +87,7 @@ char* decode_class_name2(char* sig) {
 	}else{
 		return gLastName(sig);
 	}
-}
+}*/
 char* decode_class_sign(char* sig) {
     sig++;	// rm 'L' or '['
     switch (sig[0]) {
@@ -131,8 +133,11 @@ char* get_method_name(jvmtiEnv* jvmti, jmethodID mid) {
     if ((*jvmti)->GetMethodDeclaringClass(jvmti, mid, &method_class) == 0 &&
         (*jvmti)->GetClassSignature(jvmti, method_class, &class_sig, NULL) == 0 &&
         (*jvmti)->GetMethodName(jvmti, mid, &method_name, NULL, NULL) == 0) {
-		full_method_name = gStringAdd(decode_class_sign(class_sig),method_name,".");
-		//fprintf(stdout, "full_method_name:%s \n", full_method_name );
+		char* cls_name = decode_class_sign(class_sig);
+		//full_method_name = gStringAdd(cls_name,method_name,".");//cgo performance 4x slower than c
+		int l = strlen(cls_name)+strlen(cls_name)+2;
+		full_method_name = (char*) malloc(l);
+		snprintf(full_method_name, l, "%s.%s", cls_name,method_name);
     } else {
         full_method_name = "*";
     }
@@ -143,11 +148,13 @@ char* get_method_name(jvmtiEnv* jvmti, jmethodID mid) {
 void cCacheObject(char* method_name,char* class_name,int size){
 	int l = strlen(method_name)+strlen(class_name)+10;
 	char* k = (char*) malloc(l);
-	snprintf(k, l, "%s.%s[%d]", method_name, class_name, size);
+	snprintf(k, l, "%s()%s[%d]", method_name, class_name, size);
+	//printf("M:%s C:%s size:%d , K=%s \n", method_name,class_name,size,k);
 	map_inc(CachedObjects, k);
 	//int i = get(mymap, k);
     //printf("hashmap_get not found: key=%s  value:%d\n", k,i);
 }
+//~2% overhead
 void SampledObjectAlloc(jvmtiEnv* jvmti, JNIEnv* env, jthread thread, jobject object, jclass class, jlong size) {
 	char* class_sig;
 	(*jvmti)->GetClassSignature(jvmti, class, &class_sig, NULL);
@@ -160,14 +167,14 @@ void SampledObjectAlloc(jvmtiEnv* jvmti, JNIEnv* env, jthread thread, jobject ob
 	(*jvmti)->GetStackTrace(jvmti, thread, 0, depth, &frames, &count);
 	char* method_name = get_method_name(jvmti, frames[0].method);
 	//fprintf(stdout, "Sampling objects: size[%ld] class:%s in method: %s\n", size, class_name, method_name );
-	gCacheObject(method_name,class_name,size);
-	//cCacheObject(method_name,class_name,size);
+	//gCacheObject(method_name,class_name,size);
+	cCacheObject(method_name,class_name,size);
     (*jvmti)->Deallocate(jvmti, (unsigned char*) class_sig);
 
 }
 //////////////////////////////////////////////////////////////////
 void cRegistry(jvmtiEnv *jvmti, char *options){
-	//CachedObjects = hashmap_new();
+	CachedObjects = hashmap_new();
 	gOptions(jvmti, options);
 	
     jvmtiCapabilities caps = {0};

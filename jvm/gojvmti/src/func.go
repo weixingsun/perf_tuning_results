@@ -2,7 +2,6 @@ package main
 
 import "C"
 import (
-	"fmt"
 	"strconv"
 	"path/filepath"
 )
@@ -26,21 +25,21 @@ func goAtoi(c *C.char) int {
 }
 
 //export gStringAdd
-func gStringAdd(c1 *C.char,c2 *C.char,s *C.char) *C.char {
+//func gStringAdd(c1 *C.char,c2 *C.char,s *C.char) *C.char {
 	//c:=C.CString(C.GoString(c1)+C.GoString(s)+C.GoString(c2))
 	//defer C.free(unsafe.Pointer(c))
-	return C.CString(C.GoString(c1)+C.GoString(s)+C.GoString(c2))
-}
+	//return C.CString(C.GoString(c1)+C.GoString(s)+C.GoString(c2))
+//}
 
 //export gLog
-func gLog(c *C.char) {
-	fmt.Printf("gLog: [%v] \n", C.GoString(c))
-}
+//func gLog(c *C.char) {
+	//fmt.Printf("gLog: [%v] \n", C.GoString(c))
+//}
 
 //export gTranslateJVMType
-func gTranslateJVMType(c C.int) *C.char {
-	return C.CString( JVMTYPES[int8(c)] )
-}
+//func gTranslateJVMType(c C.int) *C.char {
+	//return C.CString( JVMTYPES[int8(c)] )
+//}
 
 //export gLastName
 func gLastName(c *C.char) *C.char {

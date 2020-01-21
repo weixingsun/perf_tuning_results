@@ -14,9 +14,15 @@
 #define MAP_OMEM 	-1 	/* Out of Memory */
 #define MAP_OK		 0 	/* OK */
 #define MAP_USED	-4 	/* Collision */
+#define MAP_BUSY	-5 	/* Thread Safe */
+
 #include "hash.h"
 
 #define KEY_MAX_LENGTH (256)
+#define HASHFUN BKDR_hash
+unsigned int (*hash_fun)(char *keystring);
+
+#define MAX_CHAIN_LENGTH (8)
 
 /*
  * data_struct_s is only for hashmap_inc
@@ -26,7 +32,6 @@ typedef struct data_struct_s
     char* key_string;
     int   number;
 } data_struct_t;
-
 
 /*
  * any_t is a pointer.  This allows you to put arbitrary structures in

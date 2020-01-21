@@ -43,22 +43,33 @@ go_build
 
 if [ $? == 0 ]; then
     #go test -bench=.
-    OPTS="interval=10485760,stacktrace=1,logfile=sample.log"
     LOOP=20000000
+	OPTS="interval=1048576,stacktrace=1,logfile=sample.log"
     echo "run with agent options: $OPTS"
-    time $JAVA_HOME/bin/java -agentpath:./$AGENT=$OPTS Main $LOOP
+    time $JAVA_HOME/bin/java -agentpath:./$AGENT=$OPTS Main $LOOP > /dev/null
+    OPTS="interval=10485760,stacktrace=1,logfile=sample.log"
+    echo "run with agent options: $OPTS"
+    time $JAVA_HOME/bin/java -agentpath:./$AGENT=$OPTS Main $LOOP > /dev/null
     echo "run without agent:"
     time $JAVA_HOME/bin/java Main $LOOP
 fi
 
+###################################################################################
+# maybe not so accurate as the program is variable over
+###################################################################################
+#run with agent options: interval=1048576,stacktrace=1,logfile=sample.log
 
-##############
-#time	agent:interval=1M	agent:interval=10M	no_agent
-#real	9.685s				9.483s				8.862s/8.995s
-##############
+#real    0m18.183s
+#user    0m54.250s
+#sys     0m5.594s
+#run with agent options: interval=10485760,stacktrace=1,logfile=sample.log
 
-############## go:decode_class_name2     c:decode_class_name
-#cgo_agent	no_agent	c_agent
-#42.446s	36.046s		39.396s
-#38.955s	32.991s		36.366s
-#38.749s	33.255s		
+#real    0m18.119s
+#user    0m55.109s
+#sys     0m5.188s
+#run without agent:
+#Final result= 542894464
+
+#real    0m18.094s
+#user    0m54.469s
+#sys     0m5.094s

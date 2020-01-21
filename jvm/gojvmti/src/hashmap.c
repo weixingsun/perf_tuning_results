@@ -9,24 +9,17 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#define HASHFUN BKDR_hash
-unsigned int (*hash_fun)(char *keystring);
-
-#define BIG_NUM 2000000ul
-#define MAX_CHAIN_LENGTH (8)
 /*
  * Zaks Wang add the SGI C++ STL primes
  * 2013-5-8
  */
-#define num_primes 28
-static const unsigned long prime_list[num_primes]=
-{
-  53ul,97ul,193ul,389ul,769ul,
-  1543ul,3079ul,6151ul,12289ul,24593ul,
-  49157ul,98317ul,196613ul,393241ul,786433ul,
-  1572869ul,3145739ul,6291469ul,12582917ul,25165843ul,
-  50331653ul,100663319ul,201326611ul,402653189ul,805306457ul,
-  1610612741ul,3221225473ul,4294967291ul
+#define BIG_NUM 12ul
+#define num_primes 16
+static const unsigned long prime_list[num_primes]={
+  3ul,7ul,13ul,31ul, 67ul,131ul,227ul,401ul,
+  769ul,1543ul,3079ul,6151ul, 12289ul,24593ul,49157ul,98317ul,
+  //196613ul,393241ul,786433ul,1572869ul,3145739ul,6291469ul,12582917ul,25165843ul,50331653ul,
+  //100663319ul,201326611ul,402653189ul,805306457ul,1610612741ul,3221225473ul,4294967291ul,
 };
 // table_size should be 1.5x key counts
 static inline unsigned long next_prime(unsigned long n){
@@ -54,6 +47,7 @@ typedef struct _hashmap_element{
 typedef struct _hashmap_map{
 	int table_size;
 	int size;
+	int busy;
 	hashmap_element *data;
 } hashmap_map;
 
@@ -295,10 +289,12 @@ int hashmap_rehash(map_t in){
 
 /*
  * Add a pointer to the hashmap with some key
+ *     Check if map is being used
  */
 int hashmap_put(map_t in, char* key, any_t value){
 	/* Cast the hashmap */
 	hashmap_map* m = (hashmap_map *) in;
+	if (m->busy) return MAP_BUSY;
 	/* Find a place to put our value */
 	int index = hashmap_hash(in, key);
 	while(index == MAP_FULL){
@@ -418,13 +414,16 @@ int hashmap_inc(map_t in, char* key){
 	data_struct_t* value;
 	int ret = hashmap_get(in, key, (void**)(&value1));
 	if (ret == MAP_MISSING) {
+		//printf("hashmap_add: %s\n", key);
 		value = malloc(sizeof(data_struct_t));
 		value->number = 1;
 	}else{
 		value = (data_struct_t*) value1;
 		value->number +=1;
+		value->key_string = key;
+		//printf("hashmap_inc: %s\t%d\n", key,value->number);
 	}
-	ret = hashmap_put(in, key, value);
+	hashmap_put(in, key, value);
 	return MAP_OK;
 }
 
@@ -438,19 +437,20 @@ int printele(any_t item, any_t data){
  */
 int hashmap_print(map_t in){
 	hashmap_map* m = (hashmap_map*) in;
-	printf("[");
+	printf("%d,%d[",m->table_size,m->size);
 	hashmap_iterate(m, printele, 0);
 	printf("]\n");
 }
 
 void hashmap_empty(map_t in){
 	hashmap_map* m = (hashmap_map*) in;
+	m->busy = 1;
 	free(m->data);
 	unsigned long table_size = next_prime(BIG_NUM);
 	m->data = (hashmap_element*) calloc(table_size, sizeof(hashmap_element));
 	m->size = 0;
 	m->table_size = table_size;
-
+	m->busy = 0;
 }
 
 /* Deallocate the hashmap */
