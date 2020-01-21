@@ -37,11 +37,15 @@ func gConfig(s string) (map[string]string, error) {
 func gOptions(jvmti *C.jvmtiEnv, co *C.char) {
 	opt := C.GoString(co)
 	m,err := gConfig(opt)
+	fmt.Printf("-----------------------------------------------------------\n");
 	if err != nil {
-	    fmt.Printf("Invalid Agent Options: %v\n", opt)
+	    fmt.Printf("| Agent Options Invalid: %v\n", opt)
 	}else{
-	    fmt.Printf("Agent Options: %v \n", m)
+	    fmt.Printf("| Agent Options: %v \n", m)
 	}
 	i,_:=strconv.ParseInt(m["interval"], 0, 32)
 	C.cSetHeapSamplingInterval( jvmti, C.int(i) )
+	if f, ok := m["logfile"]; ok {
+		C.cSetLogFile( C.CString(f) )
+	}
 }

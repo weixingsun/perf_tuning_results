@@ -98,7 +98,7 @@ int hashmap_get_one(map_t in, any_t *arg, int remove);
 /*
  * Print a hashmap
  */
-int hashmap_print(map_t in);
+void hashmap_print(map_t in, char* log_file);
 
 /*
  * Free the hashmap
@@ -114,6 +114,14 @@ void hashmap_empty(map_t in);
  * Get the current size of a hashmap
  */
 int hashmap_length(map_t in);
+
+//////////////////////////////////////////////////////////////////////////////////
+
+void init_log(char* path);
+void close_log();
+
+//log_writer("Alloc: %s", key);
+void log_writer(int newline, const char *fmt, ...);
 
 
 #if defined(__cplusplus)

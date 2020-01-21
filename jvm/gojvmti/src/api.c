@@ -7,7 +7,7 @@
 static jrawMonitorID jvmti_lock;
 static jvmtiEnv* jvmti = NULL;
 static map_t CachedObjects = NULL;
-
+char* LOG_FILE = NULL;
 //////////////////////////////////////////////////////////////////
 void map_set(map_t mymap, char* key, int v){
 	data_struct_t* value = malloc(sizeof(data_struct_t));
@@ -75,19 +75,11 @@ void GarbageCollectionFinish(jvmtiEnv *jvmti) {
 	//gCacheMapCount();
 	//gCacheMapClean();
     //printf("Sampled Alloc Objects---------------------------------------------\n");
-	hashmap_print(CachedObjects);
+	hashmap_print(CachedObjects,LOG_FILE);
 	hashmap_empty(CachedObjects);
 	//hashmap_free(CachedObjects);
 }
-/*
-char* decode_class_name2(char* sig) {
-	sig++;  //skip '['
-    if (sig[1] == 0) {
-		return gTranslateJVMType(sig[0]);
-	}else{
-		return gLastName(sig);
-	}
-}*/
+
 char* decode_class_sign(char* sig) {
     sig++;	// rm 'L' or '['
     switch (sig[0]) {
@@ -206,7 +198,16 @@ JNIEXPORT jint JNICALL Agent_OnLoad(JavaVM *jvm, char *options, void *reserved) 
 	gJVMTypeInit();
     return JNI_OK;
 }
+JNIEXPORT void JNICALL Agent_OnUnload(JavaVM *vm){
+	close_log();
+}
 void cSetHeapSamplingInterval(jvmtiEnv *jvmti, int interval) {
-	fprintf(stdout, "HeapSamplingInterval=%d \n", interval );
+	fprintf(stdout, "| Agent HeapSamplingInterval=%d \n", interval );
 	(*jvmti)->SetHeapSamplingInterval(jvmti, interval);
+}
+void cSetLogFile(char* file_path){
+	fprintf(stdout, "| Agent Log writes to %s \n", file_path );
+	fprintf(stdout, "-----------------------------------------------------------\n");
+	init_log(file_path);
+	LOG_FILE = file_path;
 }

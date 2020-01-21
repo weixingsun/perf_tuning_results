@@ -44,32 +44,41 @@ go_build
 if [ $? == 0 ]; then
     #go test -bench=.
     LOOP=20000000
-	OPTS="interval=1048576,stacktrace=1,logfile=sample.log"
-    echo "run with agent options: $OPTS"
-    time $JAVA_HOME/bin/java -agentpath:./$AGENT=$OPTS Main $LOOP > /dev/null
+    OPTS="interval=1048576,stacktrace=1,logfile=sample.log"
+    #echo "run with agent options: $OPTS"
+    time $JAVA_HOME/bin/java -agentpath:./$AGENT=$OPTS Main $LOOP 
     OPTS="interval=10485760,stacktrace=1,logfile=sample.log"
-    echo "run with agent options: $OPTS"
-    time $JAVA_HOME/bin/java -agentpath:./$AGENT=$OPTS Main $LOOP > /dev/null
-    echo "run without agent:"
+    #echo "run with agent options: $OPTS"
+    time $JAVA_HOME/bin/java -agentpath:./$AGENT=$OPTS Main $LOOP
+    echo "run without agent:-------------------------------"
     time $JAVA_HOME/bin/java Main $LOOP
 fi
 
 ###################################################################################
-# maybe not so accurate as the program is variable over
-###################################################################################
-#run with agent options: interval=1048576,stacktrace=1,logfile=sample.log
-
-#real    0m18.183s
-#user    0m54.250s
-#sys     0m5.594s
-#run with agent options: interval=10485760,stacktrace=1,logfile=sample.log
-
-#real    0m18.119s
-#user    0m55.109s
-#sys     0m5.188s
-#run without agent:
+#-----------------------------------------------------------
+#| Agent Options: map[interval:1048576 logfile:sample.log]
+#| Agent HeapSamplingInterval=1048576
+#| Agent Log writes to sample.log
+#-----------------------------------------------------------
 #Final result= 542894464
 
-#real    0m18.094s
-#user    0m54.469s
-#sys     0m5.094s
+#real    0m19.429s
+#user    0m55.344s
+#sys     0m5.922s
+#-----------------------------------------------------------
+#| Agent Options: map[interval:10485760 logfile:sample.log]
+#| Agent HeapSamplingInterval=10485760
+#| Agent Log writes to sample.log
+#-----------------------------------------------------------
+#Final result= 542894464
+
+#real    0m19.257s
+#user    0m56.219s
+#sys     0m5.281s
+#run without agent:-------------------------------
+#Final result= 542894464
+
+#real    0m18.630s
+#user    0m55.141s
+#sys     0m5.469s
+

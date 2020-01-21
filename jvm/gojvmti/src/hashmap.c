@@ -5,10 +5,12 @@
  * 2013-5-9
  */
 #include "hashmap.h"
-
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <stdarg.h>
+#include <time.h>
+
 /*
  * Zaks Wang add the SGI C++ STL primes
  * 2013-5-8
@@ -65,7 +67,7 @@ map_t hashmap_new() {
 
 	m->table_size = size;
 	m->size = 0;
-	fprintf(stdout, "hashmap_new: input=%lu prime=%lu \n", BIG_NUM,size);
+	//fprintf(stdout, "hashmap_new: input=%lu prime=%lu \n", BIG_NUM,size);
 	return m;
 	err:
 		if (m) hashmap_free(m);
@@ -432,14 +434,25 @@ int printele(any_t item, any_t data){
 	printf("%s:%d\t", value->key_string, value->number);
 	return MAP_OK;
 }
+int logele(any_t item, any_t data){
+	data_struct_t* value = (data_struct_t*) data;
+	log_writer(0,"%s:%d\t", value->key_string, value->number);
+	return MAP_OK;
+}
 /*
  * Print a map
  */
-int hashmap_print(map_t in){
+void hashmap_print(map_t in, char* log_file){
 	hashmap_map* m = (hashmap_map*) in;
-	printf("%d,%d[",m->table_size,m->size);
-	hashmap_iterate(m, printele, 0);
-	printf("]\n");
+	if (log_file == NULL){
+		printf("%d,%d[",m->table_size,m->size);
+		hashmap_iterate(m, printele, 0);
+		printf("]\n");
+	}else{
+		log_writer(1,"%d[",m->size); //m->table_size
+		hashmap_iterate(m, logele, 0);
+		log_writer(0,"]\n");
+	}
 }
 
 void hashmap_empty(map_t in){
@@ -465,4 +478,35 @@ int hashmap_length(map_t in){
 	hashmap_map* m = (hashmap_map *) in;
 	if(m != NULL) return m->size;
 	else return 0;
+}
+////////////////////////////////////////////////////////////////////////////
+FILE* LogFile = NULL;
+void init_log(char* path){
+	LogFile = fopen(path, "a");
+}
+void close_log(){
+	if(LogFile != NULL) fclose(LogFile);
+}
+unsigned long last_flush_sec = 0ul;
+//log_writer(1, "Alloc: %s", key);
+void log_writer(int newline, const char *fmt, ...) {
+	time_t lTime = time(NULL);	//1,579,614,378
+	if (newline>0){
+		struct tm* timestruct = localtime((const time_t *) &lTime);
+		int hour = timestruct->tm_hour;
+		int min = timestruct->tm_min;
+		int sec = timestruct->tm_sec;
+		char time[9];
+		sprintf(time, "%02d:%02d:%02d", hour, min, sec);
+		fprintf(LogFile, "[%s] ", time);
+	}
+	va_list args;
+	va_start(args, fmt);
+	vfprintf(LogFile, fmt, args);
+	va_end(args);
+	
+	if (last_flush_sec<lTime-1){
+		last_flush_sec=lTime;
+		fflush(LogFile);
+	}
 }

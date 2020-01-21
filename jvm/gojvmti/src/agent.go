@@ -11,15 +11,7 @@ import (
 
 var counters = NewCounter()
 
-//export gCacheMapCount
-func gCacheMapCount() {
-	counters.GetAllCount()
-}
 
-//export gCacheMapClean
-func gCacheMapClean() {
-	counters.Clean()
-}
 //export gCacheObject
 func gCacheObject(method *C.char,object *C.char, size C.int) {
 	m := C.GoString(method)
@@ -30,3 +22,13 @@ func gCacheObject(method *C.char,object *C.char, size C.int) {
 }
 
 func main() {}
+
+//export gCacheMapCount
+//func gCacheMapCount() {
+//	counters.GetAllCount()
+//}
+
+//export gCacheMapClean
+//func gCacheMapClean() {
+//	counters.Clean()
+//}
