@@ -1,6 +1,8 @@
 #include <jvmti.h>
 #include <stdio.h>
 #include <string.h>
+#include <time.h>
+#include <limits.h>
 #include "hashmap.h"
 #include "_cgo_export.h"
 
@@ -8,6 +10,8 @@ static jrawMonitorID jvmti_lock;
 static jvmtiEnv* jvmti = NULL;
 static map_t CachedObjects = NULL;
 char* LOG_FILE = NULL;
+unsigned long END_TIME = ULONG_MAX;
+
 //////////////////////////////////////////////////////////////////
 void map_set(map_t mymap, char* key, int v){
 	data_struct_t* value = malloc(sizeof(data_struct_t));
@@ -64,6 +68,19 @@ void JNICALL MethodEntry(jvmtiEnv *jvmti, JNIEnv *jni, jthread thread, jmethodID
     error = (*jvmti)->GetMethodName(jvmti, method, &name_ptr, &signature_ptr, &generic_ptr);
     printf("Entered method %s\n", name_ptr);
 }
+
+//Actually this method won't do what it supposed to, should be a bug, may be race condition related
+void cUnRegisterAll(){
+	(*jvmti)->RawMonitorEnter(jvmti, jvmti_lock);
+    (*jvmti)->SetEventNotificationMode(jvmti, JVMTI_DISABLE, JVMTI_EVENT_SAMPLED_OBJECT_ALLOC, NULL);
+    (*jvmti)->SetEventNotificationMode(jvmti, JVMTI_DISABLE, JVMTI_EVENT_GARBAGE_COLLECTION_FINISH, NULL);
+	jvmtiEventCallbacks calls = {0};
+    (*jvmti)->SetEventCallbacks(jvmti, &calls, sizeof(calls));
+	jvmtiCapabilities caps = {0};
+    (*jvmti)->AddCapabilities(jvmti, &caps);
+	//fprintf(stdout, "| Agent cUnRegisterAll END_TIME = %d seconds \n", END_TIME );
+	(*jvmti)->RawMonitorExit(jvmti, jvmti_lock);
+}
 void GarbageCollectionStart(jvmtiEnv *jvmti) {
 	//(*jvmti)->RawMonitorEnter(jvmti, jvmti_lock);
     //gLog("GCstart");
@@ -78,6 +95,7 @@ void GarbageCollectionFinish(jvmtiEnv *jvmti) {
 	hashmap_print(CachedObjects,LOG_FILE);
 	hashmap_empty(CachedObjects);
 	//hashmap_free(CachedObjects);
+	//if (END_TIME < time(NULL) ) cUnRegisterAll();
 }
 
 char* decode_class_sign(char* sig) {
@@ -100,7 +118,7 @@ char* decode_class_sign(char* sig) {
 	sig+=idx;
     return sig;
 }
-void print_all_threads(jvmtiEnv* jvmti) {
+void print_all_threads() {
 	jint thread_count;
 	jthread* threads;
 	(*jvmti)->GetAllThreads(jvmti, &thread_count, &threads);
@@ -116,7 +134,7 @@ void print_all_threads(jvmtiEnv* jvmti) {
 	Deallocate(jvmti, (void *)threads);
 	*/
 }
-char* get_method_name(jvmtiEnv* jvmti, jmethodID mid) {
+char* get_method_name(jmethodID mid) {
     jclass method_class;
     char* class_sig = NULL;
     char* method_name = NULL;
@@ -157,17 +175,16 @@ void SampledObjectAlloc(jvmtiEnv* jvmti, JNIEnv* env, jthread thread, jobject ob
 	int depth=1;
 	jvmtiFrameInfo frames[depth];
 	(*jvmti)->GetStackTrace(jvmti, thread, 0, depth, &frames, &count);
-	char* method_name = get_method_name(jvmti, frames[0].method);
+	char* method_name = get_method_name(frames[0].method);
 	//fprintf(stdout, "Sampling objects: size[%ld] class:%s in method: %s\n", size, class_name, method_name );
 	//gCacheObject(method_name,class_name,size);
 	cCacheObject(method_name,class_name,size);
     (*jvmti)->Deallocate(jvmti, (unsigned char*) class_sig);
-
 }
 //////////////////////////////////////////////////////////////////
-void cRegistry(jvmtiEnv *jvmti, char *options){
+void cRegisterSampleAlloc(char *options){
 	CachedObjects = hashmap_new();
-	gOptions(jvmti, options);
+	gOptions(options);
 	
     jvmtiCapabilities caps = {0};
     caps.can_generate_sampled_object_alloc_events = 1;
@@ -191,17 +208,7 @@ void cRegistry(jvmtiEnv *jvmti, char *options){
     (*jvmti)->SetEventNotificationMode(jvmti, JVMTI_ENABLE, JVMTI_EVENT_SAMPLED_OBJECT_ALLOC, NULL);
     (*jvmti)->SetEventNotificationMode(jvmti, JVMTI_ENABLE, JVMTI_EVENT_GARBAGE_COLLECTION_FINISH, NULL);
 }
-JNIEXPORT jint JNICALL Agent_OnLoad(JavaVM *jvm, char *options, void *reserved) {
-	(*jvm)->GetEnv(jvm, (void**) &jvmti, JVMTI_VERSION_1_0);
-    //(*jvmti)->CreateRawMonitor(jvmti, "jvmti_lock", &jvmti_lock);
-    cRegistry(jvmti, options);
-	gJVMTypeInit();
-    return JNI_OK;
-}
-JNIEXPORT void JNICALL Agent_OnUnload(JavaVM *vm){
-	close_log();
-}
-void cSetHeapSamplingInterval(jvmtiEnv *jvmti, int interval) {
+void cSetHeapSamplingInterval(int interval) {
 	fprintf(stdout, "| Agent HeapSamplingInterval=%d \n", interval );
 	(*jvmti)->SetHeapSamplingInterval(jvmti, interval);
 }
@@ -210,4 +217,23 @@ void cSetLogFile(char* file_path){
 	fprintf(stdout, "-----------------------------------------------------------\n");
 	init_log(file_path);
 	LOG_FILE = file_path;
+}
+void cSetDuration(int duration){
+	END_TIME  = time(NULL)+duration;
+	fprintf(stdout, "| Agent Set END_TIME = %d seconds \n", END_TIME );
+}
+JNIEXPORT jint JNICALL Agent_OnLoad(JavaVM *jvm, char *options, void *reserved) {
+	(*jvm)->GetEnv(jvm, (void**) &jvmti, JVMTI_VERSION_1_0);
+    //(*jvmti)->CreateRawMonitor(jvmti, "jvmti_lock", &jvmti_lock);
+    cRegisterSampleAlloc(options);
+	gJVMTypeInit();
+    return JNI_OK;
+}
+JNIEXPORT void JNICALL Agent_OnUnload(JavaVM *vm){
+	fprintf(stdout, "| Agent Unload \n" );
+	cUnRegisterAll();
+	close_log();
+}
+JNIEXPORT jint JNICALL Agent_OnAttach(JavaVM *vm, char *options, void *reserved){
+    return Agent_OnLoad(vm,options,reserved);
 }

@@ -38,20 +38,37 @@ go_build(){
   OPTS="-O3 -Ofast -march=native"  # -fPIC -lstdc++ -shared -xc -std=gnu11 -O3 -g -Wall -pedantic -Wextra -Werror
   CC="$CC" CGO_CFLAGS="$OPTS $JAVA_INC" go build $GO_FLAG -o $AGENT ./src
 }
+
+#javac -cp $JAVA_HOME/lib/tools.jar Attacher.java
+AGENT=heap.so
+LOOP=20000000
+run(){
+	echo "run without agent:-------------------------------"
+    time $JAVA_HOME/bin/java Main $LOOP
+}
+run_with_agent(){
+	AGT=$1
+    OPT=$2
+	time $JAVA_HOME/bin/java -agentpath:./$AGT=$OPT Main $LOOP
+}
+run_and_attach(){
+	AGT=$1
+    OPT=$2
+	time $JAVA_HOME/bin/java Main $LOOP &
+	pid=`pgrep java`
+	echo "$JAVA_HOME/bin/jcmd $pid JVMTI.agent_load ./$AGT $OPT"
+	#export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:`pwd`
+	#$JAVA_HOME/bin/jcmd $pid VM.flags -all |grep manageable
+	$JAVA_HOME/bin/jcmd $pid JVMTI.agent_load ./$AGT "\"$OPT\""
+}
 echo "build"
 go_build
-
 if [ $? == 0 ]; then
     #go test -bench=.
-    LOOP=20000000
-    OPTS="interval=1048576,stacktrace=1,logfile=sample.log"
-    #echo "run with agent options: $OPTS"
-    time $JAVA_HOME/bin/java -agentpath:./$AGENT=$OPTS Main $LOOP 
-    OPTS="interval=10485760,stacktrace=1,logfile=sample.log"
-    #echo "run with agent options: $OPTS"
-    time $JAVA_HOME/bin/java -agentpath:./$AGENT=$OPTS Main $LOOP
-    echo "run without agent:-------------------------------"
-    time $JAVA_HOME/bin/java Main $LOOP
+    #run
+    #run_with_agent $AGENT "interval=1048576,stacktrace=1,logfile=sample.log"
+	#run_with_agent $AGENT "interval=1048576"
+	run_and_attach $AGENT "interval=10485760,duration=5,logfile=sample.log"
 fi
 
 ###################################################################################

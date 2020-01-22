@@ -1,2 +1,3 @@
-void cSetHeapSamplingInterval(jvmtiEnv *jvmti, int interval);
+void cSetHeapSamplingInterval(int interval);
 void cSetLogFile(char* file_path);
+void cSetDuration(int duration);

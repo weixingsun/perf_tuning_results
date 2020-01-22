@@ -12,40 +12,43 @@ import (
 	"errors"
 )
 var INTERVAL="interval"
+var DURATION="duration"
 var LOGFILE="logfile"
-func gConfig(s string) (map[string]string, error) {
+func gConfig(s string) error {
+	usage := "Options: interval=1,duration=10,logfile=alloc.log"
+	
+	//fmt.Printf("|  options: %s\n", s)
 	ss := strings.Split(s, ",")
-	m := make(map[string]string)
 	for _, pair := range ss {
 		z := strings.Split(pair, "=")
+		//fmt.Printf("|      option: %d   %s\n", len(z), pair)
 		if len(z)<2 {
-			return nil,errors.New("Options: interval=1,logfile=alloc.log")
-		}else if z[0] == INTERVAL {
-			_,e:=strconv.ParseInt(z[1], 0, 32)
-			if e != nil {
-				return nil,errors.New("Options: interval=1,logfile=alloc.log")
-			}
-			m[z[0]] = z[1]
-		}else if z[0] == LOGFILE {
-			m[z[0]] = z[1]
+			return errors.New(usage)
+		}
+		switch k := z[0]; k{
+			case INTERVAL:
+				i,e:=strconv.ParseInt(z[1], 0, 32)
+				if e != nil {
+					return errors.New(usage)
+				}
+				C.cSetHeapSamplingInterval( C.int(i) )
+			case DURATION:
+				i,e:=strconv.ParseInt(z[1], 0, 32)
+				if e != nil {
+					return errors.New(usage)
+				}
+				C.cSetDuration( C.int(i) )
+			case LOGFILE:
+				C.cSetLogFile( C.CString(z[1]) )
+			default:
+				fmt.Printf("Unsupport option: %s", k);
 		}
 	}
-	return m,nil
+	return nil
 }
 
 //export gOptions
-func gOptions(jvmti *C.jvmtiEnv, co *C.char) {
-	opt := C.GoString(co)
-	m,err := gConfig(opt)
+func gOptions(co *C.char) {
 	fmt.Printf("-----------------------------------------------------------\n");
-	if err != nil {
-	    fmt.Printf("| Agent Options Invalid: %v\n", opt)
-	}else{
-	    fmt.Printf("| Agent Options: %v \n", m)
-	}
-	i,_:=strconv.ParseInt(m["interval"], 0, 32)
-	C.cSetHeapSamplingInterval( jvmti, C.int(i) )
-	if f, ok := m["logfile"]; ok {
-		C.cSetLogFile( C.CString(f) )
-	}
+	gConfig(C.GoString(co))
 }
