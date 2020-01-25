@@ -11,11 +11,15 @@ import (
 	"strings"
 	"errors"
 )
-var INTERVAL="interval"
+var INTERVAL="heap_interval"
 var DURATION="duration"
 var LOGFILE="logfile"
+var METHOD="method"
+var LOGNUMBER="lognumber"
+var LOGSIZE="logsize"
+
 func gConfig(s string) error {
-	usage := "Options: interval=1,duration=10,logfile=alloc.log"
+	usage := "Options: heap_interval=1,duration=10,method=HashMap.getNode,logfile=alloc.log,lognumber=128"
 	
 	//fmt.Printf("|  options: %s\n", s)
 	ss := strings.Split(s, ",")
@@ -31,6 +35,7 @@ func gConfig(s string) error {
 				if e != nil {
 					return errors.New(usage)
 				}
+				C.cRegisterSampleAlloc();
 				C.cSetHeapSamplingInterval( C.int(i) )
 			case DURATION:
 				i,e:=strconv.ParseInt(z[1], 0, 32)
@@ -39,7 +44,14 @@ func gConfig(s string) error {
 				}
 				C.cSetDuration( C.int(i) )
 			case LOGFILE:
-				C.cSetLogFile( C.CString(z[1]) )
+				logpath := z[1]
+				C.cSetLogFile( C.CString(logpath) )
+			case LOGNUMBER:
+				n,e:=strconv.ParseInt(z[1], 0, 32)
+				if e != nil {
+					return errors.New(usage)
+				}
+				C.cSetLogNumber( C.int(n) )
 			default:
 				fmt.Printf("Unsupport option: %s", k);
 		}

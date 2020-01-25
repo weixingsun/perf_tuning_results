@@ -67,8 +67,8 @@ if [ $? == 0 ]; then
     #go test -bench=.
     #run
     #run_with_agent $AGENT "interval=1048576,stacktrace=1,logfile=sample.log"
-	#run_with_agent $AGENT "interval=1048576"
-	run_and_attach $AGENT "interval=10485760,duration=5,logfile=sample.log"
+	#run_with_agent $AGENT "interval=1048576,duration=10" logfile=alloc.log,
+	run_and_attach $AGENT "heap_interval=1048576,method=HashMap.getNode,logsize=1024,lognumber=128"
 fi
 
 ###################################################################################

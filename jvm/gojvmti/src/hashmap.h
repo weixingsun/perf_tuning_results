@@ -118,6 +118,7 @@ int hashmap_length(map_t in);
 //////////////////////////////////////////////////////////////////////////////////
 
 void init_log(char* path);
+void init_log_number(int number_threshold);
 void close_log();
 
 //log_writer("Alloc: %s", key);

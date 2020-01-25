@@ -23,6 +23,8 @@ static const unsigned long prime_list[num_primes]={
   //196613ul,393241ul,786433ul,1572869ul,3145739ul,6291469ul,12582917ul,25165843ul,50331653ul,
   //100663319ul,201326611ul,402653189ul,805306457ul,1610612741ul,3221225473ul,4294967291ul,
 };
+int SIZE_THRESHOLD = -1;
+int NUMBER_THRESHOLD = -1;
 // table_size should be 1.5x key counts
 static inline unsigned long next_prime(unsigned long n){
   const unsigned long * first = prime_list;
@@ -428,10 +430,12 @@ int hashmap_inc(map_t in, char* key){
 	hashmap_put(in, key, value);
 	return MAP_OK;
 }
-
+int get_size_from_key(char* key){
+	return 0;
+}
 int printele(any_t item, any_t data){
 	data_struct_t* value = (data_struct_t*) data;
-	printf("%s:%d\t", value->key_string, value->number);
+	if ( NUMBER_THRESHOLD<value->number ) printf("%s:%d\t", value->key_string, value->number);
 	return MAP_OK;
 }
 int logele(any_t item, any_t data){
@@ -483,6 +487,10 @@ int hashmap_length(map_t in){
 FILE* LogFile = NULL;
 void init_log(char* path){
 	LogFile = fopen(path, "a");
+}
+void init_log_number(int number_threshold){
+	//SIZE_THRESHOLD=size_threshold;
+	NUMBER_THRESHOLD=number_threshold;
 }
 void close_log(){
 	if(LogFile != NULL) fclose(LogFile);
