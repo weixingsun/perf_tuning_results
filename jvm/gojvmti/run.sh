@@ -41,7 +41,7 @@ go_build(){
 
 #javac -cp $JAVA_HOME/lib/tools.jar Attacher.java
 AGENT=heap.so
-LOOP=20000000
+LOOP=200000
 run(){
 	echo "run without agent:-------------------------------"
     time $JAVA_HOME/bin/java Main $LOOP
@@ -66,9 +66,14 @@ go_build
 if [ $? == 0 ]; then
     #go test -bench=.
     #run
-    #run_with_agent $AGENT "interval=1048576,stacktrace=1,logfile=sample.log"
-	#run_with_agent $AGENT "interval=1048576,duration=10" logfile=alloc.log,
-	run_and_attach $AGENT "heap_interval=1048576,method=HashMap.getNode,logsize=1024,lognumber=128"
+    #run_with_agent $AGENT "heap_interval=1048576,stacktrace=1,logfile=sample.log"
+	#run_with_agent $AGENT "heap_interval=1048576,duration=10,logfile=alloc.log,lognumber=128"     #logsize=1024,not implement     
+	#run_and_attach $AGENT "heap_interval=1048576,lognumber=128"   #method=HashMap.getNode
+	#run_and_attach $AGENT "funccount=count" #methodEntry this will not work when attaching ...............
+	#run_with_agent $AGENT "funccount=getNode,count_interval=1"
+	###################################################################
+	#run_with_agent $AGENT "thread_cpu=ALL,thread_interval=1"
+	echo done
 fi
 
 ###################################################################################

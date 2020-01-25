@@ -11,15 +11,16 @@ import (
 	"strings"
 	"errors"
 )
-var INTERVAL="heap_interval"
-var DURATION="duration"
+var HEAP_INTERVAL="heap_interval"
+var DURATION="duration"				//not working, bug?
 var LOGFILE="logfile"
-var METHOD="method"
+var FUNCCOUNT="funccount"
+var COUNT_INTERVAL="count_interval"
 var LOGNUMBER="lognumber"
 var LOGSIZE="logsize"
 
 func gConfig(s string) error {
-	usage := "Options: heap_interval=1,duration=10,method=HashMap.getNode,logfile=alloc.log,lognumber=128"
+	usage := "Options: heap_interval=1,duration=10,method=HashMap.getNode,logfile=alloc.log,lognumber=128,funccount=getNode,count_interval=1"
 	
 	//fmt.Printf("|  options: %s\n", s)
 	ss := strings.Split(s, ",")
@@ -30,7 +31,7 @@ func gConfig(s string) error {
 			return errors.New(usage)
 		}
 		switch k := z[0]; k{
-			case INTERVAL:
+			case HEAP_INTERVAL:
 				i,e:=strconv.ParseInt(z[1], 0, 32)
 				if e != nil {
 					return errors.New(usage)
@@ -52,6 +53,17 @@ func gConfig(s string) error {
 					return errors.New(usage)
 				}
 				C.cSetLogNumber( C.int(n) )
+			case FUNCCOUNT:
+				if z[1] != "ALL" {
+					C.cSetFunc( C.CString(z[1]) )
+				}
+				C.cRegisterFuncCount();
+			case COUNT_INTERVAL:
+				i,e:=strconv.ParseInt(z[1], 0, 32)
+				if e != nil {
+					return errors.New(usage)
+				}
+				C.cSetCountInterval( C.int(i) )
 			default:
 				fmt.Printf("Unsupport option: %s", k);
 		}
@@ -63,4 +75,5 @@ func gConfig(s string) error {
 func gOptions(co *C.char) {
 	fmt.Printf("-----------------------------------------------------------\n");
 	gConfig(C.GoString(co))
+	fmt.Printf("-----------------------------------------------------------\n");
 }

@@ -9,9 +9,11 @@
 static jrawMonitorID jvmti_lock;
 static jvmtiEnv* jvmti = NULL;
 static map_t CachedObjects = NULL;
-char* LOG_FILE = NULL;
 unsigned long END_TIME = ULONG_MAX;
-
+unsigned long COUNT_TIME = ULONG_MAX;
+int COUNT_INTERVAL = 1;
+char* LOG_FILE = NULL;
+char* COUNT_METHOD = NULL;
 //////////////////////////////////////////////////////////////////
 void map_set(map_t mymap, char* key, int v){
 	data_struct_t* value = malloc(sizeof(data_struct_t));
@@ -43,6 +45,7 @@ void map_rm(map_t mymap, char* key){
 void JNICALL ClassFileLoadHook(
 	jvmtiEnv* jvmti, JNIEnv* jni, jclass class_being_redefined, jobject loader, const char* name, 
 	jobject domain, jint data_len, const unsigned char* data, jint* new_data_len, unsigned char** new_data) {
+		
 	fprintf(stdout, "| ClassFileLoadHook.name=%s  ", name );
 }
 void SampleThreadState(jvmtiEnv *jvmti){
@@ -65,65 +68,6 @@ void SampleThreadState(jvmtiEnv *jvmti){
 	/* this one Deallocate call frees all data allocated by GetAllStackTraces */
 	//(*jvmti)->Deallocate(jvmti, stack_info);
 }
-void JNICALL MethodEntry(jvmtiEnv* jvmti, JNIEnv* env, jthread thread, jmethodID method) {
-	char *name_ptr;
-    char *signature_ptr;
-    char *generic_ptr;
-    jvmtiError error;
-    error = (*jvmti)->GetMethodName(jvmti, method, &name_ptr, &signature_ptr, &generic_ptr);
-    printf("Entered method %s\n", name_ptr);
-}
-void JNICALL MethodExit(jvmtiEnv *jvmti_env, JNIEnv* jni, jthread thread, jmethodID method, jboolean was_popped_by_exception, jvalue return_value){
-	char *name_ptr;
-    char *signature_ptr;
-    char *generic_ptr;
-    jvmtiError error;
-    error = (*jvmti)->GetMethodName(jvmti, method, &name_ptr, &signature_ptr, &generic_ptr);
-    printf("Exited method %s\n", name_ptr);
-}
-/*
-void JNICALL ClassFileLoadHook(jvmtiEnv *jvmti, JNIEnv* jni, jclass class_being_redefined, jobject loader,const char* name,
-            jobject protection_domain,jint class_data_len,const unsigned char* class_data,jint* new_class_data_len,unsigned char** new_class_data){
-	(*jvmti)->RawMonitorEnter(jvmti, jvmti_lock);
-	jclass klass = NULL;
-	klass = jni->FindClass("unitleak/LeakAgentInterface");
-	static JNINativeMethod methods[1] = {
-            {"_someMethod", "()V", (void*)&native_method},
-        };
-	jni->RegisterNatives(klass, methods, 1);
-	jfieldID eng = jni->GetStaticFieldID(klass, "engaged", "I");
-	jni->SetStaticIntField(klass, eng, 1);
-	(*jvmti)->RawMonitorExit(jvmti, jvmti_lock);
-}*/
-//Actually this method won't do what it supposed to, should be a bug, may be race condition related
-void cUnRegisterAll(){
-	(*jvmti)->RawMonitorEnter(jvmti, jvmti_lock);
-    (*jvmti)->SetEventNotificationMode(jvmti, JVMTI_DISABLE, JVMTI_EVENT_SAMPLED_OBJECT_ALLOC, NULL);
-    (*jvmti)->SetEventNotificationMode(jvmti, JVMTI_DISABLE, JVMTI_EVENT_GARBAGE_COLLECTION_FINISH, NULL);
-	jvmtiEventCallbacks calls = {0};
-    (*jvmti)->SetEventCallbacks(jvmti, &calls, sizeof(calls));
-	jvmtiCapabilities caps = {0};
-    (*jvmti)->AddCapabilities(jvmti, &caps);
-	//fprintf(stdout, "| Agent cUnRegisterAll END_TIME = %d seconds \n", END_TIME );
-	(*jvmti)->RawMonitorExit(jvmti, jvmti_lock);
-}
-void GarbageCollectionStart(jvmtiEnv *jvmti) {
-	//(*jvmti)->RawMonitorEnter(jvmti, jvmti_lock);
-    //gLog("GCstart");
-	//(*jvmti)->RawMonitorExit(jvmti, jvmti_lock);
-}
-
-void GarbageCollectionFinish(jvmtiEnv *jvmti) {
-    /////////////////////////////////////////////////////////////
-	//gCacheMapCount();
-	//gCacheMapClean();
-    //printf("Sampled Alloc Objects---------------------------------------------\n");
-	hashmap_print(CachedObjects,LOG_FILE);
-	hashmap_empty(CachedObjects);
-	//hashmap_free(CachedObjects);
-	//if (END_TIME < time(NULL) ) cUnRegisterAll();
-}
-
 char* decode_class_sign(char* sig) {
     sig++;	// rm 'L' or '['
     switch (sig[0]) {
@@ -144,6 +88,135 @@ char* decode_class_sign(char* sig) {
 	sig+=idx;
     return sig;
 }
+void jvmtiFree(char* ptr){
+	(*jvmti)->Deallocate(jvmti, (unsigned char*) ptr);
+	//free(copy);
+}
+char* deepCopyString(char* old_str){
+	char* new_str = malloc(strlen(old_str) + 1);
+	strcpy(new_str, old_str);
+	return new_str;
+}
+char* AddString2(char* str1, char* str2){
+	int ln = strlen(str1)+strlen(str2)+2;
+	char* new_str = malloc(ln);
+	snprintf(new_str, ln, "%s.%s", str1,str2);
+	//free(str1);free(str2);
+	//jvmtiFree(str1);jvmtiFree(str2);
+	return new_str;
+}
+char* AddString2Int(char* str1, char* str2, int num){
+	int length = snprintf( NULL, 0, "%d", num );
+	int ln = strlen(str1)+strlen(str2)+length+4;
+	char* new_str = malloc(ln);
+	snprintf(new_str, ln, "%s.%s[%d]", str1,str2,num);
+	//free(str1);free(str2);free(str3);
+	//jvmtiFree(str1);jvmtiFree(str2);jvmtiFree(str3);
+	return new_str;
+}
+char* getClassName(jclass class){
+	char* class_sig;
+	(*jvmti)->GetClassSignature(jvmti, class, &class_sig, NULL);
+	//add class_sig to stack
+	return decode_class_sign(class_sig);
+}
+char* getMethodName(jmethodID method){
+	char *name_ptr;
+    //char *signature_ptr;
+    //char *generic_ptr;
+    (*jvmti)->GetMethodName(jvmti, method, &name_ptr, NULL,NULL); //&signature_ptr, &generic_ptr);
+	//add name_ptr to stack
+	return name_ptr;
+}
+char* getMethodClassName(jmethodID method){
+	jclass method_class;
+	char* class_name = NULL;
+	char* class_sig;
+    if ((*jvmti)->GetMethodDeclaringClass(jvmti, method, &method_class) == 0 &&
+        (*jvmti)->GetClassSignature(jvmti, method_class, &class_sig, NULL) == 0 ){
+		//full_name = gStringAdd(cls_name,method_name,".");//cgo performance 4x slower than c
+		//class_name = deepCopyString(decode_class_sign(class_sig));
+		class_name = decode_class_sign(class_sig);
+    }
+	//add class_sig to stack
+	return class_name;
+}
+char* getCallerMethodName(jthread thread){
+	jint count;
+	int depth=1;
+	jvmtiFrameInfo frames[depth];
+	(*jvmti)->GetStackTrace(jvmti, thread, 0, depth, &frames, &count);
+	//add name_ptr to stack
+	jmethodID method = frames[0].method;
+	return AddString2(getMethodClassName(method),getMethodName(method));
+}
+char* getThreadName(jthread thread){
+	jvmtiThreadInfo info;
+	(*jvmti)->GetThreadInfo(jvmti, thread, &info);
+	//char* name = deepCopyString(info.name);
+	//(*jvmti)->Deallocate(jvmti, (unsigned char*)info.name);
+	//add info.name to stack
+	return info.name;
+}
+void JNICALL MethodEntry(jvmtiEnv* jvmti, JNIEnv* env, jthread thread, jmethodID method) {
+	char* thread_name = getThreadName(thread);
+	char* method_name = getMethodName(method);
+	char* method_class_name = getMethodClassName(method);
+	char* full_method_name = AddString2(method_class_name, method_name);
+	
+	if (COUNT_METHOD==NULL || strcmp(COUNT_METHOD,method_name)==0){
+		map_inc(CachedObjects, full_method_name);
+	}
+}
+void JNICALL MethodExit(jvmtiEnv *jvmti, JNIEnv* jni, jthread thread, jmethodID method, jboolean was_popped_by_exception, jvalue return_value){
+	if (COUNT_TIME < time(NULL) ) {
+		hashmap_print(CachedObjects,LOG_FILE);
+		hashmap_empty(CachedObjects);
+		COUNT_TIME+=COUNT_INTERVAL;
+	}
+}
+/*
+void JNICALL ClassFileLoadHook(jvmtiEnv *jvmti, JNIEnv* jni, jclass class_being_redefined, jobject loader,const char* name,
+            jobject protection_domain,jint class_data_len,const unsigned char* class_data,jint* new_class_data_len,unsigned char** new_class_data){
+	(*jvmti)->RawMonitorEnter(jvmti, jvmti_lock);
+	jclass klass = NULL;
+	klass = jni->FindClass("Main");
+	static JNINativeMethod methods[1] = {
+            {"_someMethod", "()V", (void*)&native_method},
+        };
+	jni->RegisterNatives(klass, methods, 1);
+	jfieldID eng = jni->GetStaticFieldID(klass, "engaged", "I");
+	jni->SetStaticIntField(klass, eng, 1);
+	(*jvmti)->RawMonitorExit(jvmti, jvmti_lock);
+}*/
+//Actually this method won't do what it supposed to, should be a bug, may be race condition related
+void cUnRegisterAll(){
+	(*jvmti)->RawMonitorEnter(jvmti, jvmti_lock);
+    (*jvmti)->SetEventNotificationMode(jvmti, JVMTI_DISABLE, JVMTI_EVENT_SAMPLED_OBJECT_ALLOC, NULL);
+    (*jvmti)->SetEventNotificationMode(jvmti, JVMTI_DISABLE, JVMTI_EVENT_GARBAGE_COLLECTION_FINISH, NULL);
+	jvmtiEventCallbacks calls = {0};
+    (*jvmti)->SetEventCallbacks(jvmti, &calls, sizeof(calls));
+	jvmtiCapabilities caps = {0};
+    (*jvmti)->AddCapabilities(jvmti, &caps);
+	(*jvmti)->RawMonitorExit(jvmti, jvmti_lock);
+}
+void GarbageCollectionStart(jvmtiEnv *jvmti) {
+	//(*jvmti)->RawMonitorEnter(jvmti, jvmti_lock);
+    //gLog("GCstart");
+	//(*jvmti)->RawMonitorExit(jvmti, jvmti_lock);
+}
+
+void GarbageCollectionFinish(jvmtiEnv *jvmti) {
+    /////////////////////////////////////////////////////////////
+	//gCacheMapCount();
+	//gCacheMapClean();
+    //printf("Sampled Alloc Objects---------------------------------------------\n");
+	hashmap_print(CachedObjects,LOG_FILE);
+	hashmap_empty(CachedObjects);
+	//hashmap_free(CachedObjects);
+	//if (END_TIME < time(NULL) ) cUnRegisterAll();
+}
+
 void print_all_threads() {
 	jint thread_count;
 	jthread* threads;
@@ -170,8 +243,7 @@ char* get_method_name(jmethodID mid) {
         (*jvmti)->GetClassSignature(jvmti, method_class, &class_sig, NULL) == 0 &&
         (*jvmti)->GetMethodName(jvmti, mid, &method_name, NULL, NULL) == 0) {
 		char* cls_name = decode_class_sign(class_sig);
-		//full_method_name = gStringAdd(cls_name,method_name,".");//cgo performance 4x slower than c
-		int l = strlen(cls_name)+strlen(cls_name)+2;
+		int l = strlen(cls_name)+strlen(method_name)+2;
 		full_method_name = (char*) malloc(l);
 		snprintf(full_method_name, l, "%s.%s", cls_name,method_name);
     } else {
@@ -181,31 +253,15 @@ char* get_method_name(jmethodID mid) {
     (*jvmti)->Deallocate(jvmti,(unsigned char*) class_sig);
     return full_method_name;
 }
-void cCacheObject(char* method_name,char* class_name,int size){
-	int l = strlen(method_name)+strlen(class_name)+10;
-	char* k = (char*) malloc(l);
-	snprintf(k, l, "%s()%s[%d]", method_name, class_name, size);
-	//printf("M:%s C:%s size:%d , K=%s \n", method_name,class_name,size,k);
-	map_inc(CachedObjects, k);
-	//int i = get(mymap, k);
-    //printf("hashmap_get not found: key=%s  value:%d\n", k,i);
-}
 //~2% overhead
 void SampledObjectAlloc(jvmtiEnv* jvmti, JNIEnv* env, jthread thread, jobject object, jclass class, jlong size) {
-	char* class_sig;
-	(*jvmti)->GetClassSignature(jvmti, class, &class_sig, NULL);
-	char* class_name = decode_class_sign(class_sig);
+	char* class_name = getClassName(class);
+	char* method_name = getCallerMethodName(thread);
 	//fprintf(stdout, "Class Sign: %s \n", class_sig );
-	///////////////////////////////////////////////////////////
-	jint count;
-	int depth=1;
-	jvmtiFrameInfo frames[depth];
-	(*jvmti)->GetStackTrace(jvmti, thread, 0, depth, &frames, &count);
-	char* method_name = get_method_name(frames[0].method);
-	//fprintf(stdout, "Sampling objects: size[%ld] class:%s in method: %s\n", size, class_name, method_name );
-	//gCacheObject(method_name,class_name,size);
-	cCacheObject(method_name,class_name,size);
-    (*jvmti)->Deallocate(jvmti, (unsigned char*) class_sig);
+	char* full_method_name = AddString2Int(method_name,class_name,size);
+	map_inc(CachedObjects, full_method_name);
+    //(*jvmti)->Deallocate(jvmti, (unsigned char*) class_sig);
+	//clear all stack
 }
 //////////////////////////////////////////////////////////////////
 void cRegisterBytecode(){
@@ -220,7 +276,7 @@ void cRegisterBytecode(){
     (*jvmti)->SetEventCallbacks(jvmti, &calls, sizeof(calls));
     (*jvmti)->SetEventNotificationMode(jvmti, JVMTI_ENABLE, JVMTI_EVENT_CLASS_FILE_LOAD_HOOK, NULL);
 }
-void cRegisterMethod(){
+void cRegisterFuncCount(){
 	jvmtiCapabilities caps = {0};
 	//caps.can_access_local_variables = 1;
     //caps.can_generate_compiled_method_load_events = 1;
@@ -265,18 +321,25 @@ void cSetHeapSamplingInterval(int interval) {
 }
 void cSetLogFile(char* file_path){
 	fprintf(stdout, "| Agent Log writes to %s \n", file_path );
-	fprintf(stdout, "-----------------------------------------------------------\n");
 	init_log(file_path);   //, int size_threshold, int number_threshold
 	LOG_FILE = file_path;
 }
 void cSetLogNumber(int number_threshold){
-	fprintf(stdout, "| Agent Log count > %d \n", number_threshold );
-	fprintf(stdout, "-----------------------------------------------------------\n");
+	fprintf(stdout, "| Agent Cache count > %d \n", number_threshold );
 	init_log_number(number_threshold);
 }
 void cSetDuration(int duration){
 	END_TIME  = time(NULL)+duration;
 	fprintf(stdout, "| Agent Set END_TIME = %lu seconds \n", END_TIME );
+}
+void cSetFunc(char* func){
+	fprintf(stdout, "| Agent Function Count > %s \n", func );
+	COUNT_METHOD = func;
+}
+void cSetCountInterval(int count_interval){
+	COUNT_INTERVAL = count_interval;
+	COUNT_TIME = time(NULL)+count_interval;
+	fprintf(stdout, "| Agent Func Count Interval = %d seconds \n", count_interval );
 }
 JNIEXPORT jint JNICALL Agent_OnLoad(JavaVM *jvm, char *options, void *reserved) {
 	(*jvm)->GetEnv(jvm, (void**) &jvmti, JVMTI_VERSION_1_0);
