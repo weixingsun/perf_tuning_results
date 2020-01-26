@@ -449,7 +449,7 @@ int logele(any_t item, any_t data){
 void hashmap_print(map_t in, char* log_file){
 	hashmap_map* m = (hashmap_map*) in;
 	if (log_file == NULL){
-		printf("%d,%d[",m->table_size,m->size);
+		printf("%d[",m->size); //%d,m->table_size
 		hashmap_iterate(m, printele, 0);
 		printf("]\n");
 	}else{

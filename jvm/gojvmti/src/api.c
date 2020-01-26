@@ -4,6 +4,7 @@
 #include <time.h>
 #include <limits.h>
 #include "hashmap.h"
+#include "stack.h"
 #include "_cgo_export.h"
 
 static jrawMonitorID jvmti_lock;
@@ -92,6 +93,9 @@ void jvmtiFree(char* ptr){
 	(*jvmti)->Deallocate(jvmti, (unsigned char*) ptr);
 	//free(copy);
 }
+void jvmtiFreeStack(struct Stack* stack){
+	Stack_Iter(stack,jvmtiFree);
+}
 char* deepCopyString(char* old_str){
 	char* new_str = malloc(strlen(old_str) + 1);
 	strcpy(new_str, old_str);
@@ -114,59 +118,58 @@ char* AddString2Int(char* str1, char* str2, int num){
 	//jvmtiFree(str1);jvmtiFree(str2);jvmtiFree(str3);
 	return new_str;
 }
-char* getClassName(jclass class){
+char* getClassName(jclass class,struct Stack* stack){
 	char* class_sig;
 	(*jvmti)->GetClassSignature(jvmti, class, &class_sig, NULL);
-	//add class_sig to stack
+	Stack_Push(stack, class_sig);
 	return decode_class_sign(class_sig);
 }
-char* getMethodName(jmethodID method){
+char* getMethodName(jmethodID method,struct Stack* stack){
 	char *name_ptr;
     //char *signature_ptr;
     //char *generic_ptr;
     (*jvmti)->GetMethodName(jvmti, method, &name_ptr, NULL,NULL); //&signature_ptr, &generic_ptr);
-	//add name_ptr to stack
+	Stack_Push(stack, name_ptr);
 	return name_ptr;
 }
-char* getMethodClassName(jmethodID method){
+char* getMethodClassName(jmethodID method,struct Stack* stack){
 	jclass method_class;
 	char* class_name = NULL;
 	char* class_sig;
     if ((*jvmti)->GetMethodDeclaringClass(jvmti, method, &method_class) == 0 &&
         (*jvmti)->GetClassSignature(jvmti, method_class, &class_sig, NULL) == 0 ){
 		//full_name = gStringAdd(cls_name,method_name,".");//cgo performance 4x slower than c
-		//class_name = deepCopyString(decode_class_sign(class_sig));
 		class_name = decode_class_sign(class_sig);
     }
-	//add class_sig to stack
+	Stack_Push(stack, class_sig);
 	return class_name;
 }
-char* getCallerMethodName(jthread thread){
+char* getCallerMethodName(jthread thread,struct Stack* stack){
 	jint count;
 	int depth=1;
 	jvmtiFrameInfo frames[depth];
 	(*jvmti)->GetStackTrace(jvmti, thread, 0, depth, &frames, &count);
-	//add name_ptr to stack
+	//Stack_Push(stack, class_sig);
 	jmethodID method = frames[0].method;
-	return AddString2(getMethodClassName(method),getMethodName(method));
+	return AddString2(getMethodClassName(method,stack),getMethodName(method,stack));
 }
-char* getThreadName(jthread thread){
+char* getThreadName(jthread thread,struct Stack* stack){
 	jvmtiThreadInfo info;
 	(*jvmti)->GetThreadInfo(jvmti, thread, &info);
-	//char* name = deepCopyString(info.name);
-	//(*jvmti)->Deallocate(jvmti, (unsigned char*)info.name);
-	//add info.name to stack
+	Stack_Push(stack, info.name);
 	return info.name;
 }
 void JNICALL MethodEntry(jvmtiEnv* jvmti, JNIEnv* env, jthread thread, jmethodID method) {
-	char* thread_name = getThreadName(thread);
-	char* method_name = getMethodName(method);
-	char* method_class_name = getMethodClassName(method);
+	struct Stack* stack = Stack_Init();
+	char* thread_name = getThreadName(thread,stack);
+	char* method_name = getMethodName(method,stack);
+	char* method_class_name = getMethodClassName(method,stack);
 	char* full_method_name = AddString2(method_class_name, method_name);
 	
 	if (COUNT_METHOD==NULL || strcmp(COUNT_METHOD,method_name)==0){
 		map_inc(CachedObjects, full_method_name);
 	}
+	jvmtiFreeStack(stack);
 }
 void JNICALL MethodExit(jvmtiEnv *jvmti, JNIEnv* jni, jthread thread, jmethodID method, jboolean was_popped_by_exception, jvalue return_value){
 	if (COUNT_TIME < time(NULL) ) {
@@ -255,13 +258,14 @@ char* get_method_name(jmethodID mid) {
 }
 //~2% overhead
 void SampledObjectAlloc(jvmtiEnv* jvmti, JNIEnv* env, jthread thread, jobject object, jclass class, jlong size) {
-	char* class_name = getClassName(class);
-	char* method_name = getCallerMethodName(thread);
+	struct Stack* stack = Stack_Init();
+	char* class_name = getClassName(class,stack);
+	char* method_name = getCallerMethodName(thread,stack);
 	//fprintf(stdout, "Class Sign: %s \n", class_sig );
 	char* full_method_name = AddString2Int(method_name,class_name,size);
 	map_inc(CachedObjects, full_method_name);
     //(*jvmti)->Deallocate(jvmti, (unsigned char*) class_sig);
-	//clear all stack
+	jvmtiFreeStack(stack);
 }
 //////////////////////////////////////////////////////////////////
 void cRegisterBytecode(){
