@@ -112,11 +112,12 @@ void jvmtiFree(char* ptr){
 void jvmtiFreeStack(struct Stack* stack){
 	Stack_Iter(stack,jvmtiFree);
 }
+/*
 char* deepCopyString(char* old_str){
 	char* new_str = malloc(strlen(old_str) + 1);
 	strcpy(new_str, old_str);
 	return new_str;
-}
+}*/
 char* AddString2(char* str1, char* str2){
 	int ln = strlen(str1)+strlen(str2)+2;
 	char* new_str = malloc(ln);
@@ -130,7 +131,7 @@ char* AddString2Int(char* str1, char* str2, int num){
 	int ln = strlen(str1)+strlen(str2)+length+4;
 	char* new_str = malloc(ln);
 	snprintf(new_str, ln, "%s.%s[%d]", str1,str2,num);
-	//free(str1);free(str2);free(str3);
+	//free(str1);free(str2);
 	//jvmtiFree(str1);jvmtiFree(str2);jvmtiFree(str3);
 	return new_str;
 }
@@ -249,7 +250,7 @@ void SampledObjectAlloc(jvmtiEnv* jvmti, JNIEnv* env, jthread thread, jobject ob
 	//fprintf(stdout, "Class Sign: %s \n", class_sig );
 	char* full_method_name = AddString2Int(method_name,class_name,size);
 	map_inc(CachedObjects, full_method_name);
-    //(*jvmti)->Deallocate(jvmti, (unsigned char*) class_sig);
+	free(method_name);//free(class_name);
 	jvmtiFreeStack(stack);
 }
 //////////////////////////////////////////////////////////////////
