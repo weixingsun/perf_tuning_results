@@ -242,6 +242,30 @@ void print_all_threads() {
 	Deallocate(jvmti, (void *)threads);
 	*/
 }
+
+//void JNICALL DynamicCodeGenerated(jvmtiEnv *jvmti_env, const char* name, const void* address, jint length)
+unsigned char* getMethodBytes(jmethodID method) {
+	//jmethodID methodID = (*jvmti)->FromReflectedMethod(env, method);  //jobject method
+    jint bytecode_size;
+    unsigned char* bytecodes;
+    (*jvmti)->GetBytecodes(jvmti, method, &bytecode_size, &bytecodes);
+    //jbyteArray result = (*jvmti)->NewByteArray(jvmti, bytecode_size);
+    //(*jvmti)->SetByteArrayRegion(jvmti, result, 0, bytecode_size, bytecodes);
+    //(*jvmti)->Deallocate(jvmti, bytecodes);
+	//Stack_Push(stack, bytecodes);
+    return bytecodes;
+}
+void printHex(unsigned char* code,jint size){
+	for(int i=0;i<size;i++){
+		printf("%x",code[i]);
+	}
+	printf("]\n");
+}
+void printMethodBytecode(jmethodID method,jint code_size){
+	unsigned char* code = getMethodBytes(method);
+	printf("[%d] [",code_size);
+	printHex(code,code_size);
+}
 //~2% overhead
 void SampledObjectAlloc(jvmtiEnv* jvmti, JNIEnv* env, jthread thread, jobject object, jclass class, jlong size) {
 	struct Stack* stack = Stack_Init();
@@ -255,32 +279,18 @@ void SampledObjectAlloc(jvmtiEnv* jvmti, JNIEnv* env, jthread thread, jobject ob
 }
 //////////////////////////////////////////////////////////////////
 
-//void JNICALL DynamicCodeGenerated(jvmtiEnv *jvmti_env, const char* name, const void* address, jint length)
-char* getMethodBytes(jmethodID method) {
-	//jmethodID methodID = (*jvmti)->FromReflectedMethod(env, method);  //jobject method
-    jint bytecode_size;
-    unsigned char* bytecodes;
-    (*jvmti)->GetBytecodes(jvmti, method, &bytecode_size, &bytecodes);
-    //jbyteArray result = (*jvmti)->NewByteArray(jvmti, bytecode_size);
-    //(*jvmti)->SetByteArrayRegion(jvmti, result, 0, bytecode_size, bytecodes);
-    //(*jvmti)->Deallocate(jvmti, bytecodes);
-	//Stack_Push(stack, bytecodes);
-    return (char*)bytecodes;
-}
-
 void JNICALL CompiledMethodLoad(jvmtiEnv *jvmti_env, jmethodID method, jint code_size, 
 		const void* code_addr, jint map_length, const jvmtiAddrLocationMap* map, const void* compile_info){
-	
-	char* code = getMethodBytes(method);
-	printf("-----------------------Load bytecodes: [ %s ]",code);
-	jvmtiFree(code);
+	struct Stack* stack = Stack_Init();
+	char* method_name = AddString2(getMethodClassName(method,stack),getMethodName(method,stack));
+	if(strcmp(METHOD,method_name)==0) {
+		printf("---------Method%s()",method_name);
+		printMethodBytecode(method,code_size);
+	}
+	jvmtiFreeStack(stack);
 }
 void JNICALL CompiledMethodUnload(jvmtiEnv *jvmti_env, jmethodID method, const void* code_addr){
-	//struct Stack* stack = Stack_Init();
-	char* code = getMethodBytes(method);
-	//printf("-----------------------Unload bytecodes: [ %x ]",code);
-	jvmtiFree(code);
-	//jvmtiFreeStack(stack);
+
 }
 void cRegisterBytecode(){
 	jvmtiCapabilities caps = {0};
@@ -305,6 +315,8 @@ void cRegisterBytecode(){
     //(*jvmti)->SetEventNotificationMode(jvmti, JVMTI_ENABLE, JVMTI_EVENT_FIELD_ACCESS, NULL);
 	//(*jvmti)->SetEventNotificationMode(jvmti, JVMTI_ENABLE,  JVMTI_EVENT_FIELD_MODIFICATION, NULL);
     (*jvmti)->SetEventNotificationMode(jvmti, JVMTI_ENABLE, JVMTI_EVENT_CLASS_FILE_LOAD_HOOK, NULL);
+    (*jvmti)->SetEventNotificationMode(jvmti, JVMTI_ENABLE, JVMTI_EVENT_COMPILED_METHOD_LOAD, NULL);
+    (*jvmti)->SetEventNotificationMode(jvmti, JVMTI_ENABLE, JVMTI_EVENT_COMPILED_METHOD_UNLOAD, NULL);
 }
 void cRegisterFuncCount(){
 	jvmtiCapabilities caps = {0};

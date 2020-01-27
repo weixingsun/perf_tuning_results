@@ -49,8 +49,9 @@ run(){
 run_with_agent(){
 	AGT=$1
     OPT=$2
-	JIT="-server -XX:+UnlockExperimentalVMOptions -XX:+PrintCompilation"
-	JIT="$JIT -XX:+EnableJVMCI -XX:+UseJVMCICompiler -XX:-TieredCompilation -XX:CompileOnly=Main::count"
+	JIT="-server -XX:CompileThreshold=10 -Xcomp -XX:CompileOnly=Main::count,java.lang.String::length,java.util.HashMap::getNode"
+	#-XX:+EnableJVMCI -XX:+UseJVMCICompiler -XX:-TieredCompilation -XX:+PrintCompilation -XX:+UnlockExperimentalVMOptions 
+	
 	echo "$JAVA_HOME/bin/java $JIT -agentpath:./$AGT=$OPT Main $LOOP"
 	time $JAVA_HOME/bin/java $JIT -agentpath:./$AGT=$OPT Main $LOOP
 }
@@ -77,7 +78,7 @@ if [ $? == 0 ]; then
 	########################################################################## #methodEntry not work when attaching ...............
 	#run_with_agent $AGENT "funccount=getNode,count_interval=1"
 	###################################################################
-	#run_with_agent $AGENT "bytecode=Main.count"  #Main.count, HashMap.getNode
+	run_with_agent $AGENT "bytecode=HashMap.getNode"  #Main.count, HashMap.getNode
 	#run_with_agent $AGENT "thread_cpu=ALL,thread_interval=1"
 	echo done
 fi
