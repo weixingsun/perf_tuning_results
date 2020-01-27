@@ -18,6 +18,7 @@ var FUNCCOUNT="funccount"
 var COUNT_INTERVAL="count_interval"
 var LOGNUMBER="lognumber"
 var LOGSIZE="logsize"
+var BYTECODE="bytecode"
 
 func gConfig(s string) error {
 	usage := "Options: heap_interval=1,duration=10,method=HashMap.getNode,logfile=alloc.log,lognumber=128,funccount=getNode,count_interval=1"
@@ -64,6 +65,12 @@ func gConfig(s string) error {
 					return errors.New(usage)
 				}
 				C.cSetCountInterval( C.int(i) )
+			case BYTECODE:
+				//cf := strings.Split(z[1], ".")
+				//C.cSetFunc( C.CString(cf[1]) )
+				//C.cSetClass( C.CString(cf[0]) )
+				C.cSetFunc( C.CString(z[1]) )
+				C.cRegisterBytecode();
 			default:
 				fmt.Printf("Unsupport option: %s", k);
 		}

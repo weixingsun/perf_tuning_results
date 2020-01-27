@@ -54,6 +54,7 @@ void Stack_Free(struct Stack *S){
 void print_string(char* str){
 	printf("Stack pop: %s\n",str);
 }
+/*
 int main2() {
 	char* str1 = "First";
 	char* str2 = "Second";
@@ -68,4 +69,4 @@ int main2() {
 	//Stack_Free(stack);
 
    return (0);
-}
+}*/
