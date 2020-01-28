@@ -1,4 +1,7 @@
 #include <jvmti.h>
+#include <jni.h>
+//#include <JClass.h>
+
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
@@ -16,6 +19,7 @@ int COUNT_INTERVAL = 1;
 char* LOG_FILE = NULL;
 char* METHOD = NULL;
 //char* CLASS = NULL;
+static int flag_method_compiled = 0;
 //////////////////////////////////////////////////////////////////
 void map_set(map_t mymap, char* key, int v){
 	data_struct_t* value = malloc(sizeof(data_struct_t));
@@ -44,27 +48,7 @@ void map_rm(map_t mymap, char* key){
 	if(error!=MAP_OK) printf("rm error: %d on key: %s\n",error,key);
 }
 //////////////////////////////////////////////////////////////////
-void JNICALL ClassFileLoadHook(jvmtiEnv *jvmti, JNIEnv* jni, 
-		jclass class_being_redefined, jobject loader, 
-		const char* name, jobject protection_domain, 
-		jint class_data_len, const unsigned char* class_data,
-		jint* new_class_data_len, unsigned char** new_class_data){
-	(*jvmti)->RawMonitorEnter(jvmti, jvmti_lock);
-	//fprintf(stdout, "| ClassFileLoadHook.[%d]name=%s \n", class_data_len, name);
-	if (strcmp("HashMap",name)==0){	//METHOD=class.method, but name=java.util.class
-		fprintf(stdout, "Class found [%d]%s \n", class_data_len, name );
-	}
-	//jclass klass = (*jni)->FindClass(jni,CLASS); //NoClassDefFoundError
-	/*
-	static JNINativeMethod methods[1] = {
-        {"_someMethod", "()V", (void*)&native_method},
-    };
-	jni->RegisterNatives(klass, methods, 1);
-	jfieldID eng = jni->GetStaticFieldID(klass, "engaged", "I");
-	jni->SetStaticIntField(klass, eng, 1);
-	*/
-	(*jvmti)->RawMonitorExit(jvmti, jvmti_lock);
-}
+
 void SampleThreadState(jvmtiEnv *jvmti){
 	//err = (*jvmti)->GetThreadState(jvmti, thread, &state);
 	//int s = state & JVMTI_JAVA_LANG_THREAD_STATE_MASK;
@@ -266,6 +250,42 @@ void printMethodBytecode(jmethodID method,jint code_size){
 	printf("[%d] [",code_size);
 	printHex(code,code_size);
 }
+void JNICALL ClassFileLoadHook(jvmtiEnv *jvmti, JNIEnv* jni, 
+		jclass class_being_redefined, jobject loader, 
+		const char* name, jobject protection_domain, 
+		jint class_data_len, const unsigned char* class_data,
+		jint* new_class_data_len, unsigned char** new_class_data){
+	(*jvmti)->RawMonitorEnter(jvmti, jvmti_lock);
+	int index = strcspn(METHOD,".");
+	char CLASS[index+1];
+	strncpy(CLASS, METHOD, index);
+	//name = rtrim(name);
+	if(strstr(name,CLASS) != NULL || strstr(CLASS,name) != NULL) {
+		//fprintf(stdout, "[%d]name=%s [%d]class=%s  method=%s index=%d    \n", strlen(name),name, strlen(CLASS),CLASS, METHOD, index);
+		fprintf(stdout, "-----------------------Class loaded [%d]%s \n", class_data_len, name );
+		FILE *file = fopen(CLASS, "wb");
+		if(file){
+			fwrite(class_data,1,class_data_len, file);
+			fflush(file);
+			fclose(file);
+		}
+	}
+	/*
+	//add field to class_being_redefined
+	static JNINativeMethod methods[1] = {
+        {"_someMethod", "()V", (void*)&native_method},
+    };
+	jni->RegisterNatives(class_being_redefined, methods, 1);
+	jfieldID eng = jni->GetStaticFieldID(class_being_redefined, "engaged", "I");
+	jni->SetStaticIntField(class_being_redefined, eng, 1);
+	
+	//edit whole codes
+	*new_class_data_len = str.length();
+	jvmti->Allocate(str.length(), new_class_data);
+	memcpy(*new_class_data, str.c_str(), str.length());
+	*/
+	(*jvmti)->RawMonitorExit(jvmti, jvmti_lock);
+}
 //~2% overhead
 void SampledObjectAlloc(jvmtiEnv* jvmti, JNIEnv* env, jthread thread, jobject object, jclass class, jlong size) {
 	struct Stack* stack = Stack_Init();
@@ -283,14 +303,19 @@ void JNICALL CompiledMethodLoad(jvmtiEnv *jvmti_env, jmethodID method, jint code
 		const void* code_addr, jint map_length, const jvmtiAddrLocationMap* map, const void* compile_info){
 	struct Stack* stack = Stack_Init();
 	char* method_name = AddString2(getMethodClassName(method,stack),getMethodName(method,stack));
-	if(strcmp(METHOD,method_name)==0) {
-		printf("---------Method%s()",method_name);
+	if(strcmp(METHOD,method_name)==0 && flag_method_compiled<1) {
+		flag_method_compiled++;
+		printf("---------Method %s()",method_name);
 		printMethodBytecode(method,code_size);
+		jclass klass;
+		(*jvmti)->GetMethodDeclaringClass(jvmti, method, &klass);
+		(*jvmti)->RetransformClasses(jvmti, 1, &klass);
 	}
 	jvmtiFreeStack(stack);
+	
 }
 void JNICALL CompiledMethodUnload(jvmtiEnv *jvmti_env, jmethodID method, const void* code_addr){
-
+	
 }
 void cRegisterBytecode(){
 	jvmtiCapabilities caps = {0};

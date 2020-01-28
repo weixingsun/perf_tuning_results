@@ -66,9 +66,6 @@ func gConfig(s string) error {
 				}
 				C.cSetCountInterval( C.int(i) )
 			case BYTECODE:
-				//cf := strings.Split(z[1], ".")
-				//C.cSetFunc( C.CString(cf[1]) )
-				//C.cSetClass( C.CString(cf[0]) )
 				C.cSetFunc( C.CString(z[1]) )
 				C.cRegisterBytecode();
 			default:

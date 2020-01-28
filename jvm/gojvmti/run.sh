@@ -78,7 +78,7 @@ if [ $? == 0 ]; then
 	########################################################################## #methodEntry not work when attaching ...............
 	#run_with_agent $AGENT "funccount=getNode,count_interval=1"
 	###################################################################
-	run_with_agent $AGENT "bytecode=HashMap.getNode"  #Main.count, HashMap.getNode
+	run_with_agent $AGENT "bytecode=Main.count"  #Main.count, HashMap.getNode
 	#run_with_agent $AGENT "thread_cpu=ALL,thread_interval=1"
 	echo done
 fi
