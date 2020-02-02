@@ -1,11 +1,11 @@
 rm -rf heap.h heap.so hs_err*.log /tmp/*  2>/dev/null
 
-export JAVA_HOME=/mnt/d/jdk13
+export JAVA_HOME=/home/sun/jbb/jdk13
 #$JAVA_HOME/bin/javac Main.java
 #java -XX:+PrintCommandLineFlags -XX:+PrintFlagsFinal > java.flags.txt
 #$JAVA_HOME/bin/java $OPT Main.java 200000000
 
-export LLVM_HOME=/mnt/d/clang_llvm_9.0.0
+export LLVM_HOME=/s1/clang_llvm_9.0.0
 CC=$LLVM_HOME/bin/clang
 #CPP=$LLVM_HOME/bin/clang++
 #CC=gcc
