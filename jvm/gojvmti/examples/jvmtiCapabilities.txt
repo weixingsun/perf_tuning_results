@@ -50,3 +50,40 @@ typedef struct {
 
 
 
+typedef struct {
+    jvmtiEventVMInit		VMInit;
+    jvmtiEventVMDeath		VMDeath;
+    jvmtiEventThreadStart	ThreadStart;
+    jvmtiEventThreadEnd		ThreadEnd;
+    jvmtiEventClassFileLoadHook		ClassFileLoadHook;
+    jvmtiEventClassLoad				ClassLoad;
+    jvmtiEventClassPrepare			ClassPrepare;
+    jvmtiEventVMStart				VMStart;
+    jvmtiEventException				Exception;
+    jvmtiEventExceptionCatch		ExceptionCatch;
+    jvmtiEventSingleStep			SingleStep;
+    jvmtiEventFramePop				FramePop;
+    jvmtiEventBreakpoint			Breakpoint;
+    jvmtiEventFieldAccess			FieldAccess;
+    jvmtiEventFieldModification		FieldModification;
+    jvmtiEventMethodEntry			MethodEntry;
+    jvmtiEventMethodExit			MethodExit;
+    jvmtiEventNativeMethodBind		NativeMethodBind;
+    jvmtiEventCompiledMethodLoad	CompiledMethodLoad;
+    jvmtiEventCompiledMethodUnload	CompiledMethodUnload;
+    jvmtiEventDynamicCodeGenerated	DynamicCodeGenerated;
+    jvmtiEventDataDumpRequest		DataDumpRequest;
+    jvmtiEventReserved				reserved72;
+    jvmtiEventMonitorWait			MonitorWait;
+    jvmtiEventMonitorWaited			MonitorWaited;
+    jvmtiEventMonitorContendedEnter	MonitorContendedEnter;
+    jvmtiEventMonitorContendedEntered	MonitorContendedEntered;
+    jvmtiEventReserved				reserved77;
+    jvmtiEventReserved				reserved78;
+    jvmtiEventReserved				reserved79;
+    jvmtiEventResourceExhausted		ResourceExhausted;
+    jvmtiEventGarbageCollectionStart	GarbageCollectionStart;
+    jvmtiEventGarbageCollectionFinish	GarbageCollectionFinish;
+    jvmtiEventObjectFree				ObjectFree;
+    jvmtiEventVMObjectAlloc				VMObjectAlloc;
+} jvmtiEventCallbacks;

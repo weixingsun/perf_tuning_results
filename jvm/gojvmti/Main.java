@@ -3,20 +3,21 @@ import java.lang.reflect.Method;
 import java.util.*;
 
 public class Main {
-  public static void count(String str){
+  public static void count(int i, HashMap<Integer, String> map){
+	    Integer k = Integer.valueOf(i);
+		String v = String.valueOf(i);
+		map.put(k,v);
+		int[] arr = new int[100];
+		map.get(k);
   }
   public Integer loop(int m){
-    //Integer ii = new Integer(0);
-    Integer ii = Integer.valueOf(0);
-    HashMap<Integer, String> hash_map = new HashMap<Integer, String>();
+    int total = 0;
+    HashMap<Integer, String> map = new HashMap<Integer, String>();
     for (int i=0;i<m;i++){
-      Integer k = Integer.valueOf(i);
-      String v = String.valueOf(i);
-      hash_map.put(k,v);
-      int[] arr = new int[100];
-      ii+=k;
+		count(i,map);
+		total +=i;
     }
-    return ii;
+    return total;
   }
   public static void main(String[] args) throws Exception{
     int max = Integer.parseInt(args[0]);
