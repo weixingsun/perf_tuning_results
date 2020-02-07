@@ -16,13 +16,13 @@ var DURATION="duration"				//not working, bug?
 var LOGFILE="logfile"
 var FUNCCOUNT="funccount"
 var COUNT_INTERVAL="count_interval"
-var LOGNUMBER="lognumber"
+var THRESHOLD="threshold"
 var LOGSIZE="logsize"
 var BYTECODE="bytecode"
 
 func gConfig(s string) error {
-	usage := "Options: heap_interval=1,duration=10,method=HashMap.getNode,logfile=alloc.log,lognumber=128,funccount=getNode,count_interval=1"
-	
+	usage := "Options: heap_interval=1,duration=10,method=HashMap.getNode,logfile=alloc.log,threshold=128,funccount=getNode,count_interval=1"
+	//#heap_sample=[interval=1m;method_depth=3;threshold=128],logfile=alloc.log
 	//fmt.Printf("|  options: %s\n", s)
 	ss := strings.Split(s, ",")
 	for _, pair := range ss {
@@ -48,7 +48,7 @@ func gConfig(s string) error {
 			case LOGFILE:
 				logpath := z[1]
 				C.cSetLogFile( C.CString(logpath) )
-			case LOGNUMBER:
+			case THRESHOLD:
 				n,e:=strconv.ParseInt(z[1], 0, 32)
 				if e != nil {
 					return errors.New(usage)

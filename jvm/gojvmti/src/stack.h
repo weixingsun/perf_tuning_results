@@ -1,3 +1,6 @@
+#ifndef STACK_H
+#define STACK_H
+
 #include <stdio.h>
 #include <stdlib.h>
 #define STACK_MAX 10
@@ -70,3 +73,4 @@ int main2() {
 
    return (0);
 }*/
+#endif // STACK_H

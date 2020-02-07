@@ -1,5 +1,7 @@
 package main
 
+//#cgo CFLAGS: -I. -O3 -Ofast -march=native
+//#cgo LDFLAGS:-L. -ldl -Wl,--no-as-needed
 //#include <stdio.h>
 //#include <stdlib.h>
 //#include <jvmti.h>

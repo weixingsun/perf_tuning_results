@@ -1,15 +1,26 @@
 rm -rf heap.h heap.so hs_err*.log /tmp/*  2>/dev/null
 
-export JAVA_HOME=/home/sun/jbb/jdk13
+FILE1=/home/sun/jbb/jdk13
+FILE0=/mnt/d/jdk13
+if [ -f "$FILE1" ]; then
+    export JAVA_HOME=$FILE1
+elif [ -f "$FILE0" ]; then
+	export JAVA_HOME=$FILE0
+fi
+echo "JAVA_HOME=$JAVA_HOME"
+
 #$JAVA_HOME/bin/javac Main.java
 #java -XX:+PrintCommandLineFlags -XX:+PrintFlagsFinal > java.flags.txt
-#$JAVA_HOME/bin/java $OPT Main.java 200000000
 
-export LLVM_HOME=/s1/clang_llvm_9.0.0
+FILE1=/s1/clang_llvm_9.0.0
+FILE0=/mnt/d/clang_llvm_9.0.0
+if [ -f "$FILE1" ]; then
+    export LLVM_HOME=$FILE1
+elif [ -f "$FILE0" ]; then
+	export LLVM_HOME=$FILE0
+fi
+echo "LLVM_HOME=$LLVM_HOME"
 CC=$LLVM_HOME/bin/clang
-#CPP=$LLVM_HOME/bin/clang++
-#CC=gcc
-#CPP=g++
 
 BCC_HOME=/usr/share/bcc
 
@@ -55,19 +66,20 @@ run_with_agent(){
     #-XX:+EnableJVMCI -XX:+UseJVMCICompiler -XX:-TieredCompilation -XX:+PrintCompilation -XX:+UnlockExperimentalVMOptions 
 
     echo "$JAVA_HOME/bin/java $JIT -agentpath:./$AGT=$OPT Main $LOOP"
-    nohup time $JAVA_HOME/bin/java $JIT -agentpath:./$AGT=$OPT Main $LOOP >time.log 2>&1 &
-    PID=`pgrep java|tail -1`
+    $JAVA_HOME/bin/java $JIT -agentpath:./$AGT=$OPT Main $LOOP
+    #PID=`pgrep java|tail -1`
     #$BCC_HOME/tools/tplist -p $PID '*method*'
     #$BCC_HOME/tools/argdist -p $PID -C "u:$JAVA_HOME/lib/server/libjvm.so:method__entry():char*:arg4" -T 2
-    sleep 1
-    python cpu.py -p $PID -f 5 > profile.out 
-    /home/sun/jbb/FlameGraph/flamegraph.pl profile.out > jvm.svg
+    #sleep 1
+    #python cpu.py -p $PID -f 5 > profile.out 
+    #/home/sun/jbb/FlameGraph/flamegraph.pl profile.out > jvm.svg
     #perf top -p $PID
 }
 run_and_attach(){
     AGT=$1
     OPT=$2
     time $JAVA_HOME/bin/java Main $LOOP &
+	sleep 1
     pid=`pgrep java`
     echo "$JAVA_HOME/bin/jcmd $pid JVMTI.agent_load ./$AGT $OPT"
     #export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:`pwd`
@@ -87,8 +99,11 @@ if [ $? == 0 ]; then
     ########################################################################## #methodEntry not work when attaching ...............
     #run_with_agent $AGENT "funccount=getNode,count_interval=1"
     ###################################################################
-    run_with_agent $AGENT "bytecode=HashMap.getNode"  #Main.count, HashMap.getNode
+    #run_with_agent $AGENT "bytecode=HashMap.getNode"  #Main.count, HashMap.getNode
     #run_with_agent $AGENT "thread_cpu=ALL,thread_interval=1"
+	
+	run_and_attach $AGENT "heap_interval=1048576,logfile=alloc.log,threshold=128,method_depth=1"
+	#heap_sample=[interval=1m;method_depth=3;threshold=128],log=alloc.log
     echo done
 fi
 
