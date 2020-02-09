@@ -63,7 +63,7 @@ flame(){
 #javac -cp $JAVA_HOME/lib/tools.jar Attacher.java
 AGENT=heap.so
 LOOP=20000000
-JIT="-XX:+UseParallelOldGC -XX:ParallelGCThreads=1 -XX:+DTraceMethodProbes -XX:+PreserveFramePointer -XX:CompileThreshold=10" # -XX:CompileOnly=Main::count,java.util.HashMap::getNode" #-Xcomp -XX:+DTraceMethodProbes
+JIT="-Xcomp -XX:+UseParallelOldGC -XX:ParallelGCThreads=1 -XX:+DTraceMethodProbes -XX:+PreserveFramePointer -XX:CompileThreshold=10" # -XX:CompileOnly=Main::count,java.util.HashMap::getNode" #-Xcomp -XX:+DTraceMethodProbes
 run(){
     echo "run without agent:-------------------------------"
     time $JAVA_HOME/bin/java Main $LOOP

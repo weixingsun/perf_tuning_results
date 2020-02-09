@@ -425,7 +425,7 @@ void JNICALL CompiledMethodLoad(jvmtiEnv *jvmti_env, jmethodID method, jint code
 		(*jvmti)->GetMethodDeclaringClass(jvmti, method, &klass);
 		(*jvmti)->RetransformClasses(jvmti, 1, &klass);
 	}*/
-	fprintf(stdout, "method_name:  %s \n", method_name );
+	//fprintf(stdout, "method_name:  %s \n", method_name );
 	perf_map_write_entry(symbol_file, address, (unsigned int) code_size, method_name);
 	jvmtiFreeStack(stack);
 }
@@ -440,17 +440,19 @@ void set_notification_mode(jvmtiEnv *jvmti, jvmtiEventMode mode, int event) {
     (*jvmti)->SetEventNotificationMode(jvmti, mode, event, NULL);
 }
 void cRegisterMapFile(){
-	jvmtiEnv *jvmti=gdata->jvmti;
-	jvmtiCapabilities caps = {0};
-	caps.can_tag_objects = 1;
+    jvmtiEnv *jvmti=gdata->jvmti;
+    jvmtiCapabilities caps = {0};
+    caps.can_tag_objects = 1;
+    caps.can_generate_object_free_events = 1;
+    caps.can_generate_all_class_hook_events = 1;
+    caps.can_generate_compiled_method_load_events = 1;
     caps.can_generate_vm_object_alloc_events = 1;
-    //caps.can_generate_object_free_events = 1;
     //caps.can_get_source_file_name = 1;
     //caps.can_get_line_numbers = 1;
     (*jvmti)->AddCapabilities(jvmti, &caps);
     jvmtiEventCallbacks calls = {0};
-	calls.CompiledMethodLoad = CompiledMethodLoad;
-	//calls.CompiledMethodUnload = CompiledMethodUnload;
+    calls.CompiledMethodLoad = CompiledMethodLoad;
+    calls.CompiledMethodUnload = CompiledMethodUnload;
     calls.DynamicCodeGenerated = DynamicCodeGenerated;
     (*jvmti)->SetEventCallbacks(jvmti, &calls, sizeof(calls));
     (*jvmti)->SetEventNotificationMode(jvmti, JVMTI_ENABLE, JVMTI_EVENT_COMPILED_METHOD_LOAD, NULL);
