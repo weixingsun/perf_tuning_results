@@ -2,9 +2,9 @@ rm -rf heap.h heap.so hs_err*.log /tmp/*  2>/dev/null
 
 FILE1=/home/sun/jbb/jdk13
 FILE0=/mnt/d/jdk13
-if [ -f "$FILE1" ]; then
+if [ -d "$FILE1" ]; then
     export JAVA_HOME=$FILE1
-elif [ -f "$FILE0" ]; then
+elif [ -d "$FILE0" ]; then
     export JAVA_HOME=$FILE0
 fi
 echo "JAVA_HOME=$JAVA_HOME"
@@ -14,10 +14,10 @@ echo "JAVA_HOME=$JAVA_HOME"
 
 FILE1=/s1/clang_llvm_9.0.0
 FILE0=/mnt/d/clang_llvm_9.0.0
-if [ -f "$FILE1" ]; then
+if [ -d "$FILE1" ]; then
     export LLVM_HOME=$FILE1
-elif [ -f "$FILE0" ]; then
-	export LLVM_HOME=$FILE0
+elif [ -d "$FILE0" ]; then
+    export LLVM_HOME=$FILE0
 fi
 echo "LLVM_HOME=$LLVM_HOME"
 CC=$LLVM_HOME/bin/clang
@@ -56,14 +56,13 @@ flame(){
     #$BCC_HOME/tools/tplist -p $PID '*method*'
     #$BCC_HOME/tools/argdist -p $PID -C "u:$JAVA_HOME/lib/server/libjvm.so:method__entry():char*:arg4" -T 2
     PID=`pgrep java|tail -1`
-    examples/perf-map-agent/bin/create-java-perf-map.sh $PID
-    sleep 1
-    python method.py -p $PID -f 5 > profile.out
+    #sleep 1
+    python method.py -p $PID -f 3 > profile.out
     /home/sun/jbb/FlameGraph/flamegraph.pl profile.out > jvm.svg
 }
 #javac -cp $JAVA_HOME/lib/tools.jar Attacher.java
 AGENT=heap.so
-LOOP=2000000
+LOOP=20000000
 run(){
     echo "run without agent:-------------------------------"
     time $JAVA_HOME/bin/java Main $LOOP
@@ -86,7 +85,7 @@ run_and_attach(){
     echo "$JAVA_HOME/bin/jcmd $pid JVMTI.agent_load ./$AGT $OPT"
     #export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:`pwd`
     #$JAVA_HOME/bin/jcmd $pid VM.flags -all |grep manageable
-    $JAVA_HOME/bin/jcmd $pid JVMTI.agent_load ./$AGT "\"$OPT\""
+    nohup $JAVA_HOME/bin/jcmd $pid JVMTI.agent_load ./$AGT "\"$OPT\"" > log 2>&1 &
     $(flame)
 }
 echo "build"
@@ -106,7 +105,7 @@ if [ $? == 0 ]; then
     #run_with_agent $AGENT "thread_cpu=ALL,thread_interval=1"
 	
     #run_and_attach $AGENT "heap_interval=1048576,logfile=alloc.log,threshold=128,perfmap=1"
-    run_with_agent $AGENT "perfmap=1"
+    run_and_attach $AGENT "perfmap=1"
     #heap_sample=[interval=1m;method_depth=3;threshold=128],log=alloc.log
     echo done
 fi

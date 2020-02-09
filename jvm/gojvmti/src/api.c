@@ -558,7 +558,7 @@ void cSymbolFile(int n){
 	open_symbol_file();
     (*jvmti)->GenerateEvents(jvmti, JVMTI_EVENT_DYNAMIC_CODE_GENERATED);
     (*jvmti)->GenerateEvents(jvmti, JVMTI_EVENT_COMPILED_METHOD_LOAD);
-	//close_symbol_file();
+	close_symbol_file();
 }
 JNIEXPORT jint JNICALL Agent_OnLoad(JavaVM *jvm, char *options, void *reserved) {
 	gdata = malloc(sizeof *gdata);
