@@ -52,6 +52,15 @@ go_build(){
   CC="$CC" CGO_CFLAGS="$OPTS $JAVA_INC" go build $GO_FLAG -o $AGENT ./src
 }
 
+flame(){
+    #$BCC_HOME/tools/tplist -p $PID '*method*'
+    #$BCC_HOME/tools/argdist -p $PID -C "u:$JAVA_HOME/lib/server/libjvm.so:method__entry():char*:arg4" -T 2
+    PID=`pgrep java|tail -1`
+    examples/perf-map-agent/bin/create-java-perf-map.sh $PID
+    sleep 1
+    python method.py -p $PID -f 5 > profile.out
+    /home/sun/jbb/FlameGraph/flamegraph.pl profile.out > jvm.svg
+}
 #javac -cp $JAVA_HOME/lib/tools.jar Attacher.java
 AGENT=heap.so
 LOOP=2000000
@@ -64,16 +73,9 @@ run_with_agent(){
     OPT=$2
     JIT="-XX:+UseParallelOldGC -XX:ParallelGCThreads=1 -XX:+DTraceMethodProbes -XX:+PreserveFramePointer -XX:CompileThreshold=10" # -XX:CompileOnly=Main::count,java.util.HashMap::getNode" #-Xcomp -XX:+DTraceMethodProbes
     #-XX:+EnableJVMCI -XX:+UseJVMCICompiler -XX:-TieredCompilation -XX:+PrintCompilation -XX:+UnlockExperimentalVMOptions 
-
     echo "$JAVA_HOME/bin/java $JIT -agentpath:./$AGT=$OPT Main $LOOP"
     $JAVA_HOME/bin/java $JIT -agentpath:./$AGT=$OPT Main $LOOP
-    #PID=`pgrep java|tail -1`
-    #$BCC_HOME/tools/tplist -p $PID '*method*'
-    #$BCC_HOME/tools/argdist -p $PID -C "u:$JAVA_HOME/lib/server/libjvm.so:method__entry():char*:arg4" -T 2
-    #sleep 1
-    #python cpu.py -p $PID -f 5 > profile.out 
-    #/home/sun/jbb/FlameGraph/flamegraph.pl profile.out > jvm.svg
-    #perf top -p $PID
+    $(flame)
 }
 run_and_attach(){
     AGT=$1
@@ -85,6 +87,7 @@ run_and_attach(){
     #export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:`pwd`
     #$JAVA_HOME/bin/jcmd $pid VM.flags -all |grep manageable
     $JAVA_HOME/bin/jcmd $pid JVMTI.agent_load ./$AGT "\"$OPT\""
+    $(flame)
 }
 echo "build"
 go_build
