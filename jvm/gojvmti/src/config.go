@@ -19,10 +19,11 @@ var COUNT_INTERVAL="count_interval"
 var THRESHOLD="threshold"
 var LOGSIZE="logsize"
 var BYTECODE="bytecode"
+var PERFMAP="perfmap"
 
 func gConfig(s string) error {
-	usage := "Options: heap_interval=1,duration=10,method=HashMap.getNode,logfile=alloc.log,threshold=128,funccount=getNode,count_interval=1"
-	//#heap_sample=[interval=1m;method_depth=3;threshold=128],logfile=alloc.log
+	usage := "Options: heap_interval=1,duration=10,method=HashMap.getNode,logfile=alloc.log,threshold=128,count_interval=1,perfmap=1"
+	//#heap_sample=[interval=1m;method_depth=0;threshold=128],logfile=alloc.log,funccount=getNode,
 	//fmt.Printf("|  options: %s\n", s)
 	ss := strings.Split(s, ",")
 	for _, pair := range ss {
@@ -68,6 +69,12 @@ func gConfig(s string) error {
 			case BYTECODE:
 				C.cSetFunc( C.CString(z[1]) )
 				C.cRegisterBytecode();
+			case PERFMAP:
+				i,e:=strconv.ParseInt(z[1], 0, 32)
+				if e != nil {
+					return errors.New(usage)
+				}
+				C.cSymbolFile( C.int(i) )
 			default:
 				fmt.Printf("Unsupport option: %s", k);
 		}
