@@ -63,6 +63,7 @@ flame(){
 #javac -cp $JAVA_HOME/lib/tools.jar Attacher.java
 AGENT=heap.so
 LOOP=20000000
+JIT="-XX:+UseParallelOldGC -XX:ParallelGCThreads=1 -XX:+DTraceMethodProbes -XX:+PreserveFramePointer -XX:CompileThreshold=10" # -XX:CompileOnly=Main::count,java.util.HashMap::getNode" #-Xcomp -XX:+DTraceMethodProbes
 run(){
     echo "run without agent:-------------------------------"
     time $JAVA_HOME/bin/java Main $LOOP
@@ -70,7 +71,6 @@ run(){
 run_with_agent(){
     AGT=$1
     OPT=$2
-    JIT="-XX:+UseParallelOldGC -XX:ParallelGCThreads=1 -XX:+DTraceMethodProbes -XX:+PreserveFramePointer -XX:CompileThreshold=10" # -XX:CompileOnly=Main::count,java.util.HashMap::getNode" #-Xcomp -XX:+DTraceMethodProbes
     #-XX:+EnableJVMCI -XX:+UseJVMCICompiler -XX:-TieredCompilation -XX:+PrintCompilation -XX:+UnlockExperimentalVMOptions 
     echo "$JAVA_HOME/bin/java $JIT -agentpath:./$AGT=$OPT Main $LOOP"
     $JAVA_HOME/bin/java $JIT -agentpath:./$AGT=$OPT Main $LOOP
@@ -79,7 +79,7 @@ run_with_agent(){
 run_and_attach(){
     AGT=$1
     OPT=$2
-    time $JAVA_HOME/bin/java Main $LOOP &
+    time $JAVA_HOME/bin/java $JIT Main $LOOP &
     sleep 1
     pid=`pgrep java`
     echo "$JAVA_HOME/bin/jcmd $pid JVMTI.agent_load ./$AGT $OPT"
