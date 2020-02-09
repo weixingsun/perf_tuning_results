@@ -65,7 +65,7 @@ flame(){
 AGENT=heap.so
 LOOP=2000000
 run(){
-	echo "run without agent:-------------------------------"
+    echo "run without agent:-------------------------------"
     time $JAVA_HOME/bin/java Main $LOOP
 }
 run_with_agent(){

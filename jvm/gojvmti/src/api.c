@@ -4,12 +4,20 @@
 #include <string.h>
 #include <time.h>
 #include <limits.h>
-#include <jvmti.h>
+#include <sys/types.h>
+#include <stdlib.h>
+#include <errno.h>
+#include <stdbool.h>
+#include <unistd.h>
+
 #include <jni.h>
+#include <jvmti.h>
+#include <jvmticmlr.h>
 
 #include "hashmap.h"
 #include "stack.h"
 #include "_cgo_export.h"
+
 
 //////////////////////////////////////////////////////////////////
 unsigned long END_TIME = ULONG_MAX;
@@ -19,9 +27,8 @@ char* METHOD = NULL;
 char* LOG_FILE = NULL;
 
 static map_t CachedObjects = NULL;
-
 static int flag_method_compiled = 0;
-unsigned int MAX_FRAMES = 16;
+FILE *symbol_file = NULL;
 //////////////////////////////////////////////////////////////////
 typedef struct {
     jint lineno;
@@ -73,6 +80,41 @@ void map_inc(map_t mymap, char* key){
 void map_rm(map_t mymap, char* key){
 	int error = hashmap_remove(mymap, key);
 	if(error!=MAP_OK) printf("rm error: %d on key: %s\n",error,key);
+}
+//////////////////////////////////////////////////////////////////
+FILE *perf_map_open(pid_t pid) {
+    char filename[500];
+    snprintf(filename, sizeof(filename), "/tmp/perf-%d.map", pid);
+    FILE * res = fopen(filename, "w");
+    if (!res) {
+        fprintf(stderr, "Couldn't open %s: errno(%d)", filename, errno);
+        exit(0);
+    }
+	return res;
+}
+int perf_map_close(FILE *fp) {
+    if (fp){
+		//fflush(fp);
+        return fclose(fp);
+    }else{
+        return 0;
+	}
+}
+void perf_map_write_entry(FILE *file, const void* code_addr, unsigned int code_size, const char* name) {
+    if (file!=NULL){
+        fprintf(file, "%lx %x %s\n", (unsigned long) code_addr, code_size, name);
+		//printf("%s\n", name);
+	}
+	//printf("map file closed, %s no record", name);
+}
+void open_symbol_file() {
+    if (!symbol_file){
+        symbol_file = perf_map_open(getpid());
+	}
+}
+void close_symbol_file() {
+    perf_map_close(symbol_file);
+    symbol_file = NULL;
 }
 //////////////////////////////////////////////////////////////////
 
@@ -162,7 +204,7 @@ char* getMethodName(jmethodID method,struct Stack* stack){
 	char *name_ptr;
     //char *signature_ptr;
     //char *generic_ptr;
-    (*jvmti)->GetMethodName(jvmti, method, &name_ptr, NULL,NULL); //&signature_ptr, &generic_ptr);
+    (*jvmti)->GetMethodName(jvmti, method, &name_ptr, NULL, NULL); //&signature_ptr, &generic_ptr);
 	Stack_Push(stack, name_ptr);
 	return name_ptr;
 }
@@ -285,7 +327,6 @@ void print_all_threads() {
 	//JavaThreadData* ptr = GetThread(jvmti, threads[i]);
 }
 
-//void JNICALL DynamicCodeGenerated(jvmtiEnv *jvmti_env, const char* name, const void* address, jint length)
 unsigned char* getMethodBytes(jmethodID method) {
 	jvmtiEnv *jvmti=gdata->jvmti;
 	//jmethodID methodID = (*jvmti)->FromReflectedMethod(env, method);  //jobject method
@@ -315,12 +356,6 @@ static jint add(jint a, jint b) {    //JNIEnv* env, jobject thiz,
 	printf("%d + %d = %d", a, b, result);
 	return result;
 }
-/*
-jstring getString() {
-	JNIEnv* env = NULL;
-    (*JVM)->AttachCurrentThread(JVM, &env, NULL);
-    return (*env)->NewStringUTF(env,"This is Natvie String!");
-}*/
 static JNINativeMethod methods[] = {
 	{"add", "(II)I", (void*)add }
     //{"getNativeString", "()Ljava/lang/String;", (void*)getString}
@@ -374,27 +409,53 @@ void SampledObjectAlloc(jvmtiEnv* jvmti, JNIEnv* env, jthread thread, jobject ob
 	free(method_name);//free(class_name);
 	jvmtiFreeStack(stack);
 
-	callAsgct();
+	//callAsgct();
 }
 //////////////////////////////////////////////////////////////////
-
 void JNICALL CompiledMethodLoad(jvmtiEnv *jvmti_env, jmethodID method, jint code_size, 
-		const void* code_addr, jint map_length, const jvmtiAddrLocationMap* map, const void* compile_info){
+		const void* address, jint map_length, const jvmtiAddrLocationMap* map, const void* compile_info){
 	jvmtiEnv *jvmti=gdata->jvmti;
 	struct Stack* stack = Stack_Init();
 	char* method_name = AddString2(getMethodClassName(method,stack),getMethodName(method,stack));
-	if(strcmp(METHOD,method_name)==0 && flag_method_compiled<1) {
+	/*if(strcmp(METHOD,method_name)==0 && flag_method_compiled<1) {
 		flag_method_compiled++;
 		printf("---------Method %s()",method_name);
 		printMethodBytecode(method,code_size);
 		jclass klass;
 		(*jvmti)->GetMethodDeclaringClass(jvmti, method, &klass);
 		(*jvmti)->RetransformClasses(jvmti, 1, &klass);
-	}
+	}*/
+	fprintf(stdout, "method_name:  %s \n", method_name );
+	perf_map_write_entry(symbol_file, address, (unsigned int) code_size, method_name);
 	jvmtiFreeStack(stack);
 }
 void JNICALL CompiledMethodUnload(jvmtiEnv *jvmti_env, jmethodID method, const void* code_addr){
 	
+}
+void JNICALL DynamicCodeGenerated(jvmtiEnv *jvmti, const char* name, const void* address, jint code_size) {
+    perf_map_write_entry(symbol_file, address, (unsigned int) code_size, name);
+}
+////////////////////////////////////////////////////////////////////////////////
+void set_notification_mode(jvmtiEnv *jvmti, jvmtiEventMode mode, int event) {
+    (*jvmti)->SetEventNotificationMode(jvmti, mode, event, NULL);
+}
+void cRegisterMapFile(){
+	jvmtiEnv *jvmti=gdata->jvmti;
+	jvmtiCapabilities caps = {0};
+	caps.can_tag_objects = 1;
+    caps.can_generate_vm_object_alloc_events = 1;
+    //caps.can_generate_object_free_events = 1;
+    //caps.can_get_source_file_name = 1;
+    //caps.can_get_line_numbers = 1;
+    (*jvmti)->AddCapabilities(jvmti, &caps);
+    jvmtiEventCallbacks calls = {0};
+	calls.CompiledMethodLoad = CompiledMethodLoad;
+	//calls.CompiledMethodUnload = CompiledMethodUnload;
+    calls.DynamicCodeGenerated = DynamicCodeGenerated;
+    (*jvmti)->SetEventCallbacks(jvmti, &calls, sizeof(calls));
+    (*jvmti)->SetEventNotificationMode(jvmti, JVMTI_ENABLE, JVMTI_EVENT_COMPILED_METHOD_LOAD, NULL);
+    (*jvmti)->SetEventNotificationMode(jvmti, JVMTI_ENABLE, JVMTI_EVENT_COMPILED_METHOD_UNLOAD, NULL);
+    (*jvmti)->SetEventNotificationMode(jvmti, JVMTI_ENABLE, JVMTI_EVENT_DYNAMIC_CODE_GENERATED, NULL);
 }
 void cRegisterBytecode(){
 	jvmtiEnv *jvmti=gdata->jvmti;
@@ -412,6 +473,8 @@ void cRegisterBytecode(){
 	calls.ClassFileLoadHook = ClassFileLoadHook;
 	calls.CompiledMethodLoad = CompiledMethodLoad;
 	calls.CompiledMethodUnload = CompiledMethodUnload;
+    calls.DynamicCodeGenerated = DynamicCodeGenerated;
+	
 	//calls.FieldAccess = FieldAccess
 	//calls.FieldModification = FieldModification;
 	//calls.FramePop = FramePop;
@@ -422,6 +485,7 @@ void cRegisterBytecode(){
     (*jvmti)->SetEventNotificationMode(jvmti, JVMTI_ENABLE, JVMTI_EVENT_CLASS_FILE_LOAD_HOOK, NULL);
     (*jvmti)->SetEventNotificationMode(jvmti, JVMTI_ENABLE, JVMTI_EVENT_COMPILED_METHOD_LOAD, NULL);
     (*jvmti)->SetEventNotificationMode(jvmti, JVMTI_ENABLE, JVMTI_EVENT_COMPILED_METHOD_UNLOAD, NULL);
+    (*jvmti)->SetEventNotificationMode(jvmti, JVMTI_ENABLE, JVMTI_EVENT_DYNAMIC_CODE_GENERATED, NULL);
 }
 void cRegisterFuncCount(){
 	jvmtiEnv *jvmti=gdata->jvmti;
@@ -487,6 +551,15 @@ void cSetCountInterval(int count_interval){
 	COUNT_TIME = time(NULL)+count_interval;
 	fprintf(stdout, "| Agent Func Count Interval = %d seconds \n", count_interval );
 }
+void cSymbolFile(int n){
+	cRegisterMapFile();
+	fprintf(stdout, "| Generate Perf Map File \n" );
+	jvmtiEnv *jvmti = gdata->jvmti;
+	open_symbol_file();
+    (*jvmti)->GenerateEvents(jvmti, JVMTI_EVENT_DYNAMIC_CODE_GENERATED);
+    (*jvmti)->GenerateEvents(jvmti, JVMTI_EVENT_COMPILED_METHOD_LOAD);
+	//close_symbol_file();
+}
 JNIEXPORT jint JNICALL Agent_OnLoad(JavaVM *jvm, char *options, void *reserved) {
 	gdata = malloc(sizeof *gdata);
 	JavaVM* JVM = jvm;
@@ -497,13 +570,14 @@ JNIEXPORT jint JNICALL Agent_OnLoad(JavaVM *jvm, char *options, void *reserved) 
 	CachedObjects = hashmap_new();
 	gOptions(options);
 	//gJVMTypeInit();
-	init_cpu();
+	//init_cpu();
     return JNI_OK;
 }
 JNIEXPORT void JNICALL Agent_OnUnload(JavaVM *vm){
 	fprintf(stdout, "| Agent Unload \n" );
 	cUnRegisterAll();
 	close_log();
+	close_symbol_file();
 }
 JNIEXPORT jint JNICALL Agent_OnAttach(JavaVM *vm, char *options, void *reserved){
     return Agent_OnLoad(vm,options,reserved);
