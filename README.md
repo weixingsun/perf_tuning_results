@@ -1,5 +1,6 @@
-# perf_tuning_results
-various performance observations, tunings and results, please go to wiki
+# Performance Engineering
+I hope all the rubbish licences went away, I learn it from others, and anyone can use my code/idea, in case it helps
+They are various performance observations, tunings and results.
 
 1. [JEmalloc for Nginx](https://github.com/weixingsun/perf_tuning_results/wiki/Stock-Nginx-Performance-Evaluation)
 2. [Why Java is Memory Hungry](https://github.com/weixingsun/perf_tuning_results/wiki/Why-Java-is-Memory-Hungry)
