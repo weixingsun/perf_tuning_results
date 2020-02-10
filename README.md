@@ -1,4 +1,5 @@
-# perf_tuning_results
+# Licence
+I hope all the rubbish licences went away, I learn from others, and anyone can use my code/idea, in case it helps
 various performance observations, tunings and results, please go to wiki
 
 1. [JEmalloc for Nginx](https://github.com/weixingsun/perf_tuning_results/wiki/Stock-Nginx-Performance-Evaluation)
