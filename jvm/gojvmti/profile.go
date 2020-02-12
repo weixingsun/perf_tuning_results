@@ -84,19 +84,21 @@ func main() {
 	//fnName := bpf.GetSyscallFnName("execve")
 	kprobe, err := m.LoadKprobe("do_perf_event")
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Failed to load syscall__execve: %s\n", err)
+		fmt.Fprintf(os.Stderr, "Failed to load do_perf_event: %s\n", err)
 		os.Exit(1)
 	}else{
 		fmt.Fprintf(os.Stdout, "Loaded do_perf_event\n")
 	}
 
-	TYPE :=1//PERF_TYPE_HARDWARE=0,PERF_TYPE_SOFTWARE=1
-	COUNTER:=0  //PERF_COUNT_HW_CPU_CYCLES=0
+	TYPE :=1	//PERF_TYPE_HARDWARE=0,PERF_TYPE_SOFTWARE=1
+	COUNTER:=0	//PERF_COUNT_HW_CPU_CYCLES=0
 	PERIOD:=0
 	FREQ:=99
-	//pid:=-1
+	cpu:=1
+	groupFD:=-1
+	fd:=kprobe
 	//AttachPerfEvent(evType, evConfig int, samplePeriod int, sampleFreq int, pid, cpu, groupFd, fd int) error
-	err = m.AttachPerfEvent(TYPE, COUNTER, PERIOD, FREQ, pid, -1, -1, kprobe)
+	err = m.AttachPerfEvent(TYPE, COUNTER, PERIOD, FREQ, pid, cpu, groupFD, fd)
 
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Failed to attach perf event: %s\n", err)
