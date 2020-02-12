@@ -19,7 +19,7 @@ var COUNT_INTERVAL="count_interval"
 var THRESHOLD="threshold"
 var LOGSIZE="logsize"
 var BYTECODE="bytecode"
-var PERFMAP="perfmap"
+var FLAME="flame"
 
 func gConfig(s string) error {
 	usage := "Options: heap_interval=1,duration=10,method=HashMap.getNode,logfile=alloc.log,threshold=128,count_interval=1,perfmap=1"
@@ -69,7 +69,7 @@ func gConfig(s string) error {
 			case BYTECODE:
 				C.cSetFunc( C.CString(z[1]) )
 				C.cRegisterBytecode();
-			case PERFMAP:
+			case FLAME:
 				i,e:=strconv.ParseInt(z[1], 0, 32)
 				if e != nil {
 					return errors.New(usage)

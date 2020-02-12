@@ -1,4 +1,4 @@
-rm -rf heap.h heap.so hs_err*.log /tmp/*  2>/dev/null
+rm -rf heap.h heap.so hs_err*.log /tmp/* flame*.svg  2>/dev/null
 
 FILE1=/home/sun/jbb/jdk13
 FILE0=/mnt/d/jdk13
@@ -57,13 +57,14 @@ flame(){
     #$BCC_HOME/tools/argdist -p $PID -C "u:$JAVA_HOME/lib/server/libjvm.so:method__entry():char*:arg4" -T 2
     PID=`pgrep java|tail -1`
     #sleep 1
-    python method.py -p $PID -f 3 > profile.out
-    /home/sun/jbb/FlameGraph/flamegraph.pl profile.out > jvm.svg
+    python method.py -F 99 -p $PID -f 3 > profile.out
+    #go run profile.go -pid $PID -f 5 > profile.out
+    /home/sun/jbb/FlameGraph/flamegraph.pl profile.out > flame-$PID.svg
 }
 #javac -cp $JAVA_HOME/lib/tools.jar Attacher.java
 AGENT=heap.so
 LOOP=20000000
-JIT="-Xcomp -XX:+UseParallelOldGC -XX:ParallelGCThreads=1 -XX:+DTraceMethodProbes -XX:+PreserveFramePointer -XX:CompileThreshold=10" # -XX:CompileOnly=Main::count,java.util.HashMap::getNode" #-Xcomp -XX:+DTraceMethodProbes
+JIT="-XX:+UseParallelOldGC -XX:ParallelGCThreads=1 -XX:+PreserveFramePointer" # -XX:+DTraceMethodProbes" # -XX:CompileThreshold=10" # -XX:CompileOnly=Main::count,java.util.HashMap::getNode" #-Xcomp -XX:+DTraceMethodProbes -Xmx2g -Xms2g -Xmn1536m
 run(){
     echo "run without agent:-------------------------------"
     time $JAVA_HOME/bin/java Main $LOOP
@@ -104,8 +105,8 @@ if [ $? == 0 ]; then
     #run_with_agent $AGENT "bytecode=HashMap.getNode"  #Main.count, HashMap.getNode
     #run_with_agent $AGENT "thread_cpu=ALL,thread_interval=1"
 	
-    #run_and_attach $AGENT "heap_interval=1048576,logfile=alloc.log,threshold=128,perfmap=1"
-    run_and_attach $AGENT "perfmap=1"
+    #run_and_attach $AGENT "heap_interval=1048576,logfile=alloc.log,threshold=128,flame=1"
+    run_and_attach $AGENT "flame=1"
     #heap_sample=[interval=1m;method_depth=3;threshold=128],log=alloc.log
     echo done
 fi
