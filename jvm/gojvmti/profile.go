@@ -6,7 +6,7 @@ import (
 	"strings"
 	"fmt"
 	"os"
-	//"os/signal"
+	"os/signal"
 	"strconv"
 	//"unsafe"
 
@@ -29,7 +29,7 @@ struct key_t {
 };
 //BPF_PERF_OUTPUT(counts);
 BPF_HASH(counts, struct key_t);
-BPF_STACK_TRACE(stack_traces, 16384);  //stack_storage_size=16384 / 2048
+BPF_STACK_TRACE(stack_traces, STACK_TRACE_SIZE);
 
 int do_perf_event(struct bpf_perf_event_data *ctx) {
     u64 id = bpf_get_current_pid_tgid();
@@ -86,8 +86,8 @@ func main() {
 	//replace PID with current pid
 	pid:=18934
 	pid=-1
-	spid:=strconv.Itoa(pid)
-	code := strings.Replace(source, "PID", spid, 1)
+	source1 := strings.Replace(source, "PID", strconv.Itoa(pid), 1)
+	code := strings.Replace(source1, "STACK_TRACE_SIZE", "2048", 1)
 	//fmt.Println(code)
 
 	m := bpf.NewModule(code, []string{})
@@ -116,10 +116,11 @@ func main() {
 	}
 	fmt.Println("Tracing perf events ... hit Ctrl-C to end.")
 
+	sig := make(chan os.Signal, 1)
+	signal.Notify(sig, os.Interrupt)
+	<-sig
+
 	printMap(m, "counts")
 	printMap(m, "stack_traces")
 
-	//perfMap.Start()
-	//<-sig
-	//perfMap.Stop()
 }
