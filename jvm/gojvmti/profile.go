@@ -85,9 +85,8 @@ func printMap(m *bpf.Module, tname string){
 func main() {
 	//replace PID with current pid
 	pid:=18934
-	pid=-1
 	source1 := strings.Replace(source, "PID", strconv.Itoa(pid), 1)
-	code := strings.Replace(source1, "STACK_TRACE_SIZE", "2048", 1)
+	code := strings.Replace(source1, "STACK_TRACE_SIZE", "16384", 1)
 	//fmt.Println(code)
 
 	m := bpf.NewModule(code, []string{})
@@ -105,7 +104,7 @@ func main() {
 	COUNTER:=0	//perf_sw_id: PERF_COUNT_HW_CPU_CYCLES=0 PERF_COUNT_SW_BPF_OUTPUT=10
 	PERIOD:=0
 	FREQ:=49
-	cpu:=1
+	cpu:=-1
 	groupFD:=-1
 	fd:=event
 	//fmt.Fprintf(os.Stdout,"type=%d cfg=%d period=%d freq=%d fd=%d groupFD=%d\n",TYPE,COUNTER,PERIOD,FREQ,fd,groupFD)
