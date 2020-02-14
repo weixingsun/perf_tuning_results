@@ -75,6 +75,13 @@ int do_perf_event(struct bpf_perf_event_data *ctx) {
 }
 `
 
+func printMap(m *bpf.Module, tname string){
+	fmt.Fprintf(os.Stdout, "%v:\n",tname)
+	t := bpf.NewTable(m.TableId(tname), m)
+	for it := t.Iter(); it.Next(); {
+		fmt.Fprintf(os.Stdout, "%v:%v\n", it.Key(), it.Leaf() )
+	}
+}
 func main() {
 	//replace PID with current pid
 	pid:=18934
@@ -106,12 +113,12 @@ func main() {
 	err = m.AttachPerfEvent(TYPE, COUNTER, PERIOD, FREQ, pid, cpu, groupFD, fd)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "%s\n", err)
-	}else{
-		fmt.Fprintf(os.Stdout, "attached to perf event\n")
-		//perfMap, err := bpf.InitPerfMap(table, channel)
-		//counts = b.get_table("counts")
-		//stack_traces = b.get_table("stack_traces")
 	}
+	fmt.Println("Tracing perf events ... hit Ctrl-C to end.")
+
+	printMap(m, "counts")
+	printMap(m, "stack_traces")
+
 	//perfMap.Start()
 	//<-sig
 	//perfMap.Stop()
