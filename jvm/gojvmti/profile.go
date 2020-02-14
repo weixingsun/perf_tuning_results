@@ -27,8 +27,9 @@ struct key_t {
     int kernel_stack_id;
     char name[TASK_COMM_LEN];
 };
+//BPF_PERF_OUTPUT(counts);
 BPF_HASH(counts, struct key_t);
-BPF_STACK_TRACE(stack_traces, 2048);  //stack_storage_size=16384
+BPF_STACK_TRACE(stack_traces, 16384);  //stack_storage_size=16384 / 2048
 
 int do_perf_event(struct bpf_perf_event_data *ctx) {
     u64 id = bpf_get_current_pid_tgid();
@@ -77,34 +78,39 @@ int do_perf_event(struct bpf_perf_event_data *ctx) {
 func main() {
 	//replace PID with current pid
 	pid:=18934
+	pid=-1
 	spid:=strconv.Itoa(pid)
 	code := strings.Replace(source, "PID", spid, 1)
+	//fmt.Println(code)
+
 	m := bpf.NewModule(code, []string{})
 	defer m.Close()
 	//fnName := bpf.GetSyscallFnName("execve")
-	kprobe, err := m.LoadKprobe("do_perf_event")
+	event, err := m.LoadPerfEvent("do_perf_event")
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Failed to load do_perf_event: %s\n", err)
 		os.Exit(1)
 	}else{
-		fmt.Fprintf(os.Stdout, "Loaded do_perf_event\n")
+		//fmt.Fprintf(os.Stdout, "Loaded do_perf_event\n")
 	}
 
 	TYPE :=1	//PERF_TYPE_HARDWARE=0,PERF_TYPE_SOFTWARE=1
-	COUNTER:=0	//PERF_COUNT_HW_CPU_CYCLES=0
+	COUNTER:=0	//perf_sw_id: PERF_COUNT_HW_CPU_CYCLES=0 PERF_COUNT_SW_BPF_OUTPUT=10
 	PERIOD:=0
-	FREQ:=99
+	FREQ:=49
 	cpu:=1
 	groupFD:=-1
-	fd:=kprobe
+	fd:=event
+	//fmt.Fprintf(os.Stdout,"type=%d cfg=%d period=%d freq=%d fd=%d groupFD=%d\n",TYPE,COUNTER,PERIOD,FREQ,fd,groupFD)
 	//AttachPerfEvent(evType, evConfig int, samplePeriod int, sampleFreq int, pid, cpu, groupFd, fd int) error
 	err = m.AttachPerfEvent(TYPE, COUNTER, PERIOD, FREQ, pid, cpu, groupFD, fd)
-
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Failed to attach perf event: %s\n", err)
+		fmt.Fprintf(os.Stderr, "%s\n", err)
 	}else{
 		fmt.Fprintf(os.Stdout, "attached to perf event\n")
 		//perfMap, err := bpf.InitPerfMap(table, channel)
+		//counts = b.get_table("counts")
+		//stack_traces = b.get_table("stack_traces")
 	}
 	//perfMap.Start()
 	//<-sig
