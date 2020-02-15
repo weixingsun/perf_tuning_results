@@ -56,10 +56,10 @@ flame(){
     #$BCC_HOME/tools/tplist -p $PID '*method*'
     #$BCC_HOME/tools/argdist -p $PID -C "u:$JAVA_HOME/lib/server/libjvm.so:method__entry():char*:arg4" -T 2
     PID=`pgrep java|tail -1`
-    #sleep 1
-    python method.py -F 99 -p $PID -f 3 > profile.out
-    #go run profile.go -pid $PID -f 5 > profile.out
-    /home/sun/jbb/FlameGraph/flamegraph.pl profile.out > flame-$PID.svg
+    sleep 1
+    #python method.py -F 99 -p $PID -f 3 > profile.out
+    go run prof.go -pid $PID -time 5 #> profile.out
+    #/home/sun/jbb/FlameGraph/flamegraph.pl profile.out > flame-$PID.svg
 }
 #javac -cp $JAVA_HOME/lib/tools.jar Attacher.java
 AGENT=heap.so
@@ -74,8 +74,7 @@ run_with_agent(){
     OPT=$2
     #-XX:+EnableJVMCI -XX:+UseJVMCICompiler -XX:-TieredCompilation -XX:+PrintCompilation -XX:+UnlockExperimentalVMOptions 
     echo "$JAVA_HOME/bin/java $JIT -agentpath:./$AGT=$OPT Main $LOOP"
-    $JAVA_HOME/bin/java $JIT -agentpath:./$AGT=$OPT Main $LOOP
-    $(flame)
+    time $JAVA_HOME/bin/java $JIT -agentpath:./$AGT=$OPT Main $LOOP > log 2>&1 &
 }
 run_and_attach(){
     AGT=$1
@@ -87,7 +86,6 @@ run_and_attach(){
     #export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:`pwd`
     #$JAVA_HOME/bin/jcmd $pid VM.flags -all |grep manageable
     nohup $JAVA_HOME/bin/jcmd $pid JVMTI.agent_load ./$AGT "\"$OPT\"" > log 2>&1 &
-    $(flame)
 }
 echo "build"
 go_build
@@ -106,9 +104,10 @@ if [ $? == 0 ]; then
     #run_with_agent $AGENT "thread_cpu=ALL,thread_interval=1"
 	
     #run_and_attach $AGENT "heap_interval=1048576,logfile=alloc.log,threshold=128,flame=1"
-    run_and_attach $AGENT "flame=1"
+    run_with_agent $AGENT "flame=1"
+    #run_and_attach $AGENT "flame=1"
     #heap_sample=[interval=1m;method_depth=3;threshold=128],log=alloc.log
-    echo done
+    flame
 fi
 
 ###################################################################################
