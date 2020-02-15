@@ -2,12 +2,11 @@ package main
 
 import (
 	//"bytes"
-	"encoding/binary"
+	//"encoding/binary"
 	"strings"
 	"flag"
 	"fmt"
 	"os"
-	"reflect"
 	//"os/signal"
 	"strconv"
 	"time"
@@ -73,74 +72,12 @@ int do_perf_event(struct bpf_perf_event_data *ctx) {
     return 0;
 }
 `
-type PerfEvent struct {
-	Pid           uint32
-	KernelIp      uint64
-	KernelRetIp   uint64
-	KernelStackId int
-	UserStackId   int
-	Name          [16]byte
-}
-func ReadBinaryWithStart(data []byte, s interface{}) error {
-	dataLen := len(data)
-	var structType reflect.Type
-	var structValue reflect.Value
-	if value, ok := s.(reflect.Value); ok {
-		structValue = value
-		structType = value.Type()
-	} else if reflect.TypeOf(s).Kind() == reflect.Ptr {
-		structType = reflect.TypeOf(s).Elem()
-		structValue = reflect.ValueOf(s).Elem()
-	} else {
-		return fmt.Errorf("unsupport type")
-	}
-	fmt.Printf("ReadBinary() ")
-	for index := 0; index < structType.NumField(); index++ {
-		fieldType := structType.Field(index)
-		fieldValue := structValue.Field(index)
-		start := fieldType.Tag.Get("start")
-		if start == "" {
-			continue
-		}
-		startInt, _ := strconv.Atoi(start)
-		endInt := startInt + int(fieldType.Type.Size())
-		if startInt > dataLen || endInt > dataLen {
-			return fmt.Errorf("start out of range")
-		}
-		selectData := data[startInt:endInt]
-		switch fieldType.Type.Kind() {
-		case reflect.Uint32:
-			ret := binary.LittleEndian.Uint32(selectData)
-			structValue.Field(index).Set(reflect.ValueOf(ret))
-		case reflect.Int32:
-			ret := binary.LittleEndian.Uint32(selectData)
-			structValue.Field(index).Set(reflect.ValueOf(int32(ret)))
-		case reflect.Uint64:
-			ret := binary.LittleEndian.Uint64(selectData)
-			structValue.Field(index).Set(reflect.ValueOf(ret))
-		case reflect.Struct:
-			err := ReadBinaryWithStart(data[startInt:], fieldValue)
-			if err != nil {
-				return err
-			}
-		default:
-			return fmt.Errorf("unsupport type %s", fieldType.Type.Kind())
-		}
-	}
-	//fmt.Printf("%v ",structValue)
-	return nil
-}
+
 func printMap(m *bpf.Module, tname string){
 	fmt.Fprintf(os.Stdout, "%v:\n",tname)
 	t := bpf.NewTable(m.TableId(tname), m)
 	for it := t.Iter(); it.Next(); {
-		//s := PerfEvent{}
-		//err:=ReadBinaryWithStart(it.Key(), &s)
-		//if err!=nil {
-		//	fmt.Fprintf(os.Stderr, "byte2struct err: %v", err)
-		//}
-		c := binary.LittleEndian.Uint64(it.Leaf())
-		fmt.Fprintf(os.Stdout, "%v:%v\n", it.Key(), c )
+		fmt.Fprintf(os.Stdout, "%v:%v\n", it.Key(), it.Leaf() )
 	}
 }
 func main() {
