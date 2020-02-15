@@ -2,12 +2,13 @@ package main
 
 import (
 	//"bytes"
-	//"encoding/binary"
+	"encoding/binary"
 	"strings"
 	"fmt"
 	"os"
 	"os/signal"
 	"strconv"
+	"time"
 	//"unsafe"
 
 	bpf "github.com/iovisor/gobpf/bcc"
@@ -27,7 +28,6 @@ struct key_t {
     int kernel_stack_id;
     char name[TASK_COMM_LEN];
 };
-//BPF_PERF_OUTPUT(counts);
 BPF_HASH(counts, struct key_t);
 BPF_STACK_TRACE(stack_traces, STACK_TRACE_SIZE);
 
@@ -82,44 +82,63 @@ func printMap(m *bpf.Module, tname string){
 		fmt.Fprintf(os.Stdout, "%v:%v\n", it.Key(), it.Leaf() )
 	}
 }
-func main() {
-	//replace PID with current pid
-	pid:=18934
-	source1 := strings.Replace(source, "PID", strconv.Itoa(pid), 1)
-	code := strings.Replace(source1, "STACK_TRACE_SIZE", "16384", 1)
-	//fmt.Println(code)
+func printMapCounts((m *bpf.Module, tname string){
+	fmt.Fprintf(os.Stdout, "%v:\n",tname)
+	t := bpf.NewTable(m.TableId(tname), m)
+	for it := t.Iter(); it.Next(); {
+		k:=it.Key()
+		v:=binary.LittleEndian.Uint64(it.Leaf())
+		fmt.Fprintf(os.Stdout, "pid=%v,ip=%v,ret=%v,kstack=%v,ustack=%v,name=%s   -> %v\n", 
+		    k.pid,k.kernel_ip,k.kernel_ret_ip,k.kernel_stack_id, k.user_stack_id, k.name, v )
+	}
+}
 
-	m := bpf.NewModule(code, []string{})
-	defer m.Close()
-	//fnName := bpf.GetSyscallFnName("execve")
+func build_source(source string, pid int) string {
+	source1 := strings.Replace(source, "PID", strconv.Itoa(pid), 1)
+	return strings.Replace(source1, "STACK_TRACE_SIZE", "16384", 1)
+}
+func loadFunc(m *Module) int {
 	event, err := m.LoadPerfEvent("do_perf_event")
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Failed to load do_perf_event: %s\n", err)
 		os.Exit(1)
-	}else{
-		//fmt.Fprintf(os.Stdout, "Loaded do_perf_event\n")
 	}
-
-	TYPE :=1	//PERF_TYPE_HARDWARE=0,PERF_TYPE_SOFTWARE=1
-	COUNTER:=0	//perf_sw_id: PERF_COUNT_HW_CPU_CYCLES=0 PERF_COUNT_SW_BPF_OUTPUT=10
+	return event
+}
+func attach(m *Module,pid int,freq int,cpu int){
+	TYPE :=1	//PERF_TYPE_SOFTWARE=1
+	COUNTER:=0	//PERF_COUNT_HW_CPU_CYCLES=0
 	PERIOD:=0
-	FREQ:=49
-	cpu:=-1
-	groupFD:=-1
-	fd:=event
-	//fmt.Fprintf(os.Stdout,"type=%d cfg=%d period=%d freq=%d fd=%d groupFD=%d\n",TYPE,COUNTER,PERIOD,FREQ,fd,groupFD)
-	//AttachPerfEvent(evType, evConfig int, samplePeriod int, sampleFreq int, pid, cpu, groupFd, fd int) error
-	err = m.AttachPerfEvent(TYPE, COUNTER, PERIOD, FREQ, pid, cpu, groupFD, fd)
+	//FREQ:=49
+	//cpu:=-1
+	groupFunc:=-1
+	err = m.AttachPerfEvent(TYPE, COUNTER, PERIOD, freq, pid, cpu, groupFunc, event)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "%s\n", err)
 	}
+}
+func sample(duration int, pid int){
+	code := build_source(pid)
+	m := bpf.NewModule(code, []string{})
+	defer m.Close()
+	event := loadFunc(m)
+	attach(m,pid,49,-1)
+}
+func block(){
 	fmt.Println("Tracing perf events ... hit Ctrl-C to end.")
-
 	sig := make(chan os.Signal, 1)
 	signal.Notify(sig, os.Interrupt)
 	<-sig
+}
+func main() {
+	duration := 5
+	pid:=18934
 
-	printMap(m, "counts")
+	sample(duration, pid)
+	//block()
+	
+	time.Sleep(duration * time.Second)
+	printMapCounts(m, "counts")
 	printMap(m, "stack_traces")
 
 }
