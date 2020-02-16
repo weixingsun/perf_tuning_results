@@ -2,20 +2,79 @@ package main
 
 import (
 	"bytes"
+	"bufio"
+	"errors"
 	"encoding/binary"
 	"strings"
 	"flag"
 	"fmt"
+	"io"
 	"os"
 	//"os/signal"
 	"strconv"
+	"sync"
 	"time"
 	//"unsafe"
 
 	bpf "github.com/iovisor/gobpf/bcc"
 )
-
 import "C"
+const (
+	KALLSYMS = "/proc/kallsyms"
+)
+
+type ksymCache struct {
+	sync.RWMutex
+	ksym map[string]string
+}
+
+var cache ksymCache
+
+// Ksym translates a kernel memory address into a kernel function name
+// using `/proc/kallsyms`
+func Ksym(addr string) (string, error) {
+	if cache.ksym == nil {
+		cache.ksym = make(map[string]string)
+	}
+
+	cache.Lock()
+	defer cache.Unlock()
+
+	if _, ok := cache.ksym[addr]; !ok {
+		fd, err := os.Open(KALLSYMS)
+		if err != nil {
+			return "", err
+		}
+		defer fd.Close()
+
+		fn := ksym(addr, fd)
+		if fn == "" {
+			return "", errors.New("kernel function not found for " + addr)
+		}
+
+		cache.ksym[addr] = fn
+	}
+
+	return cache.ksym[addr], nil
+}
+
+func ksym(addr string, r io.Reader) string {
+	s := bufio.NewScanner(r)
+	for s.Scan() {
+		l := s.Text()
+		ar := strings.Split(l, " ")
+		if len(ar) != 3 {
+			continue
+		}
+
+		if ar[0] == addr {
+			return ar[2]
+		}
+	}
+
+	return ""
+}
+/////////////////////////////////////
 
 const source string = `
 #include <uapi/linux/ptrace.h>
@@ -73,6 +132,7 @@ int do_perf_event(struct bpf_perf_event_data *ctx) {
 `
 type PerfEvent struct {
 	Pid           uint32
+	Pad           uint32
 	KernelIp      uint64
 	KernelRetIp   uint64
 	KernelStackId int
@@ -85,14 +145,25 @@ func printMap(m *bpf.Module, tname string){
 	for it := t.Iter(); it.Next(); {
 		buf  := it.Key()
 		pid  := binary.LittleEndian.Uint32(buf[0:4])
-		kip  := binary.LittleEndian.Uint64(buf[4:12])
-		krip := binary.LittleEndian.Uint64(buf[12:20])
-		usid := binary.LittleEndian.Uint32(buf[20:24])
-		ksid := binary.LittleEndian.Uint32(buf[24:28])
-		i    := binary.LittleEndian.Uint32(buf[28:32])  //what is this, padding?
+		kip  := binary.LittleEndian.Uint64(buf[8:16])
+		//krip := binary.LittleEndian.Uint64(buf[16:24])
+		//usid := int32(binary.LittleEndian.Uint32(buf[20:24]))  //why always 0 ?
+		usid := int32(binary.LittleEndian.Uint32(buf[24:28]))
+		ksid := int32(binary.LittleEndian.Uint32(buf[28:32]))
 		cmd:=bytes.NewBuffer( buf[32:] ).String()
 		c := binary.LittleEndian.Uint64(it.Leaf())
-		fmt.Fprintf(os.Stdout, "pid=%d\t[%v]\t--cmd=%s\tksid=%d\tusid=%d\tkip=%d krip=%d pad=%d\n", pid, c, cmd, ksid, usid, kip, krip, i )
+		fn:=""
+		addr_kip:=""
+		if ksid > 0 {
+			addr_kip=fmt.Sprintf("%x", kip)
+			trim_addr_kip:= addr_kip[:15]+"0"
+			name,err:=Ksym(trim_addr_kip)
+			if err!=nil {
+				//fmt.Fprintf(os.Stderr, "ksym err %s", err)
+			}
+			fn=name
+		}       //uname:=b.sym(addr, k.pid)
+		fmt.Fprintf(os.Stdout, "pid=%d\t[%v]\t--cmd=%s\tksid=%d\tusid=%d\tkip=%s fn=%s\n", pid, c, cmd, ksid, usid, addr_kip, fn )
 	}
 }
 func main() {
