@@ -59,7 +59,7 @@ flame(){
     sleep 1
     #python method.py -F 99 -p $PID -f 3 > profile.out
     echo "go run prof.go -pid $PID -time 5"
-    go run prof.go -pid $PID -time 5 #> profile.out
+    go run prof.go -time 5 -pid $PID #> profile.out
     #/home/sun/jbb/FlameGraph/flamegraph.pl profile.out > flame-$PID.svg
 }
 #javac -cp $JAVA_HOME/lib/tools.jar Attacher.java

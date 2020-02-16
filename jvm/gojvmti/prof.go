@@ -1,13 +1,12 @@
 package main
 
 import (
-	//"bytes"
+	"bytes"
 	"encoding/binary"
 	"strings"
 	"flag"
 	"fmt"
 	"os"
-	"reflect"
 	//"os/signal"
 	"strconv"
 	"time"
@@ -38,7 +37,7 @@ int do_perf_event(struct bpf_perf_event_data *ctx) {
     u32 tgid = id >> 32;
     u32 pid = id;
     if (pid == 0) return 0;
-    if (!(tgid == PID)) return 0;
+    if (!PID) return 0;
     struct key_t key = {.pid = tgid};
     bpf_get_current_comm(&key.name, sizeof(key.name));
     // get stacks
@@ -80,78 +79,20 @@ type PerfEvent struct {
 	UserStackId   int
 	Name          [16]byte
 }
-func ReadBinaryWithStart(data []byte, s interface{}) error {
-	dataLen := len(data)
-	var structType reflect.Type
-	var structValue reflect.Value
-	if value, ok := s.(reflect.Value); ok {
-		structValue = value
-		structType = value.Type()
-	} else if reflect.TypeOf(s).Kind() == reflect.Ptr {
-		structType = reflect.TypeOf(s).Elem()
-		structValue = reflect.ValueOf(s).Elem()
-	} else {
-		return fmt.Errorf("unsupport type")
-	}
-	fmt.Printf("ReadBinary() ")
-	for index := 0; index < structType.NumField(); index++ {
-		fieldType := structType.Field(index)
-		fieldValue := structValue.Field(index)
-		start := fieldType.Tag.Get("start")
-		if start == "" {
-			continue
-		}
-		startInt, _ := strconv.Atoi(start)
-		endInt := startInt + int(fieldType.Type.Size())
-		if startInt > dataLen || endInt > dataLen {
-			return fmt.Errorf("start out of range")
-		}
-		selectData := data[startInt:endInt]
-		switch fieldType.Type.Kind() {
-		case reflect.Uint32:
-			ret := binary.LittleEndian.Uint32(selectData)
-			structValue.Field(index).Set(reflect.ValueOf(ret))
-		case reflect.Int32:
-			ret := binary.LittleEndian.Uint32(selectData)
-			structValue.Field(index).Set(reflect.ValueOf(int32(ret)))
-		case reflect.Uint64:
-			ret := binary.LittleEndian.Uint64(selectData)
-			structValue.Field(index).Set(reflect.ValueOf(ret))
-		case reflect.Struct:
-			err := ReadBinaryWithStart(data[startInt:], fieldValue)
-			if err != nil {
-				return err
-			}
-		default:
-			return fmt.Errorf("unsupport type %s", fieldType.Type.Kind())
-		}
-	}
-	//fmt.Printf("%v ",structValue)
-	return nil
-}
 func printMap(m *bpf.Module, tname string){
 	fmt.Fprintf(os.Stdout, "%v:\n",tname)
 	t := bpf.NewTable(m.TableId(tname), m)
 	for it := t.Iter(); it.Next(); {
-		//s := PerfEvent{}
-		//err:=ReadBinaryWithStart(it.Key(), &s)
-		//if err!=nil {
-		//	fmt.Fprintf(os.Stderr, "byte2struct err: %v", err)
-		//}
-		buf := it.Key()
-		pid := binary.LittleEndian.Uint32(buf[0:4])
-		kip := binary.LittleEndian.Uint64(buf[4:12])
+		buf  := it.Key()
+		pid  := binary.LittleEndian.Uint32(buf[0:4])
+		kip  := binary.LittleEndian.Uint64(buf[4:12])
 		krip := binary.LittleEndian.Uint64(buf[12:20])
 		usid := binary.LittleEndian.Uint32(buf[20:24])
 		ksid := binary.LittleEndian.Uint32(buf[24:28])
+		i    := binary.LittleEndian.Uint32(buf[28:32])  //what is this, padding?
+		cmd:=bytes.NewBuffer( buf[32:] ).String()
 		c := binary.LittleEndian.Uint64(it.Leaf())
-		if kip !=0 {
-			fmt.Fprintf(os.Stdout, " -- kip=%d  krip=%d", kip, krip )
-		}else{
-			fmt.Fprintf(os.Stdout, " -- kip=%d  krip=%d", kip, krip )
-		}
-		fmt.Fprintf(os.Stdout, "pid=%d [%v] -- kip=%d krip=%d \n", pid, c, kip,krip )
-		fmt.Fprintf(os.Stdout, "----------------- ksid=%d  usid=%d \n", ksid, usid )
+		fmt.Fprintf(os.Stdout, "pid=%d\t[%v]\t--cmd=%s\tksid=%d\tusid=%d\tkip=%d krip=%d pad=%d\n", pid, c, cmd, ksid, usid, kip, krip, i )
 	}
 }
 func main() {
@@ -161,8 +102,11 @@ func main() {
 	duration := *t
 	pid := *p
 	//fmt.Printf("pid=%d time=%d",pid,duration)
-
-	source1 := strings.Replace(source, "PID", strconv.Itoa(pid), 1)
+	PID := "1"
+	if pid>0 {
+		PID="(tgid=="+strconv.Itoa(pid)+")"
+	}
+	source1 := strings.Replace(source, "PID", PID, 1)
 	code := strings.Replace(source1, "STACK_TRACE_SIZE", "16384", 1)
 	//fmt.Println(code)
 
