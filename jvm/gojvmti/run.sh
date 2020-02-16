@@ -58,6 +58,7 @@ flame(){
     PID=`pgrep java|tail -1`
     sleep 1
     #python method.py -F 99 -p $PID -f 3 > profile.out
+    echo "go run prof.go -pid $PID -time 5"
     go run prof.go -pid $PID -time 5 #> profile.out
     #/home/sun/jbb/FlameGraph/flamegraph.pl profile.out > flame-$PID.svg
 }
