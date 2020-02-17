@@ -1,0 +1,2005 @@
+amd1:/home/sun/jbb # $JAVA_HOME/bin/jmap -histo $PID
+No dump file specified
+ num     #instances         #bytes  class name (module)
+-------------------------------------------------------
+   1:       1949139    55258048608  [I (java.base@13.0.2)
+   2:      15529516     2160076416  [B (java.base@13.0.2)
+   3:      67024479     2144783328  java.lang.Long (java.base@13.0.2)
+   4:      34311928     1097981696  java.util.HashMap$Node (java.base@13.0.2)
+   5:      14541279      930641856  java.math.BigDecimal (java.base@13.0.2)
+   6:      13870529      750896864  [Ljava.lang.Object; (java.base@13.0.2)
+   7:       2408743      508337824  [Ljava.util.HashMap$Node; (java.base@13.0.2)
+   8:      11471308      367081856  org.spec.jbb.core.collections.HashMultiSet$Entry
+   9:       9061402      289964864  org.spec.jbb.hq.entity.ReceiptLine
+  10:       1982874      253807872  java.io.ObjectStreamClass (java.base@13.0.2)
+  11:       1770633      248004224  [C (java.base@13.0.2)
+  12:       3483593      222949952  org.spec.jbb.infra.txinjector.TxInjectorPerfromanceDataCollector$RTPoint
+  13:       6667004      213344128  java.lang.Integer (java.base@13.0.2)
+  14:       6513995      208447840  java.lang.String (java.base@13.0.2)
+  15:       6511002      208352064  java.util.ArrayList (java.base@13.0.2)
+  16:       3070373      196503872  org.spec.jbb.sm.ShoppingCartItem
+  17:       2081193      133196352  java.util.HashMap$KeyIterator (java.base@13.0.2)
+  18:       1932930      123707520  java.util.HashMap (java.base@13.0.2)
+  19:       3155987      100991584  java.util.concurrent.ConcurrentHashMap$Node (java.base@13.0.2)
+  20:       3074265       98376480  java.lang.StringBuilder (java.base@13.0.2)
+  21:       3032751       97048032  org.spec.jbb.core.purchase.PurchaseItem
+  22:       1405386       89944704  java.io.ObjectStreamField (java.base@13.0.2)
+  23:       2615790       83705280  com.sun.org.apache.xerces.internal.util.PropertyState (java.xml@13.0.2)
+  24:       1047811       67059904  java.math.BigInteger (java.base@13.0.2)
+  25:       2080756       66584192  com.sun.org.apache.xerces.internal.util.FeatureState (java.xml@13.0.2)
+  26:       2076165       66437280  java.util.Collections$1 (java.base@13.0.2)
+  27:        991375       63448000  java.io.ObjectStreamClass$FieldReflectorKey (java.base@13.0.2)
+  28:       1906401       61004832  java.lang.ThreadLocal$ThreadLocalMap$Entry (java.base@13.0.2)
+  29:       1855162       59365184  java.util.Collections$UnmodifiableCollection (java.base@13.0.2)
+  30:       1854205       59334560  java.util.Collections$UnmodifiableCollection$1 (java.base@13.0.2)
+  31:       1818983       58207456  java.io.ObjectStreamClass$WeakClassKey (java.base@13.0.2)
+  32:       1737365       55595680  org.spec.jbb.core.comm.Packet
+  33:       1737365       55595680  org.spec.jbb.core.comm.Packet$Header
+  34:       1542341       49354912  org.spec.jbb.core.comm.transport.ReferenceData
+  35:       1053008       39438112  [Ljava.lang.String; (java.base@13.0.2)
+  36:         96453       38709440  [Ljava.util.concurrent.ConcurrentHashMap$Node; (java.base@13.0.2)
+  37:        600459       38429376  java.lang.ref.SoftReference (java.base@13.0.2)
+  38:        600000       38400000  org.spec.jbb.hq.entity.Product
+  39:       1144476       36623232  java.util.ArrayList$Itr (java.base@13.0.2)
+  40:       1125380       36012160  java.io.ObjectStreamClass$ClassDataSlot (java.base@13.0.2)
+  41:       1079988       34559616  java.util.Collections$SingletonList (java.base@13.0.2)
+  42:       1018400       32588800  org.spec.jbb.core.tx.TransactionContext
+  43:       1017040       32545280  java.io.ObjectInputStream$FieldValues (java.base@13.0.2)
+  44:        906817       29018144  java.util.HashSet (java.base@13.0.2)
+  45:        894368       28619776  org.spec.jbb.core.comm.requests.CompositeRequest
+  46:        866427       27725664  java.util.PriorityQueue (java.base@13.0.2)
+  47:        863147       27620704  java.util.HashMap$KeySet (java.base@13.0.2)
+  48:        793110       25379520  org.spec.jbb.core.comm.response.CompositeResponse
+  49:        382658       24490112  com.sun.xml.bind.v2.runtime.unmarshaller.UnmarshallingContext$State
+  50:        249511       24210080  [Ljava.io.ObjectInputStream$HandleTable$HandleList; (java.base@13.0.2)
+  51:        634907       23852672  [Ljava.io.ObjectStreamField; (java.base@13.0.2)
+  52:        739867       23675744  java.util.concurrent.locks.ReentrantLock$NonfairSync (java.base@13.0.2)
+  53:        702431       22477792  java.util.concurrent.locks.ReentrantLock (java.base@13.0.2)
+  54:           641       21155872  [Ljava.util.concurrent.ForkJoinTask; (java.base@13.0.2)
+  55:        633660       20277152  [Ljava.io.ObjectStreamClass$ClassDataSlot; (java.base@13.0.2)
+  56:        564477       18063264  java.io.StringWriter (java.base@13.0.2)
+  57:        564477       18063264  java.lang.StringBuffer (java.base@13.0.2)
+  58:        271078       17348992  java.io.ObjectOutputStream$HandleTable (java.base@13.0.2)
+  59:        270173       17291072  org.spec.jbb.sm.tx.ReserveInventoryTransaction
+  60:        535287       17129184  com.sun.xml.bind.v2.runtime.output.Encoded
+  61:        261998       16767872  org.spec.jbb.sm.tx.MoveoutInventoryTransaction
+  62:        517075       16546400  java.io.SerialCallbackContext (java.base@13.0.2)
+  63:        512806       16409792  java.util.concurrent.atomic.AtomicLong (java.base@13.0.2)
+  64:        254174       16267136  org.spec.jbb.core.threadpools.ForkJoinBatchTask
+  65:        479514       15344448  java.util.Date (java.base@13.0.2)
+  66:        479513       15344416  org.spec.jbb.sm.coupon.SpecificCoupon
+  67:        466143       14916576  org.spec.jbb.core.comm.transport.BinaryData
+  68:        450084       14402688  [Ljava.io.ObjectInputStream$FieldValues; (java.base@13.0.2)
+  69:            18       13940800  [Lorg.spec.jbb.infra.txinjector.TxInjectorPerfromanceDataCollector$RTPoint;
+  70:        400000       12800000  org.spec.jbb.sm.inventory.LockedRandomBarcodeInventory$QuantityInfo
+  71:        392665       12565280  java.util.concurrent.ConcurrentLinkedDeque$Node (java.base@13.0.2)
+  72:        193698       12396672  java.util.concurrent.ConcurrentHashMap (java.base@13.0.2)
+  73:        192339       12309696  org.spec.jbb.hq.entity.CustomerProfile
+  74:        379679       12149728  org.spec.jbb.core.tx.response.OkResponse
+  75:        152265        9744960  org.spec.jbb.hq.entity.Receipt
+  76:        135564        8676096  java.io.ObjectInputStream (java.base@13.0.2)
+  77:        135564        8676096  java.io.ObjectInputStream$BlockDataInputStream (java.base@13.0.2)
+  78:        135539        8674496  java.io.DataOutputStream (java.base@13.0.2)
+  79:        135539        8674496  java.io.ObjectOutputStream (java.base@13.0.2)
+  80:        135539        8674496  java.io.ObjectOutputStream$BlockDataOutputStream (java.base@13.0.2)
+  81:        270175        8645600  org.spec.jbb.sm.tx.response.ReserveInventoryResponse
+  82:        270174        8645568  org.spec.jbb.sm.tx.request.ReserveInventoryRequest
+  83:        261998        8383936  org.spec.jbb.sm.tx.request.MoveoutInventoryRequest
+  84:        261998        8383936  org.spec.jbb.sm.tx.response.MoveoutInventoryResponse
+  85:        244997        7839904  org.spec.jbb.core.comm.message.CompositeMessage
+  86:        206714        7348480  [Lorg.spec.jbb.core.comm.Response;
+  87:        221513        7088416  java.util.concurrent.ConcurrentLinkedQueue$Node (java.base@13.0.2)
+  88:        110002        7040128  org.spec.jbb.core.locks.SoftEntry
+  89:        217824        6970368  java.util.HashMap$EntrySet (java.base@13.0.2)
+  90:        206293        6601376  java.util.concurrent.locks.AbstractQueuedSynchronizer$Node (java.base@13.0.2)
+  91:        100000        6400000  org.spec.jbb.hq.entity.CreditCard
+  92:        100000        6400000  org.spec.jbb.hq.entity.Customer
+  93:        195042        6241344  java.io.ByteArrayInputStream (java.base@13.0.2)
+  94:        195014        6240448  java.io.ByteArrayOutputStream (java.base@13.0.2)
+  95:        193529        6192928  org.spec.jbb.core.collections.Window
+  96:        184476        5903232  org.spec.jbb.core.collections.ConcurrentHashMultiSet$Entry
+  97:         59453        5707488  com.sun.xml.bind.v2.runtime.output.UTF8XmlOutput
+  98:         59453        5707488  com.sun.xml.internal.stream.Entity$ScannedEntity (java.xml@13.0.2)
+  99:        173816        5562112  org.spec.jbb.core.collections.AbstractMultiMap$1
+ 100:        156684        5013888  javax.xml.namespace.QName (java.xml@13.0.2)
+ 101:        152373        4875936  org.spec.jbb.core.collections.HashMultiMap
+ 102:        144538        4625216  java.lang.Object (java.base@13.0.2)
+ 103:        135564        4338048  java.io.DataInputStream (java.base@13.0.2)
+ 104:        135564        4338048  java.io.ObjectInputStream$HandleTable (java.base@13.0.2)
+ 105:        135564        4338048  java.io.ObjectInputStream$PeekInputStream (java.base@13.0.2)
+ 106:        135564        4338048  java.io.ObjectInputStream$ValidationList (java.base@13.0.2)
+ 107:        135539        4337248  java.io.ObjectOutputStream$ReplaceTable (java.base@13.0.2)
+ 108:         59591        3813824  [Ljava.util.Map; (java.base@13.0.2)
+ 109:         59591        3813824  com.sun.org.apache.xerces.internal.utils.XMLLimitAnalyzer (java.xml@13.0.2)
+ 110:         59454        3805856  [Lcom.sun.xml.bind.v2.runtime.output.Encoded;
+ 111:         59457        3805248  com.sun.xml.bind.v2.runtime.unmarshaller.SAXConnector
+ 112:         59453        3804992  com.sun.org.apache.xerces.internal.impl.XMLEntityManager$RewindableInputStream (java.xml@13.0.2)
+ 113:         59453        3804992  com.sun.org.apache.xerces.internal.impl.io.UTF8Reader (java.xml@13.0.2)
+ 114:         59453        3804992  com.sun.org.apache.xerces.internal.xni.parser.XMLInputSource (java.xml@13.0.2)
+ 115:        115343        3690976  java.io.ObjectOutputStream$PutFieldImpl (java.base@13.0.2)
+ 116:         51020        3265280  org.spec.jbb.sm.ShoppingCart
+ 117:        101793        3257376  org.spec.jbb.hq.tx.request.CheckAndReserveCreditRequest
+ 118:        101791        3257312  org.spec.jbb.hq.tx.request.DrawCreditRequest
+ 119:        100000        3200000  org.spec.jbb.hq.entity.Address
+ 120:        100000        3200000  org.spec.jbb.sm.CustomerSelection$CustomerPosition
+ 121:         99449        3182368  org.spec.jbb.core.collections.CollectionUtils$LazyMix
+ 122:         96333        3082656  org.spec.jbb.core.comm.transport.encapsulation.JAXBAdapters$MapElement
+ 123:         96331        3082592  [Lorg.spec.jbb.core.comm.transport.encapsulation.JAXBAdapters$MapElement;
+ 124:         90991        2911712  java.util.concurrent.atomic.AtomicInteger (java.base@13.0.2)
+ 125:         89998        2879936  org.spec.jbb.core.cache.BoundedWriteBackCache$CacheEntry
+ 126:         87535        2801120  org.spec.jbb.sp.Invoice$Key
+ 127:         76240        2439680  org.spec.jbb.sp.Invoice
+ 128:         37203        2380992  org.spec.jbb.sm.tx.MoveInInventoryTransaction
+ 129:         59876        1916032  com.sun.org.apache.xerces.internal.util.XMLResourceIdentifierImpl (java.xml@13.0.2)
+ 130:         59508        1904256  com.sun.xml.bind.v2.runtime.reflect.Lister$CollectionLister$1
+ 131:         59457        1902624  com.sun.xml.bind.v2.runtime.unmarshaller.SAXConnector$TagNameImpl
+ 132:         59455        1902560  com.sun.xml.bind.v2.runtime.unmarshaller.LocatorExWrapper
+ 133:         59454        1902528  com.sun.org.apache.xerces.internal.parsers.AbstractSAXParser$LocatorProxy (java.xml@13.0.2)
+ 134:         59453        1902496  com.sun.xml.bind.v2.runtime.reflect.AdaptedLister$ListIteratorImpl
+ 135:         59452        1902464  org.xml.sax.InputSource (java.xml@13.0.2)
+ 136:         19786        1899456  org.spec.jbb.sm.tx.OnlinePurchaseTransaction
+ 137:         59244        1895808  org.spec.jbb.hq.tx.ProductReviewScoreTransaction
+ 138:         59244        1895808  org.spec.jbb.hq.tx.request.GetProductReviewScoreRequest
+ 139:         59244        1895808  org.spec.jbb.hq.tx.response.ProductReviewScoreResponse
+ 140:         27810        1779840  org.spec.jbb.sm.tx.InStorePurchaseTransaction
+ 141:         52769        1688608  java.util.Collections$UnmodifiableSet (java.base@13.0.2)
+ 142:         26152        1673728  org.spec.jbb.sm.entity.ShippingOrder
+ 143:         52167        1669344  org.spec.jbb.core.collections.HashMultiSet
+ 144:         51630        1652160  java.util.concurrent.ConcurrentHashMap$KeySetView (java.base@13.0.2)
+ 145:         51177        1637664  org.spec.jbb.hq.tx.request.PurchaseReceiptMessage
+ 146:         50927        1629664  org.spec.jbb.core.purchase.CustomerSpecificPurchaseAgent$1
+ 147:         50927        1629664  org.spec.jbb.core.purchase.CustomerSpecificPurchaseAgent$2
+ 148:         50888        1628416  org.spec.jbb.hq.tx.DrawCreditTransaction
+ 149:         50880        1628160  org.spec.jbb.hq.tx.CheckAndReserveCreditTransaction
+ 150:         48335        1546720  org.spec.jbb.sm.tx.request.ProductReplenishMessage
+ 151:         24130        1544320  org.spec.jbb.sp.tx.SupplyProductOperation
+ 152:         48110        1539520  org.spec.jbb.hq.tx.request.SupplierReceiptMessage
+ 153:         24037        1538368  org.spec.jbb.sm.tx.InventoryReplenishOperation
+ 154:         46906        1500992  org.spec.jbb.hq.tx.PurchaseReceiptTransaction
+ 155:         43640        1396480  java.util.concurrent.locks.ReentrantReadWriteLock$Sync$HoldCounter (java.base@13.0.2)
+ 156:         39750        1272000  org.spec.jbb.sm.tx.request.MoveInInventoryMessage
+ 157:         19749        1263936  java.util.HashMap$EntryIterator (java.base@13.0.2)
+ 158:         37440        1198080  java.util.concurrent.ConcurrentHashMap$Segment (java.base@13.0.2)
+ 159:         36212        1158784  org.spec.jbb.hq.tx.CustomerRatingProductResolveTransaction
+ 160:         36212        1158784  org.spec.jbb.hq.tx.request.CustomerRatingProductResolveRequest
+ 161:         36212        1158784  org.spec.jbb.hq.tx.response.CustomerRatingProductResolveResponse
+ 162:         32157        1029024  java.util.concurrent.Executors$RunnableAdapter (java.base@13.0.2)
+ 163:         32147        1028704  java.util.concurrent.FutureTask (java.base@13.0.2)
+ 164:         32124        1027968  java.util.concurrent.LinkedBlockingQueue$Node (java.base@13.0.2)
+ 165:         27396         876672  org.spec.jbb.infra.txinjector.Driver$ProbeTask$1
+ 166:         27318         874176  org.spec.jbb.hq.tx.request.FindCustomerZipRequest
+ 167:         27312         873984  org.spec.jbb.hq.tx.response.FindCustomerZipResponse
+ 168:         26497         847904  org.spec.jbb.sp.tx.request.SupplyProductMessage
+ 169:         24036         769152  org.spec.jbb.hq.tx.SupplierReceiptTransaction
+ 170:         11447         732608  org.spec.jbb.sm.InstallmentPurchase
+ 171:         22572         722304  org.spec.jbb.sm.tx.request.PaymentRequest
+ 172:          4690         667424  java.lang.Class (java.base@13.0.2)
+ 173:         20705         662560  java.util.ArrayList$SubList (java.base@13.0.2)
+ 174:         19820         634240  org.spec.jbb.hq.tx.request.StoreOrderMessage
+ 175:         18553         593696  org.spec.jbb.hq.tx.StoreOrderTransaction
+ 176:          1334         554944  org.glassfish.grizzly.threadpool.DefaultWorkerThread
+ 177:          8081         517184  org.spec.jbb.sm.tx.UnreserveInventoryTransaction
+ 178:         15594         499008  org.spec.jbb.core.collections.ConcurrentWeakHashMap$WeakKey
+ 179:         13656         436992  org.spec.jbb.hq.tx.FindCustomerZipTransaction
+ 180:         13241         423712  org.spec.jbb.of.calculator.RandomShippingCostCalculator
+ 181:         13241         423712  org.spec.jbb.of.tx.ShippingOrderProcessTransaction
+ 182:         13241         423712  org.spec.jbb.of.tx.request.ShippingOrderProcessMessage
+ 183:         12338         394816  java.util.Arrays$ArrayList (java.base@13.0.2)
+ 184:         11711         374752  org.spec.jbb.sm.entity.InStorePickupOrder
+ 185:         11271         360672  org.spec.jbb.sp.tx.PaymentProcessOperation
+ 186:         11247         359904  org.spec.jbb.core.probe.EmptyProbe
+ 187:          3377         324192  java.lang.reflect.Method (java.base@13.0.2)
+ 188:          9887         316384  java.util.Arrays$ArrayItr (java.base@13.0.2)
+ 189:          9024         288768  com.sun.org.apache.xerces.internal.xni.QName (java.xml@13.0.2)
+ 190:          8160         261120  java.util.AbstractList$Itr (java.base@13.0.2)
+ 191:          8081         258592  org.spec.jbb.sm.tx.request.UnreserveInventoryRequest
+ 192:          2340         224640  [Ljava.util.concurrent.ConcurrentHashMap$Segment; (java.base@13.0.2)
+ 193:          6859         219488  org.spec.jbb.hq.tx.request.InstallmentPurchaseReceiptMessage
+ 194:          3424         219136  org.spec.jbb.sm.tx.InstallmentPurchaseTransaction
+ 195:          3291         210624  java.util.LinkedHashMap$Entry (java.base@13.0.2)
+ 196:           540         207360  java.lang.Thread (java.base@13.0.2)
+ 197:           641         205120  java.util.concurrent.ForkJoinPool$WorkQueue (java.base@13.0.2)
+ 198:          3140         200960  java.util.PriorityQueue$Itr (java.base@13.0.2)
+ 199:          5895         188640  org.spec.jbb.of.tx.InStorePickupProcessTransaction
+ 200:          5895         188640  org.spec.jbb.of.tx.request.InStorePickupProcessMessage
+ 201:          1876         180096  java.lang.reflect.Field (java.base@13.0.2)
+ 202:          5336         170752  org.glassfish.grizzly.attributes.UnsafeAttributeHolder$Holder
+ 203:           430         165120  java.util.concurrent.ForkJoinWorkerThread (java.base@13.0.2)
+ 204:          4962         164288  [Ljava.lang.Class; (java.base@13.0.2)
+ 205:          1509         144864  java.lang.reflect.Constructor (java.base@13.0.2)
+ 206:           260         141440  [Ljava.util.concurrent.atomic.AtomicLong; (java.base@13.0.2)
+ 207:          2104         134656  java.util.WeakHashMap$Entry (java.base@13.0.2)
+ 208:          4080         130560  java.util.Collections$CopiesList (java.base@13.0.2)
+ 209:          1297         124512  [Ljava.lang.ThreadLocal$ThreadLocalMap$Entry; (java.base@13.0.2)
+ 210:          1232         118272  [Ljava.util.WeakHashMap$Entry; (java.base@13.0.2)
+ 211:          3384         108288  com.sun.org.apache.xerces.internal.util.XMLStringBuffer (java.xml@13.0.2)
+ 212:          1582         101248  org.spec.jbb.core.scheduler.SingleLoopTimerScheduler$RateTaskTrigger
+ 213:          1536          98304  org.spec.jbb.util.random.TruncatedExponentialRandom
+ 214:          3002          96064  java.lang.ref.WeakReference (java.base@13.0.2)
+ 215:          1486          95104  sun.util.locale.LocaleObjectCache$CacheEntry (java.base@13.0.2)
+ 216:          2961          94752  com.sun.org.apache.xerces.internal.xni.XMLString (java.xml@13.0.2)
+ 217:          2749          87968  org.spec.jbb.hq.tx.InstallmentPurchaseReceiptTransaction
+ 218:          1362          87168  java.security.AccessControlContext (java.base@13.0.2)
+ 219:          1334          85376  [Ljava.nio.ByteBuffer; (java.base@13.0.2)
+ 220:          1334          85376  org.glassfish.grizzly.attributes.UnsafeAttributeHolder
+ 221:          1334          85376  org.glassfish.grizzly.memory.HeapMemoryManager$HeapBufferThreadLocalPool
+ 222:          2608          83456  org.spec.jbb.hq.tx.request.CustomerRefundMessage
+ 223:          1304          83456  org.spec.jbb.sm.tx.ProductReturnTransaction
+ 224:             9          82336  [Ljava.lang.Integer; (java.base@13.0.2)
+ 225:          2513          80416  com.sun.org.apache.xerces.internal.util.SymbolTable$Entry (java.xml@13.0.2)
+ 226:          1232          78848  java.util.WeakHashMap (java.base@13.0.2)
+ 227:          1074          76352  [D (java.base@13.0.2)
+ 228:          2349          75168  java.util.ArrayDeque (java.base@13.0.2)
+ 229:          1172          75008  com.sun.xml.bind.v2.runtime.output.NamespaceContextImpl$Element
+ 230:           774          74304  org.glassfish.grizzly.nio.SelectorRunner
+ 231:           774          74304  sun.nio.ch.EPollSelectorImpl (java.base@13.0.2)
+ 232:          1128          72192  com.sun.org.apache.xerces.internal.util.XMLAttributesImpl$Attribute (java.xml@13.0.2)
+ 233:          2256          72192  com.sun.xml.bind.v2.runtime.unmarshaller.Scope
+ 234:          1042          66688  java.util.TreeMap$Entry (java.base@13.0.2)
+ 235:           141          63168  [Lcom.sun.org.apache.xerces.internal.util.SymbolTable$Entry; (java.xml@13.0.2)
+ 236:           982          62848  java.util.HashMap$ValueIterator (java.base@13.0.2)
+ 237:           967          61888  java.util.TimSort (java.base@13.0.2)
+ 238:           564          58656  [Lcom.sun.org.apache.xerces.internal.xni.QName; (java.xml@13.0.2)
+ 239:          1800          57600  java.util.concurrent.ConcurrentLinkedDeque (java.base@13.0.2)
+ 240:          1800          57600  org.spec.jbb.core.objectpool.SimplePool
+ 241:           198          57024  java.util.concurrent.ConcurrentHashMap$CounterCell (java.base@13.0.2)
+ 242:           141          54144  com.sun.org.apache.xerces.internal.impl.XMLNSDocumentScannerImpl (java.xml@13.0.2)
+ 243:          1560          49920  java.util.concurrent.atomic.AtomicBoolean (java.base@13.0.2)
+ 244:          1542          49344  org.spec.jbb.core.comm.PreparedBatch
+ 245:           733          46912  java.util.LinkedHashMap (java.base@13.0.2)
+ 246:           705          45120  java.lang.Class$ReflectionData (java.base@13.0.2)
+ 247:          1400          44800  org.spec.jbb.hq.entity.Category
+ 248:           680          43520  org.spec.jbb.infra.IterationStatus$TxInjectorTick
+ 249:          1352          43264  [Ljava.security.ProtectionDomain; (java.base@13.0.2)
+ 250:          1340          42880  java.lang.Class$AnnotationData (java.base@13.0.2)
+ 251:          1334          42688  org.glassfish.grizzly.ThreadCache$ObjectCache
+ 252:          1334          42688  org.glassfish.grizzly.attributes.UnsafeAttributeHolder$IndexedAttributeAccessorImpl
+ 253:          1312          41984  org.spec.jbb.infra.txinjector.Driver$ProbeTask
+ 254:          1304          41728  java.lang.ref.ReferenceQueue$Lock (java.base@13.0.2)
+ 255:          1304          41728  org.spec.jbb.hq.tx.RandomReceiptTransaction
+ 256:          1304          41728  org.spec.jbb.hq.tx.request.AdjustSupermarketInventoryMessage
+ 257:          1304          41728  org.spec.jbb.hq.tx.request.RandomReceiptRequest
+ 258:          1304          41728  org.spec.jbb.hq.tx.response.RandomReceiptResponse
+ 259:          1302          41664  java.lang.ref.ReferenceQueue (java.base@13.0.2)
+ 260:          1297          41504  java.lang.ThreadLocal$ThreadLocalMap (java.base@13.0.2)
+ 261:          1269          40608  com.sun.org.apache.xerces.internal.util.AugmentationsImpl (java.xml@13.0.2)
+ 262:          1269          40608  com.sun.org.apache.xerces.internal.util.AugmentationsImpl$SmallContainer (java.xml@13.0.2)
+ 263:          1228          39296  java.util.concurrent.ConcurrentLinkedQueue (java.base@13.0.2)
+ 264:          1223          39136  org.spec.jbb.hq.tx.CustomerRefundTransaction
+ 265:          1221          39072  org.spec.jbb.hq.tx.AdjustSupermarketInventoryTransaction
+ 266:          1206          38592  org.spec.jbb.core.comm.transport.EmptyLayer
+ 267:          1203          38496  org.spec.jbb.core.comm.transport.TransportPipeline
+ 268:          1202          38464  java.util.concurrent.ConcurrentHashMap$EntrySetView (java.base@13.0.2)
+ 269:           600          38400  org.spec.jbb.core.comm.transport.encryption.PooledJavaSecurityEncryptionLayer
+ 270:          1172          37504  org.spec.jbb.hq.tx.request.GetCustomerProfileRequest
+ 271:          1171          37472  org.spec.jbb.hq.tx.request.UpdateCustomerProfileRequest
+ 272:          1171          37472  org.spec.jbb.hq.tx.response.CustomerProfileResponse
+ 273:           560          35840  org.glassfish.grizzly.threadpool.SyncThreadPool$SyncThreadWorker
+ 274:           525          33600  java.lang.invoke.MemberName (java.base@13.0.2)
+ 275:           524          33536  java.util.concurrent.ThreadPoolExecutor$Worker (java.base@13.0.2)
+ 276:          1030          32960  java.util.HashMap$Values (java.base@13.0.2)
+ 277:           997          31904  org.spec.jbb.hq.db.DataMiningCursor
+ 278:           332          31872  com.sun.xml.bind.v2.model.impl.RuntimeElementPropertyInfoImpl
+ 279:           141          31584  com.sun.org.apache.xerces.internal.impl.XMLDTDScannerImpl (java.xml@13.0.2)
+ 280:           141          31584  com.sun.org.apache.xerces.internal.parsers.XIncludeAwareParserConfiguration (java.xml@13.0.2)
+ 281:           987          31584  org.spec.jbb.core.collections.HashMultiSet$EntrySet
+ 282:           982          31424  org.spec.jbb.core.collections.HashMultiSet$EntrySet$1
+ 283:           967          30944  org.spec.jbb.core.collections.CollectionUtils$2
+ 284:           951          30432  org.spec.jbb.sm.advertisement.IssuedAdvertisement
+ 285:           920          29440  org.spec.jbb.hq.tx.CustomerProductReviewTransaction
+ 286:           920          29440  org.spec.jbb.hq.tx.request.CustomerProductReviewMessage
+ 287:           279          27808  [Lcom.sun.xml.bind.v2.util.QNameMap$Entry;
+ 288:           428          27392  com.sun.xml.internal.stream.util.BufferAllocator (java.xml@13.0.2)
+ 289:           141          27072  com.sun.org.apache.xerces.internal.impl.dtd.XMLNSDTDValidator (java.xml@13.0.2)
+ 290:           828          26496  java.util.concurrent.atomic.AtomicReference (java.base@13.0.2)
+ 291:           398          25472  java.lang.invoke.MethodType (java.base@13.0.2)
+ 292:           778          24896  com.sun.xml.bind.v2.runtime.Name
+ 293:           259          24864  jdk.internal.reflect.DelegatingClassLoader (java.base@13.0.2)
+ 294:           774          24768  java.nio.channels.spi.AbstractSelector$1 (java.base@13.0.2)
+ 295:           774          24768  org.glassfish.grizzly.threadpool.FixedThreadPool$BasicWorker
+ 296:           774          24768  sun.nio.ch.Util$2 (java.base@13.0.2)
+ 297:           762          24384  java.util.Locale (java.base@13.0.2)
+ 298:           761          24352  sun.util.locale.BaseLocale (java.base@13.0.2)
+ 299:           379          24256  java.util.concurrent.locks.ReentrantReadWriteLock$NonfairSync (java.base@13.0.2)
+ 300:           252          24192  com.sun.xml.bind.v2.model.impl.RuntimeClassInfoImpl
+ 301:           252          24192  com.sun.xml.bind.v2.runtime.ClassBeanInfoImpl
+ 302:           742          23744  sun.util.locale.BaseLocale$Key (java.base@13.0.2)
+ 303:           360          23328  [Ljava.lang.reflect.Method; (java.base@13.0.2)
+ 304:           710          22976  [S (java.base@13.0.2)
+ 305:           141          22560  com.sun.org.apache.xerces.internal.impl.XMLEntityManager (java.xml@13.0.2)
+ 306:           679          21728  org.spec.jbb.core.sequencer.RangeSequencer
+ 307:           666          21312  com.sun.xml.bind.v2.util.QNameMap$Entry
+ 308:           332          21248  com.sun.xml.bind.v2.model.impl.RuntimeTypeRefImpl
+ 309:           325          20800  java.lang.Module (java.base@13.0.2)
+ 310:           311          19904  java.util.logging.LogManager$LoggerWeakRef (java.logging@13.0.2)
+ 311:           603          19296  org.spec.jbb.core.comm.transport.encapsulation.JavaSerializationEncapsulationLayer
+ 312:           600          19200  javax.crypto.spec.IvParameterSpec (java.base@13.0.2)
+ 313:           600          19200  org.spec.jbb.core.comm.transport.compression.GZipCompressionLayer
+ 314:           600          19200  org.spec.jbb.core.comm.transport.encapsulation.PooledJAXBEncapsulationLayer
+ 315:           600          19200  org.spec.jbb.core.comm.transport.encapsulation.PooledJAXBEncapsulationLayer$1
+ 316:           600          19200  org.spec.jbb.core.comm.transport.encapsulation.PooledJAXBEncapsulationLayer$2
+ 317:           600          19200  org.spec.jbb.core.comm.transport.encryption.PooledJavaSecurityEncryptionLayer$1
+ 318:           586          18752  org.spec.jbb.hq.tx.GetCustomerProfileTransaction
+ 319:           584          18688  com.sun.istack.FinalArrayList
+ 320:           146          18688  com.sun.xml.bind.v2.runtime.XMLSerializer
+ 321:           584          18688  org.spec.jbb.hq.tx.UpdateCustomerProfileTransaction
+ 322:           288          18432  java.security.ProtectionDomain (java.base@13.0.2)
+ 323:           285          18240  java.security.CodeSource (java.base@13.0.2)
+ 324:           282          18048  com.sun.org.apache.xerces.internal.impl.dtd.XMLEntityDecl (java.xml@13.0.2)
+ 325:           282          18048  com.sun.org.apache.xerces.internal.impl.dtd.XMLSimpleType (java.xml@13.0.2)
+ 326:           141          18048  com.sun.org.apache.xerces.internal.jaxp.SAXParserImpl$JAXPSAXParser (java.xml@13.0.2)
+ 327:           141          18048  com.sun.xml.bind.v2.runtime.unmarshaller.UnmarshallingContext
+ 328:           543          17504  [Ljava.lang.reflect.Constructor; (java.base@13.0.2)
+ 329:           270          17280  java.util.Hashtable (java.base@13.0.2)
+ 330:           270          17216  [Ljava.util.Hashtable$Entry; (java.base@13.0.2)
+ 331:           532          17024  org.spec.jbb.core.threadpools.SpecThreadFactory$1$1
+ 332:           260          16640  jdk.internal.reflect.UnsafeQualifiedStaticObjectFieldAccessorImpl (java.base@13.0.2)
+ 333:             3          16480  [Ljava.lang.Thread; (java.base@13.0.2)
+ 334:           514          16448  java.security.Provider$ServiceKey (java.base@13.0.2)
+ 335:           252          16128  com.sun.xml.bind.v2.runtime.unmarshaller.StructureLoader
+ 336:           192          15360  [Ljava.lang.ref.SoftReference; (java.base@13.0.2)
+ 337:           476          15232  org.spec.jbb.hq.tx.AssociativityOfProductTransaction
+ 338:           290          14752  [J (java.base@13.0.2)
+ 339:           224          14336  jdk.internal.math.FloatingDecimal$BinaryToASCIIBuffer (java.base@13.0.2)
+ 340:           222          14208  com.sun.crypto.provider.CipherBlockChaining (java.base@13.0.2)
+ 341:           222          14208  com.sun.crypto.provider.CipherCore (java.base@13.0.2)
+ 342:           222          14208  javax.crypto.Cipher (java.base@13.0.2)
+ 343:           146          14016  com.sun.xml.bind.v2.runtime.MarshallerImpl
+ 344:           438          14016  java.lang.invoke.ResolvedMethodName (java.base@13.0.2)
+ 345:           436          13952  com.sun.xml.bind.v2.runtime.unmarshaller.ChildLoader
+ 346:           430          13760  org.spec.jbb.hq.tx.CustomerBuyingBehaviorTransaction
+ 347:           213          13632  java.security.Provider$Service (java.base@13.0.2)
+ 348:           141          13536  [Lcom.sun.xml.bind.v2.runtime.unmarshaller.Scope;
+ 349:           141          13536  com.sun.org.apache.xerces.internal.impl.dtd.XMLDTDProcessor (java.xml@13.0.2)
+ 350:           407          13024  jdk.internal.math.FDBigInteger (java.base@13.0.2)
+ 351:           405          12960  java.lang.invoke.LambdaForm$Name (java.base@13.0.2)
+ 352:           401          12832  java.lang.invoke.MethodType$ConcurrentWeakInternSet$WeakEntry (java.base@13.0.2)
+ 353:           276          12192  [Ljava.lang.reflect.Field; (java.base@13.0.2)
+ 354:           190          12160  com.sun.xml.bind.v2.runtime.property.SingleElementNodeProperty
+ 355:           379          12128  java.util.concurrent.locks.ReentrantReadWriteLock$ReadLock (java.base@13.0.2)
+ 356:           379          12128  java.util.concurrent.locks.ReentrantReadWriteLock$Sync$ThreadLocalHoldCounter (java.base@13.0.2)
+ 357:           379          12128  java.util.concurrent.locks.ReentrantReadWriteLock$WriteLock (java.base@13.0.2)
+ 358:           297          11968  [Z (java.base@13.0.2)
+ 359:           372          11904  org.spec.jbb.core.collections.ConcurrentMultiMap$Entry
+ 360:           179          11456  jdk.internal.reflect.UnsafeQualifiedStaticLongFieldAccessorImpl (java.base@13.0.2)
+ 361:           357          11424  java.lang.module.ModuleDescriptor$Exports (java.base@13.0.2)
+ 362:           357          11424  sun.reflect.annotation.AnnotationInvocationHandler (java.base@13.0.2)
+ 363:            12          11200  [Ljava.util.concurrent.ForkJoinPool$WorkQueue; (java.base@13.0.2)
+ 364:           340          10880  java.util.Collections$UnmodifiableRandomAccessList (java.base@13.0.2)
+ 365:           336          10752  com.sun.xml.bind.v2.model.impl.RuntimeClassInfoImpl$RuntimePropertySeed
+ 366:           335          10720  java.util.LinkedHashMap$LinkedValues (java.base@13.0.2)
+ 367:           334          10688  com.sun.xml.bind.v2.model.impl.FieldPropertySeed
+ 368:           334          10688  com.sun.xml.bind.v2.runtime.reflect.Accessor$FieldReflection
+ 369:           332          10624  com.sun.xml.bind.v2.model.impl.ElementPropertyInfoImpl$1
+ 370:           157          10048  java.util.EnumMap (java.base@13.0.2)
+ 371:           155           9920  java.util.logging.Logger$ConfigurationData (java.logging@13.0.2)
+ 372:           154           9856  java.util.logging.Logger (java.logging@13.0.2)
+ 373:           147           9408  java.lang.ref.Finalizer (java.base@13.0.2)
+ 374:           146           9344  com.sun.xml.bind.v2.runtime.output.NamespaceContextImpl
+ 375:           146           9344  com.sun.xml.bind.v2.util.CollisionCheckStack
+ 376:           288           9216  [Ljava.security.Principal; (java.base@13.0.2)
+ 377:           288           9216  java.security.ProtectionDomain$Key (java.base@13.0.2)
+ 378:           288           9216  java.util.logging.LogManager$LogNode (java.logging@13.0.2)
+ 379:           144           9216  org.spec.jbb.infra.txinjector.Driver$SaturateTask
+ 380:           142           9088  [Lcom.sun.org.apache.xerces.internal.utils.XMLSecurityManager$State; (java.xml@13.0.2)
+ 381:           283           9056  java.util.ImmutableCollections$Set12 (java.base@13.0.2)
+ 382:           282           9024  [Lcom.sun.org.apache.xerces.internal.util.XMLAttributesImpl$Attribute; (java.xml@13.0.2)
+ 383:           141           9024  [[S (java.base@13.0.2)
+ 384:           141           9024  com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl$ElementStack (java.xml@13.0.2)
+ 385:           141           9024  com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl$ElementStack2 (java.xml@13.0.2)
+ 386:           141           9024  com.sun.org.apache.xerces.internal.impl.XMLEntityScanner (java.xml@13.0.2)
+ 387:           141           9024  com.sun.org.apache.xerces.internal.impl.XMLErrorReporter (java.xml@13.0.2)
+ 388:           141           9024  com.sun.org.apache.xerces.internal.impl.XMLVersionDetector (java.xml@13.0.2)
+ 389:           141           9024  com.sun.org.apache.xerces.internal.impl.dtd.XMLDTDDescription (java.xml@13.0.2)
+ 390:           141           9024  com.sun.org.apache.xerces.internal.impl.validation.ValidationState (java.xml@13.0.2)
+ 391:           141           9024  com.sun.org.apache.xerces.internal.jaxp.SAXParserImpl (java.xml@13.0.2)
+ 392:           141           9024  com.sun.org.apache.xerces.internal.util.SymbolTable (java.xml@13.0.2)
+ 393:           141           9024  com.sun.org.apache.xerces.internal.util.XMLAttributesImpl (java.xml@13.0.2)
+ 394:           141           9024  com.sun.org.apache.xerces.internal.util.XMLAttributesIteratorImpl (java.xml@13.0.2)
+ 395:           141           9024  com.sun.org.apache.xerces.internal.utils.XMLSecurityManager (java.xml@13.0.2)
+ 396:           141           9024  com.sun.xml.bind.v2.runtime.unmarshaller.UnmarshallerImpl
+ 397:           141           9024  com.sun.xml.internal.stream.XMLEntityStorage (java.xml@13.0.2)
+ 398:           282           9024  java.util.Stack (java.base@13.0.2)
+ 399:           279           8928  com.sun.xml.bind.v2.util.QNameMap
+ 400:           273           8736  java.util.Vector (java.base@13.0.2)
+ 401:            91           8736  org.spec.jbb.hq.tx.SupermarketAudit
+ 402:           269           8608  java.util.RegularEnumSet (java.base@13.0.2)
+ 403:           252           8576  [Lcom.sun.xml.bind.v2.runtime.property.Property;
+ 404:            67           8576  org.spec.jbb.hq.entity.SMBusinessReport
+ 405:           260           8320  org.spec.jbb.core.counters.ThreadHashedCounter
+ 406:           129           8256  java.io.ObjectStreamClass$FieldReflector (java.base@13.0.2)
+ 407:           256           8192  java.lang.Byte (java.base@13.0.2)
+ 408:           256           8192  java.lang.Short (java.base@13.0.2)
+ 409:           252           8064  com.sun.xml.bind.v2.runtime.LifecycleMethods
+ 410:           118           7552  com.sun.xml.bind.v2.runtime.property.SingleElementLeafProperty
+ 411:           115           7360  java.lang.invoke.MethodTypeForm (java.base@13.0.2)
+ 412:           226           7232  java.util.concurrent.CopyOnWriteArrayList (java.base@13.0.2)
+ 413:           223           7168  [[I (java.base@13.0.2)
+ 414:           223           7136  java.util.jar.Attributes$Name (java.base@13.0.2)
+ 415:           219           7104  [Ljavax.xml.namespace.QName; (java.xml@13.0.2)
+ 416:           222           7104  com.sun.crypto.provider.AESCipher$General (java.base@13.0.2)
+ 417:           222           7104  com.sun.crypto.provider.AESCrypt (java.base@13.0.2)
+ 418:           222           7104  com.sun.crypto.provider.PKCS5Padding (java.base@13.0.2)
+ 419:           216           6912  org.spec.jbb.core.comm.AbstractMessage$JAXBAdapter
+ 420:           216           6912  org.spec.jbb.core.comm.transport.encapsulation.JAXBAdapters$HashMapAdapter
+ 421:           214           6848  com.sun.xml.bind.v2.runtime.property.TagAndType
+ 422:           208           6656  jdk.internal.reflect.BootstrapConstructorAccessorImpl (java.base@13.0.2)
+ 423:           102           6528  java.lang.invoke.LambdaForm (java.base@13.0.2)
+ 424:           107           6496  [Ljava.lang.invoke.LambdaForm$Name; (java.base@13.0.2)
+ 425:            99           6336  org.spec.jbb.util.PositiveIntProperty
+ 426:           185           5920  java.security.Provider$UString (java.base@13.0.2)
+ 427:            91           5824  org.spec.jbb.core.collections.UpdateHashMap
+ 428:            60           5760  java.net.URI (java.base@13.0.2)
+ 429:            60           5760  org.spec.jbb.core.collections.ConcurrentCreateHashMap
+ 430:            88           5632  jdk.internal.ref.CleanerImpl$PhantomCleanableRef (java.base@13.0.2)
+ 431:           176           5632  jdk.internal.reflect.DelegatingConstructorAccessorImpl (java.base@13.0.2)
+ 432:           167           5344  java.util.ImmutableCollections$SetN (java.base@13.0.2)
+ 433:           165           5280  java.lang.ThreadLocal (java.base@13.0.2)
+ 434:           164           5248  jdk.internal.module.ServicesCatalog$ServiceProvider (java.base@13.0.2)
+ 435:           161           5152  org.spec.jbb.core.collections.CollectionUtils$7
+ 436:           158           5056  java.util.Collections$UnmodifiableMap (java.base@13.0.2)
+ 437:           156           4992  java.lang.invoke.LambdaForm$NamedFunction (java.base@13.0.2)
+ 438:           154           4928  org.spec.jbb.sm.discount.PercentageDiscount
+ 439:            76           4864  org.spec.jbb.infra.txinjector.Driver$ProbeHelperTask
+ 440:           151           4832  java.lang.Package (java.base@13.0.2)
+ 441:            75           4800  java.util.TreeMap (java.base@13.0.2)
+ 442:           150           4800  org.spec.jbb.core.comm.LocationInfo
+ 443:           150           4800  org.spec.jbb.core.comm.transport.EmptyTransport
+ 444:           150           4800  org.spec.jbb.core.comm.transport.NullTransport
+ 445:           149           4768  [Lsun.reflect.generics.tree.TypeArgument; (java.base@13.0.2)
+ 446:           149           4768  com.sun.proxy.$Proxy10
+ 447:           149           4768  sun.reflect.generics.tree.ClassTypeSignature (java.base@13.0.2)
+ 448:           149           4768  sun.reflect.generics.tree.SimpleClassTypeSignature (java.base@13.0.2)
+ 449:           147           4704  jdk.internal.reflect.NativeConstructorAccessorImpl (java.base@13.0.2)
+ 450:           146           4672  com.sun.xml.bind.v2.runtime.unmarshaller.IntData
+ 451:           144           4608  java.lang.invoke.DirectMethodHandle (java.base@13.0.2)
+ 452:           142           4576  [Lcom.sun.org.apache.xerces.internal.utils.XMLSecurityPropertyManager$State; (java.xml@13.0.2)
+ 453:           141           4512  com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl$PrologDriver (java.xml@13.0.2)
+ 454:           141           4512  com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl$TrailingMiscDriver (java.xml@13.0.2)
+ 455:           141           4512  com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl$XMLDeclDriver (java.xml@13.0.2)
+ 456:           141           4512  com.sun.org.apache.xerces.internal.impl.XMLNSDocumentScannerImpl$NSContentDriver (java.xml@13.0.2)
+ 457:           141           4512  com.sun.org.apache.xerces.internal.impl.dtd.DTDGrammarBucket (java.xml@13.0.2)
+ 458:           141           4512  com.sun.org.apache.xerces.internal.impl.dtd.XMLAttributeDecl (java.xml@13.0.2)
+ 459:           141           4512  com.sun.org.apache.xerces.internal.impl.dtd.XMLElementDecl (java.xml@13.0.2)
+ 460:           141           4512  com.sun.org.apache.xerces.internal.impl.dv.dtd.DTDDVFactoryImpl (java.xml@13.0.2)
+ 461:           141           4512  com.sun.org.apache.xerces.internal.impl.msg.XMLMessageFormatter (java.xml@13.0.2)
+ 462:           141           4512  com.sun.org.apache.xerces.internal.impl.validation.ValidationManager (java.xml@13.0.2)
+ 463:           141           4512  com.sun.org.apache.xerces.internal.parsers.AbstractSAXParser$AttributesProxy (java.xml@13.0.2)
+ 464:           141           4512  com.sun.org.apache.xerces.internal.util.ErrorHandlerWrapper (java.xml@13.0.2)
+ 465:           141           4512  com.sun.org.apache.xerces.internal.util.NamespaceSupport (java.xml@13.0.2)
+ 466:           141           4512  com.sun.org.apache.xerces.internal.utils.XMLSecurityPropertyManager (java.xml@13.0.2)
+ 467:           141           4512  com.sun.xml.bind.v2.runtime.unmarshaller.DefaultIDResolver
+ 468:             4           4352  [[D (java.base@13.0.2)
+ 469:           132           4224  java.lang.module.ModuleDescriptor$Requires (java.base@13.0.2)
+ 470:            12           4224  java.util.concurrent.ForkJoinPool (java.base@13.0.2)
+ 471:           128           4096  java.lang.Character (java.base@13.0.2)
+ 472:           126           4032  com.sun.xml.bind.v2.runtime.unmarshaller.LeafPropertyLoader
+ 473:           126           4032  com.sun.xml.bind.v2.runtime.unmarshaller.LeafPropertyXsiLoader
+ 474:           122           3904  com.sun.xml.bind.v2.runtime.reflect.TransducedAccessor$CompositeTransducedAccessorImpl
+ 475:            60           3840  java.lang.module.ModuleDescriptor (java.base@13.0.2)
+ 476:            60           3840  jdk.internal.module.ModuleReferenceImpl (java.base@13.0.2)
+ 477:            40           3840  org.spec.jbb.core.collections.ConcurrentCounterMap
+ 478:            40           3840  org.spec.jbb.infra.IterationStatus$BackendTick
+ 479:           117           3744  org.spec.jbb.util.RangeIntProperty$1
+ 480:           116           3712  com.sun.proxy.$Proxy2
+ 481:            35           3648  [Ljava.lang.invoke.MethodHandle; (java.base@13.0.2)
+ 482:            56           3584  com.sun.xml.bind.v2.runtime.LeafBeanInfoImpl
+ 483:            56           3584  java.net.URL (java.base@13.0.2)
+ 484:            55           3520  org.spec.jbb.hq.tx.AssociativityOfCategoryTransaction
+ 485:           109           3488  sun.security.pkcs11.SunPKCS11$Descriptor (jdk.crypto.cryptoki@13.0.2)
+ 486:            53           3392  sun.security.util.NamedCurve (java.base@13.0.2)
+ 487:           103           3296  [[C (java.base@13.0.2)
+ 488:             6           3264  [Lorg.glassfish.grizzly.nio.SelectorRunner;
+ 489:            49           3136  java.util.zip.Inflater (java.base@13.0.2)
+ 490:            47           3008  java.lang.invoke.DirectMethodHandle$Accessor (java.base@13.0.2)
+ 491:            23           2944  sun.nio.fs.UnixFileAttributes (java.base@13.0.2)
+ 492:            91           2912  org.spec.jbb.hq.tx.BusinessReportTransaction
+ 493:            91           2912  org.spec.jbb.hq.tx.SupermarketAudit$2
+ 494:            87           2784  java.util.concurrent.ConcurrentHashMap$ForwardingNode (java.base@13.0.2)
+ 495:            86           2752  com.sun.xml.bind.v2.runtime.unmarshaller.XsiTypeLoader
+ 496:            43           2752  java.lang.Package$VersionInfo (java.base@13.0.2)
+ 497:            28           2688  org.glassfish.grizzly.threadpool.ThreadPoolConfig
+ 498:             3           2656  [[B (java.base@13.0.2)
+ 499:            25           2400  java.util.jar.JarFile$JarFileEntry (java.base@13.0.2)
+ 500:            75           2400  org.spec.jbb.core.comm.transport.TransportFactory
+ 501:            37           2368  org.spec.jbb.core.comm.Interconnect$Downlink
+ 502:            37           2368  org.spec.jbb.core.comm.Interconnect$UplinkImpl
+ 503:            73           2336  java.util.ImmutableCollections$List12 (java.base@13.0.2)
+ 504:            34           2176  java.io.FileDescriptor (java.base@13.0.2)
+ 505:            68           2176  org.glassfish.grizzly.utils.ArraySet
+ 506:            67           2144  jdk.internal.reflect.DelegatingMethodAccessorImpl (java.base@13.0.2)
+ 507:            66           2112  com.sun.xml.bind.v2.runtime.unmarshaller.TextLoader
+ 508:            66           2112  java.lang.invoke.LambdaForm$Kind (java.base@13.0.2)
+ 509:            63           2016  java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject (java.base@13.0.2)
+ 510:            61           1952  sun.reflect.generics.factory.CoreReflectionFactory (java.base@13.0.2)
+ 511:            61           1952  sun.reflect.generics.scope.ClassScope (java.base@13.0.2)
+ 512:            60           1920  [Ljava.lang.reflect.Type; (java.base@13.0.2)
+ 513:            60           1920  java.lang.module.ResolvedModule (java.base@13.0.2)
+ 514:            60           1920  jdk.internal.module.SystemModuleFinders$2 (java.base@13.0.2)
+ 515:            60           1920  jdk.internal.module.SystemModuleFinders$SystemModuleReader (java.base@13.0.2)
+ 516:            59           1888  java.lang.reflect.AccessibleObject$$Lambda$21/0x00000020000bf040 (java.base@13.0.2)
+ 517:            59           1888  jdk.internal.loader.BuiltinClassLoader$LoadedModule (java.base@13.0.2)
+ 518:            59           1888  org.spec.jbb.core.sequencer.AtomicGrowingSequencer
+ 519:            58           1856  jdk.internal.module.SystemModuleFinders$3 (java.base@13.0.2)
+ 520:            57           1824  org.spec.jbb.util.IntegerProperty
+ 521:            57           1824  org.spec.jbb.util.IntegerProperty$1
+ 522:            56           1792  java.lang.module.ModuleDescriptor$Provides (java.base@13.0.2)
+ 523:            55           1760  java.lang.invoke.VarHandle$AccessDescriptor (java.base@13.0.2)
+ 524:            27           1728  java.lang.invoke.VarHandleReferences$FieldInstanceReadWrite (java.base@13.0.2)
+ 525:            54           1728  java.security.spec.ECPoint (java.base@13.0.2)
+ 526:            18           1728  org.spec.jbb.infra.IterationStatus$IRResult
+ 527:            53           1696  java.lang.invoke.BoundMethodHandle$Species_L (java.base@13.0.2)
+ 528:            53           1696  java.security.spec.EllipticCurve (java.base@13.0.2)
+ 529:            26           1664  java.io.FileCleanable (java.base@13.0.2)
+ 530:            52           1664  sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl (java.base@13.0.2)
+ 531:            39           1600  [Ljava.math.BigInteger; (java.base@13.0.2)
+ 532:            25           1600  sun.security.ec.SunEC$ProviderService (jdk.crypto.ec@13.0.2)
+ 533:            49           1568  java.lang.Double (java.base@13.0.2)
+ 534:            49           1568  java.util.zip.Inflater$InflaterZStreamRef (java.base@13.0.2)
+ 535:            24           1536  org.spec.jbb.core.threadpools.PoolPerfomanceData
+ 536:            47           1504  org.glassfish.grizzly.monitoring.DefaultMonitoringConfig
+ 537:            47           1504  org.spec.jbb.hq.entity.HQBusinessReport
+ 538:            47           1504  org.spec.jbb.hq.tx.response.BusinessReportResponse
+ 539:            23           1472  java.util.jar.JarFile (java.base@13.0.2)
+ 540:            23           1472  java.util.zip.ZipFile$Source (java.base@13.0.2)
+ 541:            23           1472  jdk.internal.loader.URLClassPath$JarLoader (java.base@13.0.2)
+ 542:            23           1472  org.spec.jbb.core.mapreduce.MapReducer$MapReduceTask
+ 543:            22           1408  java.lang.invoke.LambdaFormEditor$Transform (java.base@13.0.2)
+ 544:            22           1408  java.util.concurrent.ConcurrentHashMap$KeyIterator (java.base@13.0.2)
+ 545:             1           1376  [Ljdk.internal.math.FDBigInteger; (java.base@13.0.2)
+ 546:            43           1376  java.util.regex.Pattern$Slice (java.base@13.0.2)
+ 547:             7           1344  org.glassfish.grizzly.nio.transport.TCPNIOTransport
+ 548:            42           1344  org.spec.jbb.util.random.NotRandom
+ 549:            42           1344  sun.reflect.generics.repository.FieldRepository (java.base@13.0.2)
+ 550:            40           1280  org.spec.jbb.core.collections.ConcurrentCounterMap$1
+ 551:            17           1248  [Ljava.util.concurrent.ConcurrentHashMap$CounterCell; (java.base@13.0.2)
+ 552:            39           1248  java.util.TreeMap$EntrySet (java.base@13.0.2)
+ 553:            38           1216  org.spec.jbb.core.comm.AbstractRequest$JAXBAdapter
+ 554:            37           1184  org.spec.jbb.core.collections.ConcurrentWeakHashMap
+ 555:            37           1184  org.spec.jbb.core.comm.Interconnect$UplinkImpl$1
+ 556:            34           1152  [Lorg.glassfish.grizzly.IOEvent;
+ 557:            36           1152  java.util.ImmutableCollections$ListN (java.base@13.0.2)
+ 558:            12           1152  org.spec.jbb.core.Topology
+ 559:             7           1120  [Ljava.lang.invoke.MemberName; (java.base@13.0.2)
+ 560:            35           1120  java.io.ObjectStreamClass$ExceptionInfo (java.base@13.0.2)
+ 561:            34           1088  java.util.Collections$SetFromMap (java.base@13.0.2)
+ 562:             1           1056  [Ljava.lang.Byte; (java.base@13.0.2)
+ 563:             1           1056  [Ljava.lang.Long; (java.base@13.0.2)
+ 564:             1           1056  [Ljava.lang.Short; (java.base@13.0.2)
+ 565:            33           1056  java.lang.RuntimePermission (java.base@13.0.2)
+ 566:            33           1056  java.util.TreeMap$Values (java.base@13.0.2)
+ 567:            33           1056  joptsimple.internal.AbbreviationMap
+ 568:            33           1056  org.spec.jbb.core.comm.AbstractResponse$JAXBAdapter
+ 569:            32           1024  jdk.internal.loader.AbstractClassLoaderValue$Sub (java.base@13.0.2)
+ 570:            32           1024  org.spec.jbb.infra.txinjector.Driver$Target
+ 571:            32           1024  org.spec.jbb.infra.txinjector.Driver$TokenPopulateTask
+ 572:            31            992  java.lang.invoke.VarHandle$AccessMode (java.base@13.0.2)
+ 573:            30            960  java.security.Provider$EngineDescription (java.base@13.0.2)
+ 574:            30            960  java.util.concurrent.ConcurrentHashMap$ValuesView (java.base@13.0.2)
+ 575:            10            960  java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask (java.base@13.0.2)
+ 576:            30            960  sun.nio.fs.UnixPath (java.base@13.0.2)
+ 577:            29            928  com.sun.proxy.$Proxy1
+ 578:            29            928  org.spec.jbb.util.BooleanProperty
+ 579:            29            928  org.spec.jbb.util.BooleanProperty$1
+ 580:            14            896  com.sun.xml.bind.v2.runtime.property.ArrayElementNodeProperty
+ 581:            28            896  java.io.File (java.base@13.0.2)
+ 582:            28            896  org.spec.jbb.infra.ProfileData
+ 583:            28            896  org.spec.jbb.infra.txinjector.SingleRequestGenerator
+ 584:            28            896  org.spec.jbb.sm.discount.BOGODiscount
+ 585:            27            864  java.security.spec.ECFieldFp (java.base@13.0.2)
+ 586:             9            864  java.util.concurrent.ThreadPoolExecutor (java.base@13.0.2)
+ 587:             9            864  java.util.regex.Pattern (java.base@13.0.2)
+ 588:            26            832  com.sun.proxy.$Proxy4
+ 589:            13            832  java.lang.invoke.DirectMethodHandle$Special (java.base@13.0.2)
+ 590:            26            832  java.security.spec.ECFieldF2m (java.base@13.0.2)
+ 591:            26            832  java.util.WeakHashMap$KeySet (java.base@13.0.2)
+ 592:            13            832  org.jcp.xml.dsig.internal.dom.XMLDSigRI$ProviderService (java.xml.crypto@13.0.2)
+ 593:            25            800  java.security.Permissions (java.base@13.0.2)
+ 594:            25            800  java.util.zip.ZipFile$CleanableResource (java.base@13.0.2)
+ 595:             5            800  org.glassfish.grizzly.nio.transport.TCPNIOServerConnection
+ 596:            24            768  com.sun.xml.bind.v2.runtime.property.ArrayERProperty$ReceiverImpl
+ 597:            12            768  java.util.zip.Deflater (java.base@13.0.2)
+ 598:            23            736  java.io.RandomAccessFile (java.base@13.0.2)
+ 599:            23            736  java.security.SecureClassLoader$CodeSourceKey (java.base@13.0.2)
+ 600:            23            736  java.util.zip.CRC32 (java.base@13.0.2)
+ 601:            23            736  java.util.zip.ZipFile$Source$Key (java.base@13.0.2)
+ 602:            23            736  jdk.internal.reflect.NativeMethodAccessorImpl (java.base@13.0.2)
+ 603:            23            736  sun.nio.fs.UnixFileAttributes$UnixAsBasicFileAttributes (java.base@13.0.2)
+ 604:            23            736  sun.security.util.LazyCodeSourcePermissionCollection (java.base@13.0.2)
+ 605:            11            704  [Ljava.lang.invoke.BoundMethodHandle$SpeciesData; (java.base@13.0.2)
+ 606:            22            704  com.sun.xml.bind.v2.runtime.reflect.Lister$CollectionLister
+ 607:            11            704  java.lang.OutOfMemoryError (java.base@13.0.2)
+ 608:            11            704  java.lang.invoke.BoundMethodHandle$SpeciesData (java.base@13.0.2)
+ 609:            11            704  java.lang.invoke.BoundMethodHandle$Species_LL (java.base@13.0.2)
+ 610:            11            704  java.lang.invoke.BoundMethodHandle$Species_LLL (java.base@13.0.2)
+ 611:            22            704  java.util.LinkedHashMap$LinkedEntrySet (java.base@13.0.2)
+ 612:            11            704  java.util.zip.GZIPInputStream (java.base@13.0.2)
+ 613:            22            704  jdk.internal.math.FloatingDecimal$ASCIIToBinaryBuffer (java.base@13.0.2)
+ 614:            11            704  org.spec.jbb.util.NonNegativeIntProperty
+ 615:             3            672  [Ljava.lang.invoke.LambdaForm; (java.base@13.0.2)
+ 616:             7            672  [Ljava.util.concurrent.RunnableScheduledFuture; (java.base@13.0.2)
+ 617:             7            672  java.util.concurrent.ScheduledThreadPoolExecutor (java.base@13.0.2)
+ 618:             7            672  java.util.concurrent.TimeUnit (java.base@13.0.2)
+ 619:            21            672  java.util.regex.Pattern$GroupHead (java.base@13.0.2)
+ 620:            21            672  java.util.regex.Pattern$GroupTail (java.base@13.0.2)
+ 621:            21            672  org.spec.jbb.util.EnumProperty
+ 622:            21            672  org.spec.jbb.util.EnumProperty$1
+ 623:            10            640  [Ljava.lang.invoke.MethodType; (java.base@13.0.2)
+ 624:            20            640  [Lsun.reflect.generics.tree.ClassTypeSignature; (java.base@13.0.2)
+ 625:            20            640  [Lsun.reflect.generics.tree.FormalTypeParameter; (java.base@13.0.2)
+ 626:            20            640  com.sun.xml.bind.v2.runtime.property.ArrayERProperty$ItemsLoader
+ 627:            10            640  com.sun.xml.bind.v2.runtime.property.ArrayElementLeafProperty
+ 628:            20            640  com.sun.xml.bind.v2.runtime.unmarshaller.XsiNilLoader$Array
+ 629:            10            640  org.glassfish.grizzly.asyncqueue.TaskQueue
+ 630:            20            640  org.spec.jbb.core.collections.CollectionUtils$9
+ 631:            10            640  sun.invoke.util.Wrapper (java.base@13.0.2)
+ 632:            20            640  sun.reflect.generics.repository.ClassRepository (java.base@13.0.2)
+ 633:            20            640  sun.reflect.generics.tree.ClassSignature (java.base@13.0.2)
+ 634:            11            608  [Ljava.util.regex.Pattern$Node; (java.base@13.0.2)
+ 635:            19            608  org.spec.jbb.reporter.StatsFrame
+ 636:            19            608  sun.reflect.generics.tree.TypeVariableSignature (java.base@13.0.2)
+ 637:             7            576  [Lsun.invoke.util.Wrapper; (java.base@13.0.2)
+ 638:            18            576  [Lsun.reflect.generics.tree.FieldTypeSignature; (java.base@13.0.2)
+ 639:             9            576  com.sun.org.apache.xerces.internal.utils.XMLSecurityManager$Limit (java.xml@13.0.2)
+ 640:            18            576  com.sun.xml.bind.v2.model.core.Adapter
+ 641:            18            576  java.text.DateFormat$Field (java.base@13.0.2)
+ 642:             9            576  java.util.Properties (java.base@13.0.2)
+ 643:             9            576  java.util.concurrent.ArrayBlockingQueue (java.base@13.0.2)
+ 644:             9            576  java.util.concurrent.LinkedBlockingQueue (java.base@13.0.2)
+ 645:            18            576  org.spec.jbb.infra.txinjector.Driver$ServiceTask
+ 646:            18            576  sun.reflect.generics.reflectiveObjects.TypeVariableImpl (java.base@13.0.2)
+ 647:            18            576  sun.reflect.generics.tree.FormalTypeParameter (java.base@13.0.2)
+ 648:             1            544  [Ljava.lang.Character; (java.base@13.0.2)
+ 649:            17            544  java.lang.invoke.Invokers (java.base@13.0.2)
+ 650:            17            544  java.security.BasicPermissionCollection (java.base@13.0.2)
+ 651:            17            544  java.time.Duration (java.base@13.0.2)
+ 652:            17            544  org.spec.jbb.infra.txinjector.BusinessRequestName
+ 653:            17            544  sun.nio.ch.OptionKey (java.base@13.0.2)
+ 654:            17            544  sun.nio.ch.SocketOptionRegistry$RegistryKey (java.base@13.0.2)
+ 655:             8            512  java.lang.ClassLoader$NativeLibrary (java.base@13.0.2)
+ 656:             8            512  java.lang.invoke.MethodHandleImpl$AsVarargsCollector (java.base@13.0.2)
+ 657:             8            512  java.nio.HeapByteBuffer (java.base@13.0.2)
+ 658:            16            512  java.time.temporal.ChronoUnit (java.base@13.0.2)
+ 659:            16            512  java.util.Collections$SynchronizedRandomAccessList (java.base@13.0.2)
+ 660:            16            512  java.util.LinkedList (java.base@13.0.2)
+ 661:            16            512  java.util.jar.Attributes (java.base@13.0.2)
+ 662:            16            512  java.util.jar.Manifest (java.base@13.0.2)
+ 663:             8            512  org.spec.jbb.core.collections.CreateHashMap
+ 664:            16            512  org.spec.jbb.infra.txinjector.TxInjectorPerfromanceDataCollector$RTCollector
+ 665:             4            512  org.spec.jbb.sm.SM
+ 666:             8            512  sun.nio.cs.UTF_8$Encoder (java.base@13.0.2)
+ 667:            15            480  java.util.regex.Pattern$BmpCharProperty (java.base@13.0.2)
+ 668:            15            480  jdk.internal.reflect.UnsafeQualifiedObjectFieldAccessorImpl (java.base@13.0.2)
+ 669:            15            480  org.spec.jbb.core.threadpools.SpecThreadFactory$1
+ 670:             5            480  sun.nio.ch.ServerSocketChannelImpl (java.base@13.0.2)
+ 671:             1            448  [[[C (java.base@13.0.2)
+ 672:            14            448  java.lang.Float (java.base@13.0.2)
+ 673:             7            448  java.lang.invoke.DirectMethodHandle$Constructor (java.base@13.0.2)
+ 674:             7            448  java.nio.DirectByteBuffer (java.base@13.0.2)
+ 675:            14            448  java.util.Formatter$Flags (java.base@13.0.2)
+ 676:             7            448  org.glassfish.grizzly.nio.tmpselectors.TemporarySelectorPool
+ 677:             7            448  org.glassfish.grizzly.nio.transport.TCPNIOTransport$TransportConnectorHandler
+ 678:             7            448  org.glassfish.grizzly.threadpool.SyncThreadPool
+ 679:            14            448  org.spec.jbb.core.collections.sampling.RandomArraySamplingBuffer
+ 680:             7            448  sun.nio.cs.StreamEncoder (java.base@13.0.2)
+ 681:             7            448  sun.util.resources.Bundles$BundleReference (java.base@13.0.2)
+ 682:            13            416  java.util.Collections$SingletonSet (java.base@13.0.2)
+ 683:            13            416  java.util.Collections$UnmodifiableMap$UnmodifiableEntrySet (java.base@13.0.2)
+ 684:            13            416  java.util.regex.Pattern$BmpCharPropertyGreedy (java.base@13.0.2)
+ 685:            13            416  org.glassfish.grizzly.threadpool.AbstractThreadPool$3
+ 686:            13            416  org.glassfish.grizzly.threadpool.AbstractThreadPool$5
+ 687:            13            416  org.glassfish.grizzly.threadpool.GrizzlyExecutorService
+ 688:            13            416  org.spec.jbb.core.time.JavaSystemClock
+ 689:            13            416  sun.reflect.annotation.AnnotationType (java.base@13.0.2)
+ 690:            12            384  [Ljava.lang.reflect.TypeVariable; (java.base@13.0.2)
+ 691:             4            384  [Lorg.spec.jbb.infra.txinjector.BusinessRequestName;
+ 692:             6            384  com.sun.xml.bind.v2.model.impl.RuntimeArrayInfoImpl
+ 693:             6            384  com.sun.xml.bind.v2.runtime.ArrayBeanInfoImpl
+ 694:            12            384  com.sun.xml.bind.v2.runtime.reflect.AdaptedAccessor
+ 695:             6            384  java.io.BufferedWriter (java.base@13.0.2)
+ 696:            12            384  java.lang.invoke.VarHandleInts$FieldInstanceReadWrite (java.base@13.0.2)
+ 697:             1            384  java.lang.ref.Finalizer$FinalizerThread (java.base@13.0.2)
+ 698:             1            384  java.lang.ref.Reference$ReferenceHandler (java.base@13.0.2)
+ 699:            12            384  java.net.StandardSocketOptions$StdSocketOption (java.base@13.0.2)
+ 700:             6            384  java.nio.DirectLongBufferU (java.base@13.0.2)
+ 701:             6            384  java.util.IdentityHashMap (java.base@13.0.2)
+ 702:            12            384  java.util.TreeMap$EntryIterator (java.base@13.0.2)
+ 703:             6            384  java.util.concurrent.ConcurrentHashMap$ValueIterator (java.base@13.0.2)
+ 704:            12            384  java.util.concurrent.LinkedTransferQueue$Node (java.base@13.0.2)
+ 705:             1            384  java.util.logging.LogManager$Cleaner (java.logging@13.0.2)
+ 706:            12            384  java.util.zip.Deflater$DeflaterZStreamRef (java.base@13.0.2)
+ 707:             1            384  jdk.internal.misc.InnocuousThread (java.base@13.0.2)
+ 708:             6            384  org.glassfish.grizzly.threadpool.FixedThreadPool
+ 709:            12            384  org.spec.jbb.core.locks.DelegateLockManager
+ 710:            12            384  org.spec.jbb.core.locks.EntryFactory
+ 711:             6            384  org.spec.jbb.core.threadpools.ForkJoinThreadPool
+ 712:            12            384  org.spec.jbb.core.tx.SimpleTransactionExecutor
+ 713:            12            384  org.spec.jbb.hq.HQStatistics
+ 714:            12            384  org.spec.jbb.util.LongProperty
+ 715:            12            384  org.spec.jbb.util.LongProperty$1
+ 716:             6            384  org.spec.jbb.util.RangeIntProperty
+ 717:             6            384  org.spec.jbb.util.random.TriangleRandom
+ 718:            12            384  sun.security.jca.ProviderConfig (java.base@13.0.2)
+ 719:             6            384  sun.util.calendar.ZoneInfo (java.base@13.0.2)
+ 720:            11            352  java.lang.annotation.ElementType (java.base@13.0.2)
+ 721:            11            352  java.lang.invoke.MethodHandleImpl$Intrinsic (java.base@13.0.2)
+ 722:            11            352  java.util.Vector$1 (java.base@13.0.2)
+ 723:            11            352  java.util.regex.Pattern$$Lambda$11/0x0000002000064040 (java.base@13.0.2)
+ 724:            11            352  java.util.regex.Pattern$Branch (java.base@13.0.2)
+ 725:            11            352  java.util.regex.Pattern$BranchConn (java.base@13.0.2)
+ 726:            11            352  java.util.zip.GZIPInputStream$1 (java.base@13.0.2)
+ 727:            11            352  jdk.internal.reflect.UnsafeQualifiedLongFieldAccessorImpl (java.base@13.0.2)
+ 728:            11            352  org.spec.jbb.core.collections.CardMix
+ 729:            11            352  org.spec.jbb.infra.AgentState
+ 730:            11            352  org.spec.jbb.util.FloatProperty$1
+ 731:             5            320  [Ljava.lang.invoke.LambdaForm$NamedFunction; (java.base@13.0.2)
+ 732:            10            320  com.sun.org.apache.xerces.internal.impl.XMLEntityManager$EncodingInfo (java.xml@13.0.2)
+ 733:            10            320  com.sun.org.apache.xerces.internal.impl.XMLScanner$NameType (java.xml@13.0.2)
+ 734:            10            320  com.sun.proxy.$Proxy13
+ 735:            10            320  java.net.InetSocketAddress (java.base@13.0.2)
+ 736:            10            320  java.net.InetSocketAddress$InetSocketAddressHolder (java.base@13.0.2)
+ 737:            10            320  java.nio.charset.CoderResult (java.base@13.0.2)
+ 738:            10            320  java.nio.file.StandardOpenOption (java.base@13.0.2)
+ 739:             2            320  java.text.DecimalFormat (java.base@13.0.2)
+ 740:            10            320  java.util.Hashtable$Entry (java.base@13.0.2)
+ 741:            10            320  java.util.UUID (java.base@13.0.2)
+ 742:            10            320  java.util.concurrent.Semaphore (java.base@13.0.2)
+ 743:            10            320  java.util.concurrent.Semaphore$NonfairSync (java.base@13.0.2)
+ 744:            10            320  java.util.regex.Pattern$$Lambda$12/0x0000002000064440 (java.base@13.0.2)
+ 745:             5            320  java.util.stream.StreamOpFlag (java.base@13.0.2)
+ 746:             5            320  org.spec.jbb.Launcher$RunCategory
+ 747:            10            320  org.spec.jbb.core.collections.CollectionUtils$5
+ 748:            10            320  org.spec.jbb.core.comm.transport.TransportType
+ 749:            10            320  org.spec.jbb.core.probe.IntrusiveProbe
+ 750:            10            320  org.spec.jbb.hq.entity.ShippingCompany
+ 751:             2            320  org.spec.jbb.infra.IterationStatus
+ 752:             5            320  org.spec.jbb.infra.heartbeat.HeartbeatWatchdog
+ 753:            10            320  org.spec.jbb.infra.snapshot.InMemorySnapshotManager$Snapshot
+ 754:             2            320  org.spec.jbb.infra.txinjector.Driver
+ 755:            10            320  org.spec.jbb.util.FloatProperty
+ 756:             5            320  sun.nio.ch.SelectionKeyImpl (java.base@13.0.2)
+ 757:             5            320  sun.nio.ch.ServerSocketAdaptor (java.base@13.0.2)
+ 758:             5            320  sun.util.locale.provider.LocaleResources$ResourceReference (java.base@13.0.2)
+ 759:             7            288  [Ljava.lang.Boolean; (java.base@13.0.2)
+ 760:             1            288  [Ljava.lang.invoke.LambdaForm$Kind; (java.base@13.0.2)
+ 761:             9            288  com.sun.proxy.$Proxy7
+ 762:             9            288  java.lang.NamedPackage (java.base@13.0.2)
+ 763:             9            288  java.util.ImmutableCollections$MapN (java.base@13.0.2)
+ 764:             3            288  java.util.jar.JarVerifier (java.base@13.0.2)
+ 765:             9            288  java.util.logging.Level (java.logging@13.0.2)
+ 766:             9            288  java.util.logging.Level$KnownLevel (java.logging@13.0.2)
+ 767:             9            288  jdk.internal.org.objectweb.asm.Type (java.base@13.0.2)
+ 768:             9            288  org.spec.jbb.core.EntityType
+ 769:             9            288  org.spec.jbb.core.time.JavaSystemStopWatch
+ 770:             9            288  org.spec.jbb.infra.IterationLabel
+ 771:             3            288  sun.security.provider.NativePRNG$RandomIO (java.base@13.0.2)
+ 772:             9            288  sun.util.logging.PlatformLogger$Level (java.base@13.0.2)
+ 773:             4            256  com.sun.xml.bind.v2.model.impl.RuntimeAttributePropertyInfoImpl
+ 774:             4            256  com.sun.xml.bind.v2.runtime.property.AttributeProperty
+ 775:             4            256  java.io.PrintStream (java.base@13.0.2)
+ 776:             4            256  java.lang.invoke.BoundMethodHandle$Species_LJ (java.base@13.0.2)
+ 777:             8            256  java.lang.reflect.ProxyGenerator$PrimitiveTypeInfo (java.base@13.0.2)
+ 778:             8            256  java.math.RoundingMode (java.base@13.0.2)
+ 779:             8            256  java.net.NetPermission (java.base@13.0.2)
+ 780:             4            256  java.util.Formatter$FormatSpecifier (java.base@13.0.2)
+ 781:             4            256  java.util.concurrent.PriorityBlockingQueue (java.base@13.0.2)
+ 782:             8            256  java.util.regex.Pattern$BitClass (java.base@13.0.2)
+ 783:             8            256  java.util.regex.Pattern$Start (java.base@13.0.2)
+ 784:             4            256  javax.xml.catalog.CatalogFeatures$Feature (java.xml@13.0.2)
+ 785:             8            256  joptsimple.OptionSpecBuilder
+ 786:             4            256  joptsimple.RequiredArgumentOptionSpec
+ 787:             4            256  org.eclipse.jetty.util.log.StdErrLog
+ 788:             8            256  org.glassfish.grizzly.IOEvent
+ 789:             8            256  org.spec.jbb.Launcher$RunnerType
+ 790:             4            256  org.spec.jbb.core.cache.BoundedWriteBackCache
+ 791:             8            256  org.spec.jbb.core.cache.SoftReferenceCache
+ 792:             8            256  org.spec.jbb.core.collections.queues.QueueType
+ 793:             4            256  org.spec.jbb.core.purchase.CustomerSpecificPurchaseAgent
+ 794:             8            256  org.spec.jbb.core.scheduler.SingleLoopTimerScheduler
+ 795:             8            256  org.spec.jbb.core.scheduler.SingleLoopTimerScheduler$TimerTask
+ 796:             8            256  org.spec.jbb.core.sequencer.BulkRandomizedSequencer
+ 797:             8            256  org.spec.jbb.hq.tx.OnlineOrderProcessTransaction
+ 798:             8            256  org.spec.jbb.hq.tx.ProcessHQInvoicesTransaction
+ 799:             8            256  org.spec.jbb.hq.tx.request.AssociativityOfCategoryRequest
+ 800:             8            256  org.spec.jbb.hq.tx.request.AssociativityOfProductRequest
+ 801:             8            256  org.spec.jbb.hq.tx.request.BusinessReportRequest
+ 802:             8            256  org.spec.jbb.hq.tx.request.CustomerBuyingBehaviorRequest
+ 803:             2            256  org.spec.jbb.infra.BackendAgent
+ 804:             4            256  org.spec.jbb.infra.IterationStatus$TxInjectorTimeline
+ 805:             8            256  org.spec.jbb.infra.request.StatsRequest
+ 806:             8            256  org.spec.jbb.infra.request.StatsResetRequest
+ 807:             8            256  org.spec.jbb.infra.response.StatsResponse
+ 808:             4            256  org.spec.jbb.sm.CustomerSelection
+ 809:             8            256  org.spec.jbb.sm.CustomerSelection$CustomerHotness
+ 810:             4            256  org.spec.jbb.sm.advertisement.HQAdvertisementAgent
+ 811:             4            256  org.spec.jbb.sm.coupon.CouponFactory
+ 812:             4            256  org.spec.jbb.sm.storage.SupermarketStorageImpl
+ 813:             8            256  org.spec.jbb.sm.tx.request.InStorePurchaseRequest
+ 814:             8            256  org.spec.jbb.sm.tx.request.InstallmentPurchaseRequest
+ 815:             8            256  org.spec.jbb.sm.tx.request.OnlinePurchaseRequest
+ 816:             8            256  org.spec.jbb.sm.tx.request.ProductReturnRequest
+ 817:             4            256  org.spec.jbb.sp.SP
+ 818:             8            256  org.spec.jbb.util.random.UniformRandom
+ 819:             2            224  [Ljava.text.DateFormat$Field; (java.base@13.0.2)
+ 820:             7            224  [Lorg.glassfish.grizzly.threadpool.ThreadPoolProbe;
+ 821:             7            224  com.sun.proxy.$Proxy9
+ 822:             7            224  com.sun.xml.bind.v2.model.impl.ClassInfoImpl$PropertyGroup
+ 823:             7            224  java.io.OutputStreamWriter (java.base@13.0.2)
+ 824:             7            224  java.lang.System$Logger$Level (java.base@13.0.2)
+ 825:             7            224  java.lang.invoke.VarForm (java.base@13.0.2)
+ 826:             7            224  java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue (java.base@13.0.2)
+ 827:             7            224  java.util.concurrent.locks.ReentrantReadWriteLock (java.base@13.0.2)
+ 828:             7            224  jdk.internal.reflect.UnsafeObjectFieldAccessorImpl (java.base@13.0.2)
+ 829:             7            224  org.glassfish.grizzly.AbstractTransport$1
+ 830:             7            224  org.glassfish.grizzly.asyncqueue.AsyncQueueIO$ImmutableAsyncQueueIO
+ 831:             7            224  org.glassfish.grizzly.nio.RoundRobinConnectionDistributor
+ 832:             7            224  org.glassfish.grizzly.nio.RoundRobinConnectionDistributor$SharedIterator
+ 833:             7            224  org.glassfish.grizzly.nio.tmpselectors.TemporarySelectorIO
+ 834:             7            224  org.glassfish.grizzly.nio.transport.TCPNIOAsyncQueueReader
+ 835:             7            224  org.glassfish.grizzly.nio.transport.TCPNIOAsyncQueueWriter
+ 836:             7            224  org.glassfish.grizzly.nio.transport.TCPNIOBindingHandler
+ 837:             7            224  org.glassfish.grizzly.nio.transport.TCPNIOConnectorHandler$InstantConnectHandler
+ 838:             7            224  org.glassfish.grizzly.nio.transport.TCPNIOTemporarySelectorReader
+ 839:             7            224  org.glassfish.grizzly.nio.transport.TCPNIOTemporarySelectorWriter
+ 840:             7            224  org.glassfish.grizzly.nio.transport.TCPNIOTransport$RegisterChannelCompletionHandler
+ 841:             7            224  org.glassfish.grizzly.nio.transport.TCPNIOTransportFilter
+ 842:             7            224  org.glassfish.grizzly.utils.StateHolder
+ 843:             7            224  org.spec.jbb.core.comm.SourceType
+ 844:             7            224  org.spec.jbb.core.comm.connectivity.grizzlynio.GrizzlyTransport
+ 845:             7            224  org.spec.jbb.core.comm.connectivity.grizzlynio.GrizzlyTransport$1
+ 846:             7            224  org.spec.jbb.infra.ControllerType
+ 847:             1            224  org.spec.jbb.infra.StagedController
+ 848:             7            224  org.spec.jbb.util.JbbProperties
+ 849:             7            224  org.spec.jbb.util.PropertyAttribute
+ 850:             7            224  sun.util.resources.Bundles$CacheKey (java.base@13.0.2)
+ 851:             3            192  [Ljava.lang.invoke.LambdaForm$BasicType; (java.base@13.0.2)
+ 852:             1            192  [[Ljava.math.BigInteger; (java.base@13.0.2)
+ 853:             6            192  com.sun.org.apache.xerces.internal.util.Status (java.xml@13.0.2)
+ 854:             6            192  com.sun.xml.bind.v2.model.impl.ClassInfoImpl$SecondaryAnnotation
+ 855:             6            192  com.sun.xml.bind.v2.runtime.ArrayBeanInfoImpl$ArrayLoader
+ 856:             2            192  com.sun.xml.bind.v2.runtime.JAXBContextImpl
+ 857:             6            192  com.sun.xml.bind.v2.runtime.reflect.AdaptedLister
+ 858:             6            192  java.lang.Thread$State (java.base@13.0.2)
+ 859:             3            192  java.lang.ThreadGroup (java.base@13.0.2)
+ 860:             3            192  java.lang.invoke.BoundMethodHandle$Species_LLLLLLLLL (java.base@13.0.2)
+ 861:             3            192  java.lang.invoke.DirectMethodHandle$Interface (java.base@13.0.2)
+ 862:             6            192  java.lang.invoke.LambdaForm$BasicType (java.base@13.0.2)
+ 863:             6            192  java.lang.invoke.StringConcatFactory$Strategy (java.base@13.0.2)
+ 864:             6            192  java.net.Inet4Address (java.base@13.0.2)
+ 865:             6            192  java.net.InetAddress$InetAddressHolder (java.base@13.0.2)
+ 866:             3            192  java.nio.DirectByteBufferR (java.base@13.0.2)
+ 867:             3            192  java.nio.HeapCharBuffer (java.base@13.0.2)
+ 868:             2            192  java.security.SecureRandom (java.base@13.0.2)
+ 869:             2            192  java.text.DecimalFormatSymbols (java.base@13.0.2)
+ 870:             6            192  java.util.concurrent.LinkedTransferQueue (java.base@13.0.2)
+ 871:             6            192  javax.xml.datatype.DatatypeConstants$Field (java.xml@13.0.2)
+ 872:             6            192  jdk.internal.loader.ClassLoaderValue (java.base@13.0.2)
+ 873:             6            192  jdk.internal.perf.PerfCounter (java.base@13.0.2)
+ 874:             6            192  org.glassfish.grizzly.Transport$State
+ 875:             6            192  org.spec.jbb.core.collections.ConcurrentHashMultiSet
+ 876:             6            192  org.spec.jbb.core.collections.ConcurrentHashMultiSet$EntryIterator
+ 877:             6            192  org.spec.jbb.core.purchase.PurchaseAgent$Type
+ 878:             6            192  org.spec.jbb.core.threadpools.EmptyMultiPool
+ 879:             6            192  org.spec.jbb.core.threadpools.ForkJoinThreadPool$1
+ 880:             6            192  org.spec.jbb.core.threadpools.NoSemaphoreAdapter
+ 881:             2            192  org.spec.jbb.hq.HQ
+ 882:             2            192  org.spec.jbb.hq.db.Storage
+ 883:             2            192  org.spec.jbb.infra.TxInjectorAgent
+ 884:             6            192  org.spec.jbb.infra.validation.ValidationLevel
+ 885:             6            192  org.spec.jbb.reporter.RawResult$ValidationReporterResult
+ 886:             6            192  org.spec.jbb.util.random.SpecRandomType
+ 887:             2            192  sun.net.www.protocol.jar.URLJarFile (java.base@13.0.2)
+ 888:             2            192  sun.util.calendar.Gregorian$Date (java.base@13.0.2)
+ 889:             3            160  [F (java.base@13.0.2)
+ 890:             5            160  [Lcom.sun.xml.bind.v2.runtime.property.AttributeProperty;
+ 891:             3            160  [Ljava.lang.annotation.ElementType; (java.base@13.0.2)
+ 892:             1            160  [Ljava.lang.invoke.VarHandle$AccessMode; (java.base@13.0.2)
+ 893:             2            160  [Ljava.math.BigDecimal; (java.base@13.0.2)
+ 894:             5            160  [Ljava.nio.channels.SelectionKey; (java.base@13.0.2)
+ 895:             1            160  [Ljava.util.concurrent.ForkJoinTask$ExceptionNode; (java.base@13.0.2)
+ 896:             5            160  [Lorg.spec.jbb.core.onlinepurchase.AbstractOnlinePurchaseAgent$OnlineType;
+ 897:             5            160  [Lorg.spec.jbb.sm.CustomerSelection$CustomerType;
+ 898:             1            160  [[Lorg.glassfish.grizzly.IOEvent;
+ 899:             5            160  com.sun.org.apache.xerces.internal.utils.XMLSecurityManager$State (java.xml@13.0.2)
+ 900:             5            160  com.sun.org.apache.xerces.internal.utils.XMLSecurityPropertyManager$State (java.xml@13.0.2)
+ 901:             5            160  com.sun.xml.bind.v2.model.core.PropertyKind
+ 902:             5            160  java.lang.invoke.VarHandle$AccessType (java.base@13.0.2)
+ 903:             5            160  java.util.Formatter$FixedString (java.base@13.0.2)
+ 904:             5            160  java.util.concurrent.CountDownLatch (java.base@13.0.2)
+ 905:             5            160  java.util.concurrent.CountDownLatch$Sync (java.base@13.0.2)
+ 906:             5            160  java.util.regex.Pattern$BmpCharPredicate$$Lambda$18/0x00000020000b8c40 (java.base@13.0.2)
+ 907:             5            160  java.util.regex.Pattern$CharPropertyGreedy (java.base@13.0.2)
+ 908:             5            160  java.util.stream.StreamOpFlag$Type (java.base@13.0.2)
+ 909:             5            160  jdk.internal.math.FloatingDecimal$PreparedASCIIToBinaryBuffer (java.base@13.0.2)
+ 910:             5            160  jdk.net.ExtendedSocketOptions$ExtSocketOption (jdk.net@13.0.2)
+ 911:             5            160  org.glassfish.grizzly.attributes.Attribute
+ 912:             5            160  org.glassfish.grizzly.attributes.Attribute$1
+ 913:             5            160  org.glassfish.grizzly.attributes.IndexedAttributeHolder
+ 914:             5            160  org.glassfish.grizzly.attributes.IndexedAttributeHolder$IndexedAttributeAccessorImpl
+ 915:             5            160  org.glassfish.grizzly.attributes.IndexedAttributeHolder$Snapshot
+ 916:             5            160  org.glassfish.grizzly.filterchain.DefaultFilterChain
+ 917:             5            160  org.glassfish.grizzly.filterchain.DefaultFilterChain$FiltersStateFactory
+ 918:             5            160  org.glassfish.grizzly.filterchain.TransportFilter
+ 919:             5            160  org.glassfish.grizzly.nio.NIOConnection$1
+ 920:             5            160  org.glassfish.grizzly.nio.NIOConnection$7
+ 921:             5            160  org.glassfish.grizzly.nio.NIOConnection$8
+ 922:             5            160  org.glassfish.grizzly.nio.NIOConnection$ProcessorStatesMap
+ 923:             5            160  org.glassfish.grizzly.nio.transport.TCPNIOServerConnection$1
+ 924:             5            160  org.glassfish.grizzly.nio.transport.TCPNIOServerConnection$RegisterAcceptedChannelCompletionHandler
+ 925:             5            160  org.glassfish.grizzly.utils.Holder$1
+ 926:             5            160  org.glassfish.grizzly.utils.Holder$3
+ 927:             5            160  org.spec.jbb.core.Priority
+ 928:             5            160  org.spec.jbb.core.cache.BoundedWriteBackCache$CacheEntry$PriorityComparator
+ 929:             5            160  org.spec.jbb.core.collections.Pair
+ 930:             5            160  org.spec.jbb.core.comm.Interconnect$ProcessorCallback
+ 931:             5            160  org.spec.jbb.core.comm.connectivity.grizzlynio.GrizzlyNioServer
+ 932:             5            160  org.spec.jbb.core.comm.connectivity.grizzlynio.proto.ProtocolDataUnitDecoder
+ 933:             5            160  org.spec.jbb.core.comm.connectivity.grizzlynio.proto.ProtocolDataUnitEncoder
+ 934:             5            160  org.spec.jbb.core.comm.connectivity.grizzlynio.proto.ProtocolDataUnitFilter
+ 935:             5            160  org.spec.jbb.core.comm.connectivity.grizzlynio.proto.ServerProtocolDataUnitFilter
+ 936:             5            160  org.spec.jbb.core.comm.policy.TransportSelectionPolicyType
+ 937:             5            160  org.spec.jbb.core.scheduler.SchedulerType
+ 938:             5            160  org.spec.jbb.core.threadpools.ThreadPoolType
+ 939:             5            160  org.spec.jbb.infra.heartbeat.HeartbeatWatchdog$Checker
+ 940:             5            160  org.spec.jbb.infra.validation.ValidationResult
+ 941:             5            160  org.spec.jbb.reporter.RawResult$RawData$RawDataType
+ 942:             5            160  sun.nio.ch.DummySocketImpl (java.base@13.0.2)
+ 943:             1            160  sun.security.pkcs11.SunPKCS11 (jdk.crypto.cryptoki@13.0.2)
+ 944:             5            160  sun.util.locale.provider.LocaleProviderAdapter$Type (java.base@13.0.2)
+ 945:             2            128  [Lcom.sun.xml.bind.v2.model.impl.ClassInfoImpl$SecondaryAnnotation;
+ 946:             2            128  [Ljava.lang.System$Logger$Level; (java.base@13.0.2)
+ 947:             4            128  [Ljava.lang.annotation.Annotation; (java.base@13.0.2)
+ 948:             2            128  [Ljava.util.stream.StreamOpFlag$Type; (java.base@13.0.2)
+ 949:             2            128  [Lorg.spec.jbb.Launcher$RunnerType;
+ 950:             4            128  [Lorg.spec.jbb.core.collections.Mix;
+ 951:             2            128  [Lorg.spec.jbb.core.comm.transport.TransportType;
+ 952:             2            128  [Lorg.spec.jbb.util.PropertyAttribute;
+ 953:             2            128  [Lsun.util.logging.PlatformLogger$Level; (java.base@13.0.2)
+ 954:             1            128  [[Ljava.lang.String; (java.base@13.0.2)
+ 955:             2            128  com.sun.management.internal.GarbageCollectorExtImpl (jdk.management@13.0.2)
+ 956:             4            128  com.sun.proxy.$Proxy5
+ 957:             2            128  com.sun.security.sasl.gsskerb.JdkSASL$ProviderService (jdk.security.jgss@13.0.2)
+ 958:             4            128  com.sun.xml.bind.v2.model.impl.RuntimeEnumConstantImpl
+ 959:             2            128  com.sun.xml.bind.v2.model.impl.RuntimeEnumLeafInfoImpl
+ 960:             2            128  com.sun.xml.bind.v2.model.impl.RuntimeModelBuilder
+ 961:             2            128  com.sun.xml.bind.v2.model.impl.RuntimeTypeInfoSetImpl
+ 962:             2            128  com.sun.xml.bind.v2.runtime.AnyTypeBeanInfo
+ 963:             2            128  com.sun.xml.bind.v2.runtime.ElementBeanInfoImpl
+ 964:             2            128  java.io.PrintWriter (java.base@13.0.2)
+ 965:             2            128  java.lang.ModuleLayer (java.base@13.0.2)
+ 966:             2            128  java.lang.VirtualMachineError (java.base@13.0.2)
+ 967:             2            128  java.lang.module.Configuration (java.base@13.0.2)
+ 968:             4            128  java.lang.module.ModuleDescriptor$Modifier (java.base@13.0.2)
+ 969:             4            128  java.lang.module.ModuleDescriptor$Opens (java.base@13.0.2)
+ 970:             4            128  java.lang.module.ModuleDescriptor$Requires$Modifier (java.base@13.0.2)
+ 971:             4            128  java.math.MathContext (java.base@13.0.2)
+ 972:             2            128  java.nio.DirectIntBufferRU (java.base@13.0.2)
+ 973:             2            128  java.text.DateFormatSymbols (java.base@13.0.2)
+ 974:             2            128  java.text.DigitList (java.base@13.0.2)
+ 975:             4            128  java.time.Instant (java.base@13.0.2)
+ 976:             1            128  java.util.GregorianCalendar (java.base@13.0.2)
+ 977:             4            128  java.util.LinkedList$Node (java.base@13.0.2)
+ 978:             2            128  java.util.Locale$Category (java.base@13.0.2)
+ 979:             2            128  java.util.ServiceLoader (java.base@13.0.2)
+ 980:             2            128  java.util.ServiceLoader$LazyClassPathLookupIterator (java.base@13.0.2)
+ 981:             4            128  java.util.TreeMap$KeySet (java.base@13.0.2)
+ 982:             4            128  java.util.concurrent.locks.ReentrantLock$FairSync (java.base@13.0.2)
+ 983:             2            128  java.util.regex.Pattern$Loop (java.base@13.0.2)
+ 984:             4            128  java.util.regex.Pattern$Qtype (java.base@13.0.2)
+ 985:             4            128  java.util.stream.FindOps$FindOp (java.base@13.0.2)
+ 986:             4            128  java.util.stream.StreamShape (java.base@13.0.2)
+ 987:             4            128  javax.xml.bind.annotation.XmlAccessType
+ 988:             1            128  jdk.internal.loader.ClassLoaders$AppClassLoader (java.base@13.0.2)
+ 989:             1            128  jdk.internal.loader.ClassLoaders$BootClassLoader (java.base@13.0.2)
+ 990:             1            128  jdk.internal.loader.ClassLoaders$PlatformClassLoader (java.base@13.0.2)
+ 991:             4            128  jdk.internal.logger.BootstrapLogger$LoggingBackend (java.base@13.0.2)
+ 992:             4            128  jdk.internal.math.FormattedFloatingDecimal$Form (java.base@13.0.2)
+ 993:             4            128  org.spec.jbb.core.collections.CollectionUtils$UnmodifiableMultiSet
+ 994:             4            128  org.spec.jbb.core.collections.ConcurrentHashMultiSet$EntrySet
+ 995:             4            128  org.spec.jbb.core.collections.ConcurrentMultiMap
+ 996:             4            128  org.spec.jbb.core.comm.connectivity.grizzlynio.proto.ProtocolDataUnit$Type
+ 997:             4            128  org.spec.jbb.core.comm.transport.TransportType$EncapsulationType
+ 998:             4            128  org.spec.jbb.core.comm.transport.TransportType$EncryptionType
+ 999:             4            128  org.spec.jbb.core.counters.CounterType
+1000:             4            128  org.spec.jbb.core.onlinepurchase.RandomOnlinePurchaseAgent
+1001:             4            128  org.spec.jbb.core.threadpools.ThreadPoolType$PoolType
+1002:             4            128  org.spec.jbb.core.util.PropertyParserTest$TestEnum
+1003:             4            128  org.spec.jbb.hq.db.DataMiningStorage
+1004:             4            128  org.spec.jbb.hq.db.DataMiningStorage$1
+1005:             4            128  org.spec.jbb.hq.db.Storage$2$1
+1006:             4            128  org.spec.jbb.hq.tx.InstallmentPurchasePaymentTransaction
+1007:             4            128  org.spec.jbb.hq.tx.InstallmentPurchaseVoidTransaction
+1008:             4            128  org.spec.jbb.hq.tx.request.OnlineOrderProcessRequest
+1009:             4            128  org.spec.jbb.infra.AbstractAgent$1
+1010:             2            128  org.spec.jbb.infra.BackendPerformanceData
+1011:             4            128  org.spec.jbb.infra.IterationStatus$BackendTimeline
+1012:             4            128  org.spec.jbb.infra.IterationStatus$TxInjectorTimeline$1
+1013:             4            128  org.spec.jbb.infra.TransferLogsSenderAgent$TransferLogsSenderDummyAgent
+1014:             2            128  org.spec.jbb.infra.TxInjectorPerformanceData
+1015:             4            128  org.spec.jbb.infra.heartbeat.HeartbeatWatchdog$Barker
+1016:             4            128  org.spec.jbb.infra.request.PerformanceInfoRequest
+1017:             4            128  org.spec.jbb.infra.states.RunningState
+1018:             4            128  org.spec.jbb.infra.txinjector.AdvertisementServiceRequestGenerator
+1019:             4            128  org.spec.jbb.infra.txinjector.BusinessReportRequestGenerator
+1020:             4            128  org.spec.jbb.infra.txinjector.DiscountServiceRequestGenerator
+1021:             2            128  org.spec.jbb.infra.txinjector.TxInjectorPerfromanceDataCollector
+1022:             4            128  org.spec.jbb.infra.txinjector.irdecider.IRDeciderType
+1023:             2            128  org.spec.jbb.of.OrderFulfillment
+1024:             4            128  org.spec.jbb.reporter.RawResult$ProductType
+1025:             4            128  org.spec.jbb.sm.SM$1
+1026:             4            128  org.spec.jbb.sm.SM$2
+1027:             4            128  org.spec.jbb.sm.SM$3
+1028:             4            128  org.spec.jbb.sm.advertisement.Advertisements
+1029:             4            128  org.spec.jbb.sm.discount.BasicDiscountAgent
+1030:             4            128  org.spec.jbb.sm.inventory.LockedRandomBarcodeInventory
+1031:             4            128  org.spec.jbb.sp.storage.SupplierStorageImpl
+1032:             4            128  org.spec.jbb.util.Property
+1033:             4            128  org.spec.jbb.util.StringProperty
+1034:             4            128  org.spec.jbb.util.StringProperty$1
+1035:             4            128  org.spec.jbb.util.ThreadLocalSink
+1036:             4            128  org.spec.jbb.util.ThreadLocalSink$1
+1037:             2            128  sun.management.MemoryManagerImpl (java.management@13.0.2)
+1038:             4            128  sun.reflect.generics.tree.ArrayTypeSignature (java.base@13.0.2)
+1039:             2            128  sun.security.jgss.SunProvider$ProviderService (java.security.jgss@13.0.2)
+1040:             3             96  [Ljava.security.CodeSigner; (java.base@13.0.2)
+1041:             1             96  [Ljava.time.temporal.ChronoUnit; (java.base@13.0.2)
+1042:             3             96  [Ljava.util.logging.Handler; (java.logging@13.0.2)
+1043:             1             96  [Lorg.glassfish.grizzly.ThreadCache$ObjectCacheElement;
+1044:             2             96  [Lsun.security.jca.ProviderConfig; (java.base@13.0.2)
+1045:             1             96  [Lsun.util.locale.BaseLocale; (java.base@13.0.2)
+1046:             1             96  [[J (java.base@13.0.2)
+1047:             1             96  com.sun.crypto.provider.SunJCE (java.base@13.0.2)
+1048:             3             96  com.sun.org.apache.xerces.internal.impl.dv.dtd.ListDatatypeValidator (java.xml@13.0.2)
+1049:             3             96  com.sun.org.apache.xerces.internal.utils.XMLSecurityManager$NameMap (java.xml@13.0.2)
+1050:             3             96  com.sun.proxy.$Proxy8
+1051:             1             96  com.sun.security.sasl.gsskerb.JdkSASL (jdk.security.jgss@13.0.2)
+1052:             3             96  com.sun.xml.bind.v2.model.core.ID
+1053:             3             96  java.io.FileInputStream (java.base@13.0.2)
+1054:             3             96  java.io.FileOutputStream (java.base@13.0.2)
+1055:             3             96  java.lang.Runtime$Version (java.base@13.0.2)
+1056:             3             96  java.lang.WeakPairMap (java.base@13.0.2)
+1057:             3             96  java.lang.annotation.RetentionPolicy (java.base@13.0.2)
+1058:             3             96  java.lang.invoke.SimpleMethodHandle (java.base@13.0.2)
+1059:             3             96  java.lang.invoke.StringConcatFactory$Mode (java.base@13.0.2)
+1060:             3             96  java.nio.charset.CodingErrorAction (java.base@13.0.2)
+1061:             3             96  java.nio.file.AccessMode (java.base@13.0.2)
+1062:             3             96  java.security.SecurityPermission (java.base@13.0.2)
+1063:             3             96  java.text.AttributedCharacterIterator$Attribute (java.base@13.0.2)
+1064:             3             96  java.time.ZoneOffset (java.base@13.0.2)
+1065:             3             96  java.util.Collections$SynchronizedMap (java.base@13.0.2)
+1066:             3             96  java.util.LinkedHashMap$LinkedKeySet (java.base@13.0.2)
+1067:             3             96  java.util.ResourceBundle$NoFallbackControl (java.base@13.0.2)
+1068:             1             96  java.util.logging.LogRecord (java.logging@13.0.2)
+1069:             1             96  java.util.regex.Matcher (java.base@13.0.2)
+1070:             3             96  java.util.regex.Pattern$Curly (java.base@13.0.2)
+1071:             3             96  java.util.stream.Collector$Characteristics (java.base@13.0.2)
+1072:             1             96  jdk.internal.jimage.ImageReader$SharedImageReader (java.base@13.0.2)
+1073:             3             96  jdk.internal.loader.BuiltinClassLoader$1 (java.base@13.0.2)
+1074:             3             96  jdk.internal.math.FloatingDecimal$ExceptionalBinaryToASCIIBuffer (java.base@13.0.2)
+1075:             3             96  jdk.internal.math.FormattedFloatingDecimal (java.base@13.0.2)
+1076:             3             96  jdk.internal.misc.Signal (java.base@13.0.2)
+1077:             3             96  jdk.internal.module.IllegalAccessLogger$Mode (java.base@13.0.2)
+1078:             3             96  jdk.internal.module.ServicesCatalog (java.base@13.0.2)
+1079:             3             96  org.glassfish.grizzly.StandaloneProcessor
+1080:             1             96  org.jcp.xml.dsig.internal.dom.XMLDSigRI (java.xml.crypto@13.0.2)
+1081:             3             96  org.spec.jbb.core.collections.sampling.SamplingBufferType
+1082:             3             96  org.spec.jbb.core.comm.connectivity.ConnectivityType
+1083:             3             96  org.spec.jbb.core.locks.LockRefType
+1084:             3             96  org.spec.jbb.core.onlinepurchase.AbstractOnlinePurchaseAgent$OnlineType
+1085:             3             96  org.spec.jbb.core.probe.ProfileMode
+1086:             3             96  org.spec.jbb.core.threadpools.ThreadPoolType$MultiPoolType
+1087:             3             96  org.spec.jbb.infra.Component
+1088:             1             96  org.spec.jbb.infra.IterationParams
+1089:             1             96  org.spec.jbb.infra.IterationStatus$PRResult
+1090:             3             96  org.spec.jbb.infra.seed.SeedAgentType
+1091:             3             96  org.spec.jbb.sm.inventory.InventoryType
+1092:             3             96  org.spec.jbb.util.PropertyCompliance
+1093:             1             96  sun.security.ec.SunEC (jdk.crypto.ec@13.0.2)
+1094:             1             96  sun.security.jca.ProviderList$1 (java.base@13.0.2)
+1095:             1             96  sun.security.jgss.SunProvider (java.security.jgss@13.0.2)
+1096:             3             96  sun.security.provider.NativePRNG$Variant (java.base@13.0.2)
+1097:             1             96  sun.security.provider.Sun (java.base@13.0.2)
+1098:             1             96  sun.security.rsa.SunRsaSign (java.base@13.0.2)
+1099:             1             96  sun.security.smartcardio.SunPCSC (java.smartcardio@13.0.2)
+1100:             1             96  sun.security.ssl.SunJSSE (java.base@13.0.2)
+1101:             1             96  sun.util.cldr.CLDRLocaleProviderAdapter (java.base@13.0.2)
+1102:             1             96  sun.util.locale.provider.JRELocaleProviderAdapter (java.base@13.0.2)
+1103:             1             96  sun.util.locale.provider.LocaleProviderAdapter$NonExistentAdapter (java.base@13.0.2)
+1104:             3             96  sun.util.locale.provider.LocaleResources (java.base@13.0.2)
+1105:             1             64  [Lcom.sun.org.apache.xerces.internal.impl.XMLScanner$NameType; (java.xml@13.0.2)
+1106:             1             64  [Lcom.sun.org.apache.xerces.internal.util.Status; (java.xml@13.0.2)
+1107:             1             64  [Lcom.sun.org.apache.xerces.internal.utils.XMLSecurityManager$Limit; (java.xml@13.0.2)
+1108:             1             64  [Lcom.sun.xml.bind.v2.model.core.PropertyKind;
+1109:             1             64  [Lcom.sun.xml.bind.v2.model.impl.ClassInfoImpl$PropertyGroup;
+1110:             1             64  [Ljava.lang.Runnable; (java.base@13.0.2)
+1111:             2             64  [Ljava.lang.StackTraceElement; (java.base@13.0.2)
+1112:             1             64  [Ljava.lang.Thread$State; (java.base@13.0.2)
+1113:             2             64  [Ljava.lang.annotation.RetentionPolicy; (java.base@13.0.2)
+1114:             1             64  [Ljava.lang.invoke.MethodHandleImpl$Intrinsic; (java.base@13.0.2)
+1115:             1             64  [Ljava.lang.invoke.StringConcatFactory$Strategy; (java.base@13.0.2)
+1116:             1             64  [Ljava.lang.invoke.VarHandle$AccessType; (java.base@13.0.2)
+1117:             1             64  [Ljava.math.RoundingMode; (java.base@13.0.2)
+1118:             2             64  [Ljava.nio.charset.CoderResult; (java.base@13.0.2)
+1119:             1             64  [Ljava.nio.file.StandardOpenOption; (java.base@13.0.2)
+1120:             2             64  [Ljava.util.Enumeration; (java.base@13.0.2)
+1121:             1             64  [Ljava.util.concurrent.TimeUnit; (java.base@13.0.2)
+1122:             1             64  [Ljava.util.logging.Level; (java.logging@13.0.2)
+1123:             2             64  [Ljava.util.stream.Collector$Characteristics; (java.base@13.0.2)
+1124:             1             64  [Ljava.util.stream.StreamOpFlag; (java.base@13.0.2)
+1125:             2             64  [Ljavax.xml.bind.annotation.XmlAccessType;
+1126:             1             64  [Lorg.glassfish.grizzly.Transport$State;
+1127:             1             64  [Lorg.spec.jbb.Launcher$RunCategory;
+1128:             1             64  [Lorg.spec.jbb.core.EntityType;
+1129:             1             64  [Lorg.spec.jbb.core.Priority;
+1130:             1             64  [Lorg.spec.jbb.core.collections.Pair;
+1131:             1             64  [Lorg.spec.jbb.core.collections.queues.QueueType;
+1132:             1             64  [Lorg.spec.jbb.core.comm.SourceType;
+1133:             1             64  [Lorg.spec.jbb.core.comm.policy.TransportSelectionPolicyType;
+1134:             1             64  [Lorg.spec.jbb.core.purchase.PurchaseAgent$Type;
+1135:             1             64  [Lorg.spec.jbb.core.scheduler.SchedulerType;
+1136:             1             64  [Lorg.spec.jbb.core.threadpools.ThreadPoolType;
+1137:             2             64  [Lorg.spec.jbb.hq.HQ$SMInventoryDirection;
+1138:             1             64  [Lorg.spec.jbb.infra.AgentState;
+1139:             2             64  [Lorg.spec.jbb.infra.AgentType;
+1140:             1             64  [Lorg.spec.jbb.infra.ControllerType;
+1141:             1             64  [Lorg.spec.jbb.infra.IterationLabel;
+1142:             1             64  [Lorg.spec.jbb.infra.validation.ValidationLevel;
+1143:             1             64  [Lorg.spec.jbb.infra.validation.ValidationResult;
+1144:             1             64  [Lorg.spec.jbb.reporter.RawResult$RawData$RawDataType;
+1145:             1             64  [Lorg.spec.jbb.reporter.RawResult$ValidationReporterResult;
+1146:             1             64  [Lorg.spec.jbb.util.random.SpecRandomType;
+1147:             1             64  [Lsun.util.locale.provider.LocaleProviderAdapter$Type; (java.base@13.0.2)
+1148:             1             64  [[Ljava.lang.invoke.LambdaForm$Name; (java.base@13.0.2)
+1149:             1             64  com.sun.management.internal.DiagnosticCommandImpl (jdk.management@13.0.2)
+1150:             1             64  com.sun.org.apache.xerces.internal.impl.XMLEntityScanner$1 (java.xml@13.0.2)
+1151:             2             64  com.sun.org.apache.xerces.internal.impl.dv.dtd.ENTITYDatatypeValidator (java.xml@13.0.2)
+1152:             2             64  com.sun.org.apache.xerces.internal.utils.XMLSecurityPropertyManager$Property (java.xml@13.0.2)
+1153:             2             64  com.sun.proxy.$Proxy15
+1154:             2             64  com.sun.xml.bind.v2.model.annotation.RuntimeInlineAnnotationReader
+1155:             2             64  com.sun.xml.bind.v2.model.impl.GetterSetterPropertySeed
+1156:             2             64  com.sun.xml.bind.v2.model.impl.ModelBuilder$1
+1157:             2             64  com.sun.xml.bind.v2.model.impl.TypeInfoSetImpl$1
+1158:             2             64  com.sun.xml.bind.v2.runtime.CompositeStructureBeanInfo
+1159:             2             64  com.sun.xml.bind.v2.runtime.ElementBeanInfoImpl$1
+1160:             2             64  com.sun.xml.bind.v2.runtime.IllegalAnnotationsException$Builder
+1161:             2             64  com.sun.xml.bind.v2.runtime.JAXBContextImpl$1
+1162:             2             64  com.sun.xml.bind.v2.runtime.JAXBContextImpl$2
+1163:             2             64  com.sun.xml.bind.v2.runtime.NameList
+1164:             2             64  com.sun.xml.bind.v2.runtime.reflect.Accessor$GetterSetterReflection
+1165:             1             64  java.io.BufferedInputStream (java.base@13.0.2)
+1166:             2             64  java.io.BufferedOutputStream (java.base@13.0.2)
+1167:             2             64  java.io.File$PathStatus (java.base@13.0.2)
+1168:             1             64  java.lang.ArithmeticException (java.base@13.0.2)
+1169:             2             64  java.lang.Boolean (java.base@13.0.2)
+1170:             1             64  java.lang.ClassCastException (java.base@13.0.2)
+1171:             2             64  java.lang.CompoundEnumeration (java.base@13.0.2)
+1172:             1             64  java.lang.NullPointerException (java.base@13.0.2)
+1173:             2             64  java.lang.Shutdown$Lock (java.base@13.0.2)
+1174:             1             64  java.lang.invoke.BoundMethodHandle$Specializer (java.base@13.0.2)
+1175:             1             64  java.lang.invoke.BoundMethodHandle$Specializer$Factory (java.base@13.0.2)
+1176:             1             64  java.lang.invoke.BoundMethodHandle$Species_LLLLLLL (java.base@13.0.2)
+1177:             1             64  java.lang.invoke.MethodHandleImpl$IntrinsicMethodHandle (java.base@13.0.2)
+1178:             2             64  java.lang.invoke.MethodHandles$Lookup (java.base@13.0.2)
+1179:             1             64  java.lang.invoke.VarHandleReferences$Array (java.base@13.0.2)
+1180:             2             64  java.lang.management.ManagementPermission (java.management@13.0.2)
+1181:             2             64  java.lang.ref.ReferenceQueue$Null (java.base@13.0.2)
+1182:             2             64  java.lang.reflect.ReflectPermission (java.base@13.0.2)
+1183:             1             64  java.net.SocketPermission (java.base@13.0.2)
+1184:             2             64  java.net.StandardProtocolFamily (java.base@13.0.2)
+1185:             2             64  java.nio.ByteOrder (java.base@13.0.2)
+1186:             1             64  java.text.SimpleDateFormat (java.base@13.0.2)
+1187:             2             64  java.util.Formatter (java.base@13.0.2)
+1188:             2             64  java.util.IdentityHashMap$KeySet (java.base@13.0.2)
+1189:             2             64  java.util.Optional (java.base@13.0.2)
+1190:             2             64  java.util.Random (java.base@13.0.2)
+1191:             1             64  java.util.ResourceBundle$2 (java.base@13.0.2)
+1192:             2             64  java.util.ResourceBundle$SingleFormatControl (java.base@13.0.2)
+1193:             2             64  java.util.ServiceLoader$2 (java.base@13.0.2)
+1194:             2             64  java.util.ServiceLoader$ModuleServicesLookupIterator (java.base@13.0.2)
+1195:             2             64  java.util.TreeSet (java.base@13.0.2)
+1196:             1             64  java.util.concurrent.ConcurrentSkipListMap (java.base@13.0.2)
+1197:             2             64  java.util.concurrent.atomic.AtomicIntegerFieldUpdater$AtomicIntegerFieldUpdaterImpl (java.base@13.0.2)
+1198:             1             64  java.util.logging.ConsoleHandler (java.logging@13.0.2)
+1199:             2             64  java.util.logging.ErrorManager (java.logging@13.0.2)
+1200:             1             64  java.util.logging.LogManager (java.logging@13.0.2)
+1201:             1             64  java.util.logging.LogManager$RootLogger (java.logging@13.0.2)
+1202:             2             64  java.util.logging.Logger$LoggerBundle (java.logging@13.0.2)
+1203:             2             64  java.util.logging.LoggingPermission (java.logging@13.0.2)
+1204:             2             64  java.util.regex.Pattern$CharPredicate$$Lambda$82/0x00000020002a7040 (java.base@13.0.2)
+1205:             2             64  java.util.regex.Pattern$Prolog (java.base@13.0.2)
+1206:             1             64  javax.crypto.CryptoAllPermission (java.base@13.0.2)
+1207:             2             64  javax.crypto.spec.SecretKeySpec (java.base@13.0.2)
+1208:             2             64  javax.xml.bind.DatatypeConverterImpl
+1209:             2             64  javax.xml.bind.annotation.XmlAccessOrder
+1210:             1             64  jdk.internal.jimage.ImageHeader (java.base@13.0.2)
+1211:             1             64  jdk.internal.loader.URLClassPath (java.base@13.0.2)
+1212:             2             64  jdk.internal.misc.Signal$NativeHandler (java.base@13.0.2)
+1213:             1             64  jdk.internal.module.ArchivedModuleGraph (java.base@13.0.2)
+1214:             1             64  jdk.internal.org.objectweb.asm.Label (java.base@13.0.2)
+1215:             1             64  jdk.internal.ref.CleanerImpl$CleanerCleanable (java.base@13.0.2)
+1216:             1             64  jdk.internal.ref.CleanerImpl$SoftCleanableRef (java.base@13.0.2)
+1217:             1             64  jdk.internal.ref.CleanerImpl$WeakCleanableRef (java.base@13.0.2)
+1218:             2             64  jdk.internal.util.Preconditions$1 (java.base@13.0.2)
+1219:             1             64  joptsimple.OptionParser
+1220:             2             64  joptsimple.internal.ConstructorInvokingValueConverter
+1221:             2             64  joptsimple.internal.MethodInvokingValueConverter
+1222:             2             64  org.glassfish.grizzly.ThreadCache$CachedTypeIndex
+1223:             2             64  org.glassfish.grizzly.utils.JdkVersion
+1224:             2             64  org.spec.jbb.core.ResetMode
+1225:             2             64  org.spec.jbb.core.collections.ConcurrentHashMultiSet$ElementSet
+1226:             1             64  org.spec.jbb.core.comm.Interconnect
+1227:             2             64  org.spec.jbb.core.comm.transport.TransportType$CompressionType
+1228:             2             64  org.spec.jbb.core.locks.LockManagerType
+1229:             2             64  org.spec.jbb.core.onlinepurchase.ProductReviewScoreBuckets
+1230:             2             64  org.spec.jbb.core.onlinepurchase.ProductReviewScoreBuckets$1
+1231:             2             64  org.spec.jbb.core.scheduler.DelayType
+1232:             2             64  org.spec.jbb.core.threadpools.Tiers
+1233:             2             64  org.spec.jbb.hq.HQ$1
+1234:             2             64  org.spec.jbb.hq.HQ$SMInventoryDirection
+1235:             2             64  org.spec.jbb.hq.db.DataMiningManager
+1236:             2             64  org.spec.jbb.hq.db.Storage$1
+1237:             2             64  org.spec.jbb.hq.db.Storage$2
+1238:             2             64  org.spec.jbb.hq.db.Storage$3
+1239:             2             64  org.spec.jbb.hq.db.Storage$4
+1240:             2             64  org.spec.jbb.hq.tx.request.InstallmentPurchasePaymentRequest
+1241:             2             64  org.spec.jbb.hq.tx.request.InstallmentPurchaseVoidRequest
+1242:             2             64  org.spec.jbb.hq.tx.request.ProcessHQInvoicesRequest
+1243:             2             64  org.spec.jbb.infra.AbstractController$20
+1244:             2             64  org.spec.jbb.infra.AbstractController$22
+1245:             2             64  org.spec.jbb.infra.AgentType
+1246:             2             64  org.spec.jbb.infra.BackendDescription
+1247:             2             64  org.spec.jbb.infra.Group
+1248:             2             64  org.spec.jbb.infra.IterationStatus$1
+1249:             2             64  org.spec.jbb.infra.IterationStatus$2
+1250:             2             64  org.spec.jbb.infra.IterationStatus$3
+1251:             2             64  org.spec.jbb.infra.TransferLogsAgent$FrameOutputStream
+1252:             2             64  org.spec.jbb.infra.TransferLogsAgent$NoExplicitFlushBOS
+1253:             2             64  org.spec.jbb.infra.TransferLogsAgent$TransferFileType
+1254:             2             64  org.spec.jbb.infra.TxInjector
+1255:             2             64  org.spec.jbb.infra.TxInjectorPerformanceData$1
+1256:             2             64  org.spec.jbb.infra.response.BackendPerformanceInfoResponse
+1257:             2             64  org.spec.jbb.infra.response.TxInjectorPerformanceInfoResponse
+1258:             2             64  org.spec.jbb.infra.rtprocess.ResponseTimeProcessType
+1259:             2             64  org.spec.jbb.infra.snapshot.InMemorySnapshotManager
+1260:             2             64  org.spec.jbb.infra.txinjector.InstallmentPurchasePaymentGenerator
+1261:             2             64  org.spec.jbb.infra.txinjector.InstallmentPurchaseVoidGenerator
+1262:             2             64  org.spec.jbb.infra.txinjector.OnlineInstorePickupProcessingGenerator
+1263:             2             64  org.spec.jbb.infra.txinjector.OnlineShippingOrderProcessingGenerator
+1264:             2             64  org.spec.jbb.infra.txinjector.ProcessHQInvoicesRequestGenerator
+1265:             2             64  org.spec.jbb.infra.txinjector.irdecider.RandomizedSizeIRDecider
+1266:             2             64  org.spec.jbb.infra.validation.ValidationBackendAgent
+1267:             2             64  org.spec.jbb.infra.validation.ValidationTxInjectorAgent
+1268:             1             64  org.spec.jbb.reporter.data.InFileDataWriter
+1269:             1             64  org.spec.jbb.reporter.data.InFileDataWriter$GZIPOutputStreamEx
+1270:             2             64  org.spec.jbb.sm.CustomerSelection$CustomerType
+1271:             2             64  org.spec.jbb.sm.advertisement.AdvertisementAgentType
+1272:             1             64  org.spec.jbb.sm.tx.AdvertisementRemoveTransaction
+1273:             1             64  org.spec.jbb.sm.tx.DiscountIssueTransaction
+1274:             1             64  org.spec.jbb.util.JbbProperties$3
+1275:             1             64  org.spec.jbb.util.SpecJbbLogHandler
+1276:             2             64  org.spec.jbb.util.StreamUtil$JbbTeeStream
+1277:             1             64  sun.nio.cs.StandardCharsets$Aliases (java.base@13.0.2)
+1278:             1             64  sun.nio.cs.StandardCharsets$Cache (java.base@13.0.2)
+1279:             2             64  sun.nio.fs.UnixFileKey (java.base@13.0.2)
+1280:             2             64  sun.security.jca.ProviderList (java.base@13.0.2)
+1281:             2             64  sun.security.jca.ProviderList$3 (java.base@13.0.2)
+1282:             2             64  sun.security.provider.FileInputStreamPool$StreamRef (java.base@13.0.2)
+1283:             2             64  sun.security.provider.FileInputStreamPool$UnclosableInputStream (java.base@13.0.2)
+1284:             2             64  sun.security.provider.NativePRNG$NonBlocking (java.base@13.0.2)
+1285:             1             64  sun.security.provider.SHA (java.base@13.0.2)
+1286:             1             64  sun.security.smartcardio.SunPCSC$ProviderService (java.smartcardio@13.0.2)
+1287:             1             64  sun.text.resources.cldr.FormatData (java.base@13.0.2)
+1288:             1             64  sun.text.resources.cldr.FormatData_en (java.base@13.0.2)
+1289:             1             64  sun.util.locale.InternalLocaleBuilder (java.base@13.0.2)
+1290:             2             64  sun.util.locale.provider.LocaleServiceProviderPool (java.base@13.0.2)
+1291:             1             64  sun.util.resources.Bundles$1 (java.base@13.0.2)
+1292:             2             64  sun.util.resources.LocaleData (java.base@13.0.2)
+1293:             1             64  sun.util.resources.cldr.CalendarData (java.base@13.0.2)
+1294:             1             64  sun.util.resources.cldr.TimeZoneNames (java.base@13.0.2)
+1295:             1             64  sun.util.resources.cldr.TimeZoneNames_en (java.base@13.0.2)
+1296:             1             32  [Lcom.sun.org.apache.xerces.internal.utils.XMLSecurityManager$NameMap; (java.xml@13.0.2)
+1297:             1             32  [Lcom.sun.org.apache.xerces.internal.utils.XMLSecurityPropertyManager$Property; (java.xml@13.0.2)
+1298:             1             32  [Lcom.sun.xml.bind.v2.model.core.ID;
+1299:             1             32  [Ljava.beans.EventSetDescriptor; (java.desktop@13.0.2)
+1300:             1             32  [Ljava.io.File$PathStatus; (java.base@13.0.2)
+1301:             1             32  [Ljava.lang.Enum; (java.base@13.0.2)
+1302:             1             32  [Ljava.lang.OutOfMemoryError; (java.base@13.0.2)
+1303:             1             32  [Ljava.lang.ThreadGroup; (java.base@13.0.2)
+1304:             1             32  [Ljava.lang.Throwable; (java.base@13.0.2)
+1305:             1             32  [Ljava.lang.invoke.LambdaFormEditor$Transform; (java.base@13.0.2)
+1306:             1             32  [Ljava.lang.invoke.StringConcatFactory$Mode; (java.base@13.0.2)
+1307:             1             32  [Ljava.lang.management.MemoryManagerMXBean; (java.management@13.0.2)
+1308:             1             32  [Ljava.lang.module.ModuleDescriptor$Modifier; (java.base@13.0.2)
+1309:             1             32  [Ljava.lang.module.ModuleDescriptor$Requires$Modifier; (java.base@13.0.2)
+1310:             1             32  [Ljava.net.StandardProtocolFamily; (java.base@13.0.2)
+1311:             1             32  [Ljava.nio.file.AccessMode; (java.base@13.0.2)
+1312:             1             32  [Ljava.nio.file.attribute.FileAttribute; (java.base@13.0.2)
+1313:             1             32  [Ljava.security.Provider; (java.base@13.0.2)
+1314:             1             32  [Ljava.security.cert.Certificate; (java.base@13.0.2)
+1315:             1             32  [Ljava.text.FieldPosition; (java.base@13.0.2)
+1316:             1             32  [Ljava.util.Locale$Category; (java.base@13.0.2)
+1317:             1             32  [Ljava.util.regex.IntHashSet; (java.base@13.0.2)
+1318:             1             32  [Ljava.util.regex.Pattern$Qtype; (java.base@13.0.2)
+1319:             1             32  [Ljava.util.stream.StreamShape; (java.base@13.0.2)
+1320:             1             32  [Ljavax.management.ObjectName$Property; (java.management@13.0.2)
+1321:             1             32  [Ljavax.xml.bind.annotation.XmlAccessOrder;
+1322:             1             32  [Ljavax.xml.catalog.CatalogFeatures$Feature; (java.xml@13.0.2)
+1323:             1             32  [Ljdk.internal.logger.BootstrapLogger$LoggingBackend; (java.base@13.0.2)
+1324:             1             32  [Ljdk.internal.math.FormattedFloatingDecimal$Form; (java.base@13.0.2)
+1325:             1             32  [Ljdk.internal.module.IllegalAccessLogger$Mode; (java.base@13.0.2)
+1326:             1             32  [Lorg.spec.jbb.core.ResetMode;
+1327:             1             32  [Lorg.spec.jbb.core.collections.sampling.SamplingBufferType;
+1328:             1             32  [Lorg.spec.jbb.core.comm.connectivity.ConnectivityType;
+1329:             1             32  [Lorg.spec.jbb.core.comm.connectivity.grizzlynio.proto.ProtocolDataUnit$Type;
+1330:             1             32  [Lorg.spec.jbb.core.comm.transport.TransportType$CompressionType;
+1331:             1             32  [Lorg.spec.jbb.core.comm.transport.TransportType$EncapsulationType;
+1332:             1             32  [Lorg.spec.jbb.core.comm.transport.TransportType$EncryptionType;
+1333:             1             32  [Lorg.spec.jbb.core.counters.CounterType;
+1334:             1             32  [Lorg.spec.jbb.core.locks.LockManagerType;
+1335:             1             32  [Lorg.spec.jbb.core.locks.LockRefType;
+1336:             1             32  [Lorg.spec.jbb.core.probe.ProfileMode;
+1337:             1             32  [Lorg.spec.jbb.core.scheduler.DelayType;
+1338:             1             32  [Lorg.spec.jbb.core.threadpools.ThreadPoolType$MultiPoolType;
+1339:             1             32  [Lorg.spec.jbb.core.threadpools.ThreadPoolType$PoolType;
+1340:             1             32  [Lorg.spec.jbb.core.util.PropertyParserTest$TestEnum;
+1341:             1             32  [Lorg.spec.jbb.infra.Component;
+1342:             1             32  [Lorg.spec.jbb.infra.TransferLogsAgent$TransferFileType;
+1343:             1             32  [Lorg.spec.jbb.infra.rtprocess.ResponseTimeProcessType;
+1344:             1             32  [Lorg.spec.jbb.infra.seed.SeedAgentType;
+1345:             1             32  [Lorg.spec.jbb.infra.txinjector.irdecider.IRDeciderType;
+1346:             1             32  [Lorg.spec.jbb.reporter.RawResult$ProductType;
+1347:             1             32  [Lorg.spec.jbb.sm.advertisement.AdvertisementAgentType;
+1348:             1             32  [Lorg.spec.jbb.sm.inventory.InventoryType;
+1349:             1             32  [Lorg.spec.jbb.util.PropertyCompliance;
+1350:             1             32  [Lsun.nio.fs.NativeBuffer; (java.base@13.0.2)
+1351:             1             32  [Lsun.security.provider.NativePRNG$Variant; (java.base@13.0.2)
+1352:             1             32  com.sun.management.internal.PlatformMBeanProviderImpl (jdk.management@13.0.2)
+1353:             1             32  com.sun.management.internal.PlatformMBeanProviderImpl$$Lambda$44/0x0000002000178840 (jdk.management@13.0.2)
+1354:             1             32  com.sun.management.internal.PlatformMBeanProviderImpl$1 (jdk.management@13.0.2)
+1355:             1             32  com.sun.management.internal.PlatformMBeanProviderImpl$2 (jdk.management@13.0.2)
+1356:             1             32  com.sun.management.internal.PlatformMBeanProviderImpl$3 (jdk.management@13.0.2)
+1357:             1             32  com.sun.management.internal.PlatformMBeanProviderImpl$4 (jdk.management@13.0.2)
+1358:             1             32  com.sun.management.internal.PlatformMBeanProviderImpl$5 (jdk.management@13.0.2)
+1359:             1             32  com.sun.org.apache.xerces.internal.impl.Constants$ArrayEnumeration (java.xml@13.0.2)
+1360:             1             32  com.sun.org.apache.xerces.internal.impl.dv.dtd.IDDatatypeValidator (java.xml@13.0.2)
+1361:             1             32  com.sun.org.apache.xerces.internal.impl.dv.dtd.IDREFDatatypeValidator (java.xml@13.0.2)
+1362:             1             32  com.sun.org.apache.xerces.internal.impl.dv.dtd.NMTOKENDatatypeValidator (java.xml@13.0.2)
+1363:             1             32  com.sun.org.apache.xerces.internal.impl.dv.dtd.NOTATIONDatatypeValidator (java.xml@13.0.2)
+1364:             1             32  com.sun.org.apache.xerces.internal.impl.dv.dtd.StringDatatypeValidator (java.xml@13.0.2)
+1365:             1             32  com.sun.org.apache.xerces.internal.jaxp.SAXParserFactoryImpl (java.xml@13.0.2)
+1366:             1             32  com.sun.org.apache.xerces.internal.jaxp.datatype.DatatypeFactoryImpl (java.xml@13.0.2)
+1367:             1             32  com.sun.proxy.$Proxy0
+1368:             1             32  com.sun.proxy.$Proxy6
+1369:             1             32  com.sun.xml.bind.AccessorFactoryImpl
+1370:             1             32  com.sun.xml.bind.DatatypeConverterImpl
+1371:             1             32  com.sun.xml.bind.api.impl.NameConverter$1
+1372:             1             32  com.sun.xml.bind.api.impl.NameConverter$2
+1373:             1             32  com.sun.xml.bind.api.impl.NameConverter$Standard
+1374:             1             32  com.sun.xml.bind.marshaller.MinimumEscapeHandler
+1375:             1             32  com.sun.xml.bind.v2.ClassFactory$1
+1376:             1             32  com.sun.xml.bind.v2.model.annotation.XmlAttributeQuick
+1377:             1             32  com.sun.xml.bind.v2.model.annotation.XmlElementDeclQuick
+1378:             1             32  com.sun.xml.bind.v2.model.annotation.XmlElementQuick
+1379:             1             32  com.sun.xml.bind.v2.model.annotation.XmlElementRefQuick
+1380:             1             32  com.sun.xml.bind.v2.model.annotation.XmlElementRefsQuick
+1381:             1             32  com.sun.xml.bind.v2.model.annotation.XmlEnumQuick
+1382:             1             32  com.sun.xml.bind.v2.model.annotation.XmlRootElementQuick
+1383:             1             32  com.sun.xml.bind.v2.model.annotation.XmlSchemaQuick
+1384:             1             32  com.sun.xml.bind.v2.model.annotation.XmlSchemaTypeQuick
+1385:             1             32  com.sun.xml.bind.v2.model.annotation.XmlTransientQuick
+1386:             1             32  com.sun.xml.bind.v2.model.annotation.XmlTypeQuick
+1387:             1             32  com.sun.xml.bind.v2.model.annotation.XmlValueQuick
+1388:             1             32  com.sun.xml.bind.v2.model.impl.RuntimeAnyTypeImpl
+1389:             1             32  com.sun.xml.bind.v2.model.impl.RuntimeBuiltinLeafInfoImpl$10
+1390:             1             32  com.sun.xml.bind.v2.model.impl.RuntimeBuiltinLeafInfoImpl$11
+1391:             1             32  com.sun.xml.bind.v2.model.impl.RuntimeBuiltinLeafInfoImpl$12
+1392:             1             32  com.sun.xml.bind.v2.model.impl.RuntimeBuiltinLeafInfoImpl$13
+1393:             1             32  com.sun.xml.bind.v2.model.impl.RuntimeBuiltinLeafInfoImpl$14
+1394:             1             32  com.sun.xml.bind.v2.model.impl.RuntimeBuiltinLeafInfoImpl$15
+1395:             1             32  com.sun.xml.bind.v2.model.impl.RuntimeBuiltinLeafInfoImpl$16
+1396:             1             32  com.sun.xml.bind.v2.model.impl.RuntimeBuiltinLeafInfoImpl$17
+1397:             1             32  com.sun.xml.bind.v2.model.impl.RuntimeBuiltinLeafInfoImpl$18
+1398:             1             32  com.sun.xml.bind.v2.model.impl.RuntimeBuiltinLeafInfoImpl$19
+1399:             1             32  com.sun.xml.bind.v2.model.impl.RuntimeBuiltinLeafInfoImpl$2
+1400:             1             32  com.sun.xml.bind.v2.model.impl.RuntimeBuiltinLeafInfoImpl$20
+1401:             1             32  com.sun.xml.bind.v2.model.impl.RuntimeBuiltinLeafInfoImpl$21
+1402:             1             32  com.sun.xml.bind.v2.model.impl.RuntimeBuiltinLeafInfoImpl$22
+1403:             1             32  com.sun.xml.bind.v2.model.impl.RuntimeBuiltinLeafInfoImpl$23
+1404:             1             32  com.sun.xml.bind.v2.model.impl.RuntimeBuiltinLeafInfoImpl$24
+1405:             1             32  com.sun.xml.bind.v2.model.impl.RuntimeBuiltinLeafInfoImpl$26
+1406:             1             32  com.sun.xml.bind.v2.model.impl.RuntimeBuiltinLeafInfoImpl$27
+1407:             1             32  com.sun.xml.bind.v2.model.impl.RuntimeBuiltinLeafInfoImpl$3
+1408:             1             32  com.sun.xml.bind.v2.model.impl.RuntimeBuiltinLeafInfoImpl$4
+1409:             1             32  com.sun.xml.bind.v2.model.impl.RuntimeBuiltinLeafInfoImpl$5
+1410:             1             32  com.sun.xml.bind.v2.model.impl.RuntimeBuiltinLeafInfoImpl$6
+1411:             1             32  com.sun.xml.bind.v2.model.impl.RuntimeBuiltinLeafInfoImpl$7
+1412:             1             32  com.sun.xml.bind.v2.model.impl.RuntimeBuiltinLeafInfoImpl$8
+1413:             1             32  com.sun.xml.bind.v2.model.impl.RuntimeBuiltinLeafInfoImpl$9
+1414:             1             32  com.sun.xml.bind.v2.model.impl.RuntimeBuiltinLeafInfoImpl$StringImplImpl
+1415:             1             32  com.sun.xml.bind.v2.model.impl.RuntimeBuiltinLeafInfoImpl$UUIDImpl
+1416:             1             32  com.sun.xml.bind.v2.model.nav.ReflectionNavigator
+1417:             1             32  com.sun.xml.bind.v2.model.nav.ReflectionNavigator$1
+1418:             1             32  com.sun.xml.bind.v2.model.nav.ReflectionNavigator$2
+1419:             1             32  com.sun.xml.bind.v2.model.nav.ReflectionNavigator$6
+1420:             1             32  com.sun.xml.bind.v2.runtime.JAXBContextImpl$6
+1421:             1             32  com.sun.xml.bind.v2.runtime.output.NamespaceContextImpl$1
+1422:             1             32  com.sun.xml.bind.v2.runtime.reflect.Accessor$1
+1423:             1             32  com.sun.xml.bind.v2.runtime.reflect.Accessor$2
+1424:             1             32  com.sun.xml.bind.v2.runtime.reflect.Lister$1
+1425:             1             32  com.sun.xml.bind.v2.runtime.reflect.Lister$2
+1426:             1             32  com.sun.xml.bind.v2.runtime.reflect.Lister$ArrayLister
+1427:             1             32  com.sun.xml.bind.v2.runtime.reflect.PrimitiveArrayListerBoolean
+1428:             1             32  com.sun.xml.bind.v2.runtime.reflect.PrimitiveArrayListerByte
+1429:             1             32  com.sun.xml.bind.v2.runtime.reflect.PrimitiveArrayListerCharacter
+1430:             1             32  com.sun.xml.bind.v2.runtime.reflect.PrimitiveArrayListerDouble
+1431:             1             32  com.sun.xml.bind.v2.runtime.reflect.PrimitiveArrayListerFloat
+1432:             1             32  com.sun.xml.bind.v2.runtime.reflect.PrimitiveArrayListerInteger
+1433:             1             32  com.sun.xml.bind.v2.runtime.reflect.PrimitiveArrayListerLong
+1434:             1             32  com.sun.xml.bind.v2.runtime.reflect.PrimitiveArrayListerShort
+1435:             1             32  com.sun.xml.bind.v2.runtime.unmarshaller.DomLoader
+1436:             1             32  com.sun.xml.bind.v2.runtime.unmarshaller.UnmarshallingContext$DefaultRootLoader
+1437:             1             32  com.sun.xml.bind.v2.runtime.unmarshaller.UnmarshallingContext$ExpectedTypeRootLoader
+1438:             1             32  java.beans.Introspector$1 (java.desktop@13.0.2)
+1439:             1             32  java.io.FileDescriptor$1 (java.base@13.0.2)
+1440:             1             32  java.io.FilePermission$1 (java.base@13.0.2)
+1441:             1             32  java.io.ObjectInputFilter$Config$$Lambda$25/0x00000020000bd840 (java.base@13.0.2)
+1442:             1             32  java.io.ObjectInputFilter$Config$$Lambda$26/0x00000020000bdc40 (java.base@13.0.2)
+1443:             1             32  java.io.ObjectInputStream$$Lambda$23/0x00000020000be040 (java.base@13.0.2)
+1444:             1             32  java.io.ObjectInputStream$$Lambda$24/0x00000020000be440 (java.base@13.0.2)
+1445:             1             32  java.io.RandomAccessFile$2 (java.base@13.0.2)
+1446:             1             32  java.io.UnixFileSystem (java.base@13.0.2)
+1447:             1             32  java.lang.ApplicationShutdownHooks$1 (java.base@13.0.2)
+1448:             1             32  java.lang.CharacterData00 (java.base@13.0.2)
+1449:             1             32  java.lang.CharacterDataLatin1 (java.base@13.0.2)
+1450:             1             32  java.lang.Class$$Lambda$13/0x0000002000063840 (java.base@13.0.2)
+1451:             1             32  java.lang.InheritableThreadLocal (java.base@13.0.2)
+1452:             1             32  java.lang.Runtime (java.base@13.0.2)
+1453:             1             32  java.lang.String$CaseInsensitiveComparator (java.base@13.0.2)
+1454:             1             32  java.lang.StringCoding$1 (java.base@13.0.2)
+1455:             1             32  java.lang.StringCoding$Result (java.base@13.0.2)
+1456:             1             32  java.lang.System$2 (java.base@13.0.2)
+1457:             1             32  java.lang.Terminator$1 (java.base@13.0.2)
+1458:             1             32  java.lang.invoke.ClassSpecializer$1 (java.base@13.0.2)
+1459:             1             32  java.lang.invoke.MemberName$Factory (java.base@13.0.2)
+1460:             1             32  java.lang.invoke.MethodHandleImpl$1 (java.base@13.0.2)
+1461:             1             32  java.lang.invoke.MethodType$ConcurrentWeakInternSet (java.base@13.0.2)
+1462:             1             32  java.lang.invoke.StringConcatFactory$MethodHandleInlineCopyStrategy$1 (java.base@13.0.2)
+1463:             1             32  java.lang.invoke.StringConcatFactory$MethodHandleInlineCopyStrategy$2 (java.base@13.0.2)
+1464:             1             32  java.lang.invoke.VarHandle$1 (java.base@13.0.2)
+1465:             1             32  java.lang.invoke.VarHandleLongs$FieldInstanceReadWrite (java.base@13.0.2)
+1466:             1             32  java.lang.management.DefaultPlatformMBeanProvider (java.management@13.0.2)
+1467:             1             32  java.lang.management.DefaultPlatformMBeanProvider$1 (java.management@13.0.2)
+1468:             1             32  java.lang.management.DefaultPlatformMBeanProvider$10 (java.management@13.0.2)
+1469:             1             32  java.lang.management.DefaultPlatformMBeanProvider$11 (java.management@13.0.2)
+1470:             1             32  java.lang.management.DefaultPlatformMBeanProvider$2 (java.management@13.0.2)
+1471:             1             32  java.lang.management.DefaultPlatformMBeanProvider$3 (java.management@13.0.2)
+1472:             1             32  java.lang.management.DefaultPlatformMBeanProvider$4 (java.management@13.0.2)
+1473:             1             32  java.lang.management.DefaultPlatformMBeanProvider$5 (java.management@13.0.2)
+1474:             1             32  java.lang.management.DefaultPlatformMBeanProvider$6 (java.management@13.0.2)
+1475:             1             32  java.lang.management.DefaultPlatformMBeanProvider$7 (java.management@13.0.2)
+1476:             1             32  java.lang.management.DefaultPlatformMBeanProvider$8 (java.management@13.0.2)
+1477:             1             32  java.lang.management.DefaultPlatformMBeanProvider$9 (java.management@13.0.2)
+1478:             1             32  java.lang.management.ManagementFactory$$Lambda$41/0x00000020000b9440 (java.management@13.0.2)
+1479:             1             32  java.lang.management.ManagementFactory$PlatformMBeanFinder$$Lambda$42/0x0000002000178040 (java.management@13.0.2)
+1480:             1             32  java.lang.management.ManagementFactory$PlatformMBeanFinder$$Lambda$49/0x0000002000179c40 (java.management@13.0.2)
+1481:             1             32  java.lang.management.ManagementFactory$PlatformMBeanFinder$$Lambda$50/0x000000200017f840 (java.management@13.0.2)
+1482:             1             32  java.lang.management.ManagementFactory$PlatformMBeanFinder$$Lambda$52/0x000000200017f440 (java.management@13.0.2)
+1483:             1             32  java.lang.management.ManagementFactory$PlatformMBeanFinder$$Lambda$56/0x000000200017d840 (java.management@13.0.2)
+1484:             1             32  java.lang.management.ManagementFactory$PlatformMBeanFinder$$Lambda$57/0x000000200017dc40 (java.management@13.0.2)
+1485:             1             32  java.lang.module.ModuleDescriptor$1 (java.base@13.0.2)
+1486:             1             32  java.lang.module.ModuleDescriptor$Version (java.base@13.0.2)
+1487:             1             32  java.lang.ref.Cleaner (java.base@13.0.2)
+1488:             1             32  java.lang.ref.Cleaner$1 (java.base@13.0.2)
+1489:             1             32  java.lang.ref.Reference$1 (java.base@13.0.2)
+1490:             1             32  java.lang.reflect.Proxy$$Lambda$65/0x000000200017bc40 (java.base@13.0.2)
+1491:             1             32  java.lang.reflect.Proxy$$Lambda$69/0x0000002000248040 (java.base@13.0.2)
+1492:             1             32  java.lang.reflect.ReflectAccess (java.base@13.0.2)
+1493:             1             32  java.math.BigDecimal$1 (java.base@13.0.2)
+1494:             1             32  java.net.Inet4AddressImpl (java.base@13.0.2)
+1495:             1             32  java.net.InetAddress$2 (java.base@13.0.2)
+1496:             1             32  java.net.InetAddress$PlatformNameService (java.base@13.0.2)
+1497:             1             32  java.net.ServerSocket$1 (java.base@13.0.2)
+1498:             1             32  java.net.SocketImpl$$Lambda$72/0x000000200024b840 (java.base@13.0.2)
+1499:             1             32  java.net.URI$1 (java.base@13.0.2)
+1500:             1             32  java.net.URL$3 (java.base@13.0.2)
+1501:             1             32  java.net.URL$DefaultFactory (java.base@13.0.2)
+1502:             1             32  java.nio.Bits$1 (java.base@13.0.2)
+1503:             1             32  java.nio.Buffer$1 (java.base@13.0.2)
+1504:             1             32  java.security.AllPermission (java.base@13.0.2)
+1505:             1             32  java.security.AllPermissionCollection (java.base@13.0.2)
+1506:             1             32  java.security.MessageDigest$Delegate (java.base@13.0.2)
+1507:             1             32  java.security.ProtectionDomain$JavaSecurityAccessImpl (java.base@13.0.2)
+1508:             1             32  java.text.DecimalFormatSymbols$$Lambda$36/0x00000020000ba040 (java.base@13.0.2)
+1509:             1             32  java.text.DontCareFieldPosition (java.base@13.0.2)
+1510:             1             32  java.text.DontCareFieldPosition$1 (java.base@13.0.2)
+1511:             1             32  java.time.Clock$SystemClock (java.base@13.0.2)
+1512:             1             32  java.util.Collections$EmptyEnumeration (java.base@13.0.2)
+1513:             1             32  java.util.Collections$EmptyIterator (java.base@13.0.2)
+1514:             1             32  java.util.Collections$EmptyList (java.base@13.0.2)
+1515:             1             32  java.util.Collections$EmptyMap (java.base@13.0.2)
+1516:             1             32  java.util.Collections$EmptySet (java.base@13.0.2)
+1517:             1             32  java.util.Collections$SynchronizedCollection (java.base@13.0.2)
+1518:             1             32  java.util.Collections$SynchronizedSet (java.base@13.0.2)
+1519:             1             32  java.util.EnumMap$1 (java.base@13.0.2)
+1520:             1             32  java.util.IdentityHashMap$Values (java.base@13.0.2)
+1521:             1             32  java.util.ImmutableCollections$ListItr (java.base@13.0.2)
+1522:             1             32  java.util.LinkedHashMap$LinkedKeyIterator (java.base@13.0.2)
+1523:             1             32  java.util.LinkedHashSet (java.base@13.0.2)
+1524:             1             32  java.util.Locale$Builder (java.base@13.0.2)
+1525:             1             32  java.util.Locale$Cache (java.base@13.0.2)
+1526:             1             32  java.util.OptionalInt (java.base@13.0.2)
+1527:             1             32  java.util.RegularEnumSet$EnumSetIterator (java.base@13.0.2)
+1528:             1             32  java.util.ResourceBundle$1 (java.base@13.0.2)
+1529:             1             32  java.util.ResourceBundle$Control (java.base@13.0.2)
+1530:             1             32  java.util.ResourceBundle$Control$CandidateListCache (java.base@13.0.2)
+1531:             1             32  java.util.Spliterators$EmptySpliterator$OfDouble (java.base@13.0.2)
+1532:             1             32  java.util.Spliterators$EmptySpliterator$OfInt (java.base@13.0.2)
+1533:             1             32  java.util.Spliterators$EmptySpliterator$OfLong (java.base@13.0.2)
+1534:             1             32  java.util.Spliterators$EmptySpliterator$OfRef (java.base@13.0.2)
+1535:             1             32  java.util.TreeMap$KeyIterator (java.base@13.0.2)
+1536:             1             32  java.util.concurrent.ConcurrentLinkedQueue$$Lambda$22/0x00000020000bf440 (java.base@13.0.2)
+1537:             1             32  java.util.concurrent.ConcurrentSkipListSet (java.base@13.0.2)
+1538:             1             32  java.util.concurrent.CopyOnWriteArrayList$COWIterator (java.base@13.0.2)
+1539:             1             32  java.util.concurrent.Executors$DefaultThreadFactory (java.base@13.0.2)
+1540:             1             32  java.util.concurrent.Executors$FinalizableDelegatedExecutorService (java.base@13.0.2)
+1541:             1             32  java.util.concurrent.ForkJoinPool$DefaultForkJoinWorkerThreadFactory (java.base@13.0.2)
+1542:             1             32  java.util.concurrent.ThreadLocalRandom (java.base@13.0.2)
+1543:             1             32  java.util.concurrent.ThreadPoolExecutor$AbortPolicy (java.base@13.0.2)
+1544:             1             32  java.util.concurrent.atomic.AtomicReferenceFieldUpdater$AtomicReferenceFieldUpdaterImpl (java.base@13.0.2)
+1545:             1             32  java.util.function.Function$$Lambda$51/0x000000200017fc40 (java.base@13.0.2)
+1546:             1             32  java.util.jar.JavaUtilJarAccessImpl (java.base@13.0.2)
+1547:             1             32  java.util.logging.Level$$Lambda$3/0x0000002000066840 (java.logging@13.0.2)
+1548:             1             32  java.util.logging.Level$KnownLevel$$Lambda$1/0x0000002000067840 (java.logging@13.0.2)
+1549:             1             32  java.util.logging.Level$KnownLevel$$Lambda$2/0x0000002000067040 (java.logging@13.0.2)
+1550:             1             32  java.util.logging.Level$KnownLevel$$Lambda$4/0x0000002000066c40 (java.logging@13.0.2)
+1551:             1             32  java.util.logging.LogManager$CloseOnReset (java.logging@13.0.2)
+1552:             1             32  java.util.logging.LogManager$LoggerContext (java.logging@13.0.2)
+1553:             1             32  java.util.logging.LogManager$LoggingProviderAccess (java.logging@13.0.2)
+1554:             1             32  java.util.logging.LogManager$SystemLoggerContext (java.logging@13.0.2)
+1555:             1             32  java.util.logging.LogManager$VisitedLoggers (java.logging@13.0.2)
+1556:             1             32  java.util.logging.SimpleFormatter (java.logging@13.0.2)
+1557:             1             32  java.util.logging.SimpleFormatter$$Lambda$10/0x0000002000065440 (java.logging@13.0.2)
+1558:             1             32  java.util.regex.CharPredicates$$Lambda$20/0x00000020000bfc40 (java.base@13.0.2)
+1559:             1             32  java.util.regex.Pattern$$Lambda$19/0x00000020000bf840 (java.base@13.0.2)
+1560:             1             32  java.util.regex.Pattern$Begin (java.base@13.0.2)
+1561:             1             32  java.util.regex.Pattern$Dollar (java.base@13.0.2)
+1562:             1             32  java.util.regex.Pattern$LastNode (java.base@13.0.2)
+1563:             1             32  java.util.regex.Pattern$Node (java.base@13.0.2)
+1564:             1             32  java.util.stream.Collectors$$Lambda$15/0x00000020000b8040 (java.base@13.0.2)
+1565:             1             32  java.util.stream.Collectors$$Lambda$16/0x00000020000b8440 (java.base@13.0.2)
+1566:             1             32  java.util.stream.Collectors$$Lambda$17/0x00000020000b8840 (java.base@13.0.2)
+1567:             1             32  java.util.stream.Collectors$$Lambda$45/0x0000002000178c40 (java.base@13.0.2)
+1568:             1             32  java.util.stream.Collectors$$Lambda$46/0x0000002000179040 (java.base@13.0.2)
+1569:             1             32  java.util.stream.Collectors$$Lambda$47/0x0000002000179440 (java.base@13.0.2)
+1570:             1             32  java.util.stream.Collectors$$Lambda$48/0x0000002000179840 (java.base@13.0.2)
+1571:             1             32  java.util.stream.Collectors$$Lambda$53/0x000000200017e840 (java.base@13.0.2)
+1572:             1             32  java.util.stream.Collectors$$Lambda$62/0x000000200017c040 (java.base@13.0.2)
+1573:             1             32  java.util.stream.Collectors$$Lambda$63/0x000000200017c440 (java.base@13.0.2)
+1574:             1             32  java.util.stream.Collectors$$Lambda$64/0x000000200017b840 (java.base@13.0.2)
+1575:             1             32  java.util.stream.Collectors$$Lambda$75/0x000000200024a840 (java.base@13.0.2)
+1576:             1             32  java.util.stream.Collectors$$Lambda$76/0x000000200024ac40 (java.base@13.0.2)
+1577:             1             32  java.util.stream.Collectors$$Lambda$77/0x000000200024a040 (java.base@13.0.2)
+1578:             1             32  java.util.stream.Collectors$$Lambda$78/0x000000200024a440 (java.base@13.0.2)
+1579:             1             32  java.util.stream.FindOps$FindSink$OfInt$$Lambda$37/0x00000020000ba440 (java.base@13.0.2)
+1580:             1             32  java.util.stream.FindOps$FindSink$OfInt$$Lambda$38/0x00000020000b9840 (java.base@13.0.2)
+1581:             1             32  java.util.stream.FindOps$FindSink$OfInt$$Lambda$39/0x00000020000b9c40 (java.base@13.0.2)
+1582:             1             32  java.util.stream.FindOps$FindSink$OfInt$$Lambda$40/0x00000020000b9040 (java.base@13.0.2)
+1583:             1             32  java.util.stream.FindOps$FindSink$OfRef$$Lambda$5/0x0000002000066040 (java.base@13.0.2)
+1584:             1             32  java.util.stream.FindOps$FindSink$OfRef$$Lambda$6/0x0000002000066440 (java.base@13.0.2)
+1585:             1             32  java.util.stream.FindOps$FindSink$OfRef$$Lambda$7/0x0000002000065840 (java.base@13.0.2)
+1586:             1             32  java.util.stream.FindOps$FindSink$OfRef$$Lambda$8/0x0000002000065c40 (java.base@13.0.2)
+1587:             1             32  java.util.zip.Adler32 (java.base@13.0.2)
+1588:             1             32  java.util.zip.CheckedOutputStream (java.base@13.0.2)
+1589:             1             32  java.util.zip.ZipCoder$UTF8 (java.base@13.0.2)
+1590:             1             32  java.util.zip.ZipFile$1 (java.base@13.0.2)
+1591:             1             32  javax.crypto.CryptoAllPermissionCollection (java.base@13.0.2)
+1592:             1             32  javax.crypto.CryptoPermissions (java.base@13.0.2)
+1593:             1             32  javax.crypto.JceSecurity$IdentityWrapper (java.base@13.0.2)
+1594:             1             32  javax.management.ObjectName (java.management@13.0.2)
+1595:             1             32  javax.xml.bind.ContextFinder$1
+1596:             1             32  javax.xml.bind.JAXBPermission
+1597:             1             32  javax.xml.bind.annotation.W3CDomHandler
+1598:             1             32  jdk.internal.jimage.ImageReader (java.base@13.0.2)
+1599:             1             32  jdk.internal.jimage.ImageReaderFactory$1 (java.base@13.0.2)
+1600:             1             32  jdk.internal.jimage.ImageStringsReader (java.base@13.0.2)
+1601:             1             32  jdk.internal.jimage.decompressor.Decompressor (java.base@13.0.2)
+1602:             1             32  jdk.internal.loader.URLClassPath$1 (java.base@13.0.2)
+1603:             1             32  jdk.internal.logger.BootstrapLogger$RedirectedLoggers (java.base@13.0.2)
+1604:             1             32  jdk.internal.math.FloatingDecimal$1 (java.base@13.0.2)
+1605:             1             32  jdk.internal.math.FormattedFloatingDecimal$1 (java.base@13.0.2)
+1606:             1             32  jdk.internal.misc.TerminatingThreadLocal$1 (java.base@13.0.2)
+1607:             1             32  jdk.internal.misc.Unsafe (java.base@13.0.2)
+1608:             1             32  jdk.internal.module.IllegalAccessLogger (java.base@13.0.2)
+1609:             1             32  jdk.internal.module.ModuleHashes (java.base@13.0.2)
+1610:             1             32  jdk.internal.module.ModulePatcher (java.base@13.0.2)
+1611:             1             32  jdk.internal.module.ModuleTarget (java.base@13.0.2)
+1612:             1             32  jdk.internal.module.SystemModuleFinders$SystemModuleFinder (java.base@13.0.2)
+1613:             1             32  jdk.internal.perf.Perf (java.base@13.0.2)
+1614:             1             32  jdk.internal.ref.CleanerImpl (java.base@13.0.2)
+1615:             1             32  jdk.internal.reflect.GeneratedConstructorAccessor1 (java.base@13.0.2)
+1616:             1             32  jdk.internal.reflect.GeneratedConstructorAccessor10
+1617:             1             32  jdk.internal.reflect.GeneratedConstructorAccessor11 (java.base@13.0.2)
+1618:             1             32  jdk.internal.reflect.GeneratedConstructorAccessor12 (java.base@13.0.2)
+1619:             1             32  jdk.internal.reflect.GeneratedConstructorAccessor13
+1620:             1             32  jdk.internal.reflect.GeneratedConstructorAccessor14
+1621:             1             32  jdk.internal.reflect.GeneratedConstructorAccessor15
+1622:             1             32  jdk.internal.reflect.GeneratedConstructorAccessor16
+1623:             1             32  jdk.internal.reflect.GeneratedConstructorAccessor17
+1624:             1             32  jdk.internal.reflect.GeneratedConstructorAccessor18
+1625:             1             32  jdk.internal.reflect.GeneratedConstructorAccessor19
+1626:             1             32  jdk.internal.reflect.GeneratedConstructorAccessor2
+1627:             1             32  jdk.internal.reflect.GeneratedConstructorAccessor20
+1628:             1             32  jdk.internal.reflect.GeneratedConstructorAccessor21
+1629:             1             32  jdk.internal.reflect.GeneratedConstructorAccessor22
+1630:             1             32  jdk.internal.reflect.GeneratedConstructorAccessor23
+1631:             1             32  jdk.internal.reflect.GeneratedConstructorAccessor24
+1632:             1             32  jdk.internal.reflect.GeneratedConstructorAccessor25
+1633:             1             32  jdk.internal.reflect.GeneratedConstructorAccessor26
+1634:             1             32  jdk.internal.reflect.GeneratedConstructorAccessor27 (java.base@13.0.2)
+1635:             1             32  jdk.internal.reflect.GeneratedConstructorAccessor28
+1636:             1             32  jdk.internal.reflect.GeneratedConstructorAccessor29
+1637:             1             32  jdk.internal.reflect.GeneratedConstructorAccessor3
+1638:             1             32  jdk.internal.reflect.GeneratedConstructorAccessor4
+1639:             1             32  jdk.internal.reflect.GeneratedConstructorAccessor5
+1640:             1             32  jdk.internal.reflect.GeneratedConstructorAccessor6
+1641:             1             32  jdk.internal.reflect.GeneratedConstructorAccessor7
+1642:             1             32  jdk.internal.reflect.GeneratedConstructorAccessor8
+1643:             1             32  jdk.internal.reflect.GeneratedConstructorAccessor9
+1644:             1             32  jdk.internal.reflect.GeneratedMethodAccessor1
+1645:             1             32  jdk.internal.reflect.GeneratedMethodAccessor10 (java.base@13.0.2)
+1646:             1             32  jdk.internal.reflect.GeneratedMethodAccessor11 (java.base@13.0.2)
+1647:             1             32  jdk.internal.reflect.GeneratedMethodAccessor12 (java.base@13.0.2)
+1648:             1             32  jdk.internal.reflect.GeneratedMethodAccessor13 (java.base@13.0.2)
+1649:             1             32  jdk.internal.reflect.GeneratedMethodAccessor15 (java.base@13.0.2)
+1650:             1             32  jdk.internal.reflect.GeneratedMethodAccessor16 (java.base@13.0.2)
+1651:             1             32  jdk.internal.reflect.GeneratedMethodAccessor17 (java.base@13.0.2)
+1652:             1             32  jdk.internal.reflect.GeneratedMethodAccessor18 (java.base@13.0.2)
+1653:             1             32  jdk.internal.reflect.GeneratedMethodAccessor19 (java.base@13.0.2)
+1654:             1             32  jdk.internal.reflect.GeneratedMethodAccessor2
+1655:             1             32  jdk.internal.reflect.GeneratedMethodAccessor20 (java.base@13.0.2)
+1656:             1             32  jdk.internal.reflect.GeneratedMethodAccessor21 (java.base@13.0.2)
+1657:             1             32  jdk.internal.reflect.GeneratedMethodAccessor22 (java.base@13.0.2)
+1658:             1             32  jdk.internal.reflect.GeneratedMethodAccessor23 (java.base@13.0.2)
+1659:             1             32  jdk.internal.reflect.GeneratedMethodAccessor24
+1660:             1             32  jdk.internal.reflect.GeneratedMethodAccessor25
+1661:             1             32  jdk.internal.reflect.GeneratedMethodAccessor26 (java.base@13.0.2)
+1662:             1             32  jdk.internal.reflect.GeneratedMethodAccessor27
+1663:             1             32  jdk.internal.reflect.GeneratedMethodAccessor3 (java.base@13.0.2)
+1664:             1             32  jdk.internal.reflect.GeneratedMethodAccessor30 (java.base@13.0.2)
+1665:             1             32  jdk.internal.reflect.GeneratedMethodAccessor33 (java.base@13.0.2)
+1666:             1             32  jdk.internal.reflect.GeneratedMethodAccessor34 (java.base@13.0.2)
+1667:             1             32  jdk.internal.reflect.GeneratedMethodAccessor35 (java.base@13.0.2)
+1668:             1             32  jdk.internal.reflect.GeneratedMethodAccessor37
+1669:             1             32  jdk.internal.reflect.GeneratedMethodAccessor38 (java.base@13.0.2)
+1670:             1             32  jdk.internal.reflect.GeneratedMethodAccessor39 (java.base@13.0.2)
+1671:             1             32  jdk.internal.reflect.GeneratedMethodAccessor4
+1672:             1             32  jdk.internal.reflect.GeneratedMethodAccessor40
+1673:             1             32  jdk.internal.reflect.GeneratedMethodAccessor41
+1674:             1             32  jdk.internal.reflect.GeneratedMethodAccessor42 (java.base@13.0.2)
+1675:             1             32  jdk.internal.reflect.GeneratedMethodAccessor43 (java.base@13.0.2)
+1676:             1             32  jdk.internal.reflect.GeneratedMethodAccessor44 (java.base@13.0.2)
+1677:             1             32  jdk.internal.reflect.GeneratedMethodAccessor45 (java.base@13.0.2)
+1678:             1             32  jdk.internal.reflect.GeneratedMethodAccessor46
+1679:             1             32  jdk.internal.reflect.GeneratedMethodAccessor48
+1680:             1             32  jdk.internal.reflect.GeneratedMethodAccessor49 (java.base@13.0.2)
+1681:             1             32  jdk.internal.reflect.GeneratedMethodAccessor5
+1682:             1             32  jdk.internal.reflect.GeneratedMethodAccessor50 (java.base@13.0.2)
+1683:             1             32  jdk.internal.reflect.GeneratedMethodAccessor51
+1684:             1             32  jdk.internal.reflect.GeneratedMethodAccessor6
+1685:             1             32  jdk.internal.reflect.GeneratedMethodAccessor7
+1686:             1             32  jdk.internal.reflect.GeneratedMethodAccessor8
+1687:             1             32  jdk.internal.reflect.GeneratedMethodAccessor9
+1688:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor1 (java.base@13.0.2)
+1689:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor10 (java.base@13.0.2)
+1690:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor100 (java.base@13.0.2)
+1691:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor101 (java.base@13.0.2)
+1692:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor102
+1693:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor103
+1694:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor104
+1695:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor105
+1696:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor106
+1697:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor107
+1698:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor108
+1699:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor109
+1700:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor11 (java.base@13.0.2)
+1701:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor110
+1702:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor111
+1703:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor112
+1704:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor113
+1705:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor114
+1706:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor115
+1707:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor116
+1708:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor117
+1709:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor118
+1710:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor119
+1711:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor12 (java.base@13.0.2)
+1712:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor120 (java.base@13.0.2)
+1713:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor121
+1714:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor122
+1715:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor123
+1716:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor124
+1717:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor125
+1718:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor126 (java.base@13.0.2)
+1719:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor127 (java.base@13.0.2)
+1720:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor128 (java.base@13.0.2)
+1721:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor129 (java.base@13.0.2)
+1722:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor13 (java.base@13.0.2)
+1723:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor130
+1724:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor131
+1725:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor132
+1726:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor133 (java.base@13.0.2)
+1727:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor134
+1728:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor135
+1729:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor136 (java.base@13.0.2)
+1730:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor137
+1731:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor138 (java.base@13.0.2)
+1732:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor139 (java.base@13.0.2)
+1733:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor14 (java.base@13.0.2)
+1734:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor140 (java.base@13.0.2)
+1735:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor141
+1736:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor142
+1737:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor143
+1738:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor144 (java.base@13.0.2)
+1739:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor145
+1740:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor146 (java.base@13.0.2)
+1741:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor147
+1742:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor148
+1743:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor149 (java.base@13.0.2)
+1744:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor15
+1745:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor150 (java.base@13.0.2)
+1746:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor151
+1747:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor152
+1748:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor153
+1749:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor154
+1750:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor155
+1751:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor156
+1752:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor157
+1753:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor158
+1754:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor159
+1755:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor16 (java.base@13.0.2)
+1756:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor160
+1757:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor161
+1758:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor162
+1759:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor163
+1760:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor164 (java.base@13.0.2)
+1761:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor165
+1762:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor166
+1763:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor167
+1764:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor168
+1765:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor169
+1766:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor17
+1767:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor170
+1768:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor171
+1769:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor172
+1770:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor173
+1771:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor174
+1772:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor175
+1773:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor176
+1774:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor177
+1775:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor178
+1776:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor179
+1777:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor18
+1778:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor19 (java.base@13.0.2)
+1779:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor2
+1780:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor20 (java.base@13.0.2)
+1781:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor21 (java.base@13.0.2)
+1782:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor22 (java.base@13.0.2)
+1783:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor23 (java.base@13.0.2)
+1784:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor24
+1785:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor25
+1786:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor26
+1787:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor27
+1788:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor28
+1789:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor29
+1790:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor3 (java.base@13.0.2)
+1791:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor30
+1792:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor31 (java.base@13.0.2)
+1793:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor32
+1794:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor33
+1795:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor34 (java.base@13.0.2)
+1796:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor35
+1797:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor36
+1798:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor37
+1799:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor38
+1800:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor39
+1801:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor4 (java.base@13.0.2)
+1802:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor40 (java.base@13.0.2)
+1803:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor41
+1804:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor42
+1805:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor43
+1806:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor44
+1807:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor45
+1808:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor46 (java.base@13.0.2)
+1809:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor47
+1810:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor48
+1811:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor49
+1812:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor5
+1813:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor50 (java.base@13.0.2)
+1814:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor51
+1815:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor52 (java.base@13.0.2)
+1816:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor53
+1817:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor54
+1818:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor55
+1819:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor56 (java.base@13.0.2)
+1820:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor57
+1821:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor58
+1822:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor59
+1823:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor6
+1824:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor60
+1825:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor61
+1826:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor62 (java.base@13.0.2)
+1827:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor63 (java.base@13.0.2)
+1828:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor64 (java.base@13.0.2)
+1829:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor65
+1830:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor66
+1831:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor67
+1832:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor68
+1833:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor69
+1834:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor7
+1835:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor70
+1836:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor71
+1837:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor72
+1838:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor73
+1839:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor74
+1840:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor75
+1841:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor76
+1842:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor77
+1843:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor78
+1844:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor79
+1845:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor8 (java.base@13.0.2)
+1846:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor80
+1847:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor81
+1848:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor82
+1849:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor83
+1850:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor84
+1851:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor85
+1852:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor86
+1853:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor87
+1854:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor88
+1855:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor89
+1856:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor9 (java.base@13.0.2)
+1857:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor90
+1858:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor91
+1859:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor92
+1860:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor93
+1861:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor94
+1862:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor95
+1863:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor96
+1864:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor97
+1865:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor98 (java.base@13.0.2)
+1866:             1             32  jdk.internal.reflect.GeneratedSerializationConstructorAccessor99
+1867:             1             32  jdk.internal.reflect.ReflectionFactory (java.base@13.0.2)
+1868:             1             32  jdk.internal.reflect.UnsafeQualifiedDoubleFieldAccessorImpl (java.base@13.0.2)
+1869:             1             32  jdk.management.jfr.internal.FlightRecorderMXBeanProvider$SingleMBeanComponent (jdk.management.jfr@13.0.2)
+1870:             1             32  jdk.net.ExtendedSocketOptions$1 (jdk.net@13.0.2)
+1871:             1             32  jdk.net.LinuxSocketOptions (jdk.net@13.0.2)
+1872:             1             32  jdk.net.LinuxSocketOptions$$Lambda$70/0x000000200024c040 (jdk.net@13.0.2)
+1873:             1             32  jdk.xml.internal.SecuritySupport$$Lambda$88/0x00000020002c4440 (java.xml@13.0.2)
+1874:             1             32  joptsimple.NonOptionArgumentSpec
+1875:             1             32  joptsimple.OptionParserState$2
+1876:             1             32  joptsimple.OptionSet
+1877:             1             32  org.eclipse.jetty.util.DateCache
+1878:             1             32  org.eclipse.jetty.util.DateCache$Tick
+1879:             1             32  org.eclipse.jetty.util.Uptime
+1880:             1             32  org.eclipse.jetty.util.Uptime$DefaultImpl
+1881:             1             32  org.glassfish.grizzly.attributes.DefaultAttributeBuilder
+1882:             1             32  org.glassfish.grizzly.filterchain.TransportFilter$FlushEvent
+1883:             1             32  org.glassfish.grizzly.http.server.RequestExecutorProvider$WorkerThreadProvider
+1884:             1             32  org.glassfish.grizzly.memory.AbstractMemoryManager$1
+1885:             1             32  org.glassfish.grizzly.memory.HeapMemoryManager
+1886:             1             32  org.glassfish.grizzly.nio.DefaultSelectionKeyHandler
+1887:             1             32  org.glassfish.grizzly.nio.DefaultSelectorHandler
+1888:             1             32  org.glassfish.grizzly.nio.transport.TCPNIOTransport$DefaultChannelConfigurator
+1889:             1             32  org.glassfish.grizzly.strategies.AbstractIOStrategy$EnableInterestLifeCycleListener
+1890:             1             32  org.glassfish.grizzly.strategies.WorkerThreadIOStrategy
+1891:             1             32  org.glassfish.grizzly.threadpool.AbstractThreadPool$1
+1892:             1             32  org.glassfish.grizzly.threadpool.AbstractThreadPool$2
+1893:             1             32  org.glassfish.grizzly.utils.CompletionHandlerAdapter$1
+1894:             1             32  org.spec.jbb.Launcher
+1895:             1             32  org.spec.jbb.Launcher$CompositeRunner
+1896:             1             32  org.spec.jbb.core.cache.HardReferenceCache
+1897:             1             32  org.spec.jbb.core.collections.CollectionUtils$EmptyMix
+1898:             1             32  org.spec.jbb.core.collections.ListMix$Tick$TickComparator
+1899:             1             32  org.spec.jbb.core.comm.Interconnect$Registry
+1900:             1             32  org.spec.jbb.core.comm.connectivity.ConnectivityFactory
+1901:             1             32  org.spec.jbb.core.comm.connectivity.GrizzlyHttpProvider
+1902:             1             32  org.spec.jbb.core.comm.connectivity.GrizzlyNioProvider
+1903:             1             32  org.spec.jbb.core.comm.connectivity.grizzlynio.ConnectionFactory
+1904:             1             32  org.spec.jbb.core.comm.policy.MaxThroughputPolicy
+1905:             1             32  org.spec.jbb.core.comm.policy.MaxXmlPolicy$1
+1906:             1             32  org.spec.jbb.core.comm.policy.NPESafePolicy
+1907:             1             32  org.spec.jbb.core.mapreduce.MapReducer
+1908:             1             32  org.spec.jbb.core.mapreduce.MapReducer$1
+1909:             1             32  org.spec.jbb.core.objectpool.PerKeyQueuePool
+1910:             1             32  org.spec.jbb.core.objectpool.PerKeyQueuePool$SealableSet
+1911:             1             32  org.spec.jbb.core.spi.SpiFactory$1
+1912:             1             32  org.spec.jbb.core.threadpools.SettableFuture$1
+1913:             1             32  org.spec.jbb.hq.tx.SupermarketAudit$1
+1914:             1             32  org.spec.jbb.infra.AbstractController$12
+1915:             1             32  org.spec.jbb.infra.AbstractController$13
+1916:             1             32  org.spec.jbb.infra.AbstractController$16
+1917:             1             32  org.spec.jbb.infra.AbstractController$8
+1918:             1             32  org.spec.jbb.infra.AbstractController$ProgressBar
+1919:             1             32  org.spec.jbb.infra.BackendEntitiesDistribution
+1920:             1             32  org.spec.jbb.infra.IterationStatus$Tick$TimeComparator
+1921:             1             32  org.spec.jbb.infra.TransferLogsReceiverAgent
+1922:             1             32  org.spec.jbb.infra.TransferLogsReceiverAgent$1
+1923:             1             32  org.spec.jbb.infra.txinjector.TxInjectorPerfromanceDataCollector$2
+1924:             1             32  org.spec.jbb.infra.txinjector.TxInjectorPerfromanceDataCollector$3
+1925:             1             32  org.spec.jbb.infra.validation.ValidationManager
+1926:             1             32  org.spec.jbb.reporter.ChecksumFrame
+1927:             1             32  org.spec.jbb.reporter.EndOfBlockFrame
+1928:             1             32  org.spec.jbb.reporter.RawResult$RawLine$1
+1929:             1             32  org.spec.jbb.reporter.RunDataWriter
+1930:             1             32  org.spec.jbb.reporter.RunDataWriter$WriterTask
+1931:             1             32  org.spec.jbb.reporter.data.InFileDataWriter$CountingOutputStream
+1932:             1             32  org.spec.jbb.sm.inventory.InventoryTest$1
+1933:             1             32  org.spec.jbb.sm.inventory.InventoryTest$2
+1934:             1             32  org.spec.jbb.sm.tx.request.AdvertisementRemoveRequest
+1935:             1             32  org.spec.jbb.sm.tx.request.DiscountIssueRequest
+1936:             1             32  org.spec.jbb.sm.tx.response.DiscountIssueResponse
+1937:             1             32  org.spec.jbb.util.JbbProperties$1
+1938:             1             32  org.spec.jbb.util.JbbProperties$2
+1939:             1             32  org.spec.jbb.util.JbbProperties$4
+1940:             1             32  org.spec.jbb.util.JbbProperties$5
+1941:             1             32  org.spec.jbb.util.JbbPropertiesParser
+1942:             1             32  org.spec.jbb.util.OptFormatter
+1943:             1             32  org.spec.jbb.util.RandomData
+1944:             1             32  org.xml.sax.helpers.DefaultHandler (java.xml@13.0.2)
+1945:             1             32  org.xml.sax.helpers.LocatorImpl (java.xml@13.0.2)
+1946:             1             32  sun.management.RuntimeImpl (java.management@13.0.2)
+1947:             1             32  sun.management.VMManagementImpl (java.management@13.0.2)
+1948:             1             32  sun.misc.Unsafe (jdk.unsupported@13.0.2)
+1949:             1             32  sun.net.sdp.SdpProvider (java.base@13.0.2)
+1950:             1             32  sun.net.www.protocol.file.Handler (java.base@13.0.2)
+1951:             1             32  sun.net.www.protocol.http.Handler (java.base@13.0.2)
+1952:             1             32  sun.net.www.protocol.jar.Handler (java.base@13.0.2)
+1953:             1             32  sun.net.www.protocol.jar.JarFileFactory (java.base@13.0.2)
+1954:             1             32  sun.net.www.protocol.jrt.Handler (java.base@13.0.2)
+1955:             1             32  sun.nio.ch.DummySocketImpl$$Lambda$73/0x000000200024bc40 (java.base@13.0.2)
+1956:             1             32  sun.nio.ch.EPollSelectorProvider (java.base@13.0.2)
+1957:             1             32  sun.nio.ch.ExtendedSocketOption$1 (java.base@13.0.2)
+1958:             1             32  sun.nio.ch.Net$1 (java.base@13.0.2)
+1959:             1             32  sun.nio.ch.SocketDispatcher (java.base@13.0.2)
+1960:             1             32  sun.nio.ch.Util$1 (java.base@13.0.2)
+1961:             1             32  sun.nio.cs.ISO_8859_1 (java.base@13.0.2)
+1962:             1             32  sun.nio.cs.StandardCharsets (java.base@13.0.2)
+1963:             1             32  sun.nio.cs.US_ASCII (java.base@13.0.2)
+1964:             1             32  sun.nio.cs.UTF_16 (java.base@13.0.2)
+1965:             1             32  sun.nio.cs.UTF_16BE (java.base@13.0.2)
+1966:             1             32  sun.nio.cs.UTF_16LE (java.base@13.0.2)
+1967:             1             32  sun.nio.cs.UTF_8 (java.base@13.0.2)
+1968:             1             32  sun.nio.fs.LinuxFileSystem (java.base@13.0.2)
+1969:             1             32  sun.nio.fs.LinuxFileSystemProvider (java.base@13.0.2)
+1970:             1             32  sun.nio.fs.NativeBuffer (java.base@13.0.2)
+1971:             1             32  sun.nio.fs.NativeBuffer$Deallocator (java.base@13.0.2)
+1972:             1             32  sun.nio.fs.NativeBuffers$1 (java.base@13.0.2)
+1973:             1             32  sun.reflect.generics.tree.IntSignature (java.base@13.0.2)
+1974:             1             32  sun.reflect.generics.tree.LongSignature (java.base@13.0.2)
+1975:             1             32  sun.reflect.generics.tree.VoidDescriptor (java.base@13.0.2)
+1976:             1             32  sun.security.jca.ProviderConfig$ProviderLoader (java.base@13.0.2)
+1977:             1             32  sun.security.provider.SecureRandom (java.base@13.0.2)
+1978:             1             32  sun.security.util.ArrayUtil$$Lambda$83/0x00000020002a7440 (java.base@13.0.2)
+1979:             1             32  sun.security.util.ByteArrayLexOrder (java.base@13.0.2)
+1980:             1             32  sun.security.util.ByteArrayTagOrder (java.base@13.0.2)
+1981:             1             32  sun.util.calendar.Gregorian (java.base@13.0.2)
+1982:             1             32  sun.util.cldr.CLDRBaseLocaleDataMetaInfo (java.base@13.0.2)
+1983:             1             32  sun.util.cldr.CLDRCalendarDataProviderImpl (java.base@13.0.2)
+1984:             1             32  sun.util.cldr.CLDRTimeZoneNameProviderImpl (java.base@13.0.2)
+1985:             1             32  sun.util.locale.BaseLocale$Cache (java.base@13.0.2)
+1986:             1             32  sun.util.locale.InternalLocaleBuilder$CaseInsensitiveChar (java.base@13.0.2)
+1987:             1             32  sun.util.locale.provider.CalendarDataUtility$CalendarWeekParameterGetter (java.base@13.0.2)
+1988:             1             32  sun.util.locale.provider.CalendarProviderImpl (java.base@13.0.2)
+1989:             1             32  sun.util.locale.provider.DateFormatSymbolsProviderImpl (java.base@13.0.2)
+1990:             1             32  sun.util.locale.provider.DecimalFormatSymbolsProviderImpl (java.base@13.0.2)
+1991:             1             32  sun.util.locale.provider.NumberFormatProviderImpl (java.base@13.0.2)
+1992:             1             32  sun.util.locale.provider.TimeZoneNameProviderImpl (java.base@13.0.2)
+1993:             1             32  sun.util.locale.provider.TimeZoneNameUtility$TimeZoneNameGetter (java.base@13.0.2)
+1994:             1             32  sun.util.resources.LocaleData$LocaleDataStrategy (java.base@13.0.2)
+1995:             1             32  sun.util.resources.cldr.provider.CLDRLocaleDataMetaInfo (jdk.localedata@13.0.2)
+Total     268073745    67735415392
+amd1:/home/sun/jbb #
+
+
+
+
