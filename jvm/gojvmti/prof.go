@@ -144,7 +144,7 @@ func printMap(m *bpf.Module, tname string){
 	t := bpf.NewTable(m.TableId(tname), m)
 	for it := t.Iter(); it.Next(); {
 		buf  := it.Key()
-		pid  := binary.LittleEndian.Uint32(buf[0:4])
+		pid  := int(binary.LittleEndian.Uint32(buf[0:4]))
 		kip  := binary.LittleEndian.Uint64(buf[8:16])
 		//krip := binary.LittleEndian.Uint64(buf[16:24])
 		//usid := int32(binary.LittleEndian.Uint32(buf[20:24]))  //why always 0 ?
@@ -153,19 +153,18 @@ func printMap(m *bpf.Module, tname string){
 		cmd:=bytes.NewBuffer( buf[32:] ).String()
 		c := binary.LittleEndian.Uint64(it.Leaf())
 		fn:=""
-		addr_kip:=""
+		//addr_kip:=""
 		if ksid > 0 {
-			addr_kip=fmt.Sprintf("%x", kip)
-			trim_addr_kip:= addr_kip[:15]+"0"
-			name,err:=Ksym(trim_addr_kip)
-			if err!=nil {
-				//fmt.Fprintf(os.Stderr, "ksym err %s", err)
-			}
-			fn=name
-		}       //uname:=b.sym(addr, k.pid)
-		fmt.Fprintf(os.Stdout, "pid=%d\t[%v]\t--cmd=%s\tksid=%d\tusid=%d\tkip=%s fn=%s\n", pid, c, cmd, ksid, usid, addr_kip, fn )
+			fn=m.GetDemangleSymbolByAddr(kip,-1)
+		}else{
+			fn=m.GetSymbolByAddr(kip,pid)
+		}
+		fmt.Fprintf(os.Stdout, "pid=%d\t[%v]\t--cmd=%s\tksid=%d\tusid=%d\tkip=%x fn=%s\n", pid, c, cmd, ksid, usid, kip, fn )
 	}
 }
+
+//func bccSymbolByAddr(addr uint64, pid int) string{
+
 func main() {
 	t := flag.Int("time", 5, "sampling time, defaults to 5s")
 	p := flag.Int("pid", -1, "pid, defaults to -1")
