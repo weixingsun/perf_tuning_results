@@ -153,13 +153,12 @@ func printMap(m *bpf.Module, tname string){
 		cmd:=bytes.NewBuffer( buf[32:] ).String()
 		c := binary.LittleEndian.Uint64(it.Leaf())
 		fn:=""
-		//addr_kip:=""
 		if ksid > 0 {
-			fn=m.GetDemangleSymbolByAddr(kip,-1)
+			fn=m.GetDemangleSymbolByAddr(kip,-1)+"[k]"
 		}else{
-			fn=m.GetSymbolByAddr(kip,pid)
+			fn=m.GetDemangleSymbolByAddr(uint64(usid),pid)
 		}
-		fmt.Fprintf(os.Stdout, "pid=%d\t[%v]\t--cmd=%s\tksid=%d\tusid=%d\tkip=%x fn=%s\n", pid, c, cmd, ksid, usid, kip, fn )
+		fmt.Fprintf(os.Stdout, "pid=%d\t[%v]\t--cmd=%s\tksid=%d\tusid=%x\tkip=%x fn=%s\n", pid, c, cmd, ksid, usid, kip, fn )
 	}
 }
 

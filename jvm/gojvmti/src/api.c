@@ -94,7 +94,8 @@ FILE *perf_map_open(pid_t pid) {
 }
 int perf_map_close(FILE *fp) {
     if (fp){
-		//fflush(fp);
+	printf("map file closed");
+	fflush(fp);
         return fclose(fp);
     }else{
         return 0;
@@ -555,12 +556,13 @@ void cSetCountInterval(int count_interval){
 }
 void cSymbolFile(int n){
 	cRegisterMapFile();
-	fprintf(stdout, "| Generate Perf Map File \n" );
+	fprintf(stdout, "| Generating Perf Map File \n" );
 	jvmtiEnv *jvmti = gdata->jvmti;
 	open_symbol_file();
-    (*jvmti)->GenerateEvents(jvmti, JVMTI_EVENT_DYNAMIC_CODE_GENERATED);
-    (*jvmti)->GenerateEvents(jvmti, JVMTI_EVENT_COMPILED_METHOD_LOAD);
+	(*jvmti)->GenerateEvents(jvmti, JVMTI_EVENT_DYNAMIC_CODE_GENERATED);
+	(*jvmti)->GenerateEvents(jvmti, JVMTI_EVENT_COMPILED_METHOD_LOAD);
 	close_symbol_file();
+	fprintf(stdout, "| Generated Perf Map File \n" );
 }
 JNIEXPORT jint JNICALL Agent_OnLoad(JavaVM *jvm, char *options, void *reserved) {
 	gdata = malloc(sizeof *gdata);
@@ -568,7 +570,7 @@ JNIEXPORT jint JNICALL Agent_OnLoad(JavaVM *jvm, char *options, void *reserved) 
 	jvmtiEnv *jvmti = NULL;
 	(*jvm)->GetEnv(jvm, (void**) &jvmti, JVMTI_VERSION_1_0);
 	gdata->jvmti = jvmti;
-    (*jvmti)->CreateRawMonitor(jvmti, "lock", &(gdata->lock));
+	(*jvmti)->CreateRawMonitor(jvmti, "lock", &(gdata->lock));
 	CachedObjects = hashmap_new();
 	gOptions(options);
 	//gJVMTypeInit();
@@ -579,7 +581,7 @@ JNIEXPORT void JNICALL Agent_OnUnload(JavaVM *vm){
 	fprintf(stdout, "| Agent Unload \n" );
 	cUnRegisterAll();
 	close_log();
-	close_symbol_file();
+	//close_symbol_file();
 }
 JNIEXPORT jint JNICALL Agent_OnAttach(JavaVM *vm, char *options, void *reserved){
     return Agent_OnLoad(vm,options,reserved);
