@@ -12,5 +12,6 @@ void cSetFunc(char* func);
 void cSetClass(char* class);
 void cSetCountInterval(int count_interval);
 void cSymbolFile(int n);
+void cSymbolFileClose();
 /////////////////////////////////////////////////////////////////////////////////
 #endif // API_H

@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"encoding/binary"
+	//"encoding/hex"
 	"strings"
 	"flag"
 	"fmt"
@@ -87,16 +88,18 @@ func printMap(m *bpf.Module, tname string){
 		kip  := binary.LittleEndian.Uint64(buf[8:16])
 		//krip := binary.LittleEndian.Uint64(buf[16:24])
 		//usid := int32(binary.LittleEndian.Uint32(buf[20:24]))  //why always 0 ?
-		usid := int32(binary.LittleEndian.Uint32(buf[24:28]))
+		usid := binary.LittleEndian.Uint32(buf[24:28])
 		ksid := int32(binary.LittleEndian.Uint32(buf[28:32]))
 		cmd:=bytes.NewBuffer( buf[32:] ).String()
 		c := binary.LittleEndian.Uint64(it.Leaf())
 		fn:=""
-		if ksid > 0 {
+		if kip > 0 {
 			fn=m.GetDemangleSymbolByAddr(kip,-1)+"[k]"
 		}else{
 			fn=m.GetDemangleSymbolByAddr(uint64(usid),pid)
+			//stack_traces.walk(usid)
 		}
+		//fmt.Fprintf(os.Stdout, "buf=%v\n", hex.EncodeToString(buf) )
 		fmt.Fprintf(os.Stdout, "pid=%d\t[%v]\t--cmd=%s\tksid=%d\tusid=%x\tkip=%x fn=%s\n", pid, c, cmd, ksid, usid, kip, fn )
 	}
 }

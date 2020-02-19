@@ -10,6 +10,7 @@ import (
 	"strconv"
 	"strings"
 	"errors"
+	"time"
 )
 var HEAP_INTERVAL="heap_interval"
 var DURATION="duration"				//not working, bug?
@@ -75,6 +76,12 @@ func gConfig(s string) error {
 					return errors.New(usage)
 				}
 				C.cSymbolFile( C.int(i) )
+				//delay
+				timer1 := time.NewTimer(2 * time.Second)
+				<-timer1.C
+				if timer1.Stop() {
+					C.cSymbolFileClose()
+				}
 			default:
 				fmt.Printf("Unsupport option: %s", k);
 		}

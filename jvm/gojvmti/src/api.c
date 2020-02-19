@@ -90,23 +90,24 @@ FILE *perf_map_open(pid_t pid) {
         fprintf(stderr, "Couldn't open %s: errno(%d)", filename, errno);
         exit(0);
     }
-	return res;
+    //fprintf(stdout, "perfmap opened %s", filename);
+    return res;
 }
 int perf_map_close(FILE *fp) {
     if (fp){
-	printf("map file closed");
-	fflush(fp);
+        //printf("perfmap closed\n");
+        fflush(fp);
         return fclose(fp);
     }else{
         return 0;
-	}
+    }
 }
 void perf_map_write_entry(FILE *file, const void* code_addr, unsigned int code_size, const char* name) {
     if (file!=NULL){
+        //printf("perfmap: %lx %s \n", (unsigned long)code_addr, name);
         fprintf(file, "%lx %x %s\n", (unsigned long) code_addr, code_size, name);
-		//printf("%s\n", name);
-	}
-	//printf("map file closed, %s no record", name);
+    }
+    //printf("perfmap closed: %lx %s \n", (unsigned long)code_addr, name);
 }
 void open_symbol_file() {
     if (!symbol_file){
@@ -318,7 +319,6 @@ void GarbageCollectionFinish(jvmtiEnv *jvmti) {
 	hashmap_print(CachedObjects,LOG_FILE);
 	hashmap_empty(CachedObjects);
 	//hashmap_free(CachedObjects);
-	//if (END_TIME < time(NULL) ) cUnRegisterAll();
 }
 
 void print_all_threads() {
@@ -561,6 +561,10 @@ void cSymbolFile(int n){
 	open_symbol_file();
 	(*jvmti)->GenerateEvents(jvmti, JVMTI_EVENT_DYNAMIC_CODE_GENERATED);
 	(*jvmti)->GenerateEvents(jvmti, JVMTI_EVENT_COMPILED_METHOD_LOAD);
+	//close_symbol_file();
+	//fprintf(stdout, "| Generated Perf Map File \n" );
+}
+void cSymbolFileClose(){
 	close_symbol_file();
 	fprintf(stdout, "| Generated Perf Map File \n" );
 }
@@ -575,13 +579,13 @@ JNIEXPORT jint JNICALL Agent_OnLoad(JavaVM *jvm, char *options, void *reserved) 
 	gOptions(options);
 	//gJVMTypeInit();
 	//init_cpu();
+	cSetDuration(2);
     return JNI_OK;
 }
 JNIEXPORT void JNICALL Agent_OnUnload(JavaVM *vm){
 	fprintf(stdout, "| Agent Unload \n" );
 	cUnRegisterAll();
 	close_log();
-	//close_symbol_file();
 }
 JNIEXPORT jint JNICALL Agent_OnAttach(JavaVM *vm, char *options, void *reserved){
     return Agent_OnLoad(vm,options,reserved);
