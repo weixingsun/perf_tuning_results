@@ -1,5 +1,3 @@
-rm -rf $GOPATH/pkg/linux_amd64/github.com/iovisor/gobpf*
-unset http_proxy
-unset https_proxy
-#go get -u -v github.com/iovisor/gobpf/bcc
-go install -a github.com/iovisor/gobpf/bcc
+rm -rf $GOPATH/pkg/linux_amd64/github.com/weixingsun/gobpf*
+#go get -u -v github.com/weixingsun/gobpf/bcc
+go install -a github.com/weixingsun/gobpf/bcc
