@@ -1,7 +1,7 @@
 
 AGENT=profiler.so
 rm -rf $AGENT log
-LOOP=3000000
+LOOP=4000000
 JIT="-XX:+UseParallelOldGC -XX:ParallelGCThreads=1 -XX:+PreserveFramePointer"
 
 cpp_build(){
@@ -26,7 +26,7 @@ run_and_attach(){
     echo "$JAVA_HOME/bin/jcmd $pid JVMTI.agent_load ./$AGT $OPT"
     #export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:`pwd`
     #$JAVA_HOME/bin/jcmd $pid VM.flags -all |grep manageable
-    nohup $JAVA_HOME/bin/jcmd $pid JVMTI.agent_load ./$AGT "\"$OPT\"" > log 2>&1 &
+    nohup $JAVA_HOME/bin/jcmd $pid JVMTI.agent_load ./$AGT "\"$OPT\"" > jcmd.log 2>&1 &
 }
 
 run_with_agent(){
@@ -34,11 +34,11 @@ run_with_agent(){
     OPT=$2
     #-XX:+EnableJVMCI -XX:+UseJVMCICompiler -XX:-TieredCompilation -XX:+PrintCompilation -XX:+UnlockExperimentalVMOptions 
     echo "$JAVA_HOME/bin/java $JIT -agentpath:./$AGT=$OPT Main $LOOP"
-    time $JAVA_HOME/bin/java $JIT -agentpath:./$AGT=$OPT Main $LOOP &
+    time $JAVA_HOME/bin/java $JIT -agentpath:./$AGT=$OPT Main $LOOP java.log 2>&1 &
 }
 cpp_build
 if [ $? = 0 ]; then
     echo "build done"
     #run_and_attach $AGENT "flame=1"
-    run_with_agent $AGENT "flame=5"
+    run_with_agent $AGENT "flame=3"
 fi

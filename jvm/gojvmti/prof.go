@@ -79,28 +79,30 @@ type PerfEvent struct {
 	UserStackId   int
 	Name          [16]byte
 }
-func printMap(m *bpf.Module, tname string){
-	fmt.Fprintf(os.Stdout, "%v:\n",tname)
-	t := bpf.NewTable(m.TableId(tname), m)
-	for it := t.Iter(); it.Next(); {
+func printMap(m *bpf.Module){
+	//fmt.Fprintf(os.Stdout, "%v:\n",tname)
+	c := bpf.NewTable(m.TableId("counts"), m)
+	st := bpf.NewTable(m.TableId("stack_traces"), m)
+	for it := c.Iter(); it.Next(); {
 		buf  := it.Key()
 		pid  := int(binary.LittleEndian.Uint32(buf[0:4]))
 		kip  := binary.LittleEndian.Uint64(buf[8:16])
 		//krip := binary.LittleEndian.Uint64(buf[16:24])
 		//usid := int32(binary.LittleEndian.Uint32(buf[20:24]))  //why always 0 ?
-		usid := binary.LittleEndian.Uint32(buf[24:28])
+		usid := int(binary.LittleEndian.Uint32(buf[24:28]))
 		ksid := int32(binary.LittleEndian.Uint32(buf[28:32]))
 		cmd:=bytes.NewBuffer( buf[32:] ).String()
-		c := binary.LittleEndian.Uint64(it.Leaf())
+		x := binary.LittleEndian.Uint64(it.Leaf())
 		fn:=""
 		if kip > 0 {
 			fn=m.GetDemangleSymbolByAddr(kip,-1)+"[k]"
 		}else{
 			fn=m.GetDemangleSymbolByAddr(uint64(usid),pid)
-			//stack_traces.walk(usid)
+			syms:=st.GetStackSymbol(usid,pid)
+			fmt.Fprintf(os.Stdout, "syms=%s",syms)
 		}
 		//fmt.Fprintf(os.Stdout, "buf=%v\n", hex.EncodeToString(buf) )
-		fmt.Fprintf(os.Stdout, "pid=%d\t[%v]\t--cmd=%s\tksid=%d\tusid=%x\tkip=%x fn=%s\n", pid, c, cmd, ksid, usid, kip, fn )
+		fmt.Fprintf(os.Stdout, "pid=%d\t[%v]\t--cmd=%s\tksid=%d\tusid=%x\tkip=%x fn=%s\n", pid, x, cmd, ksid, usid, kip, fn )
 	}
 }
 
@@ -148,6 +150,6 @@ func main() {
 	//<-sig
 	time.Sleep(time.Duration(duration) * time.Second)
 
-	printMap(m, "counts")
-	printMap(m, "stack_traces")
+	printMap(m)
+	//printMap(m, "stack_traces")
 }
