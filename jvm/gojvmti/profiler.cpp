@@ -3,7 +3,9 @@
 #include <cstring>
 #include <string>
 #include <map>
+#include <stack>
 #include <iostream>
+#include <sstream>
 #include <stdarg.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -13,11 +15,16 @@
 using namespace std;
 
 #define MAX_STACK_DEPTH 128
-static FILE* out;
+static FILE* out_cpu;
+static FILE* out_mem;
 static jlong start_time;
 static jrawMonitorID vmtrace_lock;
 static jvmtiEnv* jvmti = NULL;
 static jrawMonitorID tree_lock;
+static int duration = 10;
+static ebpf::BPF bpf;
+static int PERF_TYPE_SOFTWARE = 1;
+static int PERF_COUNT_HW_CPU_CYCLES = 0;
 
 struct Frame {
     jlong samples;
@@ -103,7 +110,7 @@ static void trace(jvmtiEnv* jvmti, const char* fmt, ...) {
 
     jvmti->RawMonitorEnter(vmtrace_lock);
 
-    fprintf(out, "[%.5f] %s\n", (current_time - start_time) / 1000000000.0, buf);
+    fprintf(out_mem, "[%.5f] %s\n", (current_time - start_time) / 1000000000.0, buf);
     
     jvmti->RawMonitorExit(vmtrace_lock);
 }
@@ -113,16 +120,15 @@ static string decode_class_signature(char* class_sig) {
     switch (class_sig[0]) {
         case 'B': return "byte";
         case 'C': return "char";
-        case 'S': return "short";
+        case 'D': return "double";
+        case 'F': return "float";
         case 'I': return "int";
         case 'J': return "long";
-        case 'F': return "float";
-        case 'D': return "double";
+        case 'S': return "short";
         case 'Z': return "boolean";
         case '[': return decode_class_signature(class_sig + 1) + "[]";
     }
-
-    // Strip 'L' and ';'
+    // rm first 'L' and last ';'
     class_sig++;
     class_sig[strlen(class_sig) - 1] = 0;
 
@@ -145,7 +151,7 @@ static string get_method_name(jmethodID method) {
         jvmti->GetMethodName(method, &method_name, NULL, NULL) == 0) {
         result.assign(decode_class_signature(class_sig) + "." + method_name);
     } else {
-        result.assign("[unknown]");
+        result.assign("(NONAME)");
     }
 
     jvmti->Deallocate((unsigned char*) method_name);
@@ -155,8 +161,8 @@ static string get_method_name(jmethodID method) {
 
 static void dump_tree(const string stack_line, const string& class_name, const Frame* f) {
     if (f->samples > 0) {
-        // Output sample in 'collapsed stack traces' format understood by flamegraph.pl
-        cout << stack_line << class_name << "_[i] " << f->samples << endl;
+        //cout << stack_line << class_name << "_[i] " << f->samples << endl;
+        fprintf(out_mem, "%s %s_[%ld] \n", stack_line.c_str(), class_name.c_str(), f->samples);
     }
     for (auto it = f->children.begin(); it != f->children.end(); ++it) {
         dump_tree(stack_line + get_method_name(it->first) + ";", class_name, &it->second);
@@ -210,14 +216,11 @@ void JNICALL VMDeath(jvmtiEnv* jvmti, JNIEnv* env) {
 }
 
 void JNICALL GarbageCollectionStart(jvmtiEnv *jvmti) {
-    //log class instances: class_histo_before
-    //trace(jvmti, "GC started.......................");
-    //DataDumpRequest(jvmti);
+    DataDumpRequest(jvmti);
 }
 
 void JNICALL GarbageCollectionFinish(jvmtiEnv *jvmti_env) {
-    //log class instances: class_histo_before - class_histo_after
-    //DataDumpRequest(jvmti);
+    DataDumpRequest(jvmti);
     //trace(jvmti_env, "GC finished");
 }
 bool str_replace(string& str, const string& from, const string& to) {
@@ -228,25 +231,27 @@ bool str_replace(string& str, const string& from, const string& to) {
     return true;
 }
 
-void InitBPF(int duration) {
-    ebpf::BPF bpf;
+void StartBPF() {
+    //ebpf::BPF bpf;
     int pid = getpid();
-    //const string PID = "(tgid=="+to_string(pid)+")";
-    const string PID = "1";
+    const string PID = "(tgid=="+to_string(pid)+")";
     str_replace(BPF_TXT, "PID", PID);
+    //cout << "BPF:" << endl << BPF_TXT << endl;
+
     auto init_r = bpf.init(BPF_TXT);
     if (init_r.code() != 0) {
         cerr << init_r.msg() << endl;
     }
-    int PERF_TYPE_SOFTWARE = 1;
-    int PERF_COUNT_HW_CPU_CYCLES = 0;
     int pid2=-1;
     auto att_r = bpf.attach_perf_event(PERF_TYPE_SOFTWARE, PERF_COUNT_HW_CPU_CYCLES, "do_perf_event", 99, 0, pid2);
     if (att_r.code() != 0) {
         cerr << att_r.msg() << endl;
     }else{
-        cout << "attached to pid:" << pid << " perf event "<< duration <<" seconds"<< endl;
+        cout << "attached to pid:" << pid << " perf event "<< endl;
     }
+}
+void StopBPF(){
+    cout << "BPF sampling " << duration << " seconds" << endl;
     sleep(duration);
     bpf.detach_perf_event(PERF_TYPE_SOFTWARE, PERF_COUNT_HW_CPU_CYCLES);
     auto table = bpf.get_hash_table<stack_key_t, uint64_t>("counts").get_table_offline();
@@ -257,53 +262,61 @@ void InitBPF(int duration) {
     );
     auto stacks = bpf.get_stack_table("stack_traces");
     for (auto it : table) {
-        cout << "PID:" << it.first.pid << it.first.name << endl;
+        //cout << "PID:" << it.first.pid << it.first.name << endl;
+        stack<string> stack_traces;
         if (it.first.kernel_stack_id >= 0) {
             auto syms = stacks.get_stack_symbol(it.first.kernel_stack_id, -1);
-            for (auto sym : syms) cout << "    " << sym << endl;
+            for (auto sym : syms) {
+                //fprintf(out_cpu, "%s;", sym.c_str());  //need to be reversed
+		stack_traces.push(sym);
+            }
         }
 	if (it.first.user_stack_id >= 0) {
             auto syms = stacks.get_stack_symbol(it.first.user_stack_id, it.first.pid);
-            for (auto sym : syms) cout << "    " << sym << endl;
+            for (auto sym : syms){
+                //fprintf(out_cpu, "%s;", sym.c_str()); //need to be reversed
+		stack_traces.push(sym);
+            }
 	}
-    }
-}
-
-JNIEXPORT jint JNICALL Agent_OnLoad(JavaVM* vm, char* options, void* reserved) {
-    if (options == NULL || !options[0]) {
-        out = stderr;
-    } else if ((out = fopen(options, "w")) == NULL) {
-        fprintf(stderr, "Cannot open output file: %s\n", options);
-        return 1;
-    }
-    int duration = 10;
-    if (options != NULL ) {
-        string sep = "=";
-        string opt = string(options);
-        int i = opt.find(sep);
-        //jvmti->SetHeapSamplingInterval(atoi(options));
-        string k = opt.substr(0,i);
-        string vs = opt.substr(i+1);
-        int v = stoi(vs);
-        //cout << "k=" << k << " v=" << v << endl;
-        if (k.compare("flame") == 0){
-            InitBPF(v);
+	//fprintf(out_cpu, "%s;", string(it.first.name).c_str());
+	fprintf(out_cpu, "%s;", it.first.name);
+	while (!stack_traces.empty()){
+            fprintf(out_cpu, "%s;", stack_traces.top().c_str());
+	    stack_traces.pop();
         }
+	fprintf(out_cpu, "      %ld\n", it.second);
     }
-    vm->GetEnv((void**) &jvmti, JVMTI_VERSION_1_0);
-    jvmti->CreateRawMonitor("tree_lock", &tree_lock);
-
+    fclose(out_cpu);
+}
+vector<string> parse_options(string str, char sep){
+    istringstream ss(str);
+    vector<string> kv;
+    string sub;
+    while (getline(ss,sub,sep)){
+        kv.push_back(sub);
+    }
+    return kv;
+}
+string get_key(string kv, string sep){
+    int i = kv.find(sep);
+    return kv.substr(0,i);
+}
+string get_value(string kv, string sep){
+    int i = kv.find(sep);
+    return kv.substr(i+1);
+}
+bool str_contains(string s, string k){
+    return s.find(k)==0;
+}
+void registerMemoryCapa(jvmtiEnv* jvmti){
     jvmtiCapabilities capabilities = {0};
     capabilities.can_generate_sampled_object_alloc_events = 1;
     capabilities.can_generate_all_class_hook_events = 1;
     capabilities.can_generate_compiled_method_load_events = 1;
     capabilities.can_generate_garbage_collection_events = 1;
     jvmti->AddCapabilities(&capabilities);
-
-    if (options != NULL && options[0] >= '0' && options[0] <= '9') {
-        jvmti->SetHeapSamplingInterval(atoi(options));
-    }
-
+}
+void registerMemoryCall(jvmtiEnv* jvmti){
     jvmtiEventCallbacks callbacks = {0};
     callbacks.SampledObjectAlloc = SampledObjectAlloc;
     callbacks.DataDumpRequest = DataDumpRequest;
@@ -311,17 +324,52 @@ JNIEXPORT jint JNICALL Agent_OnLoad(JavaVM* vm, char* options, void* reserved) {
     callbacks.GarbageCollectionStart = GarbageCollectionStart;
     callbacks.GarbageCollectionFinish = GarbageCollectionFinish;
     jvmti->SetEventCallbacks(&callbacks, sizeof(callbacks));
+}
+void enableMemoryEvent(jvmtiEnv* jvmti){
     jvmti->SetEventNotificationMode(JVMTI_ENABLE, JVMTI_EVENT_SAMPLED_OBJECT_ALLOC, NULL);
     jvmti->SetEventNotificationMode(JVMTI_ENABLE, JVMTI_EVENT_DATA_DUMP_REQUEST, NULL);
     jvmti->SetEventNotificationMode(JVMTI_ENABLE, JVMTI_EVENT_VM_DEATH, NULL);
     jvmti->SetEventNotificationMode(JVMTI_ENABLE, JVMTI_EVENT_GARBAGE_COLLECTION_START, NULL);
     jvmti->SetEventNotificationMode(JVMTI_ENABLE, JVMTI_EVENT_GARBAGE_COLLECTION_FINISH, NULL);
+}
+void do_options(string k, string v, jvmtiEnv* jvmti){
+    if (k.compare("flame") == 0){
 
+    }
+    if (k.compare("duration") == 0){
+        duration=stoi(v);
+    }else if(k.compare("sample_cpu")==0){
+        StartBPF();
+        out_cpu = fopen(v.c_str(), "w");
+    }else if(k.compare("sample_mem")==0){
+        registerMemoryCapa(jvmti);
+        jvmti->SetHeapSamplingInterval(1024*1024); //1m
+        registerMemoryCall(jvmti);
+	enableMemoryEvent(jvmti);
+        out_mem = fopen(v.c_str(), "w");
+    }
+}
+JNIEXPORT jint JNICALL Agent_OnLoad(JavaVM* vm, char* options, void* reserved) {
+    vm->GetEnv((void**) &jvmti, JVMTI_VERSION_1_0);
+    jvmti->CreateRawMonitor("tree_lock", &tree_lock);
+    if (options == NULL) {
+        out_mem = stderr;
+        out_cpu = stdout;
+    } else {
+        vector<string> vkv = parse_options(string(options),';');
+        for (string kv : vkv){
+	    string k = get_key(kv, "=");
+	    string v = get_value(kv, "=");
+            cout << "k=" << k << " v=" << v << endl;
+            do_options(k,v,jvmti);
+	}
+    }
+    StopBPF();
+    fclose(out_mem);
     return 0;
 }
 
 JNIEXPORT jint JNICALL Agent_OnAttach(JavaVM* vm, char* options, void* reserved) {
-    // Protect against repeated load
     if (jvmti != NULL) {
         return 0;
     }
